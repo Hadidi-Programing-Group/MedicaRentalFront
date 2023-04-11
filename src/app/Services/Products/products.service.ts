@@ -9,7 +9,19 @@ export class ProductsService {
 
   private readonly URL = 'https://api.escuelajs.co/api/v1/products'; //API
 
-  GetAllProducts(offset = 0, limit = 12) {
+  GetAllProducts(offset = 0, limit = 12, CategoryId: number = 0) {
+    let options = new HttpParams();
+
+    options = options.set('offset', offset.toString());
+    options = options.set('limit', limit.toString());
+
+    if (CategoryId > 0)
+      options = options.set('categoryId', CategoryId.toString());
+
+    return this.httpClient.get(this.URL, { params: options });
+  }
+
+  GetProductsByCategory(offset = 0, limit = 12) {
     return this.httpClient.get(this.URL, {
       params: {
         offset: offset.toString(),

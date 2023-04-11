@@ -18,11 +18,12 @@ export class ProductsComponent implements OnInit {
   pagination = 0;
   limit = 12;
   allStudents = 100;
+  categoryId = 0;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      console.log(params);
       this.pagination = params['page'] ?? 0;
+      this.categoryId = params['categoryId'] ?? 0;
     });
     this.fetchStudents();
   }
@@ -30,9 +31,11 @@ export class ProductsComponent implements OnInit {
   fetchStudents() {
     this.ProductsService.GetAllProducts(
       this.pagination * this.limit,
-      this.limit
+      this.limit,
+      this.categoryId
     ).subscribe({
       next: (data) => {
+        console.log(data);
         this.Products = data;
       },
       error: (err) => {
