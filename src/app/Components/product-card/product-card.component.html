@@ -1,14 +1,13 @@
 <div
+  *ngIf="Product"
   class="container border p-3 mb-3"
   style="display: grid; grid-template-rows: auto 1fr auto"
 >
   <div class="ProductImageContainer">
-    <img class="img-fluid" src="https://placehold.co/2000" />
+    <img class="img-fluid" src="{{ Product.ImageSrc }}" />
   </div>
   <div class="ProductName lead">
-    Namessssssssssssssssssssss ssssssssssssssssssssssssssssssssssssss
-    ssssssssssssssssssssssssssssssssssssss
-    ssssssssssssssssssssssssssssssssssssss
+    {{ Product.Name }}
   </div>
-  <div class="ProductPrice">100.00 EGP</div>
+  <div class="ProductPrice">{{ Product.Price }} EGP</div>
 </div>
