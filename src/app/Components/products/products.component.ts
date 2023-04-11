@@ -22,15 +22,15 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       console.log(params);
-      this.pagination = params['page'];
+      this.pagination = params['page'] ?? 0;
     });
     this.fetchStudents();
   }
 
   fetchStudents() {
     this.ProductsService.GetAllProducts(
-      (this.pagination * this.limit).toString(),
-      this.limit.toString()
+      this.pagination * this.limit,
+      this.limit
     ).subscribe({
       next: (data) => {
         this.Products = data;
