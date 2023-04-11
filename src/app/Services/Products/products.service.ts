@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ProductsService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  private readonly URL = 'http://localhost:3000/products'; //API
+  private readonly URL = 'https://fakestoreapi.com/products/'; //API
 
   GetAllProducts() {
     return this.httpClient.get(this.URL);
