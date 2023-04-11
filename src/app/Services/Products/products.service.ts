@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,9 +7,26 @@ import { Injectable } from '@angular/core';
 export class ProductsService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  private readonly URL = 'https://fakestoreapi.com/products/'; //API
+  private readonly URL = 'https://api.escuelajs.co/api/v1/products'; //API
 
-  GetAllProducts() {
-    return this.httpClient.get(this.URL);
+  GetAllProducts(offset = 0, limit = 12, CategoryId: number = 0) {
+    let options = new HttpParams();
+
+    options = options.set('offset', offset.toString());
+    options = options.set('limit', limit.toString());
+
+    if (CategoryId > 0)
+      options = options.set('categoryId', CategoryId.toString());
+
+    return this.httpClient.get(this.URL, { params: options });
+  }
+
+  GetProductsByCategory(offset = 0, limit = 12) {
+    return this.httpClient.get(this.URL, {
+      params: {
+        offset: offset.toString(),
+        limit: limit.toString(),
+      },
+    });
   }
 }

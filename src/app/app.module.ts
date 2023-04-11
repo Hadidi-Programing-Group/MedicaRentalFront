@@ -9,17 +9,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ProductsService } from './Services/Products/products.service';
+import { ProductsFiltersComponent } from './Components/products-filters/products-filters.component';
+import { CategoriesFilterComponent } from './Components/categories-filter/categories-filter.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CategoriesService } from './Services/Categories/categories.service';
 
 @NgModule({
-  declarations: [AppComponent, ProductsComponent, ProductCardComponent],
+  declarations: [AppComponent, ProductsComponent, ProductCardComponent, ProductsFiltersComponent, CategoriesFilterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxPaginationModule
   ],
-  providers: [ProductsService],
+  providers: [ProductsService, CategoriesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

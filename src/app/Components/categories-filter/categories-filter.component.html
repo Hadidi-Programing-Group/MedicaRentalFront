@@ -1,0 +1,11 @@
+<div class="CategoryFilter border">
+  <div class="container">
+    <h4 class="pt-3 lead">Categories</h4>
+    <hr />
+    <div *ngFor="let Category of Categories">
+      <a class="btn" (click)="FilterByCategory(Category.id)">
+        {{ Category.name }}
+      </a>
+    </div>
+  </div>
+</div>
