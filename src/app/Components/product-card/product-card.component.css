@@ -1,0 +1,27 @@
+.ProductImageContainer {
+  height: 200px;
+  overflow: hidden;
+}
+
+.ProductImageContainer > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.ProductName {
+  min-height: 3em;
+  max-height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: break-word;
+}
+
+.ProductPrice {
+  font-weight: 1000;
+  color: #339;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  line-height: 2rem;
+  font-size: large;
+}
