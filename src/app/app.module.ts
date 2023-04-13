@@ -14,8 +14,18 @@ import { CategoriesFilterComponent } from './Components/categories-filter/catego
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CategoriesService } from './Services/Categories/categories.service';
 
+import { NavbarComponent } from './Components/navbar/navbar.component';
+import { AvailableComponent } from './Components/available/available.component';
+import { BrandComponent } from './Components/brand/brand.component';
+import { BestRentalsComponent } from './Components/best-rentals/best-rentals.component';
+import { AddsComponent } from './Components/adds/adds.component';
+import { HomeComponent } from './Components/home/home.component';
+
 @NgModule({
-  declarations: [AppComponent, ProductsComponent, ProductCardComponent, ProductsFiltersComponent, CategoriesFilterComponent],
+
+
+  declarations: [AppComponent, ProductsComponent, ProductCardComponent, ProductsFiltersComponent, CategoriesFilterComponent, NavbarComponent, AvailableComponent, BrandComponent, BestRentalsComponent, AddsComponent, HomeComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
