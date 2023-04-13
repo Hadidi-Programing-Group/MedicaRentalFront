@@ -1,15 +1,30 @@
 <div class="container-fluid p-5">
   <div class="row">
-    <div class="col-md-2 d-none d-md-block">Filter</div>
+    <div class="col-md-2 d-none d-md-block">
+      <app-products-filters></app-products-filters>
+    </div>
     <div class="col-12 col-md-10">
       <div class="container-fluid">
         <div class="row">
           <app-product-card
             [Product]="Product"
-            *ngFor="let Product of Products"
+            *ngFor="
+              let Product of Products
+                | paginate
+                  : {
+                      itemsPerPage: limit,
+                      currentPage: pagination,
+                      totalItems: allStudents
+                    }
+            "
             class="col-6 col-lg-4 col-xl-3"
           ></app-product-card>
         </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls
+          (pageChange)="renderPage($event)"
+        ></pagination-controls>
       </div>
     </div>
   </div>
