@@ -20,12 +20,8 @@
     "@angular/router": "^15.2.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.4",
-
-   
-
     "ngx-pagination": "^6.0.3",
-     "owl.carousel": "^2.3.4",
-
+    "owl.carousel": "^2.3.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

@@ -13,18 +13,19 @@ import { ProductsFiltersComponent } from './Components/products-filters/products
 import { CategoriesFilterComponent } from './Components/categories-filter/categories-filter.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CategoriesService } from './Services/Categories/categories.service';
-
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { AvailableComponent } from './Components/available/available.component';
 import { BrandComponent } from './Components/brand/brand.component';
 import { BestRentalsComponent } from './Components/best-rentals/best-rentals.component';
 import { AddsComponent } from './Components/adds/adds.component';
 import { HomeComponent } from './Components/home/home.component';
+import { LoginComponent } from './Components/login/login.component';
+
 
 @NgModule({
 
 
-  declarations: [AppComponent, ProductsComponent, ProductCardComponent, ProductsFiltersComponent, CategoriesFilterComponent, NavbarComponent, AvailableComponent, BrandComponent, BestRentalsComponent, AddsComponent, HomeComponent],
+  declarations: [AppComponent, ProductsComponent, ProductCardComponent, ProductsFiltersComponent, CategoriesFilterComponent, NavbarComponent, AvailableComponent, BrandComponent, BestRentalsComponent, AddsComponent, HomeComponent, LoginComponent],
 
   imports: [
     BrowserModule,
