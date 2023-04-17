@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observer } from 'rxjs';
 import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 import { ProductsService } from 'src/app/Services/Products/products.service';
 
@@ -56,16 +57,20 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  successObjCall: Partial<Observer<HomeItemDto[]>> = {
+    next: (data) => {
+      this.Products = data;
+      this.TotalProducts = this.Products.length;
+      this.pagination = 0;
+    },
+    error: (err) => console.log(err),
+  };
+
   fetchAllProductsWithoutFilter(): void {
     // Call HomeItemService method to fetch products based on orderBy parameter
-    this.ProductsService.GetAllItems(this.orderBy).subscribe({
-      next: (data) => {
-        this.Products = data;
-        this.TotalProducts = this.Products.length;
-        this.pagination = 0;
-      },
-      error: (err) => console.log(err),
-    });
+    this.ProductsService.GetAllItems(this.orderBy).subscribe(
+      this.successObjCall
+    );
   }
 
   fetchItemsByCategories(): void {
@@ -75,16 +80,7 @@ export class ProductsComponent implements OnInit {
       this.ProductsService.GetItemsByCategories(
         this.categoryIds,
         this.orderBy
-      ).subscribe({
-        next: (response) => {
-          this.Products = response; // Update products array with the fetched products
-          this.TotalProducts = this.Products.length;
-          this.pagination = 0;
-        },
-        error: (error) => {
-          console.error('Error fetching products:', error);
-        },
-      });
+      ).subscribe(this.successObjCall);
     } else {
       this.fetchProducts();
     }
@@ -97,16 +93,7 @@ export class ProductsComponent implements OnInit {
       this.ProductsService.GetItemsBySubCategories(
         this.subCategoryIds,
         this.orderBy
-      ).subscribe({
-        next: (response) => {
-          this.Products = response; // Update products array with the fetched products
-          this.TotalProducts = this.Products.length;
-          this.pagination = 0;
-        },
-        error: (error) => {
-          console.error('Error fetching products:', error);
-        },
-      });
+      ).subscribe(this.successObjCall);
     } else {
       this.fetchProducts();
     }
