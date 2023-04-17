@@ -3,9 +3,13 @@
     <h4 class="pt-3 lead">Categories</h4>
     <hr />
     <div *ngFor="let Category of Categories">
-      <a class="btn" (click)="onSelectCategory(Category.id)">
-        {{ Category.name }}
-      </a>
+      <input
+        type="checkbox"
+        [value]="Category.id"
+        id="{{ Category.id }}"
+        (change)="onCategoryCheckboxChange($event, Category.id)"
+      />
+      <label for="{{ Category.id }}">{{ Category.name }}</label>
     </div>
   </div>
 </div>

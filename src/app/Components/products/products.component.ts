@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
   limit = 12;
   allStudents = 100;
   categoryId = 0;
+  categoryArray: any;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -32,6 +33,13 @@ export class ProductsComponent implements OnInit {
     this.FilterByCategory(categoryId);
   }
 
+  onSelectCategories(selectedCategoryIds: number[]) {
+    // Update categoryId with the selected category IDs
+    this.categoryArray = selectedCategoryIds;
+    console.log(this.categoryArray);
+    this.fetchStudents();
+  }
+
   FilterByCategory(categoryId: number) {
     console.log('Here');
     this.categoryId = categoryId;
@@ -41,19 +49,58 @@ export class ProductsComponent implements OnInit {
     this.fetchStudents(); // Call fetchStudents() to update the product list
   }
 
+  // fetchStudents() {
+  //   this.ProductsService.GetAllProducts(
+  //     this.pagination * this.limit,
+  //     this.limit,
+  //     this.categoryId
+  //   ).subscribe({
+  //     next: (data) => {
+  //       console.log(data);
+  //       this.Products = data;
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //   });
+  // }
+
   fetchStudents() {
-    this.ProductsService.GetAllProducts(
-      this.pagination * this.limit,
-      this.limit,
-      this.categoryId
-    ).subscribe({
-      next: (data) => {
-        this.Products = data;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    // If categoryId is an array (multiple selected categories)
+    if (Array.isArray(this.categoryArray)) {
+      // Convert array of category IDs to string with comma-separated values
+      const categoryIdsString = this.categoryArray.join(',');
+      console.log(categoryIdsString);
+
+      this.ProductsService.GetAllProducts(
+        this.pagination * this.limit,
+        this.limit,
+        this.categoryArray // Pass comma-separated category IDs as string
+      ).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.Products = data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      // If categoryId is a single category ID
+      this.ProductsService.GetAllProducts(
+        this.pagination * this.limit,
+        this.limit,
+        this.categoryId // Pass single category ID
+      ).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.Products = data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   renderPage(event: number) {
