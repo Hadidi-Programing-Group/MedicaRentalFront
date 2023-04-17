@@ -3,23 +3,33 @@
     <h4 class="pt-3 lead">Categories</h4>
     <hr />
     <div *ngFor="let category of Categories">
-      <input
-        type="checkbox"
-        [value]="category.id"
-        id="{{ category.id }}"
-        (change)="onCategoryCheckboxChange($event, category.id)"
-      />
-      <label for="{{ category.id }}">{{ category.name }}</label>
+      <div class="form-check">
+        <!-- Use Bootstrap form-check class -->
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [value]="category.id"
+          id="{{ category.id }}"
+          (change)="onCategoryCheckboxChange($event, category.id)"
+        />
+        <label class="form-check-label" for="{{ category.id }}">{{
+          category.name
+        }}</label>
+      </div>
 
       <ng-container *ngFor="let subCategory of category.subCategories">
-        <div style="margin-left: 20px;"> <!-- Set the desired indentation here -->
+        <div class="form-check" style="margin-left: 20px">
+          <!-- Use Bootstrap form-check class -->
           <input
+            class="form-check-input"
             type="checkbox"
             [value]="subCategory.id"
             id="{{ subCategory.id }}"
             (change)="onSubCategoryCheckboxChange($event, subCategory.id)"
           />
-          <label for="{{ subCategory.id }}">{{ subCategory.name }}</label> <!-- Bind to subcategory property -->
+          <label class="form-check-label" for="{{ subCategory.id }}">{{
+            subCategory.name
+          }}</label>
         </div>
       </ng-container>
     </div>
