@@ -19,8 +19,10 @@ import { BestRentalsComponent } from './Components/best-rentals/best-rentals.com
 import { AddsComponent } from './Components/adds/adds.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
+import { RegistrationComponent } from './Components/registration/registration.component';
 
 @NgModule({
+
   declarations: [
     AppComponent,
     ProductsComponent,
@@ -33,6 +35,7 @@ import { LoginComponent } from './Components/login/login.component';
     AddsComponent,
     HomeComponent,
     LoginComponent,
+    RegistrationComponent
   ],
 
   imports: [
