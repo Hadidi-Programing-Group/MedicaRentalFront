@@ -3,7 +3,7 @@
     <h4 class="pt-3 lead">Categories</h4>
     <hr />
     <div *ngFor="let Category of Categories">
-      <a class="btn" (click)="FilterByCategory(Category.id)">
+      <a class="btn" (click)="onSelectCategory(Category.id)">
         {{ Category.name }}
       </a>
     </div>
