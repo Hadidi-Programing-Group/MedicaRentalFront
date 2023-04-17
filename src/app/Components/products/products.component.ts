@@ -44,6 +44,70 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  fetchItemsByCategories(): void {
+    if (this.categoryIds && this.categoryIds.length > 0) {
+      console.log('Done');
+      // If categoryId is present, call getItemsByCategory method
+      this.ProductsService.GetItemsByCategories(
+        this.categoryIds,
+        this.orderBy
+      ).subscribe({
+        next: (response) => {
+          this.Products = response; // Update products array with the fetched products
+          this.TotalProducts = this.Products.length;
+        },
+        error: (error) => {
+          console.error('Error fetching products:', error);
+        },
+      });
+    } else {
+      this.fetchProducts();
+    }
+  }
+
+  fetchItemsBySubCategories(): void {
+    if (this.subCategoryIds && this.subCategoryIds.length > 0) {
+      console.log('Done');
+      // If categoryId is present, call getItemsByCategory method
+      this.ProductsService.GetItemsBySubCategories(
+        this.subCategoryIds,
+        this.orderBy
+      ).subscribe({
+        next: (response) => {
+          this.Products = response; // Update products array with the fetched products
+          this.TotalProducts = this.Products.length;
+        },
+        error: (error) => {
+          console.error('Error fetching products:', error);
+        },
+      });
+    } else {
+      this.fetchProducts();
+    }
+  }
+
+  onSelectCategories(selectedCategoryIds: string[]) {
+    // Update categoryId with the selected category IDs
+    this.categoryIds = selectedCategoryIds;
+    // Update query params with categoryId parameter
+    this.router.navigate([], {
+      queryParams: { categoryId: this.categoryIds },
+      queryParamsHandling: 'merge',
+    });
+    this.fetchProducts();
+  }
+
+  onSelectSubCategories(selectedSubCategoryIds: string[]) {
+    // Update categoryId with the selected category IDs
+    this.subCategoryIds = selectedSubCategoryIds;
+    // Update query params with categoryId parameter
+    this.router.navigate([], {
+      queryParams: { subCategoryId: this.subCategoryIds },
+      queryParamsHandling: 'merge',
+    });
+    this.fetchProducts();
+  }
+
   renderPage(event: number) {
     this.pagination = event;
     this.fetchStudents();
