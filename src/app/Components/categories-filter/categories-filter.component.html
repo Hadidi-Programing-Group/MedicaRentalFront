@@ -2,10 +2,26 @@
   <div class="container">
     <h4 class="pt-3 lead">Categories</h4>
     <hr />
-    <div *ngFor="let Category of Categories">
-      <a class="btn" (click)="FilterByCategory(Category.id)">
-        {{ Category.name }}
-      </a>
+    <div *ngFor="let category of Categories">
+      <input
+        type="checkbox"
+        [value]="category.id"
+        id="{{ category.id }}"
+        (change)="onCategoryCheckboxChange($event, category.id)"
+      />
+      <label for="{{ category.id }}">{{ category.name }}</label>
+
+      <ng-container *ngFor="let subCategory of category.subCategories">
+        <div style="margin-left: 20px;"> <!-- Set the desired indentation here -->
+          <input
+            type="checkbox"
+            [value]="subCategory.id"
+            id="{{ subCategory.id }}"
+            (change)="onSubCategoryCheckboxChange($event, subCategory.id)"
+          />
+          <label for="{{ subCategory.id }}">{{ subCategory.name }}</label> <!-- Bind to subcategory property -->
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
