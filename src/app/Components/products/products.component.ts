@@ -60,8 +60,9 @@ export class ProductsComponent implements OnInit {
     // Call HomeItemService method to fetch products based on orderBy parameter
     this.ProductsService.GetAllItems(this.orderBy).subscribe({
       next: (data) => {
-        this.TotalProducts = this.Products.length;
         this.Products = data;
+        this.TotalProducts = this.Products.length;
+        this.pagination = 0;
       },
       error: (err) => console.log(err),
     });
@@ -78,6 +79,7 @@ export class ProductsComponent implements OnInit {
         next: (response) => {
           this.Products = response; // Update products array with the fetched products
           this.TotalProducts = this.Products.length;
+          this.pagination = 0;
         },
         error: (error) => {
           console.error('Error fetching products:', error);
@@ -99,6 +101,7 @@ export class ProductsComponent implements OnInit {
         next: (response) => {
           this.Products = response; // Update products array with the fetched products
           this.TotalProducts = this.Products.length;
+          this.pagination = 0;
         },
         error: (error) => {
           console.error('Error fetching products:', error);
