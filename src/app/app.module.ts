@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ProductsService } from './Services/Products/products.service';
-import { ProductsFiltersComponent } from './Components/products-filters/products-filters.component';
 import { CategoriesFilterComponent } from './Components/categories-filter/categories-filter.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CategoriesService } from './Services/Categories/categories.service';
@@ -22,11 +21,22 @@ import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegistrationComponent } from './Components/registration/registration.component';
 
-
 @NgModule({
 
-
-  declarations: [AppComponent, ProductsComponent, ProductCardComponent, ProductsFiltersComponent, CategoriesFilterComponent, NavbarComponent, AvailableComponent, BrandComponent, BestRentalsComponent, AddsComponent, HomeComponent, LoginComponent, RegistrationComponent],
+  declarations: [
+    AppComponent,
+    ProductsComponent,
+    ProductCardComponent,
+    CategoriesFilterComponent,
+    NavbarComponent,
+    AvailableComponent,
+    BrandComponent,
+    BestRentalsComponent,
+    AddsComponent,
+    HomeComponent,
+    LoginComponent,
+    RegistrationComponent
+  ],
 
   imports: [
     BrowserModule,
@@ -34,7 +44,7 @@ import { RegistrationComponent } from './Components/registration/registration.co
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   providers: [ProductsService, CategoriesService],
   bootstrap: [AppComponent],
