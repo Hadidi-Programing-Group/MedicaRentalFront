@@ -1,0 +1,164 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid"
+          alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <p class="lead fw-normal mb-0 me-3">Sign up with</p>
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-google"></i>
+            </button>
+
+          </div>
+
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">Or</p>
+          </div>
+
+          <!-- First Name input -->
+          <div class="form-outline mb-4">
+            <input type="text" formControlName="FName" class="form-control form-control-lg" placeholder="First Name" />
+            <div *ngIf="registerForm.get('FName')?.hasError('required') && registerForm.get('FName')?.touched"
+              class="text-danger">
+              First name is required!
+            </div>
+            <div *ngIf="registerForm.get('FName')?.hasError('minlength') && registerForm.get('FName')?.touched"
+              class="text-danger">
+              Name cannot be less that three characters!
+            </div>
+            <div *ngIf="registerForm.get('FName')?.hasError('pattern') && registerForm.get('FName')?.touched"
+              class="text-danger">
+              Please enter a valid name!
+            </div>
+          </div>
+
+          <!-- Last Name input -->
+          <div class="form-outline mb-4">
+            <input type="text" formControlName="LName" class="form-control form-control-lg" placeholder="Last Name" />
+            <div *ngIf="registerForm.get('LName')?.hasError('required') && registerForm.get('LName')?.touched"
+              class="text-danger">
+              Last name is required!
+            </div>
+            <div *ngIf="registerForm.get('LName')?.hasError('minlength') && registerForm.get('LName')?.touched"
+              class="text-danger">
+              Name cannot be less that three characters!
+            </div>
+            <div *ngIf="registerForm.get('LName')?.hasError('pattern') && registerForm.get('LName')?.touched"
+              class="text-danger">
+              Please enter a valid name!
+            </div>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" formControlName="email" class="form-control form-control-lg" placeholder="Email" />
+            <div *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched"
+              class="text-danger">
+              Email is required!
+            </div>
+            <div *ngIf="registerForm.get('email')?.hasError('pattern') && registerForm.get('email')?.touched"
+              class="text-danger">
+              Please enter a valid email!
+            </div>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" formControlName="password" class="form-control form-control-lg"
+              placeholder="Password" />
+            <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched"
+              class="text-danger">
+              Password is required!
+            </div>
+          </div>
+
+          <!-- Phone Number input -->
+          <div class="form-outline mb-4">
+            <input type="text" formControlName="phoneNumber" class="form-control form-control-lg"
+              placeholder="Phone Number" />
+            <div
+              *ngIf="registerForm.get('phoneNumber')?.hasError('required') && registerForm.get('phoneNumber')?.touched"
+              class="text-danger">
+              Phone Number is required!
+            </div>
+            <div
+              *ngIf="registerForm.get('phoneNumber')?.hasError('pattern') && registerForm.get('phoneNumber')?.touched"
+              class="text-danger">
+              Please enter a valid Phone Number!
+            </div>
+          </div>
+
+          <!-- National ID input -->
+          <div class="form-outline mb-4">
+            <input type="text" formControlName="NationalID" class="form-control form-control-lg"
+              placeholder="National ID" />
+            <div *ngIf="registerForm.get('NationalID')?.hasError('required') && registerForm.get('NationalID')?.touched"
+              class="text-danger">
+              National ID is required!
+            </div>
+            <div *ngIf="registerForm.get('NationalID')?.hasError('pattern') && registerForm.get('NationalID')?.touched"
+              class="text-danger">
+              Please enter a valid National ID!
+            </div>
+          </div>
+
+          <!-- Address input -->
+          <div class="form-outline mb-4">
+            <input type="text" formControlName="Address" class="form-control form-control-lg" placeholder="Address" />
+            <div *ngIf="registerForm.get('Address')?.hasError('required') && registerForm.get('Address')?.touched"
+              class="text-danger">
+              Address is required!
+            </div>
+          </div>
+
+          <!-- National Image input -->
+          <div class="form-outline mb-4">
+            <input type="file" formControlName="NationalImg" name="NationalImg" id="NationalImg"
+              (change)="onNaionalImgSelected($event)" class="form-control form-control-lg"
+              placeholder="National Image" />
+            <div
+              *ngIf="registerForm.get('NationalImg')?.hasError('required') && registerForm.get('NationalImg')?.touched"
+              class="text-danger">
+              National Image is required!
+            </div>
+            <div
+              *ngIf="registerForm.get('NationalImg')?.hasError('invalidFileType') && registerForm.get('NationalImg')?.touched"
+              class="text-danger">
+              Invalid image type!
+            </div>
+          </div>
+
+          <!-- UnionCard Image input -->
+          <div class="form-outline mb-4">
+            <input type="file" (change)="onUnionCardImgSelected($event)" formControlName="UnionCardImg"
+              class="form-control form-control-lg" placeholder="UnionCard Image" />
+            <div
+              *ngIf="registerForm.get('UnionCardImg')?.hasError('required') && registerForm.get('UnionCardImg')?.touched"
+              class="text-danger">
+              UnionCard Image is required!
+            </div>
+            <div
+              *ngIf="registerForm.get('UnionCardImg')?.hasError('invalidFileType') && registerForm.get('UnionCardImg')?.touched"
+              class="text-danger">
+              Invalid image type!
+            </div>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="button" (click)="onSubmit()" class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
