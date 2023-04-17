@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit {
     console.log('Here');
     this.categoryId = categoryId;
     this.router.navigate(['/products'], {
-      queryParams: { categoryId: categoryId, page: 0 },
+      queryParams: { categoryId: categoryId },
     });
     this.fetchStudents(); // Call fetchStudents() to update the product list
   }
