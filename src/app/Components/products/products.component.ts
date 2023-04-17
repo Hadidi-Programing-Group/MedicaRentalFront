@@ -92,9 +92,8 @@ export class ProductsComponent implements OnInit {
     });
     this.fetchItemsByCategories();
   }
-  
+
   renderPage(event: number) {
     this.pagination = event;
-    this.fetchProducts();
   }
 }
