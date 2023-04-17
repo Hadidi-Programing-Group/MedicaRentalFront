@@ -38,12 +38,21 @@ export class ProductsService {
     });
   }
 
-  GetProductsByCategory(offset = 0, limit = 12) {
-    return this.httpClient.get(this.baseUrl, {
-      params: {
-        offset: offset.toString(),
-        limit: limit.toString(),
-      },
+  GetItemsBySubCategories(
+    subCategoryIds: string[],
+    orderBy?: string
+  ): Observable<HomeItemDto[]> {
+    let params = new HttpParams();
+    if (subCategoryIds) {
+      for (const categoryId of subCategoryIds) {
+        params = params.append('subCategoryIds', categoryId.toString()); // Append each category ID
+      }
+    }
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
+    }
+    return this.httpClient.get<HomeItemDto[]>(`${this.baseUrl}/subcategories`, {
+      params,
     });
   }
 }

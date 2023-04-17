@@ -9,14 +9,10 @@ import { CategoriesService } from 'src/app/Services/Categories/categories.servic
 export class CategoriesFilterComponent implements OnInit {
   constructor(private readonly CategoriesService: CategoriesService) {}
 
-  @Output() categorySelected = new EventEmitter<string>();
-
-  onSelectCategory(categoryId: string) {
-    this.categorySelected.emit(categoryId);
-  }
-
   @Output() categoriesSelected = new EventEmitter<string[]>();
+  @Output() subCategoriesSelected = new EventEmitter<string[]>();
   selectedCategoryIds: string[] = [];
+  selectedSubCategoryIds: string[] = [];
 
   // Method to handle checkbox change event
   onCategoryCheckboxChange(event: any, categoryId: string) {
@@ -34,10 +30,26 @@ export class CategoriesFilterComponent implements OnInit {
     this.categoriesSelected.emit(this.selectedCategoryIds);
   }
 
+  onSubCategoryCheckboxChange(event: any, subCategoryId: string) {
+    if (event.target.checked) {
+      // Add category ID to selectedCategoryIds array
+      this.selectedSubCategoryIds.push(subCategoryId);
+    } else {
+      // Remove category ID from selectedCategoryIds array
+      const index = this.selectedSubCategoryIds.indexOf(subCategoryId);
+      if (index !== -1) {
+        this.selectedSubCategoryIds.splice(index, 1);
+      }
+    }
+    // Emit the updated selectedCategoryIds array
+    this.subCategoriesSelected.emit(this.selectedSubCategoryIds);
+  }
+
   Categories: any;
   ngOnInit(): void {
     this.CategoriesService.GetAllCategories().subscribe({
       next: (data) => {
+        console.log(data);
         this.Categories = data;
       },
 
