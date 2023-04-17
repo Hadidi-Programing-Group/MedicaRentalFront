@@ -9,17 +9,17 @@ import { CategoriesService } from 'src/app/Services/Categories/categories.servic
 export class CategoriesFilterComponent implements OnInit {
   constructor(private readonly CategoriesService: CategoriesService) {}
 
-  @Output() categorySelected = new EventEmitter<number>();
+  @Output() categorySelected = new EventEmitter<string>();
 
-  onSelectCategory(categoryId: number) {
+  onSelectCategory(categoryId: string) {
     this.categorySelected.emit(categoryId);
   }
 
-  @Output() categoriesSelected = new EventEmitter<number[]>();
-  selectedCategoryIds: number[] = [];
+  @Output() categoriesSelected = new EventEmitter<string[]>();
+  selectedCategoryIds: string[] = [];
 
   // Method to handle checkbox change event
-  onCategoryCheckboxChange(event: any, categoryId: number) {
+  onCategoryCheckboxChange(event: any, categoryId: string) {
     if (event.target.checked) {
       // Add category ID to selectedCategoryIds array
       this.selectedCategoryIds.push(categoryId);
@@ -30,7 +30,6 @@ export class CategoriesFilterComponent implements OnInit {
         this.selectedCategoryIds.splice(index, 1);
       }
     }
-    console.log(this.selectedCategoryIds);
     // Emit the updated selectedCategoryIds array
     this.categoriesSelected.emit(this.selectedCategoryIds);
   }

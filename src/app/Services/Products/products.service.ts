@@ -1,5 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,30 +10,36 @@ import { Injectable } from '@angular/core';
 export class ProductsService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  private readonly URL = 'http://localhost:3000/ItemsList'; //API
+  private baseUrl = `${environment.apiURL}/api/Items`; //API
 
-  GetAllProducts(offset = 0, limit = 12, categoryIds: any = null) {
-    let options = new HttpParams();
-
-    options = options.set('offset', offset.toString());
-    options = options.set('limit', limit.toString());
-
-    // If categoryIds is an array (multiple selected categories)
-    if (Array.isArray(categoryIds)) {
-      // Loop through the array and add each category ID as a separate parameter
-      for (const categoryId of categoryIds) {
-        options = options.append('CategoryId', categoryId.toString()); // Append each category ID
-      }
-    } else if (categoryIds > 0) {
-      // If categoryIds is a single category ID
-      options = options.set('CategoryId', categoryIds.toString()); // Pass single category ID
+  GetAllItems(orderBy?: string): Observable<HomeItemDto[]> {
+    let params = new HttpParams();
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
     }
+    return this.httpClient.get<HomeItemDto[]>(`${this.baseUrl}`, { params });
+  }
 
-    return this.httpClient.get(this.URL, { params: options });
+  GetItemsByCategories(
+    categoryIds: string[],
+    orderBy?: string
+  ): Observable<HomeItemDto[]> {
+    let params = new HttpParams();
+    if (categoryIds) {
+      for (const categoryId of categoryIds) {
+        params = params.append('categoryIds', categoryId.toString()); // Append each category ID
+      }
+    }
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
+    }
+    return this.httpClient.get<HomeItemDto[]>(`${this.baseUrl}/categories`, {
+      params,
+    });
   }
 
   GetProductsByCategory(offset = 0, limit = 12) {
-    return this.httpClient.get(this.URL, {
+    return this.httpClient.get(this.baseUrl, {
       params: {
         offset: offset.toString(),
         limit: limit.toString(),

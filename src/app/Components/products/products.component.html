@@ -1,11 +1,11 @@
 <div class="container-fluid p-5">
   <div class="row">
-    <div class="col-md-2 d-none d-md-block">
+    <div class="col-md-3 d-none d-md-block">
       <app-categories-filter
-      (categoriesSelected)="onSelectCategories($event)"
+        (categoriesSelected)="onSelectCategories($event)"
       ></app-categories-filter>
     </div>
-    <div class="col-12 col-md-10">
+    <div class="col-12 col-md-9">
       <div class="container-fluid">
         <div class="row">
           <app-product-card
@@ -16,7 +16,7 @@
                   : {
                       itemsPerPage: limit,
                       currentPage: pagination,
-                      totalItems: allStudents
+                      totalItems: TotalProducts
                     }
             "
             class="col-6 col-lg-4 col-xl-3"

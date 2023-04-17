@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 import { ProductsService } from 'src/app/Services/Products/products.service';
 
 @Component({
@@ -14,97 +15,86 @@ export class ProductsComponent implements OnInit {
     private readonly router: Router
   ) {}
 
-  Products: any;
+  Products: HomeItemDto[] = [];
+  orderBy: string = '';
+  categoryIds: string[] = [];
+
   pagination = 0;
   limit = 12;
-  allStudents = 100;
-  categoryId = 0;
-  categoryArray: any;
+  TotalProducts = 100;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.pagination = params['page'] ?? 0;
-      this.categoryId = params['categoryId'] ?? 0;
+
+      // Get orderBy and categoryId parameters from query params
+      this.orderBy = params['orderBy'] || '';
+      // Update categoryIds with array of selected category IDs
+      this.categoryIds = params['categoryId']
+        ? Array.isArray(params['categoryId'])
+          ? params['categoryId']
+          : [params['categoryId']]
+        : [];
+      // Call method to fetch products based on query params
+      this.fetchProducts();
     });
-    this.fetchStudents();
+    this.fetchProducts();
   }
 
-  onCategorySelected(categoryId: number) {
-    this.FilterByCategory(categoryId);
-  }
-
-  onSelectCategories(selectedCategoryIds: number[]) {
-    // Update categoryId with the selected category IDs
-    this.categoryArray = selectedCategoryIds;
-    console.log(this.categoryArray);
-    this.fetchStudents();
-  }
-
-  FilterByCategory(categoryId: number) {
-    console.log('Here');
-    this.categoryId = categoryId;
-    this.router.navigate(['/products'], {
-      queryParams: { categoryId: categoryId },
-    });
-    this.fetchStudents(); // Call fetchStudents() to update the product list
-  }
-
-  // fetchStudents() {
-  //   this.ProductsService.GetAllProducts(
-  //     this.pagination * this.limit,
-  //     this.limit,
-  //     this.categoryId
-  //   ).subscribe({
-  //     next: (data) => {
-  //       console.log(data);
-  //       this.Products = data;
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //   });
-  // }
-
-  fetchStudents() {
-    // If categoryId is an array (multiple selected categories)
-    if (Array.isArray(this.categoryArray)) {
-      // Convert array of category IDs to string with comma-separated values
-      const categoryIdsString = this.categoryArray.join(',');
-      console.log(categoryIdsString);
-
-      this.ProductsService.GetAllProducts(
-        this.pagination * this.limit,
-        this.limit,
-        this.categoryArray // Pass comma-separated category IDs as string
-      ).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.Products = data;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+  fetchProducts(): void {
+    // Call HomeItemService method to fetch products based on orderBy parameter
+    if (this.categoryIds && this.categoryIds.length > 0) {
+      this.fetchItemsByCategories();
     } else {
-      // If categoryId is a single category ID
-      this.ProductsService.GetAllProducts(
-        this.pagination * this.limit,
-        this.limit,
-        this.categoryId // Pass single category ID
-      ).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.Products = data;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+      this.fetchAllProductsWithoutFilter();
     }
   }
 
+  fetchAllProductsWithoutFilter(): void {
+    // Call HomeItemService method to fetch products based on orderBy parameter
+    this.ProductsService.GetAllItems(this.orderBy).subscribe({
+      next: (data) => {
+        this.TotalProducts = this.Products.length;
+        this.Products = data;
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
+  fetchItemsByCategories(): void {
+    if (this.categoryIds && this.categoryIds.length > 0) {
+      console.log('Done');
+      // If categoryId is present, call getItemsByCategory method
+      this.ProductsService.GetItemsByCategories(
+        this.categoryIds,
+        this.orderBy
+      ).subscribe({
+        next: (response) => {
+          this.Products = response; // Update products array with the fetched products
+          this.TotalProducts = this.Products.length;
+        },
+        error: (error) => {
+          console.error('Error fetching products:', error);
+        },
+      });
+    } else {
+      this.fetchProducts();
+    }
+  }
+
+  onSelectCategories(selectedCategoryIds: string[]) {
+    // Update categoryId with the selected category IDs
+    this.categoryIds = selectedCategoryIds;
+    // Update query params with categoryId parameter
+    this.router.navigate([], {
+      queryParams: { categoryId: this.categoryIds },
+      queryParamsHandling: 'merge',
+    });
+    this.fetchItemsByCategories();
+  }
+  
   renderPage(event: number) {
     this.pagination = event;
-    this.fetchStudents();
+    this.fetchProducts();
   }
 }
