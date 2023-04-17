@@ -111,10 +111,10 @@ export class ProductsComponent implements OnInit {
 
   onSelectCategories(selectedCategoryIds: string[]) {
     // Update categoryId with the selected category IDs
-    this.subCategoryIds = selectedCategoryIds;
+    this.categoryIds = selectedCategoryIds;
     // Update query params with categoryId parameter
     this.router.navigate([], {
-      queryParams: { categoryId: this.subCategoryIds },
+      queryParams: { categoryId: this.categoryIds },
       queryParamsHandling: 'merge',
     });
     this.fetchProducts();
