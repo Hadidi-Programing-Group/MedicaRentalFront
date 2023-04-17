@@ -28,6 +28,19 @@ export class ProductsComponent implements OnInit {
     this.fetchStudents();
   }
 
+  onCategorySelected(categoryId: number) {
+    this.FilterByCategory(categoryId);
+  }
+
+  FilterByCategory(categoryId: number) {
+    console.log('Here');
+    this.categoryId = categoryId;
+    this.router.navigate(['/products'], {
+      queryParams: { categoryId: categoryId, page: 0 },
+    });
+    this.fetchStudents(); // Call fetchStudents() to update the product list
+  }
+
   fetchStudents() {
     this.ProductsService.GetAllProducts(
       this.pagination * this.limit,
@@ -35,7 +48,6 @@ export class ProductsComponent implements OnInit {
       this.categoryId
     ).subscribe({
       next: (data) => {
-        console.log(data);
         this.Products = data;
       },
       error: (err) => {

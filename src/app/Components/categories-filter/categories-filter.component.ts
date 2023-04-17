@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CategoriesService } from 'src/app/Services/Categories/categories.service';
 
 @Component({
@@ -8,13 +7,15 @@ import { CategoriesService } from 'src/app/Services/Categories/categories.servic
   styleUrls: ['./categories-filter.component.css'],
 })
 export class CategoriesFilterComponent implements OnInit {
-  constructor(
-    private readonly CategoriesService: CategoriesService,
-    private readonly router: Router
-  ) {}
+  constructor(private readonly CategoriesService: CategoriesService) {}
+
+  @Output() categorySelected = new EventEmitter<number>();
+
+  onSelectCategory(categoryId: number) {
+    this.categorySelected.emit(categoryId);
+  }
 
   Categories: any;
-
   ngOnInit(): void {
     this.CategoriesService.GetAllCategories().subscribe({
       next: (data) => {
@@ -23,14 +24,5 @@ export class CategoriesFilterComponent implements OnInit {
 
       error: (error) => console.log(error),
     });
-  }
-
-  FilterByCategory(categoryId: number) {
-    this.router
-      .navigate(['/products'], { queryParams: { categoryId: categoryId } })
-      .then(() => {
-        // Use window.location.reload() to reload the page
-        window.location.reload();
-      });
   }
 }
