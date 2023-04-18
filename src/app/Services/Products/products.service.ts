@@ -13,18 +13,38 @@ export class ProductsService {
 
   private baseUrl = `${environment.apiURL}/api/Items`; //API
 
-  GetAllItems(
+  private getItems(
+    endpoint: string,
+    ids: string[],
     page: number = 1,
     orderBy?: string
   ): Observable<PageDto<HomeItemDto>> {
     let params = new HttpParams();
+    if (ids) {
+      for (const id of ids) {
+        params = params.append(
+          `${endpoint === 'categories' ? 'category' : 'subcategory'}Ids`,
+          id
+        ); // Append each ID
+      }
+    }
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
     params = params.set('page', page);
-    return this.httpClient.get<PageDto<HomeItemDto>>(`${this.baseUrl}`, {
-      params,
-    });
+    return this.httpClient.get<PageDto<HomeItemDto>>(
+      `${this.baseUrl}/${endpoint}`,
+      {
+        params,
+      }
+    );
+  }
+
+  GetAllItems(
+    page: number = 1,
+    orderBy?: string
+  ): Observable<PageDto<HomeItemDto>> {
+    return this.getItems('', [], page, orderBy);
   }
 
   GetItemsByCategories(
@@ -32,22 +52,7 @@ export class ProductsService {
     page: number = 1,
     orderBy?: string
   ): Observable<PageDto<HomeItemDto>> {
-    let params = new HttpParams();
-    if (categoryIds) {
-      for (const categoryId of categoryIds) {
-        params = params.append('categoryIds', categoryId.toString()); // Append each category ID
-      }
-    }
-    if (orderBy) {
-      params = params.set('orderBy', orderBy);
-    }
-    params = params.set('page', page);
-    return this.httpClient.get<PageDto<HomeItemDto>>(
-      `${this.baseUrl}/categories`,
-      {
-        params,
-      }
-    );
+    return this.getItems('categories', categoryIds, page, orderBy);
   }
 
   GetItemsBySubCategories(
@@ -55,22 +60,6 @@ export class ProductsService {
     page: number = 1,
     orderBy?: string
   ): Observable<PageDto<HomeItemDto>> {
-    let params = new HttpParams();
-    if (subCategoryIds) {
-      for (const categoryId of subCategoryIds) {
-        params = params.append('subCategoryIds', categoryId.toString()); // Append each category ID
-      }
-    }
-    if (orderBy) {
-      params = params.set('orderBy', orderBy);
-    }
-    params = params.set('page', page);
-
-    return this.httpClient.get<PageDto<HomeItemDto>>(
-      `${this.baseUrl}/subcategories`,
-      {
-        params,
-      }
-    );
+    return this.getItems('subcategories', subCategoryIds, page, orderBy);
   }
 }

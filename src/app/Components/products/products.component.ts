@@ -89,7 +89,6 @@ export class ProductsComponent implements OnInit {
 
   fetchItemsBySubCategories(): void {
     if (this.subCategoryIds && this.subCategoryIds.length > 0) {
-      console.log('Done');
       // If categoryId is present, call getItemsByCategory method
       this.ProductsService.GetItemsBySubCategories(
         this.subCategoryIds,
