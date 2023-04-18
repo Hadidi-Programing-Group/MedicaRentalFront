@@ -1,0 +1,12 @@
+.star-rating {
+  font-size: 2rem;
+}
+
+.star {
+  color: #ddd;
+  cursor: pointer;
+}
+
+.filled {
+  color: #ffbf00;
+}
