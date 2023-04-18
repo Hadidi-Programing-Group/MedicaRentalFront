@@ -3,13 +3,14 @@
     <h4 class="pt-3 lead">Categories</h4>
     <hr />
     <div *ngFor="let category of Categories">
-      <div class="form-check">
+      <div *ngIf="selectedSubCategoryIds.length === 0" class="form-check">
         <!-- Use Bootstrap form-check class -->
         <input
           class="form-check-input"
           type="checkbox"
           [value]="category.id"
           id="{{ category.id }}"
+          [checked]="selectedCategoryIds.includes(category.id)"
           (change)="onCategoryCheckboxChange($event, category.id)"
         />
         <label class="form-check-label" for="{{ category.id }}">{{
@@ -25,6 +26,7 @@
             type="checkbox"
             [value]="subCategory.id"
             id="{{ subCategory.id }}"
+            [checked]="selectedSubCategoryIds.includes(subCategory.id)"
             (change)="onSubCategoryCheckboxChange($event, subCategory.id)"
           />
           <label class="form-check-label" for="{{ subCategory.id }}">{{

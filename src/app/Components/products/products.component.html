@@ -14,10 +14,12 @@
           <option value="RateAsc">Rating: Low to High</option>
         </select>
       </div>
-      <app-categories-filter
-        (categoriesSelected)="onSelectCategories($event)"
-        (subCategoriesSelected)="onSelectSubCategories($event)"
-      ></app-categories-filter>
+      <app-categories-filter></app-categories-filter>
+      <div class="col-12 mt-3">
+        <button class="btn btn-secondary mb-3" (click)="resetFilters()">
+          Reset Filters
+        </button>
+      </div>
     </div>
     <div class="col-12 col-md-9">
       <div class="container-fluid">
