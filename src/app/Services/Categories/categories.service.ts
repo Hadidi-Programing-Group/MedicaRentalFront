@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class CategoriesService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  private readonly URL = 'https://api.escuelajs.co/api/v1/categories'; //API
+  private readonly URL = `${environment.apiURL}/api/categories`; //API
 
   GetAllCategories() {
     return this.httpClient.get(this.URL);

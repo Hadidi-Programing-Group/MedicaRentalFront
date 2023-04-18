@@ -1,10 +1,6 @@
 <div>
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="isVisible"></app-navbar>
 </div>
 <div>
-
-    <app-login></app-login>
-    <app-home></app-home>
-    <router-outlet></router-outlet>
-
+  <router-outlet></router-outlet>
 </div>

@@ -4,16 +4,14 @@ import { ProductsService } from 'src/app/Services/Products/products.service';
 @Component({
   selector: 'app-brand',
   templateUrl: './brand.component.html',
-  styleUrls: ['./brand.component.css']
+  styleUrls: ['./brand.component.css'],
 })
 export class BrandComponent implements OnInit {
   constructor(private readonly ProductsService: ProductsService) {}
 
   Products: any;
   ngOnInit(): void {
-
-
-    this.ProductsService.GetAllProducts().subscribe({
+    this.ProductsService.GetAllItems().subscribe({
       next: (data) => {
         //console.log(data)
         this.Products = data;
@@ -23,5 +21,4 @@ export class BrandComponent implements OnInit {
       },
     });
   }
-
 }

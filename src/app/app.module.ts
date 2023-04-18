@@ -6,10 +6,9 @@ import { AppComponent } from './app.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { ProductCardComponent } from './Components/product-card/product-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { ProductsService } from './Services/Products/products.service';
-import { ProductsFiltersComponent } from './Components/products-filters/products-filters.component';
 import { CategoriesFilterComponent } from './Components/categories-filter/categories-filter.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CategoriesService } from './Services/Categories/categories.service';
@@ -20,12 +19,29 @@ import { BestRentalsComponent } from './Components/best-rentals/best-rentals.com
 import { AddsComponent } from './Components/adds/adds.component';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
-
+import { RegistrationComponent } from './Components/registration/registration.component';
+import { EmailErrorComponent } from './Components/EmailError/email-error/email-error.component';
+import { NationalIDErrorComponent } from './Components/NationalIDError/national-iderror/national-iderror.component';
+import { AuthInterceptor } from 'InterCeptors/auth.interceptor';
 
 @NgModule({
 
-
-  declarations: [AppComponent, ProductsComponent, ProductCardComponent, ProductsFiltersComponent, CategoriesFilterComponent, NavbarComponent, AvailableComponent, BrandComponent, BestRentalsComponent, AddsComponent, HomeComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    ProductsComponent,
+    ProductCardComponent,
+    CategoriesFilterComponent,
+    NavbarComponent,
+    AvailableComponent,
+    BrandComponent,
+    BestRentalsComponent,
+    AddsComponent,
+    HomeComponent,
+    LoginComponent,
+    RegistrationComponent,
+    EmailErrorComponent,
+    NationalIDErrorComponent
+  ],
 
   imports: [
     BrowserModule,
@@ -33,9 +49,9 @@ import { LoginComponent } from './Components/login/login.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
-  providers: [ProductsService, CategoriesService],
+  providers: [ProductsService, CategoriesService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
