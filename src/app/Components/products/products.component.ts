@@ -127,4 +127,14 @@ export class ProductsComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
   }
+
+  onOrderByChange(orderBy: string) {
+    // Update orderBy with the selected value
+    this.orderBy = orderBy;
+    // Update query params with orderBy parameter
+    this.router.navigate([], {
+      queryParams: { orderBy: this.orderBy, page: this.pagination },
+      queryParamsHandling: 'merge',
+    });
+  }
 }
