@@ -1,6 +1,19 @@
 <div class="container-fluid p-5">
   <div class="row">
     <div class="col-md-3 d-none d-md-block">
+      <div class="col-12">
+        <select
+          [(ngModel)]="orderBy"
+          (ngModelChange)="onOrderByChange(orderBy)"
+          class="form-control mb-3"
+        >
+          <option value="">Order By</option>
+          <option value="PriceDesc">Price: High to Low</option>
+          <option value="PriceAsc">Price: Low to High</option>
+          <option value="RateDesc">Rating: High to Low</option>
+          <option value="RateAsc">Rating: Low to High</option>
+        </select>
+      </div>
       <app-categories-filter
         (categoriesSelected)="onSelectCategories($event)"
         (subCategoriesSelected)="onSelectSubCategories($event)"
@@ -9,19 +22,6 @@
     <div class="col-12 col-md-9">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
-            <select
-              [(ngModel)]="orderBy"
-              (ngModelChange)="onOrderByChange(orderBy)"
-              class="form-control mb-3"
-            >
-              <option value="">Order By</option>
-              <option value="PriceDesc">Price: High to Low</option>
-              <option value="PriceAsc">Price: Low to High</option>
-              <option value="RateDesc">Rating: High to Low</option>
-              <option value="RateAsc">Rating: Low to High</option>
-            </select>
-          </div>
           <app-product-card
             [Product]="Product"
             *ngFor="
