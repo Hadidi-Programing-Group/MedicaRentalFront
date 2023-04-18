@@ -8,10 +8,18 @@
           class="form-control mb-3"
         >
           <option value="">Order By</option>
-          <option value="PriceDesc">Price: High to Low</option>
-          <option value="PriceAsc">Price: Low to High</option>
-          <option value="RateDesc">Rating: High to Low</option>
-          <option value="RateAsc">Rating: Low to High</option>
+          <option value="{{ orderByString.PriceDesc }}">
+            Price: High to Low
+          </option>
+          <option value="{{ orderByString.PriceAsc }}">
+            Price: Low to High
+          </option>
+          <option value="{{ orderByString.RateDesc }}">
+            Rating: High to Low
+          </option>
+          <option value="{{ orderByString.RateAsc }}">
+            Rating: Low to High
+          </option>
         </select>
       </div>
       <app-categories-filter></app-categories-filter>

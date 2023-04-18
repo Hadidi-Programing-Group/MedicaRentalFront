@@ -1,0 +1,34 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Category</th>
+      <th>Subcategory</th>
+      <th>Rating</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of listedItems">
+      <td>{{ item.name }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.stock }}</td>
+      <td>{{ item.categoryName }}</td>
+      <td>{{ item.subCategoryName }}</td>
+      <td>
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+          <span class="star" [ngClass]="{ filled: star <= item.rating }"
+            >&#9733;</span
+          >
+        </ng-container>
+      </td>
+      <td>
+        <button class="btn btn-primary mx-1">Update</button>
+        <button class="btn btn-danger mx-1">Un-List</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,36 @@
+<div class="nav flex-column nav-pills">
+  <a
+    #profile
+    (click)="notifyChange($event, 'profile')"
+    class="nav-link active"
+    id="profile-tab"
+    >Profile</a
+  >
+  <a (click)="notifyChange($event, 'listed')" class="nav-link" id="listed-tab"
+    >Listed</a
+  >
+  <a
+    (click)="notifyChange($event, 'unlisted')"
+    class="nav-link"
+    id="unlisted-tab"
+    >Un-Listed</a
+  >
+  <a (click)="notifyChange($event, 'rented')" class="nav-link" id="rented-tab"
+    >Rented</a
+  >
+  <a (click)="notifyChange($event, 'onRent')" class="nav-link" id="on-rent-tab"
+    >On-Rent</a
+  >
+  <a
+    (click)="notifyChange($event, 'rentedHist')"
+    class="nav-link"
+    id="rent-history-tab"
+    >Rented History</a
+  >
+  <a
+    (click)="notifyChange($event, 'onRentHist')"
+    class="nav-link"
+    id="on-rent-history-tab"
+    >On-Rent History</a
+  >
+</div>
