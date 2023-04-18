@@ -28,7 +28,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.pagination = params['page'] ?? 0;
+      this.pagination = params['page'] ?? 1;
 
       // Get orderBy and categoryId parameters from query params
       this.orderBy = params['orderBy'] || '';
@@ -62,16 +62,16 @@ export class ProductsComponent implements OnInit {
     next: (data) => {
       this.Products = data.data;
       this.TotalProducts = data.count;
+      if (this.TotalProducts <= this.limit) this.pagination = 1;
     },
     error: (err) => console.log(err),
   };
 
   fetchAllProductsWithoutFilter(): void {
     // Call HomeItemService method to fetch products based on orderBy parameter
-    this.ProductsService.GetAllItems(
-      this.pagination - 1,
-      this.orderBy
-    ).subscribe(this.successObjCall);
+    this.ProductsService.GetAllItems(this.pagination, this.orderBy).subscribe(
+      this.successObjCall
+    );
   }
 
   fetchItemsByCategories(): void {
@@ -79,7 +79,7 @@ export class ProductsComponent implements OnInit {
       // If categoryId is present, call getItemsByCategory method
       this.ProductsService.GetItemsByCategories(
         this.categoryIds,
-        this.pagination - 1,
+        this.pagination,
         this.orderBy
       ).subscribe(this.successObjCall);
     } else {
@@ -93,7 +93,7 @@ export class ProductsComponent implements OnInit {
       // If categoryId is present, call getItemsByCategory method
       this.ProductsService.GetItemsBySubCategories(
         this.subCategoryIds,
-        this.pagination - 1,
+        this.pagination,
         this.orderBy
       ).subscribe(this.successObjCall);
     } else {
@@ -106,10 +106,9 @@ export class ProductsComponent implements OnInit {
     this.categoryIds = selectedCategoryIds;
     // Update query params with categoryId parameter
     this.router.navigate([], {
-      queryParams: { categoryId: this.categoryIds },
+      queryParams: { categoryId: this.categoryIds, page: 1 },
       queryParamsHandling: 'merge',
     });
-    this.fetchProducts();
   }
 
   onSelectSubCategories(selectedSubCategoryIds: string[]) {
@@ -117,14 +116,16 @@ export class ProductsComponent implements OnInit {
     this.subCategoryIds = selectedSubCategoryIds;
     // Update query params with categoryId parameter
     this.router.navigate([], {
-      queryParams: { subCategoryId: this.subCategoryIds },
+      queryParams: { subCategoryId: this.subCategoryIds, page: 1 },
       queryParamsHandling: 'merge',
     });
-    this.fetchProducts();
   }
 
   renderPage(event: number) {
     this.pagination = event;
-    this.fetchProducts();
+    this.router.navigate([], {
+      queryParams: { page: this.pagination },
+      queryParamsHandling: 'merge',
+    });
   }
 }

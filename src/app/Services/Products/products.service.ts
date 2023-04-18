@@ -14,7 +14,7 @@ export class ProductsService {
   private baseUrl = `${environment.apiURL}/api/Items`; //API
 
   GetAllItems(
-    page: number = 0,
+    page: number = 1,
     orderBy?: string
   ): Observable<PageDto<HomeItemDto>> {
     let params = new HttpParams();
@@ -29,7 +29,7 @@ export class ProductsService {
 
   GetItemsByCategories(
     categoryIds: string[],
-    page: number = 0,
+    page: number = 1,
     orderBy?: string
   ): Observable<PageDto<HomeItemDto>> {
     let params = new HttpParams();
@@ -52,7 +52,7 @@ export class ProductsService {
 
   GetItemsBySubCategories(
     subCategoryIds: string[],
-    page: number = 0,
+    page: number = 1,
     orderBy?: string
   ): Observable<PageDto<HomeItemDto>> {
     let params = new HttpParams();
