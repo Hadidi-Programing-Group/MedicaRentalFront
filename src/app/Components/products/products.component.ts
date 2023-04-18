@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observer } from 'rxjs';
+import { Observer, take } from 'rxjs';
 import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 import { PageDto } from 'src/app/Dtos/PageDto';
 import { ProductsService } from 'src/app/Services/Products/products.service';
@@ -29,7 +29,7 @@ export class ProductsComponent implements OnInit {
   TotalProducts: any;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.pagination = params['page'] ?? 1;
 
       // Get orderBy and categoryId parameters from query params
@@ -46,7 +46,24 @@ export class ProductsComponent implements OnInit {
           ? params['subCategoryId']
           : [params['subCategoryId']]
         : [];
+
+      this.filterService.updateSelectedCategories(this.categoryIds);
+      this.filterService.updateSelectedSubcategories(this.subCategoryIds);
+
       this.fetchProducts();
+    });
+
+    this.filterService.updateCategoriesSelected.subscribe({
+      next: (data: string[]) => {
+        console.log(data);
+        this.onSelectCategories(data);
+      },
+    });
+
+    this.filterService.updateSubCategoriesSelected.subscribe({
+      next: (data: string[]) => {
+        this.onSelectSubCategories(data);
+      },
     });
   }
 
@@ -105,21 +122,28 @@ export class ProductsComponent implements OnInit {
   onSelectCategories(selectedCategoryIds: string[]) {
     // Update categoryId with the selected category IDs
     this.categoryIds = selectedCategoryIds;
+    this.pagination = 1;
+
+    console.log('Update Called', this.categoryIds);
     // Update query params with categoryId parameter
     this.router.navigate([], {
       queryParams: { categoryId: this.categoryIds, page: 1 },
       queryParamsHandling: 'merge',
     });
+    this.fetchProducts();
   }
 
   onSelectSubCategories(selectedSubCategoryIds: string[]) {
     // Update categoryId with the selected category IDs
     this.subCategoryIds = selectedSubCategoryIds;
+    this.pagination = 1;
+
     // Update query params with categoryId parameter
     this.router.navigate([], {
       queryParams: { subCategoryId: this.subCategoryIds, page: 1 },
       queryParamsHandling: 'merge',
     });
+    this.fetchProducts();
   }
 
   renderPage(event: number) {
@@ -128,6 +152,7 @@ export class ProductsComponent implements OnInit {
       queryParams: { page: this.pagination },
       queryParamsHandling: 'merge',
     });
+    this.fetchProducts();
   }
 
   onOrderByChange(orderBy: string) {
@@ -138,21 +163,21 @@ export class ProductsComponent implements OnInit {
       queryParams: { orderBy: this.orderBy, page: this.pagination },
       queryParamsHandling: 'merge',
     });
+    this.fetchProducts();
   }
 
   resetFilters() {
     // Reset all filters and update query params
-    this.categoryIds = [];
-    this.subCategoryIds = [];
     this.orderBy = '';
     this.pagination = 1;
     this.router.navigate([], {
       queryParams: {
-        categoryId: null,
-        subCategoryId: null,
+        categoryId: [],
+        subCategoryId: [],
         orderBy: null,
         page: this.pagination,
       },
+      queryParamsHandling: 'merge',
     });
     this.filterService.resetFilters();
   }

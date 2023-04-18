@@ -13,11 +13,36 @@ export class CategoriesFilterComponent implements OnInit {
     private readonly filterService: FilterService
   ) {}
 
-  @Output() categoriesSelected = new EventEmitter<string[]>();
-  @Output() subCategoriesSelected = new EventEmitter<string[]>();
+  // @Output() categoriesSelected = new EventEmitter<string[]>();
+  // @Output() subCategoriesSelected = new EventEmitter<string[]>();
 
   selectedCategoryIds: string[] = [];
   selectedSubCategoryIds: string[] = [];
+  Categories: any;
+  ngOnInit(): void {
+    this.selectedCategoryIds = this.filterService.getSelectedCategories();
+    this.selectedSubCategoryIds = this.filterService.getSelectedSubcategories();
+
+    this.filterService.updateCategoriesSelected.subscribe({
+      next: (data: string[]) => {
+        this.selectedCategoryIds = data;
+      },
+    });
+
+    this.filterService.updateSubCategoriesSelected.subscribe({
+      next: (data: string[]) => {
+        this.selectedSubCategoryIds = data;
+      },
+    });
+
+    this.CategoriesService.GetAllCategories().subscribe({
+      next: (data) => {
+        this.Categories = data;
+      },
+
+      error: (error) => console.log(error),
+    });
+  }
 
   // Method to handle checkbox change event
   onCategoryCheckboxChange(event: any, categoryId: string) {
@@ -32,7 +57,7 @@ export class CategoriesFilterComponent implements OnInit {
       }
     }
     // Emit the updated selectedCategoryIds array
-    this.categoriesSelected.emit(this.selectedCategoryIds);
+    this.filterService.updateSelectedCategories(this.selectedCategoryIds);
   }
 
   onSubCategoryCheckboxChange(event: any, subCategoryId: string) {
@@ -49,42 +74,8 @@ export class CategoriesFilterComponent implements OnInit {
     // Emit the updated selectedCategoryIds array
     if (this.selectedSubCategoryIds.length > 0) {
       this.selectedCategoryIds = [];
-      this.categoriesSelected.emit(this.selectedCategoryIds);
+      this.filterService.updateSelectedCategories(this.selectedCategoryIds);
     }
-    this.subCategoriesSelected.emit(this.selectedSubCategoryIds);
-  }
-
-  Categories: any;
-  ngOnInit(): void {
-    // this.route.queryParams.subscribe((params) => {
-    //   // Update categoryIds with array of selected category IDs
-    //   this.selectedCategoryIds = params['categoryId']
-    //     ? Array.isArray(params['categoryId'])
-    //       ? params['categoryId']
-    //       : [params['categoryId']]
-    //     : [];
-
-    //   this.selectedSubCategoryIds = params['subCategoryId']
-    //     ? Array.isArray(params['subCategoryId'])
-    //       ? params['subCategoryId']
-    //       : [params['subCategoryId']]
-    //     : [];
-
-    //   this.categoriesSelected.emit(this.selectedCategoryIds);
-    //   this.subCategoriesSelected.emit(this.selectedSubCategoryIds);
-    // });
-
-    this.filterService.filterReset.subscribe(() => {
-      this.selectedCategoryIds = [];
-      this.selectedSubCategoryIds = [];
-    });
-
-    this.CategoriesService.GetAllCategories().subscribe({
-      next: (data) => {
-        this.Categories = data;
-      },
-
-      error: (error) => console.log(error),
-    });
+    this.filterService.updateSelectedSubcategories(this.selectedSubCategoryIds);
   }
 }
