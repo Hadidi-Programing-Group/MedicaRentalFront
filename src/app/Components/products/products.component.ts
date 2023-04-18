@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observer } from 'rxjs';
 import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
+import { PageDto } from 'src/app/Dtos/PageDto';
 import { ProductsService } from 'src/app/Services/Products/products.service';
 
 @Component({
@@ -21,9 +22,9 @@ export class ProductsComponent implements OnInit {
   categoryIds: string[] = [];
   subCategoryIds: string[] = [];
 
-  pagination = 0;
+  pagination = 1;
   limit = 12;
-  TotalProducts = 100;
+  TotalProducts: any;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -43,8 +44,8 @@ export class ProductsComponent implements OnInit {
           ? params['subCategoryId']
           : [params['subCategoryId']]
         : [];
+      this.fetchProducts();
     });
-    this.fetchProducts();
   }
 
   fetchProducts(): void {
@@ -57,28 +58,29 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  successObjCall: Partial<Observer<HomeItemDto[]>> = {
+  successObjCall: Partial<Observer<PageDto<HomeItemDto>>> = {
     next: (data) => {
-      this.Products = data;
-      this.TotalProducts = this.Products.length;
-      this.pagination = 0;
+      console.log(data);
+      this.Products = data.data;
+      this.TotalProducts = data.count;
     },
     error: (err) => console.log(err),
   };
 
   fetchAllProductsWithoutFilter(): void {
     // Call HomeItemService method to fetch products based on orderBy parameter
-    this.ProductsService.GetAllItems(this.orderBy).subscribe(
-      this.successObjCall
-    );
+    this.ProductsService.GetAllItems(
+      this.pagination - 1,
+      this.orderBy
+    ).subscribe(this.successObjCall);
   }
 
   fetchItemsByCategories(): void {
     if (this.categoryIds && this.categoryIds.length > 0) {
-      console.log('Done');
       // If categoryId is present, call getItemsByCategory method
       this.ProductsService.GetItemsByCategories(
         this.categoryIds,
+        this.pagination - 1,
         this.orderBy
       ).subscribe(this.successObjCall);
     } else {
@@ -92,6 +94,7 @@ export class ProductsComponent implements OnInit {
       // If categoryId is present, call getItemsByCategory method
       this.ProductsService.GetItemsBySubCategories(
         this.subCategoryIds,
+        this.pagination - 1,
         this.orderBy
       ).subscribe(this.successObjCall);
     } else {
@@ -122,6 +125,8 @@ export class ProductsComponent implements OnInit {
   }
 
   renderPage(event: number) {
+    console.log(event);
     this.pagination = event;
+    this.fetchProducts();
   }
 }

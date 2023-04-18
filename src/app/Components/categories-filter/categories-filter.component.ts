@@ -49,7 +49,6 @@ export class CategoriesFilterComponent implements OnInit {
   ngOnInit(): void {
     this.CategoriesService.GetAllCategories().subscribe({
       next: (data) => {
-        console.log(data);
         this.Categories = data;
       },
 
