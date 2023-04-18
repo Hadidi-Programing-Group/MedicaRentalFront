@@ -1,34 +1,35 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Stock</th>
-      <th>Category</th>
-      <th>Subcategory</th>
-      <th>Rating</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of listedItems">
-      <td>{{ item.name }}</td>
-      <td>{{ item.price }}</td>
-      <td>{{ item.stock }}</td>
-      <td>{{ item.categoryName }}</td>
-      <td>{{ item.subCategoryName }}</td>
-      <td>
-        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-          <span class="star" [ngClass]="{ filled: star <= item.rating }"
-            >&#9733;</span
-          >
-        </ng-container>
-      </td>
-      <td>
-        <button class="btn btn-primary mx-1">Update</button>
-        <button class="btn btn-danger mx-1">Un-List</button>
-      </td>
-
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-sm-3">Name</th>
+        <th class="col-sm-2">Price</th>
+        <th class="col-sm-1">Stock</th>
+        <th class="col-sm-2">Category</th>
+        <th class="col-sm-2">Subcategory</th>
+        <th class="col-sm-1">Rating</th>
+        <th class="col-sm-1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listedItems">
+        <td class="col-sm-3">{{ item.name }}</td>
+        <td class="col-sm-2">{{ item.price }}</td>
+        <td class="col-sm-1">{{ item.stock }}</td>
+        <td class="col-sm-2">{{ item.categoryName }}</td>
+        <td class="col-sm-2">{{ item.subCategoryName }}</td>
+        <td class="col-sm-1">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <span class="star" [ngClass]="{ filled: star <= item.rating }"
+              >&#9733;</span
+            >
+          </ng-container>
+        </td>
+        <td class="col-sm-1">
+          <button class="btn btn-primary mx-1">Update</button>
+          <button class="btn btn-danger mx-1">Un-List</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
