@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observer } from 'rxjs';
 import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 import { PageDto } from 'src/app/Dtos/PageDto';
 import { ProductsService } from 'src/app/Services/Products/products.service';
+import { FilterService } from 'src/app/Services/Filter/filter.service';
 
 @Component({
   selector: 'app-products',
@@ -14,7 +15,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private readonly ProductsService: ProductsService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly filterService: FilterService
   ) {}
 
   Products: HomeItemDto[] = [];
@@ -136,5 +138,22 @@ export class ProductsComponent implements OnInit {
       queryParams: { orderBy: this.orderBy, page: this.pagination },
       queryParamsHandling: 'merge',
     });
+  }
+
+  resetFilters() {
+    // Reset all filters and update query params
+    this.categoryIds = [];
+    this.subCategoryIds = [];
+    this.orderBy = '';
+    this.pagination = 1;
+    this.router.navigate([], {
+      queryParams: {
+        categoryId: null,
+        subCategoryId: null,
+        orderBy: null,
+        page: this.pagination,
+      },
+    });
+    this.filterService.resetFilters();
   }
 }

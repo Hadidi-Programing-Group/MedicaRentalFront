@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CategoriesService } from 'src/app/Services/Categories/categories.service';
+import { FilterService } from 'src/app/Services/Filter/filter.service';
 
 @Component({
   selector: 'app-categories-filter',
@@ -7,10 +8,14 @@ import { CategoriesService } from 'src/app/Services/Categories/categories.servic
   styleUrls: ['./categories-filter.component.css'],
 })
 export class CategoriesFilterComponent implements OnInit {
-  constructor(private readonly CategoriesService: CategoriesService) {}
+  constructor(
+    private readonly CategoriesService: CategoriesService,
+    private readonly filterService: FilterService
+  ) {}
 
   @Output() categoriesSelected = new EventEmitter<string[]>();
   @Output() subCategoriesSelected = new EventEmitter<string[]>();
+
   selectedCategoryIds: string[] = [];
   selectedSubCategoryIds: string[] = [];
 
@@ -42,11 +47,38 @@ export class CategoriesFilterComponent implements OnInit {
       }
     }
     // Emit the updated selectedCategoryIds array
+    if (this.selectedSubCategoryIds.length > 0) {
+      this.selectedCategoryIds = [];
+      this.categoriesSelected.emit(this.selectedCategoryIds);
+    }
     this.subCategoriesSelected.emit(this.selectedSubCategoryIds);
   }
 
   Categories: any;
   ngOnInit(): void {
+    // this.route.queryParams.subscribe((params) => {
+    //   // Update categoryIds with array of selected category IDs
+    //   this.selectedCategoryIds = params['categoryId']
+    //     ? Array.isArray(params['categoryId'])
+    //       ? params['categoryId']
+    //       : [params['categoryId']]
+    //     : [];
+
+    //   this.selectedSubCategoryIds = params['subCategoryId']
+    //     ? Array.isArray(params['subCategoryId'])
+    //       ? params['subCategoryId']
+    //       : [params['subCategoryId']]
+    //     : [];
+
+    //   this.categoriesSelected.emit(this.selectedCategoryIds);
+    //   this.subCategoriesSelected.emit(this.selectedSubCategoryIds);
+    // });
+
+    this.filterService.filterReset.subscribe(() => {
+      this.selectedCategoryIds = [];
+      this.selectedSubCategoryIds = [];
+    });
+
     this.CategoriesService.GetAllCategories().subscribe({
       next: (data) => {
         this.Categories = data;
