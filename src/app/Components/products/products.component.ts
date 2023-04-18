@@ -60,7 +60,6 @@ export class ProductsComponent implements OnInit {
 
   successObjCall: Partial<Observer<PageDto<HomeItemDto>>> = {
     next: (data) => {
-      console.log(data);
       this.Products = data.data;
       this.TotalProducts = data.count;
     },
@@ -125,7 +124,6 @@ export class ProductsComponent implements OnInit {
   }
 
   renderPage(event: number) {
-    console.log(event);
     this.pagination = event;
     this.fetchProducts();
   }
