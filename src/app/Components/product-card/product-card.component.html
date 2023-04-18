@@ -9,9 +9,10 @@
   <div class="ProductName lead">
     {{ Product.name }}
   </div>
-  <div class="row">
-    <div class="col-6 ProductPrice">{{ Product.price }} EGP</div>
-    <div class="col-6">
+  <div class="container-fluid">
+    <div class="row"></div>
+    <div class="col-xs-12 ProductPrice">{{ Product.price }} EGP</div>
+    <div class="col-xs-12">
       <span
         *ngFor="let star of [1, 2, 3, 4, 5]"
         class="bi bi-star-fill"
