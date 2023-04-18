@@ -5,6 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CommunicationService } from 'src/app/Services/Communication/communication.service';
 import { RegistrationService } from 'src/app/Services/Registration/registration.service';
 
 @Component({
@@ -19,7 +21,9 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private registrationService: RegistrationService
+    private registrationService: RegistrationService,
+    private router:Router,
+    private navbarService: CommunicationService
   ) {
     this.registerForm = this.fb.group({
       FName: [
@@ -70,7 +74,6 @@ export class RegistrationComponent implements OnInit {
       this.NationalImgBase64 = base64String;
       const Arr = this.NationalImgBase64.split(',', 2);
       this.NationalImgBase64 = Arr[1];
-      console.log(this.NationalImgBase64);
     };
     reader.readAsDataURL(file);
     return;
@@ -93,7 +96,6 @@ export class RegistrationComponent implements OnInit {
       this.UnionCardImgBase64 = base64String;
       const Arr = this.UnionCardImgBase64.split(',', 2);
       this.UnionCardImgBase64 = Arr[1];
-      console.log(this.UnionCardImgBase64);
     };
     reader.readAsDataURL(file);
     return;
@@ -119,7 +121,23 @@ export class RegistrationComponent implements OnInit {
       console.log(DataToBeSent);
       this.registrationService.RegisterUser(DataToBeSent).subscribe((res) => {
         console.log(res);
-      });
+      },
+      (error) =>
+      {
+        console.log(error.error);
+        if(error.error=="National ID is already registered")
+        {
+          this.router.navigate(['/nationaliderror']);
+        }
+        else if(error.error==`Username '${DataToBeSent.baseUserRegisterInfo.email}' is already taken.`)
+        {
+          this.router.navigate(['/emailerror']);
+        }
+        //Account Created Successfully
+      }
+      );
+      this.navbarService.toggleVisibility();
+      this.router.navigate(['/']);
     }
   }
 }
