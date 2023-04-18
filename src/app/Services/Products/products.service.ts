@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
+import { PageDto } from 'src/app/Dtos/PageDto';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,18 +13,25 @@ export class ProductsService {
 
   private baseUrl = `${environment.apiURL}/api/Items`; //API
 
-  GetAllItems(orderBy?: string): Observable<HomeItemDto[]> {
+  GetAllItems(
+    page: number = 1,
+    orderBy?: string
+  ): Observable<PageDto<HomeItemDto>> {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
-    return this.httpClient.get<HomeItemDto[]>(`${this.baseUrl}`, { params });
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<HomeItemDto>>(`${this.baseUrl}`, {
+      params,
+    });
   }
 
   GetItemsByCategories(
     categoryIds: string[],
+    page: number = 1,
     orderBy?: string
-  ): Observable<HomeItemDto[]> {
+  ): Observable<PageDto<HomeItemDto>> {
     let params = new HttpParams();
     if (categoryIds) {
       for (const categoryId of categoryIds) {
@@ -33,15 +41,20 @@ export class ProductsService {
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
-    return this.httpClient.get<HomeItemDto[]>(`${this.baseUrl}/categories`, {
-      params,
-    });
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<HomeItemDto>>(
+      `${this.baseUrl}/categories`,
+      {
+        params,
+      }
+    );
   }
 
   GetItemsBySubCategories(
     subCategoryIds: string[],
+    page: number = 1,
     orderBy?: string
-  ): Observable<HomeItemDto[]> {
+  ): Observable<PageDto<HomeItemDto>> {
     let params = new HttpParams();
     if (subCategoryIds) {
       for (const categoryId of subCategoryIds) {
@@ -51,8 +64,13 @@ export class ProductsService {
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
-    return this.httpClient.get<HomeItemDto[]>(`${this.baseUrl}/subcategories`, {
-      params,
-    });
+    params = params.set('page', page);
+
+    return this.httpClient.get<PageDto<HomeItemDto>>(
+      `${this.baseUrl}/subcategories`,
+      {
+        params,
+      }
+    );
   }
 }
