@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observer, take } from 'rxjs';
 import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 import { PageDto } from 'src/app/Dtos/PageDto';
 import { ProductsService } from 'src/app/Services/Products/products.service';
 import { FilterService } from 'src/app/Services/Filter/filter.service';
-
+import { OrderByStrings } from "src/app/Dtos/OrderByStrings";
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
     private readonly filterService: FilterService
   ) {}
 
+  orderByString = OrderByStrings;
   Products: HomeItemDto[] = [];
   orderBy: string = '';
   categoryIds: string[] = [];

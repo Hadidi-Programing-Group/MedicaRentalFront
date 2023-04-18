@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
+import {ListItemDto} from "../../Dtos/ListItemDto";
 import { PageDto } from 'src/app/Dtos/PageDto';
 import { environment } from 'src/environments/environment';
 
@@ -62,5 +63,17 @@ export class ProductsService {
     orderBy?: string
   ): Observable<PageDto<HomeItemDto>> {
     return this.getItems('subcategories', subCategoryIds, page, orderBy);
+  }
+
+  GetListItems(page: number, orderBy?: string): Observable<PageDto<ListItemDto>> {
+    let params = new HttpParams();
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
+    }
+
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<ListItemDto>>(`${this.baseUrl}/listed`, {
+      params,
+    });
   }
 }
