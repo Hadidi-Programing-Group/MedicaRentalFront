@@ -10,7 +10,8 @@ import {ListItemDto} from '../../../Dtos/ListItemDto';
 })
 export class ListedItemsComponent implements OnInit {
   listedItems: ListItemDto[] = [];
-  totalCount: number = 0;
+  pagesCount: number = 0;
+  currentPage: number = 1;
   orderBy: string = OrderByStrings.DateCreatedDesc
   @ViewChild('dateDesc') tmp: any;
 
@@ -25,13 +26,18 @@ export class ListedItemsComponent implements OnInit {
 
   onOrderByChange(orderBy: OrderByStrings) {
     this.getListedItems(orderBy);
-    this.orderBy = orderBy
+    this.orderBy = orderBy;
+  }
+
+  onPageChanged(page: number) {
+    this.currentPage = page;
+    this.getListedItems(this.orderBy);
   }
 
   getListedItems(orderBy?: string) {
     this.ProductsService
       .GetListItems(
-        1,
+        this.currentPage,
         orderBy ? orderBy : OrderByStrings.DateCreatedDesc.toString()
       )
       .subscribe
@@ -39,7 +45,7 @@ export class ListedItemsComponent implements OnInit {
         {
           next: (data) => {
             this.listedItems = data.data;
-            this.totalCount = data.count
+            this.pagesCount = Math.ceil(data.count/12)
           },
           error: (err) => console.log(err)
         }

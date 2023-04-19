@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row" id="sort-ribbon">
+  <div class="row">
     <div class="d-flex justify-content-center my-4">
       <div class="btn-group col-sm-7 col-md-9">
         <button (click)="onOrderByChange(OrderByStrings.DateCreatedDesc)" type="button"
@@ -65,4 +65,12 @@
     </tr>
     </tbody>
   </table>
+
+  <div class="row">
+    <div class="d-flex justify-content-center my-4">
+      <app-pagination [currentPage]="currentPage" [totalPages]="pagesCount"
+                      (pageChanged)="onPageChanged($event)">
+      </app-pagination>
+    </div>
+  </div>
 </div>
