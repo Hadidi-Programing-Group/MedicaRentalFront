@@ -1,0 +1,19 @@
+/*region stars*/
+.star-rating {
+  font-size: 2rem;
+}
+
+.star {
+  color: #ddd;
+  cursor: pointer;
+}
+
+.filled {
+  color: #ffbf00;
+}
+/*endregion*/
+
+th{
+  position: sticky;
+  top: 3.8em;
+}
