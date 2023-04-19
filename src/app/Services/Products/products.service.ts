@@ -81,17 +81,42 @@ export class ProductsService {
     });
   }
 
-  GetListItems(
+  GetListedItems(
     page: number,
-    orderBy?: string
+    orderBy?: string,
+    searchText?: string,
   ): Observable<PageDto<ListItemDto>> {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
 
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+
     params = params.set('page', page);
     return this.httpClient.get<PageDto<ListItemDto>>(`${this.baseUrl}/listed`, {
+      params,
+    });
+  }
+
+  GetUnListedItems(
+    page: number,
+    orderBy?: string,
+    searchText?: string,
+  ): Observable<PageDto<ListItemDto>> {
+    let params = new HttpParams();
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
+    }
+
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<ListItemDto>>(`${this.baseUrl}/unlisted`, {
       params,
     });
   }
