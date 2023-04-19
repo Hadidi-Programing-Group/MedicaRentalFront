@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HomeItemDto } from '../../Dtos/HomeItemDto';
 import { RentOperationDto } from '../../Dtos/RentOperation/RentOperationDto';
+import {PageDto} from "../../Dtos/PageDto";
 
 @Injectable({
   providedIn: 'root',
@@ -12,54 +13,70 @@ export class RentOperationsService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  GetOnRentItems(userId: string, page: number, orderBy?: string) {
+  GetOnRentItems(page: number, orderBy?: string, searchText?: string) {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
 
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+
     params = params.set('page', page);
-    return this.httpClient.get<RentOperationDto[]>(
-      `${this.baseUrl}/OnRent/${userId}`,
+    return this.httpClient.get<PageDto<RentOperationDto>>(
+      `${this.baseUrl}/OnRent`,
       { params }
     );
   }
 
-  GetOnRentItemsHistory(userId: string, page: number, orderBy?: string) {
+  GetOnRentItemsHistory(page: number, orderBy?: string, searchText?: string) {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
 
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+
     params = params.set('page', page);
-    return this.httpClient.get<RentOperationDto[]>(
-      `${this.baseUrl}/OnRent/History/${userId}`,
+    return this.httpClient.get<PageDto<RentOperationDto>>(
+      `${this.baseUrl}/OnRent/History`,
       { params }
     );
   }
 
-  GetRentedItems(userId: string, page: number, orderBy?: string) {
+  GetRentedItems(page: number, orderBy?: string, searchText?: string) {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
 
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+
     params = params.set('page', page);
-    return this.httpClient.get<RentOperationDto[]>(
-      `${this.baseUrl}/Rented/${userId}`,
+    return this.httpClient.get<PageDto<RentOperationDto>>(
+      `${this.baseUrl}/Rented`,
       { params }
     );
   }
 
-  GetRentedItemsHistory(userId: string, page: number, orderBy?: string) {
+  GetRentedItemsHistory(page: number, orderBy?: string, searchText?: string) {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
     }
 
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+
     params = params.set('page', page);
-    return this.httpClient.get<RentOperationDto[]>(
-      `${this.baseUrl}/Rented/History/${userId}`,
+    return this.httpClient.get<PageDto<RentOperationDto>>(
+      `${this.baseUrl}/Rented/History`,
       { params }
     );
   }
