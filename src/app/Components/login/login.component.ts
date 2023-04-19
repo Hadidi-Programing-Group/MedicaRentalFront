@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
         next: (data: any) => {
           localStorage.setItem('authToken', data['token']);
           localStorage.setItem('authTokenExpDate', data['expiry']);
+          this.loginservies.isAuthenticatedChanged.emit(true);
           this.router.navigate(['/']);
         },
         error: (err) => {

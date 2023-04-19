@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommunicationService } from 'src/app/Services/Communication/communication.service';
 import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
 import { FilterService } from 'src/app/Services/Filter/filter.service';
+import { LoginService } from 'src/app/Services/Login/login.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -12,10 +13,15 @@ export class NavbarComponent implements OnInit {
   constructor(
     private NavBarService: CommunicationService,
     private router: Router,
-    private readonly filterService: FilterService
+    private readonly filterService: FilterService,
+    private readonly loginService: LoginService
   ) {}
   ngOnInit(): void {
-    this.isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    this.loginService.isAuthenticatedChanged.subscribe({
+      next: (data: boolean) => {
+        this.isAuthenticated = data;
+      },
+    });
   }
   ShowRegistrationForm() {
     this.NavBarService.toggleVisibility();
@@ -25,6 +31,8 @@ export class NavbarComponent implements OnInit {
   LogOut() {
     localStorage.setItem('authToken', '');
     localStorage.setItem('authTokenExpDate', '');
+    localStorage.setItem('isAuthenticated', '');
+    this.loginService.isAuthenticatedChanged.emit(false);
   }
 
   private OrderByStrings = OrderByStrings;
