@@ -32,14 +32,13 @@ export class AuthInterceptor implements HttpInterceptor {
       if (authTokenExpiry) {
         if (new Date() > new Date(authTokenExpiry)) {
           console.log('Expired');
-          // should implement refresh token here
+          // redirect to login
           return next.handle(req);
         }
       }
       const authReq = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${authToken}`),
       });
-      console.log(authReq);
       return next.handle(authReq);
     }
 
