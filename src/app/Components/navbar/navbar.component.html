@@ -79,15 +79,16 @@
           >
         </li>
       </ul>
-      <form class="d-flex">
+      <div class="d-flex">
         <input
           class="form-control me-2"
           type="search"
           placeholder="Search"
           aria-label="Search"
+          [(ngModel)]="searchText"
         />
-        <button class="btn btn-outline-dark" type="submit">Search</button>
-      </form>
+        <button (click)="searchProduct()" class="btn btn-outline-dark">Search</button>
+      </div>
     </div>
   </div>
 </nav>

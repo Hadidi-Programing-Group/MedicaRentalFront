@@ -13,7 +13,6 @@ export class AddsComponent implements OnInit {
   ngOnInit(): void {
     this.ProductsService.GetAllItems().subscribe({
       next: (data) => {
-        //console.log(data)
         this.Products = data;
       },
       error: (err) => {

@@ -11,16 +11,16 @@ import { LoginService } from 'src/app/Services/Login/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup; 
+  loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private loginservies: LoginService, private router:Router) 
+  constructor(private fb: FormBuilder,private loginservies: LoginService, private router:Router)
   {
     this.loginForm = this.fb.group({
       email: [
         '',
       [
         Validators.required,
-       
+
       ],
     ],
       password: ['', Validators.required]
@@ -30,19 +30,15 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    console.log(this.loginForm.valid);
    if(this.loginForm.valid){
     const userData=this.loginForm.value;
     const DataToBeSent = {
       email: userData.email ,
       password: userData.password
     };
-    console.log(DataToBeSent);
     this.loginservies.LoginUser(DataToBeSent).subscribe(
-      (res: any) => { 
-        const token = res.token; 
-        console.log(res);
-        console.log('Token:', token); 
+      (res: any) => {
+        const token = res.token;
     },
     (error)=>{
       console.log(error.error);
