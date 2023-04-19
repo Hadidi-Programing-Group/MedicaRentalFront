@@ -147,7 +147,7 @@ export class ProductsComponent implements OnInit {
 
     // Update query params with categoryId parameter
     this.router.navigate([], {
-      queryParams: { categoryId: this.categoryIds, page: 1 },
+      queryParams: { searchText: null, categoryId: this.categoryIds, page: 1 },
       queryParamsHandling: 'merge',
     });
     this.fetchProducts();
@@ -176,7 +176,11 @@ export class ProductsComponent implements OnInit {
 
     // Update query params with categoryId parameter
     this.router.navigate([], {
-      queryParams: { subCategoryId: this.subCategoryIds, page: 1 },
+      queryParams: {
+        searchText: null,
+        subCategoryId: this.subCategoryIds,
+        page: 1,
+      },
       queryParamsHandling: 'merge',
     });
     this.fetchProducts();
