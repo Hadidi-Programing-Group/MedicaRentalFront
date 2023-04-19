@@ -32,10 +32,13 @@ export class AuthInterceptor implements HttpInterceptor {
       if (authTokenExpiry) {
         if (new Date() > new Date(authTokenExpiry)) {
           console.log('Expired');
+          localStorage.setItem('isAuthenticated', 'false');
+
           // redirect to login
           return next.handle(req);
         }
       }
+      localStorage.setItem('isAuthenticated', 'true');
       const authReq = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${authToken}`),
       });

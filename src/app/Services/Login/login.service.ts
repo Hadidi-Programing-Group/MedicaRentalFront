@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -10,6 +10,11 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   constructor(private client: HttpClient) { }
+
+  isAuthenticatedChanged = new EventEmitter<boolean>();
+
+  isAuthenticated = false;
+
   public ErrorMsg: any;
   private readonly URL = `${environment.apiURL}/Login`; //API
   LoginUser(UserData: any) {
