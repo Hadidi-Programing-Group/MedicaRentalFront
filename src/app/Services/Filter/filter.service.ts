@@ -6,11 +6,19 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class FilterService {
   private selectedCategories: string[] = [];
   private selectedSubcategories: string[] = [];
+  private searchText: string = '';
 
   // Event emitter for filter reset
   filterReset = new EventEmitter<void>();
   updateCategoriesSelected = new EventEmitter<string[]>();
   updateSubCategoriesSelected = new EventEmitter<string[]>();
+  updateSearchQuery = new EventEmitter<string>();
+
+  updateSearchText(searchText: string): void {
+    (searchText);
+    this.searchText = searchText;
+    this.updateSearchQuery.emit(this.searchText);
+  }
 
   // Get selected categories
   getSelectedCategories(): string[] {

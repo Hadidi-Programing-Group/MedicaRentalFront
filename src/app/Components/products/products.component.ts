@@ -1,11 +1,11 @@
-import {  Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observer, take } from 'rxjs';
 import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 import { PageDto } from 'src/app/Dtos/PageDto';
 import { ProductsService } from 'src/app/Services/Products/products.service';
 import { FilterService } from 'src/app/Services/Filter/filter.service';
-import { OrderByStrings } from "src/app/Dtos/OrderByStrings";
+import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -24,6 +24,7 @@ export class ProductsComponent implements OnInit {
   orderBy: string = '';
   categoryIds: string[] = [];
   subCategoryIds: string[] = [];
+  searchText: string = '';
 
   pagination = 1;
   limit = 12;
@@ -32,6 +33,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.pagination = params['page'] ?? 1;
+      this.searchText = params['searchText'] ?? '';
 
       // Get orderBy and categoryId parameters from query params
       this.orderBy = params['orderBy'] || '';
@@ -54,9 +56,15 @@ export class ProductsComponent implements OnInit {
       this.fetchProducts();
     });
 
+    this.filterService.updateSearchQuery.subscribe({
+      next: (data: string) => {
+        this.pagination = 1;
+        this.onSearchQuery(data);
+      },
+    });
+
     this.filterService.updateCategoriesSelected.subscribe({
       next: (data: string[]) => {
-        console.log(data);
         this.onSelectCategories(data);
       },
     });
@@ -69,7 +77,9 @@ export class ProductsComponent implements OnInit {
   }
 
   fetchProducts(): void {
-    if (this.subCategoryIds && this.subCategoryIds.length > 0) {
+    if (this.searchText && this.searchText !== '') {
+      this.fetchAllProductsBySearch();
+    } else if (this.subCategoryIds && this.subCategoryIds.length > 0) {
       this.fetchItemsBySubCategories();
     } else if (this.categoryIds && this.categoryIds.length > 0) {
       this.fetchItemsByCategories();
@@ -86,6 +96,15 @@ export class ProductsComponent implements OnInit {
     },
     error: (err) => console.log(err),
   };
+
+  fetchAllProductsBySearch(): void {
+    // Call HomeItemService method to fetch products based on orderBy parameter
+    this.ProductsService.GetItemsBySearch(
+      this.searchText,
+      this.pagination,
+      this.orderBy
+    ).subscribe(this.successObjCall);
+  }
 
   fetchAllProductsWithoutFilter(): void {
     // Call HomeItemService method to fetch products based on orderBy parameter
@@ -124,11 +143,26 @@ export class ProductsComponent implements OnInit {
     // Update categoryId with the selected category IDs
     this.categoryIds = selectedCategoryIds;
     this.pagination = 1;
+    this.searchText = '';
 
-    console.log('Update Called', this.categoryIds);
     // Update query params with categoryId parameter
     this.router.navigate([], {
-      queryParams: { categoryId: this.categoryIds, page: 1 },
+      queryParams: { searchText: null, categoryId: this.categoryIds, page: 1 },
+      queryParamsHandling: 'merge',
+    });
+    this.fetchProducts();
+  }
+
+  onSearchQuery(searchText: string) {
+    // Update categoryId with the selected category IDs
+    this.searchText = searchText;
+    this.router.navigate(['/products'], {
+      queryParams: {
+        categoryId: null,
+        subCategoryId: null,
+        searchText: this.searchText,
+        page: this.pagination,
+      },
       queryParamsHandling: 'merge',
     });
     this.fetchProducts();
@@ -138,10 +172,15 @@ export class ProductsComponent implements OnInit {
     // Update categoryId with the selected category IDs
     this.subCategoryIds = selectedSubCategoryIds;
     this.pagination = 1;
+    this.searchText = '';
 
     // Update query params with categoryId parameter
     this.router.navigate([], {
-      queryParams: { subCategoryId: this.subCategoryIds, page: 1 },
+      queryParams: {
+        searchText: null,
+        subCategoryId: this.subCategoryIds,
+        page: 1,
+      },
       queryParamsHandling: 'merge',
     });
     this.fetchProducts();

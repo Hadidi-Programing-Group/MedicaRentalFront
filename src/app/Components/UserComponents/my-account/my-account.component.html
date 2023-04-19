@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="row" id="main-row">
-    <div class="col-md-3 col-lg-2 pt-5 bg-dark" id="my-account-navbar">
+    <div class="col-12 py-4 bg-white" id="user-navbar">
       <app-my-account-navbar
         (componentUpdater)="updateComponent($event)"
       ></app-my-account-navbar>
     </div>
-    <div class="col-md-9 col-lg-10">
+    <div class="col-12">
       <app-profile *ngIf="selected == 'profile'"></app-profile>
       <app-listed-items *ngIf="selected == 'listed'"></app-listed-items>
       <app-unlisted-items *ngIf="selected == 'unlisted'"></app-unlisted-items>
