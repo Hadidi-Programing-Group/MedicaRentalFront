@@ -1,0 +1,9 @@
+.carousel.carousel-dark,
+.carousel.carousel-dark .carousel-inner,
+.carousel.carousel-dark .carousel-inner .carousel-item {
+  height: 100%;
+}
+.carousel.carousel-dark .carousel-inner img {
+  object-fit:fill;
+  height: 100%;
+}
