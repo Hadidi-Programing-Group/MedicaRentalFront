@@ -36,14 +36,18 @@ export class LoginComponent implements OnInit {
       email: userData.email ,
       password: userData.password
     };
-    this.loginservies.LoginUser(DataToBeSent).subscribe(
-      (res: any) => {
-        const token = res.token;
-    },
-    (error)=>{
-      console.log(error.error);
+    this.loginservies.LoginUser(DataToBeSent).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        localStorage.setItem("authToken", data["token"]);
+        localStorage.setItem('authTokenExpDate', data["expiry"]);
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.log(err);
+      }
     });
-    this.router.navigate(['/']);
+
    }
   }
 }

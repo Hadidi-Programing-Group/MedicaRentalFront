@@ -13,7 +13,7 @@ export class AvailableComponent implements OnInit {
   ngOnInit(): void {
     this.ProductsService.GetAllItems().subscribe({
       next: (data) => {
-        this.Products = data;
+        this.Products = data["data"];
       },
       error: (err) => {
         console.log(err);
