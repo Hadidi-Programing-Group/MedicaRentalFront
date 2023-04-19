@@ -32,6 +32,7 @@ export class NavbarComponent implements OnInit {
     localStorage.setItem('authToken', '');
     localStorage.setItem('authTokenExpDate', '');
     localStorage.setItem('isAuthenticated', '');
+    this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
   }
 
