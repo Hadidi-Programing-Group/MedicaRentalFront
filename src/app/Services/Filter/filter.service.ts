@@ -15,7 +15,7 @@ export class FilterService {
   updateSearchQuery = new EventEmitter<string>();
 
   updateSearchText(searchText: string): void {
-    console.log(searchText);
+    (searchText);
     this.searchText = searchText;
     this.updateSearchQuery.emit(this.searchText);
   }

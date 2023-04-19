@@ -30,7 +30,6 @@ export class ProductsService {
       }
     }
     if (orderBy) {
-      console.log(orderBy);
       params = params.set('orderBy', orderBy);
     }
     params = params.set('page', page);

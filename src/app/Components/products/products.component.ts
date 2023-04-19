@@ -31,7 +31,7 @@ export class ProductsComponent implements OnInit {
   TotalProducts: any;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.pagination = params['page'] ?? 1;
       this.searchText = params['searchText'] ?? '';
 
@@ -58,7 +58,7 @@ export class ProductsComponent implements OnInit {
 
     this.filterService.updateSearchQuery.subscribe({
       next: (data: string) => {
-        console.log(data);
+        this.pagination = 1;
         this.onSearchQuery(data);
       },
     });
@@ -145,7 +145,6 @@ export class ProductsComponent implements OnInit {
     this.pagination = 1;
     this.searchText = '';
 
-    console.log('Update Called', this.categoryIds);
     // Update query params with categoryId parameter
     this.router.navigate([], {
       queryParams: { categoryId: this.categoryIds, page: 1 },
