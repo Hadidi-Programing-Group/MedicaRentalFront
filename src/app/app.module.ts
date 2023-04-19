@@ -32,6 +32,7 @@ import { OnRentItemsHistoryComponent } from './Components/UserComponents/on-rent
 import { UnlistedItemsComponent } from './Components/UserComponents/unlisted-items/unlisted-items.component';
 import { ProfileComponent } from './Components/UserComponents/profile/profile.component';
 import { MyAccountNavbarComponent } from './Components/UserComponents/my-account-navbar/my-account-navbar.component';
+import {PaginationComponent} from "./Components/pagination/pagination.component";
 
 @NgModule({
 
@@ -60,6 +61,7 @@ import { MyAccountNavbarComponent } from './Components/UserComponents/my-account
     UnlistedItemsComponent,
     ProfileComponent,
     MyAccountNavbarComponent,
+    PaginationComponent,
   ],
 
   imports: [
