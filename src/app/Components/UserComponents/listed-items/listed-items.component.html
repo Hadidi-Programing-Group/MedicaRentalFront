@@ -1,16 +1,36 @@
 <div class="container-fluid">
   <div class="row" id="sort-ribbon">
-    <div class="d-none d-md-flex col-md-12 d-flex justify-content-center my-4">
-      <div class="btn-group col-9">
-        <button #dateDesc (click)="orderBy($event, OrderByStrings.DateCreatedDesc)" type="button" class="btn active btn-light">Date Created &#x2193;</button>
-        <button (click)="orderBy($event, OrderByStrings.DateCreatedAsc)" type="button" class="btn btn-outline-light">Date Created &#x2191;</button>
-        <button (click)="orderBy($event, OrderByStrings.RateDesc)" type="button" class="btn btn-outline-light">Rate &#x2193;</button>
-        <button (click)="orderBy($event, OrderByStrings.RateAsc)" type="button" class="btn btn-outline-light">Rate &#x2191;</button>
-        <button (click)="orderBy($event, OrderByStrings.PriceDesc)" type="button" class="btn btn-outline-light">Price &#x2193;</button>
-        <button (click)="orderBy($event, OrderByStrings.PriceAsc)" type="button" class="btn btn-outline-light">Price &#x2191;</button>
+    <div class="d-flex justify-content-center my-4">
+      <div class="btn-group col-sm-7 col-md-9">
+        <button (click)="onOrderByChange(OrderByStrings.DateCreatedDesc)" type="button"
+                [ngClass]="('btn ' + (orderBy == OrderByStrings.DateCreatedDesc? 'btn-light active' : 'btn-outline-light'))">
+          Date Created &#x2193;
+        </button>
+        <button (click)="onOrderByChange(OrderByStrings.DateCreatedAsc)" type="button"
+                [ngClass]="('btn ' + (orderBy == OrderByStrings.DateCreatedAsc? 'btn-light active' : 'btn-outline-light'))">
+          Date Created &#x2191;
+        </button>
+        <button (click)="onOrderByChange(OrderByStrings.RateDesc)" type="button"
+                [ngClass]="('btn ' + (orderBy == OrderByStrings.RateDesc? 'btn-light active' : 'btn-outline-light'))">
+          Rate &#x2193;
+        </button>
+        <button (click)="onOrderByChange(OrderByStrings.RateAsc)" type="button"
+                [ngClass]="('btn ' + (orderBy == OrderByStrings.RateAsc? 'btn-light active' : 'btn-outline-light'))">
+          Rate
+          &#x2191;
+        </button>
+        <button (click)="onOrderByChange(OrderByStrings.PriceDesc)" type="button"
+                [ngClass]="('btn ' + (orderBy == OrderByStrings.PriceDesc? 'btn-light active' : 'btn-outline-light'))">
+          Price &#x2193;
+        </button>
+        <button (click)="onOrderByChange(OrderByStrings.PriceAsc)" type="button"
+                [ngClass]="('btn ' + (orderBy == OrderByStrings.PriceAsc? 'btn-light active' : 'btn-outline-light'))">
+          Price &#x2191;
+        </button>
       </div>
     </div>
   </div>
+
 
   <table class="table table-borderless table-striped table-dark">
     <thead>

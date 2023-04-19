@@ -11,7 +11,7 @@ import {ListItemDto} from '../../../Dtos/ListItemDto';
 export class ListedItemsComponent implements OnInit {
   listedItems: ListItemDto[] = [];
   totalCount: number = 0;
-  currentOrder: any
+  orderBy: string = OrderByStrings.DateCreatedDesc
   @ViewChild('dateDesc') tmp: any;
 
   constructor(private readonly ProductsService: ProductsService) {
@@ -23,25 +23,9 @@ export class ListedItemsComponent implements OnInit {
 
   protected readonly OrderByStrings = OrderByStrings;
 
-  orderBy(event: any, orderBy: OrderByStrings) {
+  onOrderByChange(orderBy: OrderByStrings) {
     this.getListedItems(orderBy);
-
-    if (this.currentOrder) {
-      this.currentOrder.classList.remove('active');
-      this.currentOrder.classList.remove('btn-light');
-      this.currentOrder.classList.add('btn-outline-light');
-    } else {
-
-      this.tmp.nativeElement.classList.remove('active');
-      this.tmp.nativeElement.classList.remove('btn-light');
-      this.tmp.nativeElement.classList.add('btn-outline-light');
-
-    }
-
-    this.currentOrder = event.target;
-    this.currentOrder.classList.add('active');
-    this.currentOrder.classList.add('btn-outline-light');
-
+    this.orderBy = orderBy
   }
 
   getListedItems(orderBy?: string) {

@@ -6,17 +6,11 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
   styleUrls: ['./my-account-navbar.component.css'],
 })
 export class MyAccountNavbarComponent {
+  selected: string = 'profile'
   @Output() componentUpdater = new EventEmitter();
-  @ViewChild('profile') activeLink: any;
 
-  notifyChange(event: any, view: string) {
-    if (this.activeLink.nativeElement) {
-      this.activeLink.nativeElement.classList.remove('active');
-    } else {
-      this.activeLink.classList.remove('active');
-    }
-    this.activeLink = event.target;
-    this.activeLink.classList.add('active');
+  notifyChange(view: string) {
+    this.selected = view
     this.componentUpdater.emit(view);
   }
 }
