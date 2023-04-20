@@ -8,7 +8,7 @@ import {OrderByStrings} from "../../../../Dtos/OrderByStrings";
   ]
 })
 export class RentOrderByComponent {
-  orderBy: string = OrderByStrings.DateCreatedDesc
+  orderBy: string = OrderByStrings.RentDateDesc
   @Output() orderByEvent = new EventEmitter()
   protected readonly OrderByStrings = OrderByStrings;
 

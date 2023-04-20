@@ -8,12 +8,12 @@ import {RentOperationsService} from "../../../Services/RentOperations/rent-opera
   templateUrl: './on-rent-items.component.html',
   styleUrls: ['./on-rent-items.component.css'],
 })
-export class OnRentItemsComponent  implements OnInit {
-  rentOperations: RentOperationDto[]|undefined = undefined;
+export class OnRentItemsComponent implements OnInit {
+  rentOperations: RentOperationDto[] | undefined = undefined;
   pagesCount: number = 0;
   currentPage: number = 1;
-  orderBy: string = OrderByStrings.DateCreatedDesc
-  searchText: string | undefined = undefined
+  orderBy: string = OrderByStrings.RentDateDesc
+  searchText: string | null = null
 
   constructor(private readonly RentOperationsService: RentOperationsService) {
   }
@@ -25,37 +25,42 @@ export class OnRentItemsComponent  implements OnInit {
   protected readonly OrderByStrings = OrderByStrings;
 
   onOrderByChange(orderBy: OrderByStrings) {
-    this.getListedItems(orderBy, this.searchText);
+    this.getListedItems();
     this.orderBy = orderBy;
   }
 
   onPageChanged(page: number) {
     this.currentPage = page;
-    this.getListedItems(this.orderBy, this.searchText);
+    this.getListedItems();
   }
 
   onSearchClick(searchText: string) {
     this.searchText = searchText
-    this.getListedItems(this.orderBy, searchText);
+    this.getListedItems();
   }
 
-  getListedItems(orderBy?: string, searchText?: string) {
+  getListedItems() {
     this.RentOperationsService
       .GetOnRentItems(
         this.currentPage,
-        orderBy ? orderBy : OrderByStrings.DateCreatedDesc.toString(),
-        searchText
+        this.orderBy,
+        this.searchText
       )
       .subscribe
       (
         {
           next: (data) => {
             this.rentOperations = data.data;
-            this.pagesCount = Math.ceil(data.count/12)
+            this.pagesCount = Math.ceil(data.count / 12)
+            console.log(typeof data.data[0].returnDate)
           },
           error: (err) => console.log(err)
         }
       );
+  }
+
+  getDate(date: Date) {
+    return new Date(date).toLocaleDateString('en-US');
   }
 }
 
