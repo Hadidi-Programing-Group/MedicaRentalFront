@@ -1,32 +1,30 @@
 <div class="container-fluid">
 
-  <app-search (searchEvent)="onSearchClick($event)" ></app-search>
+  <app-search (searchEvent)="onSearchClick($event)"></app-search>
 
   <app-rent-order-by (orderByEvent)="onOrderByChange($event)"></app-rent-order-by>
 
   <div class="row" *ngIf="rentOperations && rentOperations.length > 0">
-    <div class="row">
-      <table class="table table-borderless table-striped table-dark">
-        <thead>
-        <tr>
-          <th class="bg-dark text-light col-3">Item Name</th>
-          <th class="bg-dark text-light col-1">Price</th>
-          <th class="bg-dark text-light col-2">Owner</th>
-          <th class="bg-dark text-light col-3">Rent Date</th>
-          <th class="bg-dark text-light col-3">Return Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let operation of rentOperations">
-          <td><a href="items/{{operation.itemId}}}">{{operation.itemName}}</a></td>
-          <td>{{ operation.price }}</td>
-          <td><a href="users/{{operation.userId}}}">{{operation.userName}}</a></td>
-          <td>{{ operation.rentDate }}</td>
-          <td>{{ operation.returnDate }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="table table-borderless table-striped table-dark">
+      <thead>
+      <tr>
+        <th class="bg-dark text-light col-3">Item Name</th>
+        <th class="bg-dark text-light col-1">Price</th>
+        <th class="bg-dark text-light col-2">Owner</th>
+        <th class="bg-dark text-light col-3">Rent Date</th>
+        <th class="bg-dark text-light col-3">Return Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let operation of rentOperations">
+        <td><a href="items/{{operation.itemId}}}">{{operation.itemName}}</a></td>
+        <td>{{ operation.price }}</td>
+        <td><a href="users/{{operation.userId}}}">{{operation.userName}}</a></td>
+        <td>{{ getDate(operation.rentDate) }}</td>
+        <td>{{ getDate(operation.returnDate) }}</td>
+      </tr>
+      </tbody>
+    </table>
 
     <div class="row">
       <div class="d-flex justify-content-center my-4">
@@ -37,5 +35,6 @@
     </div>
   </div>
 
-  <p *ngIf="rentOperations && rentOperations.length == 0" class="bg-danger text-center text-dark h1 p-4 mt-5 rounded">Oops no results!</p>
+  <p *ngIf="rentOperations && rentOperations.length == 0" class="bg-danger text-center text-dark h1 p-4 mt-5 rounded">
+    Oops no results!</p>
 </div>
