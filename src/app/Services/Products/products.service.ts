@@ -102,6 +102,10 @@ export class ProductsService {
     });
   }
 
+  GetItemByIdForRenter(id:string)
+  {
+    return this.httpClient.get(this.baseUrl+'/forrenter/'+id);
+
   GetUnListedItems(
     page: number,
     orderBy?: string,
@@ -135,5 +139,6 @@ export class ProductsService {
     params = params.set('id', itemId);
     console.log(itemId)
     return this.httpClient.delete<StatusDto>(`${this.baseUrl}/one`, {params,});
+
   }
 }
