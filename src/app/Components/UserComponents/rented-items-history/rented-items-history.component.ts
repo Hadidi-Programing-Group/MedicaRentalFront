@@ -59,9 +59,6 @@ export class RentedItemsHistoryComponent implements OnInit {
       );
   }
 
-  protected readonly Date = Date;
-  protected readonly getLocaleDateFormat = getLocaleDateFormat;
-
   getDate(date: Date) {
     return new Date(date).toLocaleDateString('en-US');
   }
