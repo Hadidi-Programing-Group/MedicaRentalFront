@@ -5,13 +5,19 @@ import {
   HttpRequest,
   HttpEvent,
   HttpClient,
+  HttpResponse,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, map, switchMap, tap, throwError } from 'rxjs';
+import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly router: Router
+  ) {}
 
   requestNewToken(): Observable<{ token: string }> {
     // Replace the following URL with the endpoint in your ASP.NET Core backend that issues new tokens
@@ -34,7 +40,6 @@ export class AuthInterceptor implements HttpInterceptor {
           console.log('Expired');
           localStorage.setItem('isAuthenticated', 'false');
 
-          // redirect to login
           return next.handle(req);
         }
       }
@@ -46,5 +51,36 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return next.handle(req);
+  }
+}
+
+@Injectable()
+export class AuthResponseInterceptor implements HttpInterceptor {
+  constructor(private router: Router) {} // Inject Router module
+
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      tap((event) => {
+        if (event instanceof HttpResponse) {
+          // You can handle the response globally here
+          // For example, you can check the response status code, headers, etc.
+          // and perform actions accordingly
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        // You can handle HTTP errors globally here
+        // For example, you can check the error status code, headers, etc.
+        // and perform actions accordingly
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        } else if (error.status == 403) {
+          this.router.navigate(['/forbidden']);
+        }
+        return throwError(() => new Error('error'));
+      })
+    );
   }
 }
