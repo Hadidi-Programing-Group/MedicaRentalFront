@@ -222,4 +222,10 @@ export class ProductsComponent implements OnInit {
     });
     this.filterService.resetFilters();
   }
+  onItemClick(id: string) {
+    console.log(id)
+    let ItemDetailsUrl = 'itemdetails/renter/'+id;
+    this.router.navigate([ItemDetailsUrl]);
+  }
+
 }

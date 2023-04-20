@@ -1,4 +1,4 @@
-<div *ngIf="Item && image; else loadingBlock" class="container mt-5 mb-5 pt-0">
+<div *ngIf="Item && image; else loadingBlock" class="container mt-5 mb-5 pt-0 ms-5">
   <div class="card mt-0 pt-0">
     <div class="row g-0">
       <div class="col-md-6 border-end mt-0 pt-0">
@@ -115,11 +115,11 @@
       </div>
     </div>
   </div>
-</div>
-<h2 class="ms-5 ps-4 mb-0 pb-0">Item Reviews</h2>
-<div class="reviews">
-  <app-reviews [reviews]="Item.reviews"></app-reviews>
-</div>
+  <div class="reviews">
+    <h2 *ngIf="Item && image; else loadingBlock" class="ms-4 mb-0 pb-0">Item Reviews</h2>
+    <app-reviews [reviews]="Item.reviews"></app-reviews>
+  </div>
+
 
 <ng-template #loadingBlock>
   <div
