@@ -32,8 +32,8 @@
     <div class="col-12 col-md-9">
       <div class="container-fluid">
         <div class="row">
-          <app-product-card
-            [Product]="Product"
+          <app-product-card (itemClicked)="onItemClick($event)"
+            [product]="Product"
             *ngFor="
               let Product of Products
                 | paginate
