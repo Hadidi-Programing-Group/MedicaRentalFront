@@ -222,8 +222,4 @@ export class ProductsComponent implements OnInit {
     });
     this.filterService.resetFilters();
   }
-
-  onItemClick(id: string) {
-    console.log(id)
-  }
 }

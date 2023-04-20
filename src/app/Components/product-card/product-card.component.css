@@ -3,7 +3,7 @@
   overflow: hidden;
 }
 
-.ProductImageContainer > img {
+.ProductImageContainer img {
   object-fit: contain;
   width: 100%;
   height: 100%;
@@ -17,6 +17,10 @@
   white-space: break-word;
 }
 
+.ProductName a {
+  text-decoration-line: none;
+}
+
 .ProductPrice {
   font-weight: 1000;
   color: #339;
@@ -24,8 +28,4 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   line-height: 2rem;
   font-size: large;
-}
-
-.container{
-  cursor: pointer;
 }

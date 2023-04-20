@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-product-card',
@@ -7,9 +7,5 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class ProductCardComponent {
   @Input() product: any;
-  @Output() itemClicked = new EventEmitter()
-
-  goDetails(id: string) {
-    this.itemClicked.emit(id)
-  }
+  @Output() itemClicked = new EventEmitter();
 }
