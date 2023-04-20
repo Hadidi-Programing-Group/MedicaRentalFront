@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductsService} from 'src/app/Services/Products/products.service';
 import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {ListItemDto} from '../../../Dtos/ListItemDto';
@@ -9,11 +9,11 @@ import {ListItemDto} from '../../../Dtos/ListItemDto';
   styleUrls: ['./listed-items.component.css'],
 })
 export class ListedItemsComponent implements OnInit {
-  listedItems: ListItemDto[] = [];
+  listedItems: ListItemDto[]|undefined = undefined;
   pagesCount: number = 0;
   currentPage: number = 1;
   orderBy: string = OrderByStrings.DateCreatedDesc
-  @ViewChild('dateDesc') tmp: any;
+  searchText: string | undefined = undefined
 
   constructor(private readonly ProductsService: ProductsService) {
   }
@@ -25,20 +25,26 @@ export class ListedItemsComponent implements OnInit {
   protected readonly OrderByStrings = OrderByStrings;
 
   onOrderByChange(orderBy: OrderByStrings) {
-    this.getListedItems(orderBy);
+    this.getListedItems(orderBy, this.searchText);
     this.orderBy = orderBy;
   }
 
   onPageChanged(page: number) {
     this.currentPage = page;
-    this.getListedItems(this.orderBy);
+    this.getListedItems(this.orderBy, this.searchText);
   }
 
-  getListedItems(orderBy?: string) {
+  onSearchClick(searchText: string) {
+    this.searchText = searchText
+    this.getListedItems(this.orderBy, searchText);
+  }
+
+  getListedItems(orderBy?: string, searchText?: string) {
     this.ProductsService
-      .GetListItems(
+      .GetListedItems(
         this.currentPage,
-        orderBy ? orderBy : OrderByStrings.DateCreatedDesc.toString()
+        orderBy ? orderBy : OrderByStrings.DateCreatedDesc.toString(),
+        searchText
       )
       .subscribe
       (
@@ -50,5 +56,22 @@ export class ListedItemsComponent implements OnInit {
           error: (err) => console.log(err)
         }
       );
+  }
+
+  unListItem(id: string) {
+    this.ProductsService.UnListItem(id).subscribe
+    (
+      {
+        next: (data) => {
+          if(data.statusCode == 204){
+            this.getListedItems();
+          }
+          else{
+            console.log(data.statusMessage)
+          }
+        },
+        error: (err) => console.log(err)
+      }
+    );
   }
 }

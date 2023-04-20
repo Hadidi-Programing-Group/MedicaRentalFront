@@ -1,1 +1,40 @@
-<p>on-rent-items works!</p>
+<div class="container-fluid">
+
+  <app-search (searchEvent)="onSearchClick($event)"></app-search>
+
+  <app-rent-order-by (orderByEvent)="onOrderByChange($event)"></app-rent-order-by>
+
+  <div class="row" *ngIf="rentOperations && rentOperations.length > 0">
+    <table class="table table-striped table- table-hover">
+      <thead class="text-light">
+      <tr>
+        <th class="bg-secondary col-2">Item Name</th>
+        <th class="bg-secondary col-2">Price</th>
+        <th class="bg-secondary col-2">Renter</th>
+        <th class="bg-secondary col-3">Rent Date</th>
+        <th class="bg-secondary col-3">Return Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let operation of rentOperations">
+        <td><a href="items/{{operation.itemId}}}">{{operation.itemName}}</a></td>
+        <td>{{ operation.price|currency:"EGP":"E£" }}</td>
+        <td><a href="users/{{operation.userId}}}">{{operation.userName}}</a></td>
+        <td>{{ getDate(operation.rentDate) }}</td>
+        <td>{{ getDate(operation.returnDate) }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="d-flex justify-content-center my-4">
+        <app-pagination [currentPage]="currentPage" [totalPages]="pagesCount"
+                        (pageChanged)="onPageChanged($event)">
+        </app-pagination>
+      </div>
+    </div>
+  </div>
+
+  <p *ngIf="rentOperations && rentOperations.length == 0" class="bg-danger text-center text-dark h1 p-4 mt-5 rounded">
+    Oops no results!</p>
+</div>

@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
     private readonly filterService: FilterService
   ) {}
 
+  protected readonly Math = Math;
   orderByString = OrderByStrings;
   Products: HomeItemDto[] = [];
   orderBy: string = '';

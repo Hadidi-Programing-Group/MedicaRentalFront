@@ -7,7 +7,7 @@
       role="button"
       aria-controls="offcanvasExample"
     >
-    <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
     </a>
 
     <button
@@ -37,29 +37,27 @@
             class="nav-link"
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
-            routerLink="/MyProfile"
+            routerLink="/products"
+            >Products</a
+          >
+        </li>
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/user/myaccount"
             >My Profile</a
           >
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
-            routerLink="/Support"
-            >Support</a
-          >
+
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <button class="nav-link btn btn-outline-danger" (click)="LogOut()">
+            Log out
+          </button>
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
-            routerLink="/Cart"
-            >Cart</a
-          >
-        </li>
-        <li class="nav-item">
+
+        <li *ngIf="!isAuthenticated" class="nav-item">
           <a
             class="nav-link"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -68,7 +66,7 @@
             >Login</a
           >
         </li>
-        <li class="nav-item">
+        <li *ngIf="!isAuthenticated" class="nav-item">
           <a
             class="nav-link"
             style="cursor: pointer"
@@ -85,7 +83,9 @@
           aria-label="Search"
           [(ngModel)]="searchText"
         />
-        <button (click)="searchProduct()" class="btn btn-outline-dark">Search</button>
+        <button (click)="searchProduct()" class="btn btn-outline-dark">
+          Search
+        </button>
       </div>
     </div>
   </div>

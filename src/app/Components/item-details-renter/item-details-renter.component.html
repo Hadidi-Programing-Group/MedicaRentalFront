@@ -1,0 +1,109 @@
+<div *ngIf="Item && image; else loadingBlock" class="container mt-5 mb-5 pt-0">
+  <div class="card mt-0 pt-0">
+    <div class="row g-0">
+      <div class="col-md-6 border-end mt-0 pt-0">
+        <div class="d-flex flex-column justify-content-center mt-0 pt-0">
+          <div class="main_image"><img [src]="image" id="main_product_image" width="350" /></div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-0 pb-0">
+        <div class="p-3 right-side mt-4 mb-0 pb-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>{{Item.name}}</h2>
+            <span class="heart"><i class="bx bx-heart"></i></span>
+          </div>
+          <div class="mt-2 pr-3 content">
+            <p>{{Item.description}}</p>
+          </div>
+          <h2>Price: {{Item.price}}EGP</h2>
+          <div class="ratings d-flex flex-row align-items-center">
+            <div class="d-flex flex-row"><i *ngFor="let star of RatingStars" class="bx bxs-star"></i>
+              <i *ngFor="let star of RestOfStars" class="bx bx-star"></i>
+            </div>
+            <span>{{Item.reviews.length}} Reviews</span>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              class="btn btn-outline-secondary Rate">Rate</button>
+          </div>
+          <div class="mt-5">
+            <p class="fw-bold">Model: <span class="fw-normal">{{Item.model}}</span></p>
+            <p class="fw-bold">Category: <span class="fw-normal">{{Item.category.name}}</span></p>
+            <p class="fw-bold">Brand: <span class="fw-normal">{{Item.brand.name}}</span></p>
+            <p class="fw-bold">Country of origin: <span class="fw-normal">{{Item.brand.countryOfOrigin}}</span></p>
+
+          </div>
+          <div class="buttons d-flex flex-row mt-5 gap-3"> <button class="btn btn-dark">Contact
+              Owner</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Your Rating</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="rating-box m-auto">
+          <div class="rating-container">
+            <input type="radio" name="rating" value="5" id="star-6"> <label for="star-6">&#9733;</label>
+
+            <input type="radio" name="rating" value="4" id="star-7"> <label for="star-7">&#9733;</label>
+
+            <input type="radio" name="rating" value="3" id="star-8"> <label for="star-8">&#9733;</label>
+
+            <input type="radio" name="rating" value="2" id="star-9"> <label for="star-9">&#9733;</label>
+
+            <input type="radio" name="rating" value="1" id="star-10"> <label for="star-10">&#9733;</label>
+          </div>
+        </div>
+        <div class="modal-footer m-auto">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="SaveRating" data-bs-dismiss="modal">
+            Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2 class="ms-5 ps-4 mb-0 pb-0">Item Reviews</h2>
+  <div class="reviews">
+    <app-reviews [reviews]="Item.reviews"></app-reviews>
+  </div>
+
+<ng-template #loadingBlock>
+  <div class="m-auto text-center d-flex align-items-center justify-content-center" style="height: 500px;">
+    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
+      <!-- <span class="visually-hidden">Loading...</span> -->
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+  </div>
+</ng-template>
