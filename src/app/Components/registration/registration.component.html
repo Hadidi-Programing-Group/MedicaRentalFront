@@ -38,7 +38,7 @@
             <div
               *ngIf="
                 registerForm.get('FName')?.hasError('required') &&
-                registerForm.get('FName')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >
@@ -75,7 +75,7 @@
             <div
               *ngIf="
                 registerForm.get('LName')?.hasError('required') &&
-                registerForm.get('LName')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >
@@ -112,7 +112,7 @@
             <div
               *ngIf="
                 registerForm.get('email')?.hasError('required') &&
-                registerForm.get('email')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >
@@ -140,7 +140,7 @@
             <div
               *ngIf="
                 registerForm.get('password')?.hasError('required') &&
-                registerForm.get('password')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >
@@ -159,7 +159,7 @@
             <div
               *ngIf="
                 registerForm.get('phoneNumber')?.hasError('required') &&
-                registerForm.get('phoneNumber')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >
@@ -187,7 +187,7 @@
             <div
               *ngIf="
                 registerForm.get('NationalID')?.hasError('required') &&
-                registerForm.get('NationalID')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >
@@ -215,7 +215,7 @@
             <div
               *ngIf="
                 registerForm.get('Address')?.hasError('required') &&
-                registerForm.get('Address')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >
@@ -237,7 +237,7 @@
             <div
               *ngIf="
                 registerForm.get('NationalImg')?.hasError('required') &&
-                registerForm.get('NationalImg')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >
@@ -266,7 +266,7 @@
             <div
               *ngIf="
                 registerForm.get('UnionCardImg')?.hasError('required') &&
-                registerForm.get('UnionCardImg')?.touched
+                IsSubmitButtonClicked
               "
               class="text-danger"
             >

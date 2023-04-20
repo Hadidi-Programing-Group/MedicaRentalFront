@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   NationalImgBase64: any;
   UnionCardImgBase64: any;
+  IsSubmitButtonClicked = false;
 
   constructor(
     private fb: FormBuilder,
@@ -135,5 +136,7 @@ export class RegistrationComponent implements OnInit {
       this.navbarService.toggleVisibility();
       this.router.navigate(['/']);
     }
+    else if (!this.registerForm.valid)
+    this.IsSubmitButtonClicked = true;
   }
 }
