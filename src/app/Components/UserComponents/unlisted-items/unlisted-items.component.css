@@ -1,11 +1,8 @@
 /*region stars*/
-.star-rating {
-  font-size: 2rem;
-}
-
 .star {
-  color: #ddd;
+  color: #98a2ab;
   cursor: pointer;
+  font-size: 1.4rem;
 }
 
 .filled {
@@ -15,5 +12,5 @@
 
 th{
   position: sticky;
-  top: 3.8em;
+  top: 4.8em;
 }
