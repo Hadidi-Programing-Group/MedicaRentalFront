@@ -1,12 +1,16 @@
-.star-rating {
-  font-size: 2rem;
-}
-
+/*region stars*/
 .star {
-  color: #ddd;
+  color: #98a2ab;
   cursor: pointer;
+  font-size: 1.4rem;
 }
 
 .filled {
   color: #ffbf00;
+}
+/*endregion*/
+
+th{
+  position: sticky;
+  top: 4.8em;
 }

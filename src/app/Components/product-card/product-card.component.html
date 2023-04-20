@@ -1,21 +1,22 @@
-<div
-  *ngIf="Product"
+<div (click)="goDetails(product.id)"
+  *ngIf="product"
   class="container border p-3 mb-3"
   style="display: grid; grid-template-rows: auto 1fr auto"
 >
   <div class="ProductImageContainer mb-2">
-    <img src="data:image/png;base64,{{ Product.image }}" class="img-fluid" />
+    <img src="data:image/png;base64,{{ product.image }}" class="img-fluid" />
   </div>
   <div class="ProductName lead">
-    {{ Product.name }}
+    {{ product.name }}
   </div>
-  <div class="row">
-    <div class="col-6 ProductPrice">{{ Product.price }} EGP</div>
-    <div class="col-6">
+  <div class="container-fluid">
+    <div class="row"></div>
+    <div class="col-xs-12 ProductPrice">{{ product.price }} EGP</div>
+    <div class="col-xs-12">
       <span
         *ngFor="let star of [1, 2, 3, 4, 5]"
         class="bi bi-star-fill"
-        [class.text-warning]="star <= Product.rating"
+        [class.text-warning]="star <= product.rating"
       >
       </span>
     </div>

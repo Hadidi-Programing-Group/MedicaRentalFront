@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="d-flex justify-content-center my-4">
+    <div class="btn-group col-sm-7 col-md-9">
+      <button (click)="onOrderByChange(OrderByStrings.RentDateDesc)" type="button"
+              [ngClass]="('btn ' + (orderBy == OrderByStrings.RentDateDesc? 'btn-success active' : 'btn-outline-success'))">
+        Rent Date &#x2193;
+      </button>
+      <button (click)="onOrderByChange(OrderByStrings.RentDateAsc)" type="button"
+              [ngClass]="('btn ' + (orderBy == OrderByStrings.RentDateAsc? 'btn-success active' : 'btn-outline-success'))">
+        Rent Date &#x2191;
+      </button>
+      <button (click)="onOrderByChange(OrderByStrings.ReturnDateDesc)" type="button"
+              [ngClass]="('btn ' + (orderBy == OrderByStrings.ReturnDateDesc? 'btn-success active' : 'btn-outline-success'))">
+        Return Date &#x2193;
+      </button>
+      <button (click)="onOrderByChange(OrderByStrings.ReturnDateAsc)" type="button"
+              [ngClass]="('btn ' + (orderBy == OrderByStrings.ReturnDateAsc? 'btn-success active' : 'btn-outline-success'))">
+        Return Date &#x2191;
+      </button>
+      <button (click)="onOrderByChange(OrderByStrings.PriceDesc)" type="button"
+              [ngClass]="('btn ' + (orderBy == OrderByStrings.PriceDesc? 'btn-success active' : 'btn-outline-success'))">
+        Price &#x2193;
+      </button>
+      <button (click)="onOrderByChange(OrderByStrings.PriceAsc)" type="button"
+              [ngClass]="('btn ' + (orderBy == OrderByStrings.PriceAsc? 'btn-success active' : 'btn-outline-success'))">
+        Price &#x2191;
+      </button>
+    </div>
+  </div>
+</div>

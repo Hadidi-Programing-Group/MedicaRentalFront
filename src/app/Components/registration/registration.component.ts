@@ -59,7 +59,6 @@ export class RegistrationComponent implements OnInit {
 
   onNaionalImgSelected(event: any): void {
     const file = event.target.files[0];
-    console.log(file);
     this.registerForm.get('NationalImg')?.setErrors(null);
 
     const AllowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
@@ -81,7 +80,6 @@ export class RegistrationComponent implements OnInit {
 
   onUnionCardImgSelected(event: any): void {
     const file = event.target.files[0];
-    console.log(file);
     this.registerForm.get('UnionCardImg')?.setErrors(null);
 
     const AllowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
@@ -118,9 +116,7 @@ export class RegistrationComponent implements OnInit {
         nationalIdImage: this.NationalImgBase64,
         unionCardImage: this.UnionCardImgBase64,
       };
-      console.log(DataToBeSent);
       this.registrationService.RegisterUser(DataToBeSent).subscribe((res) => {
-        console.log(res);
       },
       (error) =>
       {

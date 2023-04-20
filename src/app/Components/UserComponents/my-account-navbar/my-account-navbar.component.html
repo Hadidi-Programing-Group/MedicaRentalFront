@@ -1,36 +1,29 @@
-<div class="nav flex-column nav-pills">
-  <a
-    #profile
-    (click)="notifyChange($event, 'profile')"
-    class="nav-link active"
-    id="profile-tab"
-    >Profile</a
-  >
-  <a (click)="notifyChange($event, 'listed')" class="nav-link" id="listed-tab"
-    >Listed</a
-  >
-  <a
-    (click)="notifyChange($event, 'unlisted')"
-    class="nav-link"
-    id="unlisted-tab"
-    >Un-Listed</a
-  >
-  <a (click)="notifyChange($event, 'rented')" class="nav-link" id="rented-tab"
-    >Rented</a
-  >
-  <a (click)="notifyChange($event, 'onRent')" class="nav-link" id="on-rent-tab"
-    >On-Rent</a
-  >
-  <a
-    (click)="notifyChange($event, 'rentedHist')"
-    class="nav-link"
-    id="rent-history-tab"
-    >Rented History</a
-  >
-  <a
-    (click)="notifyChange($event, 'onRentHist')"
-    class="nav-link"
-    id="on-rent-history-tab"
-    >On-Rent History</a
-  >
+<div class="d-flex align-items-center justify-content-center">
+  <div class="btn-group col-sm-9 col-md-11">
+    <button (click)="notifyChange('profile')"
+            [ngClass]="selected == 'profile'? 'btn btn-dark active' : 'btn btn-outline-dark'" type="button">
+      Profile
+    </button>
+    <button (click)="notifyChange('listed')"
+            [ngClass]="selected == 'listed'? 'btn btn-dark active' : 'btn btn-outline-dark'" type="button">Listed
+    </button>
+    <button (click)="notifyChange('unlisted')"
+            [ngClass]="selected == 'unlisted'? 'btn btn-dark active' : 'btn btn-outline-dark'" type="button">
+      Un-Listed
+    </button>
+    <button (click)="notifyChange('rented')"
+            [ngClass]="selected == 'rented'? 'btn btn-dark active' : 'btn btn-outline-dark'" type="button">Rented
+    </button>
+    <button (click)="notifyChange('onRent')"
+            [ngClass]="selected == 'onRent'? 'btn btn-dark active' : 'btn btn-outline-dark'" type="button">On-Rent
+    </button>
+    <button (click)="notifyChange('rentedHist')"
+            [ngClass]="selected == 'rentedHist'? 'btn btn-dark active' : 'btn btn-outline-dark'" type="button">
+      Rented Hist
+    </button>
+    <button (click)="notifyChange('onRentHist')"
+            [ngClass]="selected == 'onRentHist'? 'btn btn-dark active' : 'btn btn-outline-dark'" type="button">
+      On-Rent Hist
+    </button>
+  </div>
 </div>

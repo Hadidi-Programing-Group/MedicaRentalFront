@@ -8,10 +8,18 @@
           class="form-control mb-3"
         >
           <option value="">Order By</option>
-          <option value="PriceDesc">Price: High to Low</option>
-          <option value="PriceAsc">Price: Low to High</option>
-          <option value="RateDesc">Rating: High to Low</option>
-          <option value="RateAsc">Rating: Low to High</option>
+          <option value="{{ orderByString.PriceDesc }}">
+            Price: High to Low
+          </option>
+          <option value="{{ orderByString.PriceAsc }}">
+            Price: Low to High
+          </option>
+          <option value="{{ orderByString.RateDesc }}">
+            Rating: High to Low
+          </option>
+          <option value="{{ orderByString.RateAsc }}">
+            Rating: Low to High
+          </option>
         </select>
       </div>
       <app-categories-filter></app-categories-filter>
@@ -24,8 +32,8 @@
     <div class="col-12 col-md-9">
       <div class="container-fluid">
         <div class="row">
-          <app-product-card
-            [Product]="Product"
+          <app-product-card (itemClicked)="onItemClick($event)"
+            [product]="Product"
             *ngFor="
               let Product of Products
                 | paginate
@@ -39,11 +47,20 @@
           ></app-product-card>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <pagination-controls
-          (pageChange)="renderPage($event)"
-        ></pagination-controls>
+
+      <div class="row">
+        <div class="d-flex justify-content-center my-4">
+          <app-pagination [currentPage]="pagination" [totalPages]="Math.ceil(TotalProducts/limit)"
+                          (pageChanged)="renderPage($event)">
+          </app-pagination>
+        </div>
       </div>
+
+<!--      <div class="d-flex justify-content-center">-->
+<!--        <pagination-controls-->
+<!--          (pageChange)="renderPage($event)"-->
+<!--        ></pagination-controls>-->
+<!--      </div>-->
     </div>
   </div>
 </div>

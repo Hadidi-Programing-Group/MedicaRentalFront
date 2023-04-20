@@ -9,27 +9,69 @@ import {ListItemDto} from '../../../Dtos/ListItemDto';
   styleUrls: ['./listed-items.component.css'],
 })
 export class ListedItemsComponent implements OnInit {
-  listedItems: ListItemDto[] = [];
-  totalCount: number = 0;
+  listedItems: ListItemDto[]|undefined = undefined;
+  pagesCount: number = 0;
+  currentPage: number = 1;
+  orderBy: string = OrderByStrings.DateCreatedDesc
+  searchText: string | undefined = undefined
+
   constructor(private readonly ProductsService: ProductsService) {
   }
 
   ngOnInit(): void {
+    this.getListedItems()
+  }
+
+  protected readonly OrderByStrings = OrderByStrings;
+
+  onOrderByChange(orderBy: OrderByStrings) {
+    this.getListedItems(orderBy, this.searchText);
+    this.orderBy = orderBy;
+  }
+
+  onPageChanged(page: number) {
+    this.currentPage = page;
+    this.getListedItems(this.orderBy, this.searchText);
+  }
+
+  onSearchClick(searchText: string) {
+    this.searchText = searchText
+    this.getListedItems(this.orderBy, searchText);
+  }
+
+  getListedItems(orderBy?: string, searchText?: string) {
     this.ProductsService
-      .GetListItems(
-        1,
-        OrderByStrings.DateCreatedDesc.toString()
+      .GetListedItems(
+        this.currentPage,
+        orderBy ? orderBy : OrderByStrings.DateCreatedDesc.toString(),
+        searchText
       )
       .subscribe
       (
         {
-          next: (data)=>{
+          next: (data) => {
             this.listedItems = data.data;
-            console.log(data)
-            this.totalCount = data.count
-            },
+            this.pagesCount = Math.ceil(data.count/12)
+          },
           error: (err) => console.log(err)
         }
       );
+  }
+
+  unListItem(id: string) {
+    this.ProductsService.UnListItem(id).subscribe
+    (
+      {
+        next: (data) => {
+          if(data.statusCode == 204){
+            this.getListedItems();
+          }
+          else{
+            console.log(data.statusMessage)
+          }
+        },
+        error: (err) => console.log(err)
+      }
+    );
   }
 }

@@ -1,24 +1,24 @@
-  
+
   <section class="pt-5 pb-5">
     <div class="container">
       <div class="row">
         <div class="col-6">
           <h3 class="mb-3">Best Rentals</h3>
         </div>
-       
+
         <div class="col-12">
           <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-  
+
             <div class="carousel-inner">
                 <div class="carousel-item" *ngFor="let product of Products; let i = index;" [ngClass]="{'active': i === 0}">
                 <div class="row">
-  
+
                   <div class="col-md-3 mb-3" *ngFor="let productItem of Products.slice(i, i + 4); let j = index;">
-                    
-                      <app-product-card [Product]="productItem"></app-product-card>
-                   
+
+                      <app-product-card [product]="productItem"></app-product-card>
+
                   </div>
-  
+
                 </div>
               </div>
             </div>
@@ -36,4 +36,3 @@
       </div>
     </div>
   </section>
-  
