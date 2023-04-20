@@ -1,1 +1,53 @@
-<p>on-rent-items-history works!</p>
+<div class="container-fluid">
+
+  <app-search (searchEvent)="onSearchClick($event)" ></app-search>
+
+  <app-rent-order-by (orderByEvent)="onOrderByChange($event)"></app-rent-order-by>
+
+  <div class="row" *ngIf="rentOperations && rentOperations.length > 0">
+    <div class="row">
+      <table class="table table-borderless table-striped table-dark">
+        <thead>
+        <tr>
+          <th class="bg-dark text-light col-2">Item Name</th>
+          <th class="bg-dark text-light col-1">Price</th>
+          <th class="bg-dark text-light col-1">Renter</th>
+          <th class="bg-dark text-light col-2">Rent Date</th>
+          <th class="bg-dark text-light col-2">Return Date</th>
+          <th class="bg-dark text-light d-none d-md-table-cell col-1">Rating</th>
+          <th class="bg-dark text-light text-center d-none d-lg-table-cell col-3">Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let operation of rentOperations">
+          <td><a href="items/{{operation.itemId}}}">{{operation.itemName}}</a></td>
+          <td>{{ operation.price }}</td>
+          <td><a href="users/{{operation.userId}}}">{{operation.userName}}</a></td>
+          <td>{{ operation.rentDate }}</td>
+          <td>{{ operation.returnDate }}</td>
+          <td class="d-none d-md-table-cell">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <span class="star" [ngClass]="{ filled: star <= operation.rating }"
+            >&#9733;</span
+            >
+            </ng-container>
+          </td>
+          <td class="text-center d-none d-lg-table-cell">
+            <button *ngIf="operation.rating == 0" class="mx-3 btn btn-primary">View Review</button>
+            <button class="mx-3 btn btn-danger">Report</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <div class="d-flex justify-content-center my-4">
+        <app-pagination [currentPage]="currentPage" [totalPages]="pagesCount"
+                        (pageChanged)="onPageChanged($event)">
+        </app-pagination>
+      </div>
+    </div>
+  </div>
+
+  <p *ngIf="rentOperations && rentOperations.length == 0" class="bg-danger text-center text-dark h1 p-4 mt-5 rounded">Oops no results!</p>
+</div>

@@ -41,6 +41,7 @@
             >My Profile</a
           >
         </li>
+
         <li *ngIf="isAuthenticated" class="nav-item">
           <button class="nav-link btn btn-outline-danger" (click)="LogOut()">
             Log out
@@ -48,6 +49,7 @@
         </li>
 
         <li *ngIf="!isAuthenticated" class="nav-item">
+
           <a
             class="nav-link"
             [routerLinkActiveOptions]="{ exact: true }"

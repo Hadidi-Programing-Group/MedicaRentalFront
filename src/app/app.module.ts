@@ -33,6 +33,9 @@ import { UnlistedItemsComponent } from './Components/UserComponents/unlisted-ite
 import { ProfileComponent } from './Components/UserComponents/profile/profile.component';
 import { MyAccountNavbarComponent } from './Components/UserComponents/my-account-navbar/my-account-navbar.component';
 import {PaginationComponent} from "./Components/pagination/pagination.component";
+import { SearchComponent } from './Components/search/search.component';
+import { ListOrderByComponent } from './Components/UserComponents/OrderByComponents/list-order-by/list-order-by.component';
+import { RentOrderByComponent } from './Components/UserComponents/OrderByComponents/rent-order-by/rent-order-by.component';
 
 @NgModule({
 
@@ -62,6 +65,9 @@ import {PaginationComponent} from "./Components/pagination/pagination.component"
     ProfileComponent,
     MyAccountNavbarComponent,
     PaginationComponent,
+    SearchComponent,
+    ListOrderByComponent,
+    RentOrderByComponent,
   ],
 
   imports: [
