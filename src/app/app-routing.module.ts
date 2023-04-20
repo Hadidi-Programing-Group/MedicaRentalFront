@@ -7,6 +7,8 @@ import { LoginComponent } from './Components/login/login.component';
 import {NationalIDErrorComponent} from "./Components/NationalIDError/national-iderror/national-iderror.component";
 import {EmailErrorComponent} from "./Components/EmailError/email-error/email-error.component";
 import {MyAccountComponent} from "./Components/UserComponents/my-account/my-account.component";
+import { ItemDetailsRenterComponent } from './Components/item-details-renter/item-details-renter.component';
+import { ReviewsComponent } from './Components/reviews/reviews.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +17,9 @@ const routes: Routes = [
   {path :'registration', component:RegistrationComponent},
   {path :'nationaliderror', component:NationalIDErrorComponent},
   {path :'emailerror', component:EmailErrorComponent},
-  {path: 'user/myaccount', component: MyAccountComponent}
+  {path: 'user/myaccount', component: MyAccountComponent},
+  {path: 'itemdetails/renter/:id', component: ItemDetailsRenterComponent},
+  {path: 'reviews/:id', component:ReviewsComponent}
 
 ];
 

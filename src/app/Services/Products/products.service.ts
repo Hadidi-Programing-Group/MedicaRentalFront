@@ -76,4 +76,9 @@ export class ProductsService {
       params,
     });
   }
+
+  GetItemByIdForRenter(id:string)
+  {
+    return this.httpClient.get(this.baseUrl+'/forrenter/'+id);
+  }
 }
