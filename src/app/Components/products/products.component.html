@@ -47,11 +47,20 @@
           ></app-product-card>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <pagination-controls
-          (pageChange)="renderPage($event)"
-        ></pagination-controls>
+
+      <div class="row">
+        <div class="d-flex justify-content-center my-4">
+          <app-pagination [currentPage]="pagination" [totalPages]="Math.ceil(TotalProducts/limit)"
+                          (pageChanged)="renderPage($event)">
+          </app-pagination>
+        </div>
       </div>
+
+<!--      <div class="d-flex justify-content-center">-->
+<!--        <pagination-controls-->
+<!--          (pageChange)="renderPage($event)"-->
+<!--        ></pagination-controls>-->
+<!--      </div>-->
     </div>
   </div>
 </div>
