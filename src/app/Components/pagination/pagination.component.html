@@ -1,18 +1,18 @@
   <div class="btn-group fs-5">
 
-    <button type="button" class="btn btn-outline-primary" [ngClass]="{'disabled': currentPage == 1}" (click)="setPage(currentPage - 1)">Prev</button>
+    <button type="button" class="btn btn-secondary" [ngClass]="{'disabled': currentPage == 1}" (click)="setPage(currentPage - 1)">Prev</button>
 
-    <button type="button" class="btn btn-outline-primary" *ngIf="pageNumbers[0] > 1" (click)="setPage(1)">1</button>
+    <button type="button" class="btn btn-secondary" *ngIf="pageNumbers[0] > 1" (click)="setPage(1)">1</button>
 
-    <button type="button"  class="btn btn-outline-primary disabled" *ngIf="pageNumbers[0] > 2">...</button>
+    <button type="button"  class="btn btn-secondary disabled" *ngIf="pageNumbers[0] > 2">...</button>
 
     <button type="button" *ngFor="let page of pageNumbers" class="btn"
-            [ngClass]="page == currentPage? 'btn-primary': 'btn-outline-primary'" (click)="setPage(page)">{{page}}
+            [ngClass]="page == currentPage? 'btn-secondary active': 'btn-secondary'" (click)="setPage(page)">{{page}}
     </button>
 
-    <button type="button" class="btn btn-outline-primary disabled" *ngIf="pageNumbers[pageNumbers.length - 1] < totalPages - 1">...</button>
+    <button type="button" class="btn btn-secondary disabled" *ngIf="pageNumbers[pageNumbers.length - 1] < totalPages - 1">...</button>
 
-    <button type="button" class="btn btn-outline-primary" *ngIf="pageNumbers[pageNumbers.length - 1] < totalPages" (click)="setPage(totalPages)">{{totalPages}}</button>
+    <button type="button" class="btn btn-secondary" *ngIf="pageNumbers[pageNumbers.length - 1] < totalPages" (click)="setPage(totalPages)">{{totalPages}}</button>
 
-    <button type="button" class="btn btn-outline-primary" [ngClass]="{'disabled': currentPage == totalPages}" (click)="setPage(currentPage + 1)">Next</button>
+    <button type="button" class="btn btn-secondary" [ngClass]="{'disabled': currentPage == totalPages}" (click)="setPage(currentPage + 1)">Next</button>
   </div>
