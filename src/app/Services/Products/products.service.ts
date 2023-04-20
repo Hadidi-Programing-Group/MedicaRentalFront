@@ -1,17 +1,18 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
-import { ListItemDto } from '../../Dtos/ListItemDto';
-import { PageDto } from 'src/app/Dtos/PageDto';
-import { environment } from 'src/environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HomeItemDto} from 'src/app/Dtos/HomeItemDto';
+import {ListItemDto} from '../../Dtos/ListItemDto';
+import {PageDto} from 'src/app/Dtos/PageDto';
+import {environment} from 'src/environments/environment';
 import {StatusDto} from "../../Dtos/StatusDto";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(private readonly httpClient: HttpClient) {
+  }
 
   private baseUrl = `${environment.apiURL}/api/Items`; //API
 
@@ -102,15 +103,18 @@ export class ProductsService {
     });
   }
 
-  GetItemByIdForRenter(id:string)
-  {
-    return this.httpClient.get(this.baseUrl+'/forrenter/'+id);
+  GetItemByIdForRenter(id: string) {
+    return this.httpClient.get(this.baseUrl + '/forrenter/' + id);
+  }
 
   GetUnListedItems(
-    page: number,
-    orderBy?: string,
-    searchText?: string,
-  ): Observable<PageDto<ListItemDto>> {
+    page
+      :
+      number,
+    orderBy ?: string,
+    searchText ?: string,
+  ):
+    Observable<PageDto<ListItemDto>> {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
@@ -126,15 +130,26 @@ export class ProductsService {
     });
   }
 
-  UnListItem(itemId: string): Observable<StatusDto>{
-    return this.httpClient.put<StatusDto>(`${this.baseUrl}/unlist/${itemId}`,{});
+  UnListItem(itemId
+               :
+               string
+  ):
+    Observable<StatusDto> {
+    return this.httpClient.put<StatusDto>(`${this.baseUrl}/unlist/${itemId}`, {});
   }
 
-  ReListItem(itemId: string): Observable<StatusDto>{
-    return this.httpClient.put<StatusDto>(`${this.baseUrl}/relist/${itemId}`,{});
+  ReListItem(itemId
+               :
+               string
+  ):
+    Observable<StatusDto> {
+    return this.httpClient.put<StatusDto>(`${this.baseUrl}/relist/${itemId}`, {});
   }
 
-  DeleteItem(itemId:string){
+  DeleteItem(itemId
+               :
+               string
+  ) {
     let params = new HttpParams();
     params = params.set('id', itemId);
     console.log(itemId)

@@ -67,7 +67,7 @@ import { RentOrderByComponent } from './Components/UserComponents/OrderByCompone
     ProfileComponent,
     MyAccountNavbarComponent,
     ItemDetailsRenterComponent,
-    ReviewsComponent
+    ReviewsComponent,
     PaginationComponent,
     SearchComponent,
     ListOrderByComponent,
