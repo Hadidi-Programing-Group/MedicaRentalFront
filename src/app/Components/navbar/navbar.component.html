@@ -32,6 +32,15 @@
             >Home</a
           >
         </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/products"
+            >Products</a
+          >
+        </li>
         <li *ngIf="isAuthenticated" class="nav-item">
           <a
             class="nav-link"

@@ -32,7 +32,7 @@
     <div class="col-12 col-md-9">
       <div class="container-fluid">
         <div class="row">
-          <app-product-card (itemClicked)="onItemClick($event)"
+          <app-product-card
             [product]="Product"
             *ngFor="
               let Product of Products
@@ -50,17 +50,20 @@
 
       <div class="row">
         <div class="d-flex justify-content-center my-4">
-          <app-pagination [currentPage]="pagination" [totalPages]="Math.ceil(TotalProducts/limit)"
-                          (pageChanged)="renderPage($event)">
+          <app-pagination
+            [currentPage]="pagination"
+            [totalPages]="Math.ceil(TotalProducts / limit)"
+            (pageChanged)="renderPage($event)"
+          >
           </app-pagination>
         </div>
       </div>
 
-<!--      <div class="d-flex justify-content-center">-->
-<!--        <pagination-controls-->
-<!--          (pageChange)="renderPage($event)"-->
-<!--        ></pagination-controls>-->
-<!--      </div>-->
+      <!--      <div class="d-flex justify-content-center">-->
+      <!--        <pagination-controls-->
+      <!--          (pageChange)="renderPage($event)"-->
+      <!--        ></pagination-controls>-->
+      <!--      </div>-->
     </div>
   </div>
 </div>
