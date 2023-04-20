@@ -57,4 +57,39 @@ export class UnlistedItemsComponent implements OnInit {
         }
       );
   }
+
+  reListItem(id: string) {
+    this.ProductsService.ReListItem(id).subscribe
+    (
+      {
+        next: (data) => {
+          console.log(data)
+          if(data.statusCode == 204){
+            this.getUnListedItems()
+          }
+          else{
+            console.log(data.statusMessage)
+          }
+        },
+        error: (err) => console.log(err)
+      }
+    );
+  }
+
+  deleteItem(id: string) {
+    console.log(id)
+    this.ProductsService.DeleteItem(id).subscribe
+    (
+      {
+        next: (data) => {
+          if(data.statusCode == 204){
+            this.getUnListedItems()
+          }
+          else{
+          }
+        },
+        error: (err) => console.log(err)
+      }
+    );
+  }
 }
