@@ -57,4 +57,21 @@ export class ListedItemsComponent implements OnInit {
         }
       );
   }
+
+  unListItem(id: string) {
+    this.ProductsService.UnListItem(id).subscribe
+    (
+      {
+        next: (data) => {
+          if(data.statusCode == 204){
+            this.getListedItems();
+          }
+          else{
+            console.log(data.statusMessage)
+          }
+        },
+        error: (err) => console.log(err)
+      }
+    );
+  }
 }
