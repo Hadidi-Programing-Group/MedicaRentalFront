@@ -13,7 +13,7 @@ export class RentOperationsService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  GetOnRentItems(page: number, orderBy?: string, searchText?: string) {
+  GetOnRentItems(page: number, orderBy?: string, searchText?: string|null) {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
@@ -30,7 +30,7 @@ export class RentOperationsService {
     );
   }
 
-  GetOnRentItemsHistory(page: number, orderBy?: string, searchText?: string) {
+  GetOnRentItemsHistory(page: number, orderBy?: string, searchText?: string|null) {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
@@ -47,7 +47,7 @@ export class RentOperationsService {
     );
   }
 
-  GetRentedItems(page: number, orderBy?: string, searchText?: string) {
+  GetRentedItems(page: number, orderBy?: string, searchText?: string|null) {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
@@ -64,7 +64,7 @@ export class RentOperationsService {
     );
   }
 
-  GetRentedItemsHistory(page: number, orderBy?: string, searchText?: string) {
+  GetRentedItemsHistory(page: number, orderBy?: string, searchText?: string|null) {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
