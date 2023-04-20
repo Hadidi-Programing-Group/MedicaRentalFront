@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
+import {getLocaleDateFormat} from "@angular/common";
 
 @Component({
   selector: 'app-rented-items-history',
@@ -12,8 +13,8 @@ export class RentedItemsHistoryComponent implements OnInit {
   rentOperations: RentOperationDto[]|undefined = undefined;
   pagesCount: number = 0;
   currentPage: number = 1;
-  orderBy: string = OrderByStrings.DateCreatedDesc
-  searchText: string | undefined = undefined
+  orderBy: string = OrderByStrings.RentDateDesc
+  searchText: string | null = null
 
   constructor(private readonly RentOperationsService: RentOperationsService) {
   }
@@ -25,26 +26,26 @@ export class RentedItemsHistoryComponent implements OnInit {
   protected readonly OrderByStrings = OrderByStrings;
 
   onOrderByChange(orderBy: OrderByStrings) {
-    this.getListedItems(orderBy, this.searchText);
+    this.getListedItems();
     this.orderBy = orderBy;
   }
 
   onPageChanged(page: number) {
     this.currentPage = page;
-    this.getListedItems(this.orderBy, this.searchText);
+    this.getListedItems();
   }
 
   onSearchClick(searchText: string) {
     this.searchText = searchText
-    this.getListedItems(this.orderBy, searchText);
+    this.getListedItems();
   }
 
-  getListedItems(orderBy?: string, searchText?: string) {
+  getListedItems() {
     this.RentOperationsService
       .GetRentedItemsHistory(
         this.currentPage,
-        orderBy ? orderBy : OrderByStrings.DateCreatedDesc.toString(),
-        searchText
+        this.orderBy,
+        this.searchText
       )
       .subscribe
       (
@@ -56,6 +57,13 @@ export class RentedItemsHistoryComponent implements OnInit {
           error: (err) => console.log(err)
         }
       );
+  }
+
+  protected readonly Date = Date;
+  protected readonly getLocaleDateFormat = getLocaleDateFormat;
+
+  getDate(date: Date) {
+    return new Date(date).toLocaleDateString('en-US');
   }
 }
 
