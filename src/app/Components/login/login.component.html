@@ -9,6 +9,9 @@
         />
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <div *ngIf="wrongInfo" class="alert alert-danger" role="alert">
+          Email or Password is not corrent!
+        </div>
         <form [formGroup]="loginForm">
           <div
             class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"
@@ -50,7 +53,7 @@
             </div>
             <div
               *ngIf="
-                loginForm.get('email')?.hasError('email') &&
+                loginForm.get('email')?.hasError('pattern') &&
                 loginForm.get('email')?.touched
               "
               class="text-danger"

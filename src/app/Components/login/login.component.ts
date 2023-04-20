@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
@@ -8,44 +13,52 @@ import { LoginService } from 'src/app/Services/Login/login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private loginservies: LoginService, private router:Router)
-  {
+  constructor(
+    private fb: FormBuilder,
+    private loginservies: LoginService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: [
         '',
-      [
-        Validators.required,
-
+        [
+          Validators.required,
+          Validators.pattern(
+            '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
+          ),
+        ],
       ],
-    ],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
+
+  wrongInfo = false;
 
   ngOnInit() {}
 
   onSubmit() {
-   if(this.loginForm.valid){
-    const userData=this.loginForm.value;
-    const DataToBeSent = {
-      email: userData.email ,
-      password: userData.password
-    };
-    this.loginservies.LoginUser(DataToBeSent).subscribe(
-      (res: any) => {
-        const token = res.token;
-    },
-    (error)=>{
-      console.log(error.error);
-    });
-    this.router.navigate(['/']);
-   }
+    if (this.loginForm.valid) {
+      const userData = this.loginForm.value;
+      const DataToBeSent = {
+        email: userData.email,
+        password: userData.password,
+      };
+      this.loginservies.LoginUser(DataToBeSent).subscribe({
+        next: (data: any) => {
+          localStorage.setItem('authToken', data['token']);
+          localStorage.setItem('authTokenExpDate', data['expiry']);
+          this.loginservies.isAuthenticatedChanged.emit(true);
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          this.wrongInfo = true;
+        },
+      });
+    }
   }
 }
-
-
