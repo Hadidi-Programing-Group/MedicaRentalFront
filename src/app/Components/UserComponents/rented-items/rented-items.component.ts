@@ -9,11 +9,11 @@ import {RentOperationsService} from "../../../Services/RentOperations/rent-opera
   styleUrls: ['./rented-items.component.css'],
 })
 export class RentedItemsComponent implements OnInit {
-  rentOperations: RentOperationDto[]|undefined = undefined;
+  rentOperations: RentOperationDto[] | undefined = undefined;
   pagesCount: number = 0;
   currentPage: number = 1;
-  orderBy: string = OrderByStrings.DateCreatedDesc
-  searchText: string | undefined = undefined
+  orderBy: string = OrderByStrings.RentDateDesc
+  searchText: string | null = null
 
   constructor(private readonly RentOperationsService: RentOperationsService) {
   }
@@ -25,36 +25,40 @@ export class RentedItemsComponent implements OnInit {
   protected readonly OrderByStrings = OrderByStrings;
 
   onOrderByChange(orderBy: OrderByStrings) {
-    this.getListedItems(orderBy, this.searchText);
+    this.getListedItems();
     this.orderBy = orderBy;
   }
 
   onPageChanged(page: number) {
     this.currentPage = page;
-    this.getListedItems(this.orderBy, this.searchText);
+    this.getListedItems();
   }
 
   onSearchClick(searchText: string) {
     this.searchText = searchText
-    this.getListedItems(this.orderBy, searchText);
+    this.getListedItems();
   }
 
-  getListedItems(orderBy?: string, searchText?: string) {
+  getListedItems() {
     this.RentOperationsService
-      .GetRentedItems(
+      .GetRentedItemsHistory(
         this.currentPage,
-        orderBy ? orderBy : OrderByStrings.DateCreatedDesc.toString(),
-        searchText
+        this.orderBy,
+        this.searchText
       )
       .subscribe
       (
         {
           next: (data) => {
             this.rentOperations = data.data;
-            this.pagesCount = Math.ceil(data.count/12)
+            this.pagesCount = Math.ceil(data.count / 12)
           },
           error: (err) => console.log(err)
         }
       );
+  }
+
+  getDate(date: Date) {
+    return new Date(date).toLocaleDateString('en-US');
   }
 }
