@@ -225,5 +225,7 @@ export class ProductsComponent implements OnInit {
 
   onItemClick(id: string) {
     console.log(id)
+    let ItemDetailsUrl = 'itemdetails/renter/'+id;
+    this.router.navigate([ItemDetailsUrl]);
   }
 }
