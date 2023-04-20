@@ -10,17 +10,17 @@
       <tr>
         <th class="bg-dark text-light col-2">Item Name</th>
         <th class="bg-dark text-light col-1">Price</th>
-        <th class="bg-dark text-light col-1">Owner</th>
+        <th class="bg-dark text-light col-2">Owner</th>
         <th class="bg-dark text-light col-2">Rent Date</th>
         <th class="bg-dark text-light col-2">Return Date</th>
         <th class="bg-dark text-light d-none d-md-table-cell col-1">Rating</th>
-        <th class="bg-dark text-light text-center d-none d-lg-table-cell col-3">Actions</th>
+        <th class="bg-dark text-light text-center d-none d-lg-table-cell col-2">Actions</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let operation of rentOperations">
         <td><a href="items/{{operation.itemId}}}">{{operation.itemName}}</a></td>
-        <td>{{ operation.price }}</td>
+        <td>{{ operation.price|currency:"EGP":"E£" }}</td>
         <td><a href="users/{{operation.userId}}}">{{operation.userName}}</a></td>
         <td>{{ getDate(operation.rentDate) }}</td>
         <td>{{ getDate(operation.returnDate) }}</td>

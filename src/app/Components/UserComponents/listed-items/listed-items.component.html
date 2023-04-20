@@ -20,7 +20,7 @@
       <tbody>
       <tr *ngFor="let item of listedItems">
         <td>{{ item.name }}</td>
-        <td>{{ item.price }}</td>
+        <td>{{ item.price|currency:"EGP":"E£" }}</td>
         <td>{{ item.stock }}</td>
         <td>{{ item.categoryName }}</td>
         <td>{{ item.subCategoryName }}</td>
@@ -33,7 +33,7 @@
         </td>
         <td class="text-center d-none d-lg-table-cell">
           <button class="mx-3 btn btn-primary">Update</button>
-          <button class="mx-3 btn btn-danger">Un-List</button>
+          <button class="mx-3 btn btn-danger" (click)="unListItem(item.id)">Un-List</button>
         </td>
       </tr>
       </tbody>
