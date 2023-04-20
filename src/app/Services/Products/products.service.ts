@@ -5,6 +5,7 @@ import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 import { ListItemDto } from '../../Dtos/ListItemDto';
 import { PageDto } from 'src/app/Dtos/PageDto';
 import { environment } from 'src/environments/environment';
+import {StatusDto} from "../../Dtos/StatusDto";
 
 @Injectable({
   providedIn: 'root',
@@ -119,5 +120,20 @@ export class ProductsService {
     return this.httpClient.get<PageDto<ListItemDto>>(`${this.baseUrl}/unlisted`, {
       params,
     });
+  }
+
+  UnListItem(itemId: string): Observable<StatusDto>{
+    return this.httpClient.put<StatusDto>(`${this.baseUrl}/unlist/${itemId}`,{});
+  }
+
+  ReListItem(itemId: string): Observable<StatusDto>{
+    return this.httpClient.put<StatusDto>(`${this.baseUrl}/relist/${itemId}`,{});
+  }
+
+  DeleteItem(itemId:string){
+    let params = new HttpParams();
+    params = params.set('id', itemId);
+    console.log(itemId)
+    return this.httpClient.delete<StatusDto>(`${this.baseUrl}/one`, {params,});
   }
 }
