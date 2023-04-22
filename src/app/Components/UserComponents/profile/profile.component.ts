@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
+  UpdateApprovalInfoDto,
   UpdateProfileInfoDto,
   UserApprovalInfoDto,
   UserProfileInfoDto,
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   UnionCardImgBase64: any;
   IsSubmitButtonClicked = false;
   IsUpdated = false;
+  IsApproveUpdated = false;
 
   updateProfileForm: FormGroup = this.fb.group({
     FName: [
@@ -118,7 +120,25 @@ export class ProfileComponent implements OnInit {
       });
     } else this.IsSubmitButtonClicked = true;
   }
-  onApprovalInfoSubmit() {}
+  onApprovalInfoSubmit() {
+    if (this.updateApprovalInfoForm.get("NationalID")?.valid) {
+      const userData = this.updateApprovalInfoForm.value;
+      const DataToBeSent: UpdateApprovalInfoDto = new UpdateApprovalInfoDto(
+        userData.NationalID,
+        this.NationalImgBase64,
+        this.UnionCardImgBase64
+      );
+      console.log(DataToBeSent);
+      this.userService.UpdateApprovalInfo(DataToBeSent).subscribe({
+        next: (res) => {
+          this.IsApproveUpdated = true;
+        },
+        error: (err) => {
+          this.IsApproveUpdated = false;
+        },
+      });
+    } else this.IsSubmitButtonClicked = true;
+  }
 
   ngOnInit(): void {
     this.userService.GetInfo().subscribe({
@@ -140,6 +160,10 @@ export class ProfileComponent implements OnInit {
         if (!this.currentUser.isGrantedRent) {
           this.userService.GetApprovalInfo().subscribe({
             next: (data: UserApprovalInfoDto) => {
+              this.updateApprovalInfoForm
+                .get('NationalID')
+                ?.setValue(data.nationalId);
+
               this.currentUserApprovalInfo = data;
               this.NationalImgBase64 = data.nationalImage;
               this.UnionCardImgBase64 = data.unionImage;

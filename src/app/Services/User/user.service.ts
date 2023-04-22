@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StatusDto } from 'src/app/Dtos/StatusDto';
 import {
+  UpdateApprovalInfoDto,
   UpdateProfileInfoDto,
   UserApprovalInfoDto,
   UserProfileInfoDto,
@@ -31,6 +32,14 @@ export class UserService {
   GetApprovalInfo(): Observable<UserApprovalInfoDto> {
     return this.httpClient.get<UserApprovalInfoDto>(
       `${this.baseUrl}/GetApprovalInfo`
+    );
+  }
+
+  UpdateApprovalInfo(newData: UpdateApprovalInfoDto) {
+    console.log(newData);
+    return this.httpClient.put<StatusDto>(
+      `${this.baseUrl}/UpdateApprovalInfo`,
+      newData
     );
   }
 }

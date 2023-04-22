@@ -211,7 +211,6 @@
             class="form-control"
             formControlName="NationalID"
             placeholder="National ID"
-            value="{{ currentUserApprovalInfo?.nationalId }}"
           />
           <div
             *ngIf="
@@ -314,9 +313,18 @@
         </div>
 
         <div class="mt-3 text-center">
-          <button class="btn btn-primary profile-button" type="button">
-            Update Images
-          </button>
+          <input
+            class="btn btn-primary profile-button"
+            value="Update Images"
+            type="submit"
+          />
+          <div
+            *ngIf="IsApproveUpdated"
+            class="mt-2 alert alert-success"
+            role="alert"
+          >
+            Images has been updated.
+          </div>
         </div>
       </form>
     </div>

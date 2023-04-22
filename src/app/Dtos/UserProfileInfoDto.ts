@@ -16,7 +16,7 @@ export class UpdateProfileInfoDto {
     public lastName: string,
     public phoneNumber: string,
     public address: string,
-    public email: string,
+    public email: string
   ) {}
 }
 
@@ -24,6 +24,14 @@ export class UserApprovalInfoDto {
   constructor(
     public nationalId: string,
     public nationalImage: string,
-    public unionImage: string,
+    public unionImage: string
+  ) {}
+}
+
+export class UpdateApprovalInfoDto {
+  constructor(
+    public nationalId: string,
+    public nationalImage: string,
+    public unionImage: string
   ) {}
 }
