@@ -1,13 +1,14 @@
 export class UserProfileInfoDto {
   constructor(
-    public Name: string,
-    public FirstName: string,
-    public LastName: string,
-    public PhoneNumber: string,
-    public Address: string,
-    public Email: string,
-    public NationalId: string,
-    public NationalImage: string,
-    public UnionImage: string
+    public name: string,
+    public firstName: string,
+    public lastName: string,
+    public phoneNumber: string,
+    public address: string,
+    public email: string,
+    public nationalId: string,
+    public nationalImage: string,
+    public unionImage: string,
+    public isGrantedRent: boolean
   ) {}
 }
