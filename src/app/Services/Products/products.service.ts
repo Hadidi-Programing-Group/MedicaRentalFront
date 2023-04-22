@@ -45,7 +45,8 @@ export class ProductsService {
 
   GetAllItems(
     page: number = 1,
-    orderBy?: string
+    orderBy?: string,
+    searchText?: string|null
   ): Observable<PageDto<HomeItemDto>> {
     return this.getItems('', [], page, orderBy);
   }
@@ -86,7 +87,7 @@ export class ProductsService {
   GetListedItems(
     page: number,
     orderBy?: string,
-    searchText?: string,
+    searchText?: string | null,
   ): Observable<PageDto<ListItemDto>> {
     let params = new HttpParams();
     if (orderBy) {
@@ -108,11 +109,9 @@ export class ProductsService {
   }
 
   GetUnListedItems(
-    page
-      :
-      number,
-    orderBy ?: string,
-    searchText ?: string,
+    page: number,
+    orderBy?: string,
+    searchText?: string | null,
   ):
     Observable<PageDto<ListItemDto>> {
     let params = new HttpParams();
@@ -152,7 +151,6 @@ export class ProductsService {
   ) {
     let params = new HttpParams();
     params = params.set('id', itemId);
-    console.log(itemId)
     return this.httpClient.delete<StatusDto>(`${this.baseUrl}/one`, {params,});
 
   }

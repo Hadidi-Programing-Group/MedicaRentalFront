@@ -36,7 +36,7 @@ export class RentedItemsHistoryComponent implements OnInit {
   }
 
   onSearchClick(searchText: string) {
-    this.searchText = searchText
+    this.searchText = searchText == ""? null : searchText
     this.getListedItems();
   }
 

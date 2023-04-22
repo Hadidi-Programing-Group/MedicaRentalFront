@@ -13,7 +13,7 @@ export class ListedItemsComponent implements OnInit {
   pagesCount: number = 0;
   currentPage: number = 1;
   orderBy: string = OrderByStrings.DateCreatedDesc
-  searchText: string | undefined = undefined
+  searchText: null | string = null
 
   constructor(private readonly ProductsService: ProductsService) {
   }
@@ -25,26 +25,26 @@ export class ListedItemsComponent implements OnInit {
   protected readonly OrderByStrings = OrderByStrings;
 
   onOrderByChange(orderBy: OrderByStrings) {
-    this.getListedItems(orderBy, this.searchText);
+    this.getListedItems();
     this.orderBy = orderBy;
   }
 
   onPageChanged(page: number) {
     this.currentPage = page;
-    this.getListedItems(this.orderBy, this.searchText);
+    this.getListedItems();
   }
 
   onSearchClick(searchText: string) {
-    this.searchText = searchText
-    this.getListedItems(this.orderBy, searchText);
+    this.searchText = searchText == ""? null : searchText
+    this.getListedItems();
   }
 
-  getListedItems(orderBy?: string, searchText?: string) {
+  getListedItems() {
     this.ProductsService
       .GetListedItems(
         this.currentPage,
-        orderBy ? orderBy : OrderByStrings.DateCreatedDesc.toString(),
-        searchText
+        this.orderBy,
+        this.searchText
       )
       .subscribe
       (
