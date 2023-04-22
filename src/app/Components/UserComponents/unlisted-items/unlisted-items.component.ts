@@ -9,11 +9,11 @@ import {ListItemDto} from '../../../Dtos/ListItemDto';
   styleUrls: ['./unlisted-items.component.css'],
 })
 export class UnlistedItemsComponent implements OnInit {
-  listedItems: ListItemDto[]|undefined = undefined;
+  listedItems: ListItemDto[] | undefined = undefined;
   pagesCount: number = 0;
   currentPage: number = 1;
   orderBy: string = OrderByStrings.DateCreatedDesc
-  searchText: string | undefined = undefined
+  searchText: string | null = null
 
   constructor(private readonly ProductsService: ProductsService) {
   }
@@ -35,11 +35,11 @@ export class UnlistedItemsComponent implements OnInit {
   }
 
   onSearchClick(searchText: string) {
-    this.searchText = searchText
+    this.searchText = searchText == "" ? null : searchText
     this.getUnListedItems(this.orderBy, searchText);
   }
 
-  getUnListedItems(orderBy?: string, searchText?: string) {
+  getUnListedItems(orderBy?: string, searchText?: string|null) {
     this.ProductsService
       .GetUnListedItems(
         this.currentPage,
@@ -51,7 +51,7 @@ export class UnlistedItemsComponent implements OnInit {
         {
           next: (data) => {
             this.listedItems = data.data;
-            this.pagesCount = Math.ceil(data.count/12)
+            this.pagesCount = Math.ceil(data.count / 12)
           },
           error: (err) => console.log(err)
         }
@@ -63,11 +63,9 @@ export class UnlistedItemsComponent implements OnInit {
     (
       {
         next: (data) => {
-          console.log(data)
-          if(data.statusCode == 204){
+          if (data.statusCode == 204) {
             this.getUnListedItems()
-          }
-          else{
+          } else {
             console.log(data.statusMessage)
           }
         },
@@ -82,10 +80,9 @@ export class UnlistedItemsComponent implements OnInit {
     (
       {
         next: (data) => {
-          if(data.statusCode == 204){
+          if (data.statusCode == 204) {
             this.getUnListedItems()
-          }
-          else{
+          } else {
           }
         },
         error: (err) => console.log(err)
