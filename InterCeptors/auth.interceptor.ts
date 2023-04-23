@@ -11,6 +11,7 @@ import {
 import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/Services/Login/login.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -19,13 +20,15 @@ export class AuthInterceptor implements HttpInterceptor {
     private readonly router: Router
   ) {}
 
-  requestNewToken(): Observable<{ token: string }> {
+  private isRefreshing = false; // Add flag for token refresh
+
+  requestNewToken() {
     // Replace the following URL with the endpoint in your ASP.NET Core backend that issues new tokens
-    const url = `${environment}/api/auth/refresh-token`;
+    const url = `${environment.apiURL}/RenewTokens`;
 
     // Send a POST request to the backend to request a new token
     // You can pass any necessary data in the request body, such as the expired token or refresh token
-    return this.httpClient.post<{ token: string }>(url, {});
+    return this.httpClient.get(url, { withCredentials: true });
   }
 
   intercept(
@@ -37,20 +40,44 @@ export class AuthInterceptor implements HttpInterceptor {
       let authTokenExpiry = localStorage.getItem('authTokenExpDate');
       if (authTokenExpiry) {
         if (new Date() > new Date(authTokenExpiry)) {
-          console.log('Expired');
-          localStorage.setItem('isAuthenticated', 'false');
-
-          return next.handle(req);
+          if (!this.isRefreshing) {
+            // Check if token refresh is not already in progress
+            this.isRefreshing = true; // Set flag to true to indicate token refresh is in progress
+            return this.requestNewToken().pipe(
+              switchMap((data: any) => {
+                localStorage.setItem('authToken', data['tokenString']);
+                localStorage.setItem('authTokenExpDate', data['expiresOn']);
+                this.isRefreshing = false; // Set flag to false to indicate token refresh is completed
+                return next.handle(
+                  this.addAuthorizationHeader(req, data['tokenString'])
+                );
+              }),
+              catchError((err) => {
+                this.isRefreshing = false; // Set flag to false to indicate token refresh is completed
+                this.router.navigate(['/login']); // Redirect to login page on token refresh failure
+                return throwError(() => new Error(err.error));
+              })
+            );
+          } else {
+            // If token refresh is already in progress, wait for it to complete and then retry the request
+            return next.handle(req);
+          }
         }
       }
-      localStorage.setItem('isAuthenticated', 'true');
-      const authReq = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${authToken}`),
-      });
+      const authReq = this.addAuthorizationHeader(req, authToken);
       return next.handle(authReq);
     }
 
     return next.handle(req);
+  }
+
+  addAuthorizationHeader(
+    req: HttpRequest<any>,
+    authToken: string
+  ): HttpRequest<any> {
+    return req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${authToken}`),
+    });
   }
 }
 

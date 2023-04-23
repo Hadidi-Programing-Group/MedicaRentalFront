@@ -4,6 +4,7 @@ import { CommunicationService } from 'src/app/Services/Communication/communicati
 import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
 import { FilterService } from 'src/app/Services/Filter/filter.service';
 import { LoginService } from 'src/app/Services/Login/login.service';
+import { error } from 'jquery';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -29,9 +30,10 @@ export class NavbarComponent implements OnInit {
   }
 
   LogOut() {
-    localStorage.setItem('authToken', '');
-    localStorage.setItem('authTokenExpDate', '');
-    localStorage.setItem('isAuthenticated', '');
+    this.loginService.revokeToken().subscribe({
+      next: (data) => console.log(data),
+      error: (err) => console.log(err),
+    });
     this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
   }
