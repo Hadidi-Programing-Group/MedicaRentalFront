@@ -1,1 +1,126 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+    background-color: white !important;
+    color:black;
+}
+.navbar{
+    background-color: #304b6a !important;
+    color: aliceblue !important;
+}
+.nav-link{
+    color: aliceblue !important;
+}
+
+.navbar-toggler{
+    background-color: aliceblue !important;
+}
+
+h3{
+    
+    color:  #304b6a !important;
+}
+.btn-secondary{
+    background-color: #304b6a !important;
+    color: aliceblue !important; 
+}
+
+.CategoryFilter{
+    background-color: #304b6a !important;
+    color: aliceblue; 
+}
+
+.btn-primary{
+    background-color: #304b6a !important;
+    color: aliceblue !important;   
+}
+
+.ng-touched {
+    color: aliceblue !important; 
+}
+.ng-dirty{
+    color: aliceblue !important; 
+}
+
+#fm{
+    background-color: #304b6a !important;
+    color: aliceblue;  
+}
+
+.btn-outline-dark {
+    
+    --bs-btn-border-color: #304b6a;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #304b6a;
+    --bs-btn-hover-border-color: #304b6a;
+    --bs-btn-focus-shadow-rgb: 33,37,41;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #304b6a;
+    --bs-btn-active-border-color: #304b6a;
+    --bs-btn-active-shadow: inset 0 3px 5px #304b6a;
+    --bs-btn-disabled-color: #304b6a;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #304b6a;
+    --bs-gradient: none;
+}
+.btn-dark{
+    background-color: #304b6a !important;
+    color: aliceblue;   
+}
+
+
+.btn-outline-success {
+    --bs-btn-color: #537398;
+    --bs-btn-border-color: #537398;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #537398;
+    --bs-btn-hover-border-color: #537398;
+    --bs-btn-focus-shadow-rgb: 25,135,84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #537398 ;
+    --bs-btn-active-border-color: #537398;
+    --bs-btn-active-shadow: inset 0 3px 5px #537398;
+    --bs-btn-disabled-color: #537398;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #537398;
+    --bs-gradient: none;
+}
+.btn-success{
+    background-color: #537398 !important;
+    color: aliceblue;   
+}
+
+.bg-secondary{
+    background-color: #537398 !important;
+    color: aliceblue;    
+}
+h2{
+    color: #304b6a !important;
+}
+p{
+    color: #304b6a !important;
+}  
+.offcanvas {
+    background-color: #304b6a !important;
+    color: white;
+  } 
+
+  .btn-outline-secondary {
+    --bs-btn-color: #537398;
+    --bs-btn-border-color: #537398;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #537398;
+    --bs-btn-hover-border-color: #537398;
+    --bs-btn-focus-shadow-rgb: 25,135,84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #537398 ;
+    --bs-btn-active-border-color: #537398;
+    --bs-btn-active-shadow: inset 0 3px 5px #537398;
+    --bs-btn-disabled-color: #537398;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #537398;
+    --bs-gradient: none;
+}
+
+
+
+
+
