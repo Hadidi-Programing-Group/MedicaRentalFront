@@ -49,6 +49,10 @@
     </div>
   </div>
 
-  <p *ngIf="listedItems && listedItems.length == 0" class="bg-danger text-center text-dark h1 p-4 mt-5 rounded">Oops no
-    results!</p>
+  <div *ngIf="listedItems && listedItems.length == 0" class=" text-center text-dark h1 p-4 mt-5 rounded">
+    
+      <img src="assets/icons/NoRes.jpg" width="400px" height="400px"/>
+  
+  </div>
+
 </div>
