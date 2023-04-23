@@ -78,15 +78,18 @@ export class ProductsComponent implements OnInit {
   }
 
   fetchProducts(): void {
-    if (this.searchText && this.searchText !== '') {
-      this.fetchAllProductsBySearch();
-    } else if (this.subCategoryIds && this.subCategoryIds.length > 0) {
-      this.fetchItemsBySubCategories();
-    } else if (this.categoryIds && this.categoryIds.length > 0) {
-      this.fetchItemsByCategories();
-    } else {
-      this.fetchAllProductsWithoutFilter();
-    }
+    this.fetchItems();
+    //#region  To Be Deleted
+    // if (this.searchText && this.searchText !== '') {
+    //   this.fetchAllProductsBySearch();
+    // } else if (this.subCategoryIds && this.subCategoryIds.length > 0) {
+    //   this.fetchItemsBySubCategories();
+    // } else if (this.categoryIds && this.categoryIds.length > 0) {
+    //   this.fetchItemsByCategories();
+    // } else {
+    //   this.fetchAllProductsWithoutFilter();
+    // }
+    //#endregion
   }
 
   successObjCall: Partial<Observer<PageDto<HomeItemDto>>> = {
@@ -98,6 +101,19 @@ export class ProductsComponent implements OnInit {
     error: (err) => console.log(err),
   };
 
+  fetchItems(): void {
+    // Call HomeItemService method to fetch products based on orderBy parameter
+    this.ProductsService.GetItems(
+      this.categoryIds,
+      this.subCategoryIds,
+      [], // for brands
+      this.searchText,
+      this.pagination,
+      this.orderBy
+    ).subscribe(this.successObjCall);
+  }
+
+  //#region  To Be Deleted
   fetchAllProductsBySearch(): void {
     // Call HomeItemService method to fetch products based on orderBy parameter
     this.ProductsService.GetItemsBySearch(
@@ -140,6 +156,8 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  //#endregion
+  
   onSelectCategories(selectedCategoryIds: string[]) {
     // Update categoryId with the selected category IDs
     this.categoryIds = selectedCategoryIds;
@@ -223,9 +241,8 @@ export class ProductsComponent implements OnInit {
     this.filterService.resetFilters();
   }
   onItemClick(id: string) {
-    console.log(id)
-    let ItemDetailsUrl = 'itemdetails/renter/'+id;
+    console.log(id);
+    let ItemDetailsUrl = 'itemdetails/renter/' + id;
     this.router.navigate([ItemDetailsUrl]);
   }
-
 }

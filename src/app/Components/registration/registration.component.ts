@@ -23,7 +23,7 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private registrationService: RegistrationService,
-    private router:Router,
+    private router: Router,
     private navbarService: CommunicationService
   ) {
     this.registerForm = this.fb.group({
@@ -117,26 +117,25 @@ export class RegistrationComponent implements OnInit {
         nationalIdImage: this.NationalImgBase64,
         unionCardImage: this.UnionCardImgBase64,
       };
-      this.registrationService.RegisterUser(DataToBeSent).subscribe((res) => {
-      },
-      (error) =>
-      {
-        console.log(error.error);
-        if(error.error=="National ID is already registered")
-        {
-          this.router.navigate(['/nationaliderror']);
-        }
-        else if(error.error==`Username '${DataToBeSent.baseUserRegisterInfo.email}' is already taken.`)
-        {
-          this.router.navigate(['/emailerror']);
-        }
-        //Account Created Successfully
-      }
-      );
+      this.registrationService.RegisterUser(DataToBeSent).subscribe({
+        next: (res) => {
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          console.log(error.error);
+          if (error.error == 'National ID is already registered') {
+            this.router.navigate(['/nationaliderror']);
+          } else if (
+            error.error ==
+            `Username '${DataToBeSent.baseUserRegisterInfo.email}' is already taken.`
+          ) {
+            this.router.navigate(['/emailerror']);
+          } else {
+            this.router.navigate(['/registration']);
+          }
+        },
+      });
       this.navbarService.toggleVisibility();
-      this.router.navigate(['/']);
-    }
-    else if (!this.registerForm.valid)
-    this.IsSubmitButtonClicked = true;
+    } else if (!this.registerForm.valid) this.IsSubmitButtonClicked = true;
   }
 }

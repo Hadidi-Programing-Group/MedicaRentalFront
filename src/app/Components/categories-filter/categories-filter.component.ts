@@ -72,10 +72,7 @@ export class CategoriesFilterComponent implements OnInit {
       }
     }
     // Emit the updated selectedCategoryIds array
-    if (this.selectedSubCategoryIds.length > 0) {
-      this.selectedCategoryIds = [];
-      this.filterService.updateSelectedCategories(this.selectedCategoryIds);
-    }
+
     this.filterService.updateSelectedSubcategories(this.selectedSubCategoryIds);
   }
 }
