@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
       };
       this.loginservies.LoginUser(DataToBeSent).subscribe({
         next: (data: any) => {
+          console.log(data);
           localStorage.setItem('authToken', data['token']);
           localStorage.setItem('authTokenExpDate', data['expiry']);
           this.loginservies.isAuthenticatedChanged.emit(true);
