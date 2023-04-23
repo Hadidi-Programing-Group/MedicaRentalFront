@@ -1,5 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
+import { ListItemDto } from '../../Dtos/ListItemDto';
+import { PageDto } from 'src/app/Dtos/PageDto';
+import { environment } from 'src/environments/environment';
+import { StatusDto } from '../../Dtos/StatusDto';
 
 @Injectable({
   providedIn: 'root',
@@ -7,26 +13,173 @@ import { Injectable } from '@angular/core';
 export class ProductsService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  private readonly URL = 'https://api.escuelajs.co/api/v1/products'; //API
+  private baseUrl = `${environment.apiURL}/api/Items`; //API
 
-  GetAllProducts(offset = 0, limit = 12, CategoryId: number = 0) {
-    let options = new HttpParams();
-
-    options = options.set('offset', offset.toString());
-    options = options.set('limit', limit.toString());
-
-    if (CategoryId > 0)
-      options = options.set('categoryId', CategoryId.toString());
-
-    return this.httpClient.get(this.URL, { params: options });
+  //#region To Be Deleted
+  private getItems(
+    endpoint: string,
+    ids: string[],
+    page: number = 1,
+    orderBy?: string
+  ): Observable<PageDto<HomeItemDto>> {
+    let params = new HttpParams();
+    if (ids) {
+      for (const id of ids) {
+        params = params.append(
+          `${endpoint === 'categories' ? 'category' : 'subcategory'}Ids`,
+          id
+        ); // Append each ID
+      }
+    }
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
+    }
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<HomeItemDto>>(
+      `${this.baseUrl}/${endpoint}`,
+      {
+        params,
+      }
+    );
   }
 
-  GetProductsByCategory(offset = 0, limit = 12) {
-    return this.httpClient.get(this.URL, {
-      params: {
-        offset: offset.toString(),
-        limit: limit.toString(),
-      },
+  GetAllItems(
+    page: number = 1,
+    orderBy?: string,
+    searchText?: string|null
+  ): Observable<PageDto<HomeItemDto>> {
+    return this.getItems('', [], page, orderBy);
+  }
+
+  GetItemsByCategories(
+    categoryIds: string[],
+    page: number = 1,
+    orderBy?: string
+  ): Observable<PageDto<HomeItemDto>> {
+    return this.getItems('categories', categoryIds, page, orderBy);
+  }
+
+  GetItemsBySubCategories(
+    subCategoryIds: string[],
+    page: number = 1,
+    orderBy?: string
+  ): Observable<PageDto<HomeItemDto>> {
+    return this.getItems('subcategories', subCategoryIds, page, orderBy);
+  }
+
+  GetItemsBySearch(
+    searchText: string,
+    page: number = 1,
+    orderBy?: string
+  ): Observable<PageDto<HomeItemDto>> {
+    let params = new HttpParams();
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
+    }
+    params = params.set('searchText', searchText);
+    params = params.set('page', page);
+
+    return this.httpClient.get<PageDto<HomeItemDto>>(`${this.baseUrl}/search`, {
+      params,
     });
+  }
+  //#endregion
+
+  GetItems(
+    categoryIds: string[],
+    subCategoryIds: string[],
+    brandIds: string[],
+    searchText: string,
+    page: number = 1,
+    orderBy?: string
+  ): Observable<PageDto<HomeItemDto>> {
+    let params = new HttpParams();
+    if (orderBy) params = params.set('orderBy', orderBy);
+    if (searchText) params = params.set('searchText', searchText);
+
+    params = params.set('page', page);
+
+    if (categoryIds)
+      for (const category of categoryIds)
+        params = params.append('categories', category);
+
+    if (subCategoryIds)
+      for (const subcategory of subCategoryIds)
+        params = params.append('subCategories', subcategory);
+
+    if (brandIds)
+      for (const brand of brandIds) params = params.append('brands', brand);
+
+    return this.httpClient.get<PageDto<HomeItemDto>>(`${this.baseUrl}/`, {
+      params,
+    });
+  }
+
+  GetListedItems(
+    page: number,
+    orderBy?: string,
+    searchText?: string | null,
+  ): Observable<PageDto<ListItemDto>> {
+    let params = new HttpParams();
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
+    }
+
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<ListItemDto>>(`${this.baseUrl}/listed`, {
+      params,
+    });
+  }
+
+  GetItemByIdForRenter(id: string) {
+    return this.httpClient.get(this.baseUrl + '/forrenter/' + id);
+  }
+
+  GetUnListedItems(
+    page: number,
+    orderBy?: string,
+    searchText?: string | null,
+  ):
+    Observable<PageDto<ListItemDto>> {
+    let params = new HttpParams();
+    if (orderBy) {
+      params = params.set('orderBy', orderBy);
+    }
+
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<ListItemDto>>(
+      `${this.baseUrl}/unlisted`,
+      {
+        params,
+      }
+    );
+  }
+
+  UnListItem(itemId: string): Observable<StatusDto> {
+    return this.httpClient.put<StatusDto>(
+      `${this.baseUrl}/unlist/${itemId}`,
+      {}
+    );
+  }
+
+  ReListItem(itemId: string): Observable<StatusDto> {
+    return this.httpClient.put<StatusDto>(
+      `${this.baseUrl}/relist/${itemId}`,
+      {}
+    );
+  }
+
+  DeleteItem(itemId: string) {
+    let params = new HttpParams();
+    params = params.set('id', itemId);
+    return this.httpClient.delete<StatusDto>(`${this.baseUrl}/one`, {params,});
   }
 }

@@ -1,0 +1,354 @@
+<div class="container rounded mt-5 mb-5 bg-white">
+  <div class="row">
+    <div class="col-md-3 border-right">
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+        <img
+          class="rounded-circle mt-5"
+          width="150px"
+          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+        /><span
+          *ngIf="currentUser?.isGrantedRent"
+          class="badge rounded-pill text-bg-success"
+          >Approved</span
+        >
+        <span
+          *ngIf="!currentUser?.isGrantedRent"
+          class="badge rounded-pill text-bg-danger"
+          >Not Approved</span
+        >
+        <span class="font-weight-bold">{{ currentUser?.name }} </span
+        ><span class="text-black-50">{{ currentUser?.email }}</span
+        ><span> </span>
+      </div>
+    </div>
+    <div class="col-md-5 border-right">
+      <form
+        [formGroup]="updateProfileForm"
+        (ngSubmit)="onProfileSubmit()"
+        class="p-3 py-5"
+      >
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-right">Profile Settings</h4>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <label class="labels">First Name</label
+            ><input
+              formControlName="FName"
+              type="text"
+              class="form-control"
+              placeholder="first name"
+            />
+            <div
+              *ngIf="
+                updateProfileForm.get('FName')?.hasError('required') &&
+                IsSubmitButtonClicked
+              "
+              class="text-danger"
+            >
+              First name is required!
+            </div>
+            <div
+              *ngIf="
+                updateProfileForm.get('FName')?.hasError('minlength') &&
+                updateProfileForm.get('FName')?.touched
+              "
+              class="text-danger"
+            >
+              Name cannot be less that three characters!
+            </div>
+            <div
+              *ngIf="
+                updateProfileForm.get('FName')?.hasError('pattern') &&
+                updateProfileForm.get('FName')?.touched
+              "
+              class="text-danger"
+            >
+              Please enter a valid name!
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="labels">Last Name</label
+            ><input
+              type="text"
+              class="form-control"
+              formControlName="LName"
+              placeholder="last name"
+            />
+            <div
+              *ngIf="
+                updateProfileForm.get('LName')?.hasError('required') &&
+                IsSubmitButtonClicked
+              "
+              class="text-danger"
+            >
+              Last name is required!
+            </div>
+            <div
+              *ngIf="
+                updateProfileForm.get('LName')?.hasError('minlength') &&
+                updateProfileForm.get('LName')?.touched
+              "
+              class="text-danger"
+            >
+              Name cannot be less that three characters!
+            </div>
+            <div
+              *ngIf="
+                updateProfileForm.get('LName')?.hasError('pattern') &&
+                updateProfileForm.get('LName')?.touched
+              "
+              class="text-danger"
+            >
+              Please enter a valid name!
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <label class="labels">Phone Number</label
+            ><input
+              type="text"
+              formControlName="phoneNumber"
+              class="form-control"
+              placeholder="enter phone number"
+              value="{{ currentUser?.phoneNumber }}"
+            />
+            <div
+              *ngIf="
+                updateProfileForm.get('phoneNumber')?.hasError('required') &&
+                IsSubmitButtonClicked
+              "
+              class="text-danger"
+            >
+              Phone Number is required!
+            </div>
+            <div
+              *ngIf="
+                updateProfileForm.get('phoneNumber')?.hasError('pattern') &&
+                updateProfileForm.get('phoneNumber')?.touched
+              "
+              class="text-danger"
+            >
+              Please enter a valid Phone Number!
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="labels">Address</label
+            ><input
+              type="text"
+              formControlName="Address"
+              class="form-control"
+              placeholder="enter address "
+              value="{{ currentUser?.address }}"
+            />
+            <div
+              *ngIf="
+                updateProfileForm.get('Address')?.hasError('required') &&
+                IsSubmitButtonClicked
+              "
+              class="text-danger"
+            >
+              Address is required!
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="labels">Email</label
+            ><input
+              type="text"
+              formControlName="email"
+              class="form-control"
+              placeholder="enter email"
+              value="{{ currentUser?.email }}"
+            />
+            <div
+              *ngIf="
+                updateProfileForm.get('email')?.hasError('required') &&
+                IsSubmitButtonClicked
+              "
+              class="text-danger"
+            >
+              Email is required!
+            </div>
+            <div
+              *ngIf="
+                updateProfileForm.get('email')?.hasError('pattern') &&
+                updateProfileForm.get('email')?.touched
+              "
+              class="text-danger"
+            >
+              Please enter a valid email!
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 text-center">
+          <input
+            class="btn btn-primary profile-button"
+            type="submit"
+            value="Save Profile"
+          />
+        </div>
+
+        <div *ngIf="IsUpdated" class="mt-2 alert alert-success" role="alert">
+          Profile has been updated.
+        </div>
+      </form>
+      <form
+        [formGroup]="updateApprovalInfoForm"
+        (ngSubmit)="onApprovalInfoSubmit()"
+        *ngIf="!currentUser?.isGrantedRent"
+        class="row mt-3"
+      >
+        <div class="alert alert-warning" role="alert">
+          Please ensure that the following information is accurate in order to
+          obtain approval.
+        </div>
+        <div class="col-xs-12">
+          <label class="labels">National ID</label
+          ><input
+            type="text"
+            class="form-control"
+            formControlName="NationalID"
+            placeholder="National ID"
+          />
+          <div
+            *ngIf="
+              updateProfileForm.get('NationalID')?.hasError('required') &&
+              IsSubmitButtonClicked
+            "
+            class="text-danger"
+          >
+            National ID is required!
+          </div>
+          <div
+            *ngIf="
+              updateProfileForm.get('NationalID')?.hasError('pattern') &&
+              updateProfileForm.get('NationalID')?.touched
+            "
+            class="text-danger"
+          >
+            Please enter a valid National ID!
+          </div>
+        </div>
+        <div class="col-xs-12 col-lg-6 form-outline">
+          <label class="labels">National ID Image</label>
+          <div style="height: 200px; overflow: hidden" class="mb-3">
+            <img
+              style="object-fit: contain; width: 100%; height: 100%"
+              class="img-fluid"
+              src="data:image/png;base64, {{ NationalImgBase64 }}"
+            />
+          </div>
+          <input
+            type="file"
+            formControlName="NationalImg"
+            name="NationalImg"
+            id="NationalImg"
+            class="form-control"
+            accept="image/png, image/jpeg, image/jpg"
+            (change)="onNaionalImgSelected($event)"
+            placeholder="National Image"
+          />
+          <div
+            *ngIf="
+              updateProfileForm.get('NationalImg')?.hasError('required') &&
+              IsSubmitButtonClicked
+            "
+            class="text-danger"
+          >
+            National Image is required!
+          </div>
+          <div
+            *ngIf="
+              updateProfileForm
+                .get('NationalImg')
+                ?.hasError('invalidFileType') &&
+              updateProfileForm.get('NationalImg')?.touched
+            "
+            class="text-danger"
+          >
+            Invalid image type!
+          </div>
+        </div>
+        <div class="col-xs-12 col-lg-6 form-outline">
+          <label class="labels">Union Card Image</label>
+          <div style="height: 200px; overflow: hidden" class="mb-3">
+            <img
+              style="object-fit: contain; width: 100%; height: 100%"
+              class="img-fluid"
+              src="data:image/png;base64, {{ UnionCardImgBase64 }}"
+            />
+          </div>
+          <input
+            type="file"
+            (change)="onUnionCardImgSelected($event)"
+            formControlName="UnionCardImg"
+            name="UnionCardImage"
+            id="UnionCardImage"
+            class="form-control"
+            accept="image/png, image/jpeg, image/jpg"
+            placeholder="UnionCard Image"
+          />
+          <div
+            *ngIf="
+              updateProfileForm.get('UnionCardImg')?.hasError('required') &&
+              IsSubmitButtonClicked
+            "
+            class="text-danger"
+          >
+            UnionCard Image is required!
+          </div>
+          <div
+            *ngIf="
+              updateProfileForm
+                .get('UnionCardImg')
+                ?.hasError('invalidFileType') &&
+              updateProfileForm.get('UnionCardImg')?.touched
+            "
+            class="text-danger"
+          >
+            Invalid image type!
+          </div>
+        </div>
+
+        <div class="mt-3 text-center">
+          <input
+            class="btn btn-primary profile-button"
+            value="Update Images"
+            type="submit"
+          />
+          <div
+            *ngIf="IsApproveUpdated"
+            class="mt-2 alert alert-success"
+            role="alert"
+          >
+            Images has been updated.
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3 py-5">
+        <div
+          class="d-flex justify-content-between align-items-center experience"
+        >
+          <span>ٌReviews Reports</span>
+        </div>
+        <br />
+        <div
+          class="d-flex justify-content-between align-items-center experience"
+        >
+          <span>Chat Reports</span>
+        </div>
+        <br />
+        <div
+          class="d-flex justify-content-between align-items-center experience"
+        >
+          <span>Item Reports</span>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>

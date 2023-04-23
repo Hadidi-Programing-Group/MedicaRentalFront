@@ -1,56 +1,126 @@
+<nav class="navbar navbar-expand-sm " >
+  <div class="container-fluid">
+    <a
+      class="btn btn-light"
+      data-bs-toggle="offcanvas"
+      href="#offcanvasExample"
+      role="button"
+      aria-controls="offcanvasExample"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </a>
 
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <div class="container">
-        <a class="btn btn-light" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"> 
-           <img img width="50px" height="50px" src="assets/icons/ico2.png"/>
-          </a> 
-      <a class="navbar-brand" href="#"><img width="50px" height="50px" src="assets/icons/ico1.png"/></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="/MyProfile">My Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="/Support">Support</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="/Cart">Cart</a>
-          </li>
-        </ul>
-  
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-dark " type="submit">Search</button>
-        </form>
-      
-      </div>
-     
-      
-    </div>
-  </nav>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#collapsibleNavId"
+      aria-controls="collapsibleNavId"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+      <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/products"
+            >Products</a
+          >
+        </li>
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/user/myaccount"
+            >My Profile</a
+          >
+        </li>
 
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Our Pages</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      
-      <div class="dropdown mt-3">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-          Categories
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <button class="nav-link btn btn-outline-danger" (click)="LogOut()">
+            Log out
+          </button>
+        </li>
+
+        <li *ngIf="!isAuthenticated" class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/login"
+            >Login</a
+          >
+        </li>
+        <li *ngIf="!isAuthenticated" class="nav-item">
+          <a
+            class="nav-link"
+            style="cursor: pointer"
+            (click)="ShowRegistrationForm()"
+            >Register</a
+          >
+        </li>
+       
+      </ul>
+      <div class="d-flex">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          [(ngModel)]="searchText"
+        />
+        <button (click)="searchProduct()" class="btn btn-outline-light">
+          Search
         </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">set1</a></li>
-          <li><a class="dropdown-item" href="#">set2</a></li>
-          <li><a class="dropdown-item" href="#">set3</a></li>
-        </ul>
       </div>
     </div>
   </div>
+</nav>
+
+<div
+  class="offcanvas offcanvas-start"
+  tabindex="-1"
+  id="offcanvasExample"
+  aria-labelledby="offcanvasExampleLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Our Pages</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="dropdown mt-3">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+      >
+        Categories
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">set1</a></li>
+        <li><a class="dropdown-item" href="#">set2</a></li>
+        <li><a class="dropdown-item" href="#">set3</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

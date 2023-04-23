@@ -1,29 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/Services/Login/login.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup; // Declare loginForm as FormGroup
+  loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private loginservies: LoginService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
+          ),
+        ],
+      ],
+      password: ['', Validators.required],
     });
   }
 
-  ngOnInit() {
-    // Any additional initialization code
-  }
+  wrongInfo = false;
+
+  ngOnInit() {}
 
   onSubmit() {
-    // Handle form submission
+    if (this.loginForm.valid) {
+      const userData = this.loginForm.value;
+      const DataToBeSent = {
+        email: userData.email,
+        password: userData.password,
+      };
+      this.loginservies.LoginUser(DataToBeSent).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          localStorage.setItem('authToken', data['token']);
+          localStorage.setItem('authTokenExpDate', data['expiry']);
+          this.loginservies.isAuthenticatedChanged.emit(true);
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          this.wrongInfo = true;
+        },
+      });
+    }
   }
 }
-
-

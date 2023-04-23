@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row" id="main-row">
+    <div class="col-12 pt-4 pb-3 bg-light" id="user-navbar">
+      <app-my-account-navbar
+        (componentUpdater)="updateComponent($event)"
+      ></app-my-account-navbar>
+    </div>
+    <div class="col-12">
+      <app-profile *ngIf="selected == 'profile'"></app-profile>
+      <app-listed-items *ngIf="selected == 'listed'"></app-listed-items>
+      <app-unlisted-items *ngIf="selected == 'unlisted'"></app-unlisted-items>
+      <app-rented-items *ngIf="selected == 'rented'"></app-rented-items>
+      <app-on-rent-items *ngIf="selected == 'onRent'"></app-on-rent-items>
+      <app-rented-items-history
+        *ngIf="selected == 'rentedHist'"
+      ></app-rented-items-history>
+      <app-on-rent-items-history
+        *ngIf="selected == 'onRentHist'"
+      ></app-on-rent-items-history>
+    </div>
+  </div>
+</div>
