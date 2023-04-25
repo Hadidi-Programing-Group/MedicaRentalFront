@@ -1,0 +1,26 @@
+<div class="row m-2">
+  <div class="d-md-none d-lg-block col-lg-3 justify-content-start">
+    <h4>Users</h4>
+    <div class="btn-group-vertical col-12">
+      <button *ngFor="let user of users" (click)="openChat(user.userId)" type="button"
+              [ngClass]="('my-1 btn ' + (currentUser == user.userId? 'btn-success active' : 'btn-outline-success'))">
+        {{user.userName}}
+      </button>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-lg-9 p-3" id="chatArea">
+    <div class="row d-flex flex-row bg-info border rounded-5" id="messagesArea">
+      <app-message *ngFor="let message of messages" [message]="message.message"
+                   [messageDate]="message.messageDate" [seenStatus]="message.messageStatus"
+                   [isOut]="message.senderId == currentUser"></app-message>
+    </div>
+    <div class="row px-4 pt-3">
+      <div class="col-11">
+        <input #msg type="text" class="form-control" placeholder="Enter your message here...">
+      </div>
+      <button type="button" class="btn btn-success col-1" (click)="sendMessage(msg.value)">Send</button>
+    </div>
+  </div>
+</div>
+

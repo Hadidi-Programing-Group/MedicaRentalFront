@@ -30,10 +30,10 @@ export class NavbarComponent implements OnInit {
   }
 
   LogOut() {
-    this.loginService.revokeToken().subscribe({
+    this.loginService.revokeToken()/*.subscribe({
       next: (data) => console.log(data),
       error: (err) => console.log(err),
-    });
+    });*/
     this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
   }
@@ -56,5 +56,5 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  
+
 }

@@ -15,38 +15,38 @@ body{
 }
 
 h3{
-    
+
     color:  #304b6a !important;
 }
 .btn-secondary{
     background-color: #304b6a !important;
-    color: aliceblue !important; 
+    color: aliceblue !important;
 }
 
 .CategoryFilter{
     background-color: #304b6a !important;
-    color: aliceblue; 
+    color: aliceblue;
 }
 
 .btn-primary{
     background-color: #304b6a !important;
-    color: aliceblue !important;   
+    color: aliceblue !important;
 }
 
 .ng-touched {
-    color: aliceblue !important; 
+    color: aliceblue !important;
 }
 .ng-dirty{
-    color: aliceblue !important; 
+    color: aliceblue !important;
 }
 
 #fm{
     background-color: #304b6a !important;
-    color: aliceblue;  
+    color: aliceblue;
 }
 
 .btn-outline-dark {
-    
+
     --bs-btn-border-color: #304b6a;
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #304b6a;
@@ -61,9 +61,10 @@ h3{
     --bs-btn-disabled-border-color: #304b6a;
     --bs-gradient: none;
 }
+
 .btn-dark{
     background-color: #304b6a !important;
-    color: aliceblue;   
+    color: aliceblue;
 }
 
 
@@ -85,23 +86,23 @@ h3{
 }
 .btn-success{
     background-color: #537398 !important;
-    color: aliceblue;   
+    color: aliceblue;
 }
 
 .bg-secondary{
     background-color: #537398 !important;
-    color: aliceblue;    
+    color: aliceblue;
 }
 h2{
     color: #304b6a !important;
 }
 p{
     color: #304b6a !important;
-}  
+}
 .offcanvas {
     background-color: #304b6a !important;
     color: white;
-  } 
+  }
 
   .btn-outline-secondary {
     --bs-btn-color: #537398;

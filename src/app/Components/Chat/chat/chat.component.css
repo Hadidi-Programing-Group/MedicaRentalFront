@@ -1,0 +1,14 @@
+#chatArea{
+
+}
+
+#messagesArea{
+  height: 78vh;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+#messagesArea::-webkit-scrollbar {
+  display: none;
+}

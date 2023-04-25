@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/Services/Login/login.service';
+import {SignalRService} from "../../Services/SignalR/signal-r.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-login',

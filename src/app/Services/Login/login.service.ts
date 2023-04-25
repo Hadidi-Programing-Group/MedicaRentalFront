@@ -45,6 +45,6 @@ export class LoginService {
     const options = { headers, withCredentials: true };
 
     // Make the POST request with userData and options
-    return this.client.post(`${this.URL}/revokeToken`,{}, options);
+    //return this.client.post(`${this.URL}/revokeToken`,{}, options);
   }
 }
