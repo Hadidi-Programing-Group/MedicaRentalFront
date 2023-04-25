@@ -76,7 +76,15 @@
         </li>
        
       </ul>
+      
+      <form [formGroup]="toggleFormGroup">
+        <label class="text-light m-3">
+          <mat-slide-toggle  formControlName="darkMode" ></mat-slide-toggle>
+          Dark Mode
+        </label>
+      </form>
       <div class="d-flex">
+        
         <input
           class="form-control me-2"
           type="search"
