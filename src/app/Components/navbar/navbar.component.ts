@@ -6,6 +6,7 @@ import { FilterService } from 'src/app/Services/Filter/filter.service';
 import { LoginService } from 'src/app/Services/Login/login.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import {SignalRService} from "../../Services/SignalR/signal-r.service";
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private NavBarService: CommunicationService,
     private router: Router,
+    private signalRService: SignalRService,
     private readonly filterService: FilterService,
     public readonly loginService: LoginService,
     private overlay: OverlayContainer
@@ -58,12 +60,10 @@ export class NavbarComponent implements OnInit {
   }
 
   LogOut() {
-    this.loginService.revokeToken().subscribe({
-      next: (data) => console.log(data),
-      error: (err) => console.log(err),
-    });
+    this.loginService.revokeToken()
     this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
+    this.signalRService.endConnection()
   }
 
   private OrderByStrings = OrderByStrings;

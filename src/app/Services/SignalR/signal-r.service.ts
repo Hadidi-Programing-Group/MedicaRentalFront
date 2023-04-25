@@ -14,6 +14,7 @@ export class SignalRService
 
   startConnection(token: string)
   {
+    console.log('is startcon')
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl(this.url, {accessTokenFactory: () => token})
       .build();
