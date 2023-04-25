@@ -79,14 +79,16 @@
       </tbody>
     </table>
 
-    <!-- <div class="row">
+    <div class="row">
       <div class="d-flex justify-content-center my-4">
-        <app-pagination [currentPage]="currentPage" [totalPages]="pagesCount"
-                        (pageChanged)="onPageChanged($event)">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="pagesCount"
+          (pageChanged)="onPageChanged($event)"
+        >
         </app-pagination>
       </div>
     </div>
-  </div> -->
 
     <p
       *ngIf="reportsList && reportsList.length == 0"

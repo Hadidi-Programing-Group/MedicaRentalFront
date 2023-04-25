@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ReportDto } from 'src/app/Dtos/Reports/ReportDto';
 import { DetailedReportDto } from 'src/app/Dtos/Reports/DetailedReportDto';
+import { PageDto } from 'src/app/Dtos/PageDto';
 
 @Injectable({
   providedIn: 'root',
@@ -13,16 +14,31 @@ export class ReportsService {
 
   private baseUrl = `${environment.apiURL}/api/Reports`; //API
 
-  getAllChatsReports(): Observable<ReportDto[]> {
-    return this.httpClient.get<ReportDto[]>(`${this.baseUrl}/AllChatsReports`);
+  getAllChatsReports(page: number = 1): Observable<PageDto<ReportDto>> {
+    let params = new HttpParams();
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<ReportDto>>(
+      `${this.baseUrl}/AllChatsReports`,
+      { params }
+    );
   }
 
-  getAllReviewReports(): Observable<ReportDto[]> {
-    return this.httpClient.get<ReportDto[]>(`${this.baseUrl}/AllReviewReports`);
+  getAllReviewReports(page: number = 1): Observable<PageDto<ReportDto>> {
+    let params = new HttpParams();
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<ReportDto>>(
+      `${this.baseUrl}/AllReviewReports`,
+      { params }
+    );
   }
 
-  getAllItemsReports(): Observable<ReportDto[]> {
-    return this.httpClient.get<ReportDto[]>(`${this.baseUrl}/AllItemsReports`);
+  getAllItemsReports(page: number = 1): Observable<PageDto<ReportDto>> {
+    let params = new HttpParams();
+    params = params.set('page', page);
+    return this.httpClient.get<PageDto<ReportDto>>(
+      `${this.baseUrl}/AllItemsReports`,
+      { params }
+    );
   }
 
   getDetailedReport(reportId: string): Observable<DetailedReportDto> {
