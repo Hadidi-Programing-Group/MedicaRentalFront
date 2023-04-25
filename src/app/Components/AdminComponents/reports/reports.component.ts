@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatReportDto } from 'src/app/Dtos/Reports/ChatReportDto';
 import { ReportDto } from 'src/app/Dtos/Reports/ReportDto';
 import { ReportsService } from 'src/app/Services/Reports/reports.service';
 import { ReportListNames } from 'src/app/Dtos/Reports/ReportListNames';

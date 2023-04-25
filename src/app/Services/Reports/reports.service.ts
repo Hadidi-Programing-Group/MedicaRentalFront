@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ReportDto } from 'src/app/Dtos/Reports/ReportDto';
-import { ChatReportDto } from 'src/app/Dtos/Reports/ChatReportDto';
+import { DetailedReportDto } from 'src/app/Dtos/Reports/DetailedReportDto';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +23,11 @@ export class ReportsService {
 
   getAllItemsReports(): Observable<ReportDto[]> {
     return this.httpClient.get<ReportDto[]>(`${this.baseUrl}/AllItemsReports`);
+  }
+
+  getDetailedReport(reportId: string): Observable<DetailedReportDto> {
+    return this.httpClient.get<DetailedReportDto>(
+      `${this.baseUrl}/${reportId}`
+    );
   }
 }

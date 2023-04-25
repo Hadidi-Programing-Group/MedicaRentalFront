@@ -59,7 +59,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of reportsList">
-          <td>{{ item.name }}</td>
+          <td>
+            <a [routerLink]="item.id">{{ item.name }}</a>
+          </td>
           <td>{{ item.createdDate | date : "medium" }}</td>
           <td class="text-success" *ngIf="item.isSolved">
             {{ item.solveDate | date : "medium" }}
@@ -71,7 +73,7 @@
             {{ item.reportedName }}
           </td>
           <td class="d-none d-lg-table-cell">
-            {{ item.reporteeName }}
+            {{ item.reporterName }}
           </td>
         </tr>
       </tbody>

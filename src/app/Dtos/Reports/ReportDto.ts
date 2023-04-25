@@ -6,6 +6,6 @@ export class ReportDto {
     public createdDate: Date,
     public solveDate: Date | null,
     public reportedName: string,
-    public reporteeName: string
+    public reporterName: string
   ) {}
 }

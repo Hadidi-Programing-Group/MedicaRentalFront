@@ -46,6 +46,7 @@ import { NotFound404Component } from './Components/Errors/not-found404/not-found
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReportsComponent } from './Components/AdminComponents/reports/reports.component';
+import { ReportDetailsComponent } from './Components/AdminComponents/report-details/report-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +82,7 @@ import { ReportsComponent } from './Components/AdminComponents/reports/reports.c
     Forbidden403Component,
     NotFound404Component,
     ReportsComponent,
+    ReportDetailsComponent,
   ],
 
   imports: [
