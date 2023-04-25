@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HubConnection} from "@microsoft/signalr";
 import * as signalR from "@microsoft/signalr";
 import {environment} from "../../../environments/environment";
@@ -6,32 +6,33 @@ import {environment} from "../../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
-export class SignalRService {
-  private readonly connection: HubConnection;
-
+export class SignalRService
+{
+  private connection: HubConnection | null = null;
   private url = `${environment.apiURL}/chatHub`; //API
-  private token: string
-  constructor() {
-    this.token = localStorage.getItem('authToken')??""
 
-    if(this.token == "")
-      console.error("authToken is empty")
 
-    this.connection = new signalR.HubConnectionBuilder()
-      .withUrl(this.url, {accessTokenFactory: () => this.token})
-      .build();
-  }
-
-  startConnection()
+  startConnection(token: string)
   {
+    this.connection = new signalR.HubConnectionBuilder()
+      .withUrl(this.url, {accessTokenFactory: () => token})
+      .build();
+
     this.connection.start()
       .then(() => console.log("Connected Successfully"))
       .catch((err) => console.error(err.toString()));
 
-    this.connection.on("ReceiveMessage", (message: string, senderId) =>
+    this.connection.on("ReceiveMessage", (message: string, senderId: string) =>
     {
-
+        console.log(`Message: ${message} was received from ${senderId}`);
     });
+  }
+
+  endConnection()
+  {
+    this.connection?.stop()
+      .then(() => console.log('Connection closed.'))
+      .catch((err) => console.error(err))
   }
 
   sendMessage(message: string, receiverId: string)

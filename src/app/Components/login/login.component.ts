@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private signalRService: SignalRService,
     private loginservies: LoginService,
     private router: Router
   ) {
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('authToken', data['token']);
           localStorage.setItem('authTokenExpDate', data['expiry']);
           this.loginservies.isAuthenticatedChanged.emit(true);
+          this.signalRService.startConnection(data['token'])
           this.router.navigate(['/']);
         },
         error: (err) => {

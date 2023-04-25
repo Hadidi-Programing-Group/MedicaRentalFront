@@ -1,18 +1,13 @@
-<div [ngClass]="['d-flex flex-row bg-danger rounded-pill my-2 message justify-content-end']">
-  <div class="d-flex flex-column">
-    <p class="m-0 msg">{{ message }}</p>
-    <div class="m-0 d-flex flex-row justify-content-end">
-      <p class="m-0 px-2 pb-1  time">{{ messageDate | date: 'h:mm a' }}</p>
-      <i *ngIf="seenStatus == 2" class="fas fa-check-double" style="color: #80f0ff;"></i>
-      <i *ngIf="seenStatus == 1" class="fas fa-check-double" style="color: #a3a3a3;"></i>
-      <i *ngIf="seenStatus == 0" class="fas fa-check" style="color: #a3a3a3;"></i>
+<div class="d-flex flex-column">
+<div style="background-color: #52b0a4" class="messageBox d-flex flex-row rounded-pill my-2 message px-3 pt-1">
+  <div class="d-flex flex-column w-100">
+    <p class="m-0 msg text-white  ">{{ message }}</p>
+    <div class="m-0 pb-1 d-flex justify-content-end align-items-center">
+      <p [ngClass]="['m-0 time text-white', isOut? 'px-2' : 'px-0']">{{ messageDate | date: 'h:mm a' }}</p>
+      <i *ngIf="isOut && seenStatus == 2" class="fas fa-check-double" style="color: #80f0ff;"></i>
+      <i *ngIf="isOut && seenStatus == 1" class="fas fa-check-double" style="color: #a3a3a3;"></i>
+      <i *ngIf="isOut && seenStatus == 0" class="fas fa-check" style="color: #a3a3a3;"></i>
     </div>
   </div>
 </div>
-<!--
-I want to align this shit to the right when I am the sender
-
-Like
-Abdallah:________
-                       _________:ME
--->
+</div>

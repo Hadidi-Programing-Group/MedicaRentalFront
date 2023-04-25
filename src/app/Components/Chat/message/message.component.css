@@ -1,5 +1,5 @@
 .time, i{
-  font-size: 0.9em;
+  font-size: 0.7em;
 }
 .msg{
   font-size: 1.2em;
@@ -12,4 +12,8 @@
 
 .message{
   max-width: 70%;
+}
+
+.messageBox{
+min-width: 11.5em;
 }

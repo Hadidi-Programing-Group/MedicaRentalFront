@@ -5,6 +5,7 @@ import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
 import { FilterService } from 'src/app/Services/Filter/filter.service';
 import { LoginService } from 'src/app/Services/Login/login.service';
 import { error } from 'jquery';
+import {SignalRService} from "../../Services/SignalR/signal-r.service";
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -14,6 +15,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private NavBarService: CommunicationService,
     private router: Router,
+    private signalRService: SignalRService,
     private readonly filterService: FilterService,
     private readonly loginService: LoginService
   ) {}
@@ -34,6 +36,7 @@ export class NavbarComponent implements OnInit {
       next: (data) => console.log(data),
       error: (err) => console.log(err),
     });*/
+    this.signalRService.endConnection();
     this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
   }

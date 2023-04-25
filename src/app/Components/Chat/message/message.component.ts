@@ -11,7 +11,5 @@ export class MessageComponent {
   @Input() messageDate:Date = new Date();
   @Input() seenStatus: MessageStatus = MessageStatus.Sent;
   @Input() isOut: boolean = false;
-
-
-
+  @Input() isNewDate: boolean = false
 }

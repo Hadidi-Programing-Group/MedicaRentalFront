@@ -10,7 +10,7 @@ import { CommunicationService } from './Services/Communication/communication.ser
 export class AppComponent {
   title = environment.title;
 
-  constructor(private navbarService: CommunicationService) {}
+  constructor(private navbarService: CommunicationService, ) {}
     get isVisible(): boolean {
       return this.navbarService.isVisible;
   }

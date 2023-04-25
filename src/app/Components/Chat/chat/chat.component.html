@@ -1,26 +1,45 @@
 <div class="row m-2">
-  <div class="d-md-none d-lg-block col-lg-3 justify-content-start">
+  <div class="d-sm-none d-md-block col-md-4 col-lg-3 justify-content-start" id="usersArea">
     <h4>Users</h4>
-    <div class="btn-group-vertical col-12">
+    <div class="row col-12">
+
       <button *ngFor="let user of users" (click)="openChat(user.userId)" type="button"
-              [ngClass]="('my-1 btn ' + (currentUser == user.userId? 'btn-success active' : 'btn-outline-success'))">
+              [ngClass]="('my-1 btn text-start ' + (currentUser == user.userId? 'btn-success active' : 'btn-outline-success'))">
+
+        <img *ngIf="isValidBase64(user.userProfileImage); else icon" class="mx-2 my-1 bg-dark rounded-circle profile-img"
+             ngSrc="{{user.userProfileImage}}" fill alt="">
+        <ng-template #icon>
+          <div class="mx-2 my-1 d-inline-block text-center text-white bg-dark rounded-circle profile-img">
+            <i class="fa-solid fa-user my-2"></i>
+          </div>
+        </ng-template>
+
         {{user.userName}}
       </button>
+
     </div>
   </div>
 
-  <div class="col-md-12 col-lg-9 p-3" id="chatArea">
-    <div class="row d-flex flex-row bg-info border rounded-5" id="messagesArea">
-      <app-message *ngFor="let message of messages" [message]="message.message"
-                   [messageDate]="message.messageDate" [seenStatus]="message.messageStatus"
-                   [isOut]="message.senderId == currentUser"></app-message>
+  <div class="col-md-8 col-lg-9 p-3" id="chatArea">
+
+    <div class="row d-flex flex-row bg-secondary border rounded-5" id="messagesArea">
+      <div *ngFor="let message of messages; let i=index">
+        <app-date *ngIf="checkNewDate(i)" [date]="message.messageDate" class="justify-content-center"></app-date>
+        <app-message [ngClass]="['d-flex', message.senderId == currentUser? 'justify-content-end' : '']"
+                     [message]="message.message"
+                     [messageDate]="message.messageDate"
+                     [seenStatus]="message.messageStatus"
+                     [isOut]="message.senderId == currentUser"></app-message>
+      </div>
     </div>
+
     <div class="row px-4 pt-3">
       <div class="col-11">
         <input #msg type="text" class="form-control" placeholder="Enter your message here...">
       </div>
       <button type="button" class="btn btn-success col-1" (click)="sendMessage(msg.value)">Send</button>
     </div>
+
   </div>
 </div>
 

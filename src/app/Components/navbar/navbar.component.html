@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm " >
+<nav class="navbar navbar-expand-sm ">
   <div class="container-fluid">
     <a
       class="btn btn-light"
@@ -29,7 +29,7 @@
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/"
-            >Home</a
+          >Home</a
           >
         </li>
         <li class="nav-item">
@@ -38,7 +38,7 @@
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/products"
-            >Products</a
+          >Products</a
           >
         </li>
         <li class="nav-item">
@@ -47,7 +47,7 @@
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/chat"
-            >chat</a
+          >chat</a
           >
         </li>
         <li *ngIf="isAuthenticated" class="nav-item">
@@ -56,34 +56,10 @@
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/user/myaccount"
-            >My Profile</a
+          >My Profile</a
           >
         </li>
 
-        <li *ngIf="isAuthenticated" class="nav-item">
-          <button class="nav-link btn btn-outline-danger" (click)="LogOut()">
-            Log out
-          </button>
-        </li>
-
-        <li *ngIf="!isAuthenticated" class="nav-item">
-          <a
-            class="nav-link"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
-            routerLink="/login"
-            >Login</a
-          >
-        </li>
-        <li *ngIf="!isAuthenticated" class="nav-item">
-          <a
-            class="nav-link"
-            style="cursor: pointer"
-            (click)="ShowRegistrationForm()"
-            >Register</a
-          >
-        </li>
-       
       </ul>
       <div class="d-flex">
         <input
@@ -97,6 +73,33 @@
           Search
         </button>
       </div>
+
+
+      <ul class="navbar-nav mt-2 mt-lg-0">
+      <app-notification message='2'></app-notification>
+      <li *ngIf="isAuthenticated" class="nav-item">
+        <button class="nav-link btn btn-outline-danger" (click)="LogOut()">
+          Log out
+        </button>
+      </li>
+      <li *ngIf="!isAuthenticated" class="nav-item">
+        <a
+          class="nav-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active"
+          routerLink="/login"
+        >Login</a
+        >
+      </li>
+      <li *ngIf="!isAuthenticated" class="nav-item">
+        <a
+          class="nav-link"
+          style="cursor: pointer"
+          (click)="ShowRegistrationForm()"
+        >Register</a
+        >
+      </li>
+      </ul>
     </div>
   </div>
 </nav>

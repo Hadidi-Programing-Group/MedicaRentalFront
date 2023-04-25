@@ -3,8 +3,6 @@ import {ChatService} from "../../../Services/Chat/chat.service";
 import {SignalRService} from "../../../Services/SignalR/signal-r.service";
 import {ChatDto} from "../../../Dtos/Message/ChatDto";
 import {MessageDto} from "../../../Dtos/Message/MessageDto";
-import {environment} from "../../../../environments/environment";
-import {OrderByStrings} from "../../../Dtos/OrderByStrings";
 
 @Component({
   selector: 'app-chat',
@@ -22,6 +20,7 @@ export class ChatComponent implements OnInit
     private signalRService: SignalRService
   )
   {
+
   }
 
   ngOnInit(): void
@@ -32,7 +31,6 @@ export class ChatComponent implements OnInit
         error: (err) => console.error(err)
       })
   }
-
 
   public sendMessage(message: string)
   {
@@ -53,32 +51,30 @@ export class ChatComponent implements OnInit
       })
   }
 
-  protected readonly OrderByStrings = OrderByStrings;
+  checkNewDate(i: number): boolean
+  {
+    if (i == 0)
+    {
+      return true;
+    }
+
+    let date1 = new Date(this.messages[i - 1].messageDate)
+    let date2 = new Date(this.messages[i].messageDate)
+
+    return !(date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate());
+  }
+
+  isValidBase64(str: string): boolean {
+    if(str == '') return false;
+  try {
+    // Attempt to decode the string using atob()
+    const decodedStr = atob(str);
+    return decodedStr.length === str.length;
+  } catch (e) {
+    return false;
+  }
 }
 
-
-/*
-connection: signalR.HubConnection;
-  loginToken:any
-
-  constructor() {
-    this.loginToken=localStorage.getItem("authToken")
-    this.connection = new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:7273/hub" , { accessTokenFactory: () => this.loginToken })
-      .build();
-
-
-    this.connection.start().then(function () {
-      console.log("Connected SuccessFully");
-    }).catch(function (err) {
-      return console.error(err.toString());
-    });
-
-    this.connection.on("ReceiveComment", function (comment) {
-      console.log(comment);
-    });
-  }
-  send(str: any) {
-    this.connection.invoke("PostComment",str, "45f6038f-6a1b-4679-899f-13b0e240b45b")
-  }
-* */
+}

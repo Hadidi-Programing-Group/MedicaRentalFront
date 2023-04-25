@@ -45,6 +45,9 @@ import { Forbidden403Component } from './Components/Errors/forbidden403/forbidde
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
 import { ChatComponent } from './Components/Chat/chat/chat.component';
 import { MessageComponent } from './Components/Chat/message/message.component';
+import { DateComponent } from './Components/Chat/date/date.component';
+import {NgOptimizedImage} from "@angular/common";
+import { NotificationComponent } from './Components/Chat/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -82,16 +85,19 @@ import { MessageComponent } from './Components/Chat/message/message.component';
     NotFound404Component,
     ChatComponent,
     MessageComponent,
+    DateComponent,
+    NotificationComponent,
   ],
 
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgxPaginationModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgxPaginationModule,
+        NgOptimizedImage,
+    ],
   providers: [
     ProductsService,
     CategoriesService,
