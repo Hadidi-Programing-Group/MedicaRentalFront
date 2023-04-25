@@ -53,8 +53,6 @@ export class ItemDetailsRenterComponent implements OnInit {
     this.myService.GetItemByIdForRenter(this.ID).subscribe({
       next: (data: RenterItemDto | any) => {
         this.Item = data;
-        console.log(data);
-        console.log(this.Item.model);
         this.RatingStars = new Array(data.rating);
         this.RestOfStars = new Array(5 - data.rating);
         this.image = 'data:image/png;base64,' + data.image;
@@ -66,14 +64,12 @@ export class ItemDetailsRenterComponent implements OnInit {
 
     this.renService.GetIsRented(this.ID).subscribe({
       next: (data: any) => {
-        console.log(data.isRented);
         if (data.isRented == false) this.ShowRatingBtn = false;
       },
     });
 
     this.myService.GetIfItemOwner(this.ID).subscribe({
       next:(data:any)=>{
-        console.log(data)
         if(data["isOwner"]==false)
         this.IsOwner=false;
         else
@@ -87,20 +83,15 @@ export class ItemDetailsRenterComponent implements OnInit {
 
   onSubmit() {
     const ratingValue = this.reviewForm.get('radioControl')?.value;
-    console.log(typeof ratingValue);
     const reviewValue = this.reviewForm.get('review')?.value;
-    console.log(reviewValue);
-
     const UserRev = {
       rating: parseInt(this.reviewForm.get('radioControl')?.value),
       isDeleted: false,
       clientReview: this.reviewForm.get('review')?.value,
       itemId: this.ID
     }
-      console.log(UserRev);
     this.ReviewSerivce.AddReview(UserRev).subscribe({
       next: (res) => {
-        console.log(res);
         this.ngOnInit();
       },
       error: (error) => {
