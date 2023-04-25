@@ -11,11 +11,13 @@ import { ItemDetailsRenterComponent } from './Components/item-details-renter/ite
 import { ReviewsComponent } from './Components/reviews/reviews.component';
 import { Forbidden403Component } from './Components/Errors/forbidden403/forbidden403.component';
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
+import { ItemDetailsSellerComponent } from './Components/item-details-seller/item-details-seller/item-details-seller.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ItemDetailsRenterComponent },
+  { path: 'products/forseller/:id', component: ItemDetailsSellerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'nationaliderror', component: NationalIDErrorComponent },

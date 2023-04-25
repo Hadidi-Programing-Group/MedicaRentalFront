@@ -368,3 +368,7 @@ input:checked ~ label {
   padding-top: 0px;
   margin-left: 50px;
 }
+
+textarea {
+  resize: none;
+}
