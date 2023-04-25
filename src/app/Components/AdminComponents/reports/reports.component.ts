@@ -3,6 +3,7 @@ import { ChatReportDto } from 'src/app/Dtos/Reports/ChatReportDto';
 import { ReportDto } from 'src/app/Dtos/Reports/ReportDto';
 import { ReportsService } from 'src/app/Services/Reports/reports.service';
 import { ReportListNames } from 'src/app/Dtos/Reports/ReportListNames';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-reports',
@@ -29,39 +30,19 @@ export class ReportsComponent implements OnInit {
   getReports() {
     switch (this.selectedList) {
       case ReportListNames.Chats:
-        this.getAllChatsReports();
+        this.fetchReports(this.reportsService.getAllChatsReports());
         break;
       case ReportListNames.Items:
-        this.getAllItemsReports();
+        this.fetchReports(this.reportsService.getAllItemsReports());
         break;
       case ReportListNames.Reviews:
-        this.getAllReviewReports();
+        this.fetchReports(this.reportsService.getAllReviewReports());
         break;
     }
   }
-  getAllReviewReports() {
-    this.reportsService.getAllReviewReports().subscribe({
-      next: (data) => {
-        this.reportsList = data;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-  getAllItemsReports() {
-    this.reportsService.getAllItemsReports().subscribe({
-      next: (data) => {
-        this.reportsList = data;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
 
-  getAllChatsReports() {
-    this.reportsService.getAllChatsReports().subscribe({
+  fetchReports(service: Observable<ReportDto[]>) {
+    service.subscribe({
       next: (data) => {
         this.reportsList = data;
       },
