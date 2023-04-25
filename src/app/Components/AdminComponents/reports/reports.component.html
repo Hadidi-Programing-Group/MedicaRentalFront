@@ -49,8 +49,12 @@
           <th class="bg-secondary col-2">Name</th>
           <th class="bg-secondary col-2">Report Date</th>
           <th class="bg-secondary col-2">Solve Data</th>
-          <th class="bg-secondary col-2">Reported Name</th>
-          <th class="bg-secondary col-2">Reportee Name</th>
+          <th class="d-none d-md-table-cell bg-secondary col-2">
+            Reported Name
+          </th>
+          <th class="d-none d-lg-table-cell bg-secondary col-2">
+            Reportee Name
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -63,8 +67,12 @@
           <td *ngIf="!item.isSolved">
             <span class="badge text-bg-danger">Open</span>
           </td>
-          <td>{{ item.reportedName }}</td>
-          <td>{{ item.reporteeName }}</td>
+          <td class="d-none d-md-table-cell">
+            {{ item.reportedName }}
+          </td>
+          <td class="d-none d-lg-table-cell">
+            {{ item.reporteeName }}
+          </td>
         </tr>
       </tbody>
     </table>
