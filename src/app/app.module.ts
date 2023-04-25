@@ -43,7 +43,8 @@ import { ListOrderByComponent } from './Components/UserComponents/OrderByCompone
 import { RentOrderByComponent } from './Components/UserComponents/OrderByComponents/rent-order-by/rent-order-by.component';
 import { Forbidden403Component } from './Components/Errors/forbidden403/forbidden403.component';
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +88,8 @@ import { NotFound404Component } from './Components/Errors/not-found404/not-found
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule
   ],
   providers: [
     ProductsService,
