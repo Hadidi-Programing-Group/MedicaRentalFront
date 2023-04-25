@@ -45,6 +45,8 @@ import { Forbidden403Component } from './Components/Errors/forbidden403/forbidde
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ReportsComponent } from './Components/AdminComponents/reports/reports.component';
+import { ReportDetailsComponent } from './Components/AdminComponents/report-details/report-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +81,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     RentOrderByComponent,
     Forbidden403Component,
     NotFound404Component,
+    ReportsComponent,
+    ReportDetailsComponent,
   ],
 
   imports: [
