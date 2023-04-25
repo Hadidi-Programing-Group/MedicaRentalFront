@@ -12,6 +12,7 @@ export class DetailedReportDto {
     public reporterName: string,
     public contentId: string,
     public content: string,
-    public contentTimeStamp: Date
+    public contentTimeStamp: Date,
+    public reportCategory: string,
   ) {}
 }

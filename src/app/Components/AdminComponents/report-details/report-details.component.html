@@ -56,7 +56,15 @@
           <strong>Content ID:</strong> {{ report.contentId }}
         </li>
         <li class="list-group-item">
-          <strong>Content:</strong> {{ report.content }}
+          <strong>Content: </strong>
+          <a
+            routerLink="/products/{{ report.contentId }}"
+            *ngIf="report.reportCategory == ReportListNames.Items"
+            >{{ report.content }}</a
+          >
+          <span *ngIf="report.reportCategory != ReportListNames.Items">{{
+            report.content
+          }}</span>
         </li>
         <li class="list-group-item">
           <strong>Content Timestamp:</strong>
