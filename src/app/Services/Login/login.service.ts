@@ -19,8 +19,10 @@ export class LoginService
   }
 
   isAuthenticatedChanged = new EventEmitter<boolean>();
+  changeUserRole = new EventEmitter<string>();
 
   isAuthenticated = false;
+  userRole: string = "";
 
   public ErrorMsg: any;
   private readonly URL = `${environment.apiURL}`; //API

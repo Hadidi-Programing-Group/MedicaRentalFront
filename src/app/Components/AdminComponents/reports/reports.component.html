@@ -1,0 +1,100 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-flex justify-content-center my-4">
+      <div class="btn-group col-sm-7 col-md-9">
+        <button
+          (click)="OnListChange(ReportListNames.Chats)"
+          type="button"
+          [ngClass]="
+            'btn ' +
+            (selectedList == ReportListNames.Chats
+              ? 'btn-success active'
+              : 'btn-outline-success')
+          "
+        >
+          {{ ReportListNames.Chats }} Reports
+        </button>
+        <button
+          (click)="OnListChange(ReportListNames.Items)"
+          type="button"
+          [ngClass]="
+            'btn ' +
+            (selectedList == ReportListNames.Items
+              ? 'btn-success active'
+              : 'btn-outline-success')
+          "
+        >
+          {{ ReportListNames.Items }} Reports
+        </button>
+        <button
+          (click)="OnListChange(ReportListNames.Reviews)"
+          type="button"
+          [ngClass]="
+            'btn ' +
+            (selectedList == ReportListNames.Reviews
+              ? 'btn-success active'
+              : 'btn-outline-success')
+          "
+        >
+          {{ ReportListNames.Reviews }} Reports
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="reportsList && reportsList.length > 0">
+    <table class="table table-striped table- table-hover">
+      <thead class="text-light">
+        <tr>
+          <th class="bg-secondary col-2">Name</th>
+          <th class="bg-secondary col-2">Report Date</th>
+          <th class="bg-secondary col-2">Solve Data</th>
+          <th class="d-none d-md-table-cell bg-secondary col-2">
+            Reported Name
+          </th>
+          <th class="d-none d-lg-table-cell bg-secondary col-2">
+            Reportee Name
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of reportsList">
+          <td>
+            <a [routerLink]="item.id">{{ item.name }}</a>
+          </td>
+          <td>{{ item.createdDate | date : "medium" }}</td>
+          <td class="text-success" *ngIf="item.isSolved">
+            {{ item.solveDate | date : "medium" }}
+          </td>
+          <td *ngIf="!item.isSolved">
+            <span class="badge text-bg-danger">Open</span>
+          </td>
+          <td class="d-none d-md-table-cell">
+            {{ item.reportedName }}
+          </td>
+          <td class="d-none d-lg-table-cell">
+            {{ item.reporterName }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="d-flex justify-content-center my-4">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="pagesCount"
+          (pageChanged)="onPageChanged($event)"
+        >
+        </app-pagination>
+      </div>
+    </div>
+
+    <p
+      *ngIf="reportsList && reportsList.length == 0"
+      class="bg-danger text-center text-dark h1 p-4 mt-5 rounded"
+    >
+      Oops no results!
+    </p>
+  </div>
+</div>

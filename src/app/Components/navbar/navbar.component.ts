@@ -1,42 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommunicationService } from 'src/app/Services/Communication/communication.service';
 import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
 import { FilterService } from 'src/app/Services/Filter/filter.service';
 import { LoginService } from 'src/app/Services/Login/login.service';
-import { error } from 'jquery';
-import {SignalRService} from "../../Services/SignalR/signal-r.service";
+import { FormGroup, FormControl } from '@angular/forms';
+import { OverlayContainer } from '@angular/cdk/overlay';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  toggleFormGroup = new FormGroup({
+    darkMode: new FormControl(false),
+  });
+
+  @HostBinding('class') className = '';
+  darkClassName = 'theme-dark';
+  lightClassName = 'theme-light';
+
   constructor(
     private NavBarService: CommunicationService,
     private router: Router,
-    private signalRService: SignalRService,
     private readonly filterService: FilterService,
-    private readonly loginService: LoginService
+    public readonly loginService: LoginService,
+    private overlay: OverlayContainer
   ) {}
+
   ngOnInit(): void {
+    this.toggleFormGroup.get('darkMode')!.valueChanges.subscribe((darkMode) => {
+      if (darkMode) {
+        document.body.classList.add('theme-dark');
+      } else {
+        document.body.classList.remove('theme-dark');
+      }
+    });
+
     this.loginService.isAuthenticatedChanged.subscribe({
       next: (data: boolean) => {
         this.isAuthenticated = data;
       },
     });
+
+    this.loginService.changeUserRole.subscribe({
+      next: (data: string) => {
+        console.log(data);
+        this.userRole = data;
+      },
+    });
   }
+
   ShowRegistrationForm() {
     this.NavBarService.toggleVisibility();
     this.router.navigate(['/registration']);
   }
 
   LogOut() {
-    this.loginService.revokeToken()/*.subscribe({
+    this.loginService.revokeToken().subscribe({
       next: (data) => console.log(data),
       error: (err) => console.log(err),
-    });*/
-    this.signalRService.endConnection();
+    });
     this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
   }
@@ -46,6 +71,7 @@ export class NavbarComponent implements OnInit {
   page = 1;
   orderBy = this.OrderByStrings.PriceDesc;
   isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+  userRole: string = '';
 
   searchProduct() {
     this.filterService.updateSearchText(this.searchText);
@@ -58,6 +84,4 @@ export class NavbarComponent implements OnInit {
       });
     }
   }
-
-
 }

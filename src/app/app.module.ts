@@ -49,6 +49,10 @@ import { DateComponent } from './Components/Chat/date/date.component';
 import {NgOptimizedImage} from "@angular/common";
 import { NotificationComponent } from './Components/Chat/notification/notification.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ReportsComponent } from './Components/AdminComponents/reports/reports.component';
+import { ReportDetailsComponent } from './Components/AdminComponents/report-details/report-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +91,8 @@ import { NotificationComponent } from './Components/Chat/notification/notificati
     MessageComponent,
     DateComponent,
     NotificationComponent,
+    ReportsComponent,
+    ReportDetailsComponent,
   ],
 
     imports: [
@@ -98,6 +104,16 @@ import { NotificationComponent } from './Components/Chat/notification/notificati
         NgxPaginationModule,
         NgOptimizedImage,
     ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule
+  ],
   providers: [
     ProductsService,
     CategoriesService,
