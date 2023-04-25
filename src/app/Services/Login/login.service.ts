@@ -14,8 +14,10 @@ export class LoginService {
   constructor(private client: HttpClient) {}
 
   isAuthenticatedChanged = new EventEmitter<boolean>();
+  changeUserRole = new EventEmitter<string>();
 
   isAuthenticated = false;
+  userRole: string = "";
 
   public ErrorMsg: any;
   private readonly URL = `${environment.apiURL}`; //API

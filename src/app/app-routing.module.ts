@@ -11,6 +11,8 @@ import { ItemDetailsRenterComponent } from './Components/item-details-renter/ite
 import { ReviewsComponent } from './Components/reviews/reviews.component';
 import { Forbidden403Component } from './Components/Errors/forbidden403/forbidden403.component';
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
+import { ReportsComponent } from './Components/AdminComponents/reports/reports.component';
+import { ReportDetailsComponent } from './Components/AdminComponents/report-details/report-details.component';
 
 import { PendingApprovalsComponent } from './Components/AdminComponents/pending-approvals/pending-approvals.component';
 import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/pending-approvals-details/pending-approvals-details.component';
@@ -31,6 +33,8 @@ const routes: Routes = [
   { path: 'admin/pendingapprovals', component: PendingApprovalsComponent},
   { path: 'admin/pendingapprovals/:id', component: PendingApprovalsDetailsComponent},
   { path: 'admin/blockusers', component: BlockUsersComponent},
+  { path: 'admin/reports', component: ReportsComponent },
+  { path: 'admin/reports/:id', component: ReportDetailsComponent },
   { path: '**', component: NotFound404Component },
 ];
 
