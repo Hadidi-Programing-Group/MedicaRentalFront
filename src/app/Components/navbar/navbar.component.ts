@@ -13,21 +13,20 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-
   toggleFormGroup = new FormGroup({
     darkMode: new FormControl(false),
   });
 
-  @HostBinding('class') className ='';
-  darkClassName='theme-dark';
-  lightClassName='theme-light';
+  @HostBinding('class') className = '';
+  darkClassName = 'theme-dark';
+  lightClassName = 'theme-light';
 
   constructor(
     private NavBarService: CommunicationService,
     private router: Router,
     private readonly filterService: FilterService,
-    private readonly loginService: LoginService,
-    private overlay:OverlayContainer
+    public readonly loginService: LoginService,
+    private overlay: OverlayContainer
   ) {}
 
   ngOnInit(): void {
@@ -44,9 +43,15 @@ export class NavbarComponent implements OnInit {
         this.isAuthenticated = data;
       },
     });
+
+    this.loginService.changeUserRole.subscribe({
+      next: (data: string) => {
+        console.log(data);
+        this.userRole = data;
+      },
+    });
   }
 
-  
   ShowRegistrationForm() {
     this.NavBarService.toggleVisibility();
     this.router.navigate(['/registration']);
@@ -66,6 +71,7 @@ export class NavbarComponent implements OnInit {
   page = 1;
   orderBy = this.OrderByStrings.PriceDesc;
   isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+  userRole: string = '';
 
   searchProduct() {
     this.filterService.updateSearchText(this.searchText);
@@ -78,6 +84,4 @@ export class NavbarComponent implements OnInit {
       });
     }
   }
-
-  
 }
