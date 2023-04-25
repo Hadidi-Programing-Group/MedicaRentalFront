@@ -12,6 +12,11 @@ import { ReviewsComponent } from './Components/reviews/reviews.component';
 import { Forbidden403Component } from './Components/Errors/forbidden403/forbidden403.component';
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
 
+import { PendingApprovalsComponent } from './Components/AdminComponents/pending-approvals/pending-approvals.component';
+import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/pending-approvals-details/pending-approvals-details.component';
+import { BlockUsersComponent } from './Components/AdminComponents/block-users/block-users.component';
+
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'products', component: ProductsComponent },
@@ -23,6 +28,9 @@ const routes: Routes = [
   { path: 'user/myaccount', component: MyAccountComponent },
   { path: 'reviews/:id', component: ReviewsComponent },
   { path: 'forbidden', component: Forbidden403Component },
+  { path: 'admin/pendingapprovals', component: PendingApprovalsComponent},
+  { path: 'admin/pendingapprovals/:id', component: PendingApprovalsDetailsComponent},
+  { path: 'admin/blockusers', component: BlockUsersComponent},
   { path: '**', component: NotFound404Component },
 ];
 

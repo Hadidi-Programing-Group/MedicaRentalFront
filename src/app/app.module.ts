@@ -45,6 +45,9 @@ import { Forbidden403Component } from './Components/Errors/forbidden403/forbidde
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BlockUsersComponent } from './Components/AdminComponents/block-users/block-users.component';
+import { PendingApprovalsComponent } from './Components/AdminComponents/pending-approvals/pending-approvals.component';
+import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/pending-approvals-details/pending-approvals-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +82,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     RentOrderByComponent,
     Forbidden403Component,
     NotFound404Component,
+    BlockUsersComponent,
+    PendingApprovalsComponent,
+    PendingApprovalsDetailsComponent,
   ],
 
   imports: [
