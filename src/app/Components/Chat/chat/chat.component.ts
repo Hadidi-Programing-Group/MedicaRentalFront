@@ -3,6 +3,7 @@ import {ChatService} from "../../../Services/Chat/chat.service";
 import {SignalRService} from "../../../Services/SignalR/signal-r.service";
 import {ChatDto} from "../../../Dtos/Message/ChatDto";
 import {MessageDto} from "../../../Dtos/Message/MessageDto";
+import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
 
 @Component({
   selector: 'app-chat',
@@ -20,11 +21,41 @@ export class ChatComponent implements OnInit
     private signalRService: SignalRService
   )
   {
+    this.signalRService.newMessageEvent.subscribe({
+      next: (message: MessageDto) =>{
+        if(message.senderId == this.currentUser){
+          message.messageStatus = MessageStatus.Seen;
+          this.messages.push(message);
+          console.log(message.id)
+          this.chatService.UpdateMessageStatus(message.id).subscribe({
+            next: (data)=> {},
+          })
+        }
+
+        else{
+          this.getUserChats()
+        }
+      },
+      error: (err:any) => console.error(err)
+    })
 
   }
-
+  public trackItem (index: number, message: MessageDto) {
+    return message.id;
+  }
   ngOnInit(): void
   {
+   this.checkConnection()
+   this.getUserChats()
+  }
+
+  checkConnection(){
+    if(!this.signalRService.connectionStatus){
+      this.signalRService.startConnection();
+    }
+  }
+
+  getUserChats(){
     this.chatService.GetUserChats(20)
       .subscribe({
         next: (data) => this.users = data,
@@ -40,7 +71,7 @@ export class ChatComponent implements OnInit
     }
   }
 
-  openChat(userId: string)
+  chatChangedEvent(userId: string)
   {
     this.currentUser = userId;
 
@@ -65,16 +96,5 @@ export class ChatComponent implements OnInit
       date1.getMonth() === date2.getMonth() &&
       date1.getDate() === date2.getDate());
   }
-
-  isValidBase64(str: string): boolean {
-    if(str == '') return false;
-  try {
-    // Attempt to decode the string using atob()
-    const decodedStr = atob(str);
-    return decodedStr.length === str.length;
-  } catch (e) {
-    return false;
-  }
-}
 
 }

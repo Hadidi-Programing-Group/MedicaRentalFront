@@ -1,7 +1,9 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HubConnection} from "@microsoft/signalr";
 import * as signalR from "@microsoft/signalr";
 import {environment} from "../../../environments/environment";
+import {MessageDto} from "../../Dtos/Message/MessageDto";
+import {MessageStatus} from "../../Dtos/Message/MessageStatus";
 
 @Injectable({
   providedIn: 'root'
@@ -10,29 +12,38 @@ export class SignalRService
 {
   private connection: HubConnection | null = null;
   private url = `${environment.apiURL}/chatHub`; //API
+  public newMessageEvent = new EventEmitter();
+  public connectionStatus: boolean = false;
 
-
-  startConnection(token: string)
+  startConnection(token?: string)
   {
-    console.log('is startcon')
+    if(!token){
+      token = localStorage.getItem('authToken')?.toString()??'';
+    }
+
+    if(!token || token == '')
+      return;
+
     this.connection = new signalR.HubConnectionBuilder()
-      .withUrl(this.url, {accessTokenFactory: () => token})
+      .withUrl(this.url, {accessTokenFactory: () => token??''})
       .build();
 
     this.connection.start()
-      .then(() => console.log("Connected Successfully"))
+      .then(() => this.connectionStatus = true)
       .catch((err) => console.error(err.toString()));
 
-    this.connection.on("ReceiveMessage", (message: string, senderId: string) =>
+    this.connection.on("ReceiveMessage", (
+      messageId:string, message:string, senderId:string, timeStamp:Date, messageStatus:MessageStatus) =>
     {
-        console.log(`Message: ${message} was received from ${senderId}`);
+      let msg = new MessageDto(messageId, message, senderId, timeStamp, messageStatus);
+      this.newMessageEvent.emit(msg)
     });
   }
 
   endConnection()
   {
     this.connection?.stop()
-      .then(() => console.log('Connection closed.'))
+      .then(() => this.connectionStatus = false)
       .catch((err) => console.error(err))
   }
 

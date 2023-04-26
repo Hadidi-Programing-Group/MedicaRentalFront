@@ -1,28 +1,31 @@
 <li class="nav-item dropdown no-arrow mx-1">
   <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fas fa-envelope fa-fw"></i>
+    <i class="fas fa-envelope fa-fw" style="font-size: 1.5em"></i>
 
-    <span class="badge badge-danger badge-counter">7</span>
+    <span *ngIf="notificationCount > 0" class="badge badge-danger badge-counter"
+          style="font-size: 1em">{{notificationCount}}</span>
   </a>
 
   <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
        aria-labelledby="messagesDropdown"
-        style="width: 35rem">
-    <h6 class="dropdown-header">
+       style="width: 35rem">
+    <p class="h6 dropdown-header">
       Message Center
-    </h6>
-    <a class="dropdown-item d-flex align-items-center" href="#">
+    </p>
+
+    <a class="dropdown-item d-flex align-items-center" href="#" *ngFor="let message of messages">
       <div class="col-4 dropdown-list-image mr-3">
-        <img class="rounded-circle" src="" alt="...">
-<!-- online or offline <div class="status-indicator bg-success"></div>-->
+        <img class="rounded-circle" src="{{message.profileImage}}" alt="...">
+        <!-- online or offline <div class="status-indicator bg-success"></div>-->
       </div>
       <div class="col-8">
-        <div class="text-truncate" style="width: 25rem">msg</div>
-        <div class="small text-gray-500">username.date</div>
+        <div class="text-truncate" style="width: 25rem">{{message.message}}</div>
+        <div class="small text-gray-500">{{message.username}}.{{message.messageDate}}</div>
       </div>
     </a>
-    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+
+    <a class="dropdown-item text-center small text-gray-500" routerLink="/chat">Read More Messages</a>
   </div>
 </li>
 

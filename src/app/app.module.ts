@@ -61,6 +61,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {ReportsComponent} from './Components/AdminComponents/reports/reports.component';
 import {ReportDetailsComponent} from './Components/AdminComponents/report-details/report-details.component';
+import { ChatUserComponent } from './Components/Chat/chat-user/chat-user.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import {ReportDetailsComponent} from './Components/AdminComponents/report-detail
     NotificationComponent,
     ReportsComponent,
     ReportDetailsComponent,
+    ChatUserComponent,
   ],
 
   imports: [

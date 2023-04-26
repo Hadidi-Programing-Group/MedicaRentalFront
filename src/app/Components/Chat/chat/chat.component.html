@@ -2,28 +2,14 @@
   <div class="d-sm-none d-md-block col-md-4 col-lg-3 justify-content-start" id="usersArea">
     <h4>Users</h4>
     <div class="row col-12">
-
-      <button *ngFor="let user of users" (click)="openChat(user.userId)" type="button"
-              [ngClass]="('my-1 btn text-start ' + (currentUser == user.userId? 'btn-success active' : 'btn-outline-success'))">
-
-        <img *ngIf="isValidBase64(user.userProfileImage); else icon" class="mx-2 my-1 bg-dark rounded-circle profile-img"
-             ngSrc="{{user.userProfileImage}}" fill alt="">
-        <ng-template #icon>
-          <div class="mx-2 my-1 d-inline-block text-center text-white bg-dark rounded-circle profile-img">
-            <i class="fa-solid fa-user my-2"></i>
-          </div>
-        </ng-template>
-
-        {{user.userName}}
-      </button>
-
+      <app-chat-user *ngFor="let user of users" [chat]="user" (chatClicked)="chatChangedEvent($event)"></app-chat-user>
     </div>
   </div>
 
   <div class="col-md-8 col-lg-9 p-3" id="chatArea">
 
     <div class="row d-flex flex-row bg-secondary border rounded-5" id="messagesArea">
-      <div *ngFor="let message of messages; let i=index">
+      <div *ngFor="let message of messages; let i=index;trackBy: trackItem">
         <app-date *ngIf="checkNewDate(i)" [date]="message.messageDate" class="justify-content-center"></app-date>
         <app-message [ngClass]="['d-flex', message.senderId == currentUser? 'justify-content-end' : '']"
                      [message]="message.message"

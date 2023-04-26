@@ -2,18 +2,29 @@
   font-size: 0.7em;
 }
 .msg{
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 .rounded-pill{
   padding-left: 1.8em;
   padding-right: 1.8em;
+  padding-top: 0.5em;
 }
 
-.message{
-  max-width: 70%;
+.message-container{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 1rem;
+  background: #52b0a4;
+  min-height: 2.25rem;
+  max-width: 66%;
+  min-width: 8.5em;
 }
 
-.messageBox{
-min-width: 11.5em;
+.message-container.sender{
+  border-radius: 1.125rem 1.125rem 0 1.125rem;
+}
+
+.message-container.receiver{
+  border-radius: 1.125rem 1.125rem 1.125rem 0;
 }

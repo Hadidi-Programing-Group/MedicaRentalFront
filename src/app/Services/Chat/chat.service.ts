@@ -4,6 +4,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {ChatDto} from "../../Dtos/Message/ChatDto";
 import {StatusDto} from "../../Dtos/StatusDto";
 import {MessageDto} from "../../Dtos/Message/MessageDto";
+import {MessageNotificationDto} from "../../Dtos/Message/MessageNotificationDto";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,6 @@ export class ChatService
   constructor(private readonly httpClient: HttpClient)
   {
   }
-
 
 
   GetUserChats(upTo: number)
@@ -51,9 +51,39 @@ export class ChatService
     params = params.set('userId', userId)
     params = params.set('messageId', messageId)
 
-    return this.httpClient.get<StatusDto>(
+    return this.httpClient.delete<StatusDto>(
       `${this.baseUrl}/delete`,
       {params}
     );
   }
+
+  GetNotificationCount()
+  {
+    return this.httpClient.get<number>(
+      `${this.baseUrl}/notificationCount`
+    );
+  }
+
+  GetLastNUnseenChats(number: number)
+  {
+    let params = new HttpParams();
+
+    params = params.set('number', number)
+
+    return this.httpClient.get<MessageNotificationDto[]>(
+      `${this.baseUrl}/notifications`,
+      {params}
+    );
+  }
+
+  UpdateMessageStatus(messageId: string)
+  {
+    return this.httpClient.put<StatusDto>(
+      `${this.baseUrl}/${messageId}`,
+      {}
+    );
+  }
 }
+
+//put box for sender
+//notification

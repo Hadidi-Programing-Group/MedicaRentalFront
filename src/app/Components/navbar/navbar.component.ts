@@ -7,6 +7,8 @@ import { LoginService } from 'src/app/Services/Login/login.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import {SignalRService} from "../../Services/SignalR/signal-r.service";
+import {ChatService} from "../../Services/Chat/chat.service";
+import {MessageNotificationDto} from "../../Dtos/Message/MessageNotificationDto";
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +20,9 @@ export class NavbarComponent implements OnInit {
     darkMode: new FormControl(false),
   });
 
+  notificationCount: number = 0;
+  messages:MessageNotificationDto[] = [];
+
   @HostBinding('class') className = '';
   darkClassName = 'theme-dark';
   lightClassName = 'theme-light';
@@ -26,6 +31,7 @@ export class NavbarComponent implements OnInit {
     private NavBarService: CommunicationService,
     private router: Router,
     private signalRService: SignalRService,
+    private chatService: ChatService,
     private readonly filterService: FilterService,
     public readonly loginService: LoginService,
     private overlay: OverlayContainer
@@ -52,6 +58,8 @@ export class NavbarComponent implements OnInit {
         this.userRole = data;
       },
     });
+
+
   }
 
   ShowRegistrationForm() {
@@ -83,5 +91,25 @@ export class NavbarComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
     }
+  }
+
+  updateNotifications(){
+    this.chatService.GetNotificationCount().subscribe({
+      next: (data: number) => this.notificationCount = data,
+      error: (err) => console.error(err)
+    })
+
+    if(this.notificationCount > 0){
+      this.chatService.GetLastNUnseenChats(3).subscribe({
+        next: (data: MessageNotificationDto[]) => this.messages = data,
+        error: (err) => console.error(err)
+      })
+    }
+    //on each receive append (pop>3)
+    this.signalRService.newMessageEvent.subscribe({
+      next: (data: any) => {
+
+      }
+    })
   }
 }

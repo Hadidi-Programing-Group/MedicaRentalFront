@@ -12,13 +12,10 @@ import { ReviewsComponent } from './Components/reviews/reviews.component';
 import { Forbidden403Component } from './Components/Errors/forbidden403/forbidden403.component';
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
 import { ChatComponent } from './Components/Chat/chat/chat.component';
-import { ReportsComponent } from './Components/AdminComponents/reports/reports.component';
-import { ReportDetailsComponent } from './Components/AdminComponents/report-details/report-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'chat', component: ChatComponent },
-
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ItemDetailsRenterComponent },
   { path: 'login', component: LoginComponent },
