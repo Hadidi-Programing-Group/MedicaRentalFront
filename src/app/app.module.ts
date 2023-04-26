@@ -44,6 +44,13 @@ import { RentOrderByComponent } from './Components/UserComponents/OrderByCompone
 import { Forbidden403Component } from './Components/Errors/forbidden403/forbidden403.component';
 import { NotFound404Component } from './Components/Errors/not-found404/not-found404.component';
 import { ItemDetailsSellerComponent } from './Components/item-details-seller/item-details-seller/item-details-seller.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BlockUsersComponent } from './Components/AdminComponents/block-users/block-users.component';
+import { PendingApprovalsComponent } from './Components/AdminComponents/pending-approvals/pending-approvals.component';
+import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/pending-approvals-details/pending-approvals-details.component';
+import { ReportsComponent } from './Components/AdminComponents/reports/reports.component';
+import { ReportDetailsComponent } from './Components/AdminComponents/report-details/report-details.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +87,11 @@ import { ItemDetailsSellerComponent } from './Components/item-details-seller/ite
     Forbidden403Component,
     NotFound404Component,
     ItemDetailsSellerComponent,
+    BlockUsersComponent,
+    PendingApprovalsComponent,
+    PendingApprovalsDetailsComponent,
+    ReportsComponent,
+    ReportDetailsComponent
   ],
 
   imports: [
@@ -89,6 +101,8 @@ import { ItemDetailsSellerComponent } from './Components/item-details-seller/ite
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule
   ],
   providers: [
     ProductsService,

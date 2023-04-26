@@ -1,0 +1,76 @@
+<div class="container mt-5">
+  <h1 class="text-center">Detailed Report</h1>
+  <hr />
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Report Details</h4>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>ID:</strong> {{ report.id }}</li>
+        <li class="list-group-item">
+          <strong>Name:</strong> {{ report.name }}
+        </li>
+        <li class="list-group-item">
+          <strong>Statement:</strong> {{ report.statement }}
+        </li>
+        <li class="list-group-item">
+          <strong>Is Solved:</strong> {{ report.isSolved ? "Yes" : "No" }}
+        </li>
+        <li class="list-group-item">
+          <strong>Created Date:</strong> {{ report.createdDate | date }}
+        </li>
+        <li class="list-group-item">
+          <strong>Solve Date:</strong>
+          {{ report.solveDate ? (report.solveDate | date) : "N/A" }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h4>Reported By</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>ID:</strong> {{ report.reporterId }}
+        </li>
+        <li class="list-group-item">
+          <strong>Name:</strong> {{ report.reporterName }}
+        </li>
+      </ul>
+
+      <h4 class="mt-4">Reported To</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>ID:</strong> {{ report.reportedId }}
+        </li>
+        <li class="list-group-item">
+          <strong>Name:</strong> {{ report.reportedName }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h4>Content Details</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>Content ID:</strong> {{ report.contentId }}
+        </li>
+        <li class="list-group-item">
+          <strong>Content: </strong>
+          <a
+            routerLink="/products/{{ report.contentId }}"
+            *ngIf="report.reportCategory == ReportListNames.Items"
+            >{{ report.content }}</a
+          >
+          <span *ngIf="report.reportCategory != ReportListNames.Items">{{
+            report.content
+          }}</span>
+        </li>
+        <li class="list-group-item">
+          <strong>Content Timestamp:</strong>
+          {{ report.contentTimeStamp | date }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

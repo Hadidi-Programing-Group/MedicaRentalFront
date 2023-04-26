@@ -13,11 +13,14 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/Services/Login/login.service';
 
+
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly loginService: LoginService
   ) {}
 
   private isRefreshing = false; // Add flag for token refresh
@@ -43,10 +46,15 @@ export class AuthInterceptor implements HttpInterceptor {
           if (!this.isRefreshing) {
             // Check if token refresh is not already in progress
             this.isRefreshing = true; // Set flag to true to indicate token refresh is in progress
+
+
+
             return this.requestNewToken().pipe(
               switchMap((data: any) => {
                 localStorage.setItem('authToken', data['tokenString']);
                 localStorage.setItem('authTokenExpDate', data['expiresOn']);
+                localStorage.setItem('isAuthenticated', "true");
+                // debugger
                 this.isRefreshing = false; // Set flag to false to indicate token refresh is completed
                 return next.handle(
                   this.addAuthorizationHeader(req, data['tokenString'])
@@ -54,6 +62,13 @@ export class AuthInterceptor implements HttpInterceptor {
               }),
               catchError((err) => {
                 this.isRefreshing = false; // Set flag to false to indicate token refresh is completed
+                localStorage.setItem('authToken', '');
+                localStorage.setItem('authTokenExpDate', '');
+                localStorage.setItem('isAuthenticated', '');
+
+                this.loginService.isAuthenticatedChanged.emit(false);
+                  // debugger
+
                 this.router.navigate(['/login']); // Redirect to login page on token refresh failure
                 return throwError(() => new Error(err.error));
               })
