@@ -21,41 +21,67 @@ export class ChatComponent implements OnInit
     private signalRService: SignalRService
   )
   {
+  }
+
+  public trackItem(index: number, message: MessageDto)
+  {
+    return message.id;
+  }
+
+  ngOnInit(): void
+  {
+    this.checkConnection()
+    this.getUserChats()
+
     this.signalRService.newMessageEvent.subscribe({
-      next: (message: MessageDto) =>{
-        if(message.senderId == this.currentUser){
+      next: (message: MessageDto) =>
+      {
+        if (message.senderId == this.currentUser)
+        {
           message.messageStatus = MessageStatus.Seen;
           this.messages.push(message);
-          console.log(message.id)
-          this.chatService.UpdateMessageStatus(message.id).subscribe({
-            next: (data)=> {},
-          })
+
+          this.signalRService.setMessageSeen(message.id, message.senderId)
         }
 
-        else{
+        else
+        {
           this.getUserChats()
         }
       },
-      error: (err:any) => console.error(err)
+      error: (err: any) => console.error(err)
     })
 
-  }
-  public trackItem (index: number, message: MessageDto) {
-    return message.id;
-  }
-  ngOnInit(): void
-  {
-   this.checkConnection()
-   this.getUserChats()
+    this.signalRService.messageSeenEvent.subscribe({
+      next: (messageId: string) =>
+      {
+        console.log('this.signalRService.messageSeenEvent.subscribe')
+        console.log(messageId)
+        console.log(this.messages)
+        let msg = this.messages.find(m => m.id == messageId)
+        if (msg)
+        {
+          msg.messageStatus = MessageStatus.Seen
+        }
+        else{
+
+          console.error('No message with the received id')
+        }
+      },
+      error: (err: any) => console.error(err)
+    })
   }
 
-  checkConnection(){
-    if(!this.signalRService.connectionStatus){
+  checkConnection()
+  {
+    if (!this.signalRService.isConnected)
+    {
       this.signalRService.startConnection();
     }
   }
 
-  getUserChats(){
+  getUserChats()
+  {
     this.chatService.GetUserChats(20)
       .subscribe({
         next: (data) => this.users = data,
@@ -67,7 +93,17 @@ export class ChatComponent implements OnInit
   {
     if (message != '' && this.currentUser != '')
     {
-      this.signalRService.sendMessage(message, this.currentUser)
+      let date = new Date();
+
+      this.signalRService.sendMessage(message, this.currentUser, date)
+        .then((messageId: string)=>{
+          if (messageId != '')
+          {
+            let msg = Object.assign({}, new MessageDto(messageId, message, '', date, MessageStatus.Sent))
+            this.messages.push(msg)
+          }
+        })
+
     }
   }
 

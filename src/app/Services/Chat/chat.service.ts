@@ -75,14 +75,6 @@ export class ChatService
       {params}
     );
   }
-
-  UpdateMessageStatus(messageId: string)
-  {
-    return this.httpClient.put<StatusDto>(
-      `${this.baseUrl}/${messageId}`,
-      {}
-    );
-  }
 }
 
 //put box for sender
