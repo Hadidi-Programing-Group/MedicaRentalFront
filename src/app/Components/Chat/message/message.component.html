@@ -1,6 +1,6 @@
 <div class="d-flex flex-column">
-<div [ngClass]="['d-flex flex-row my-2 px-3 pt-1 message-container', isOut? 'sender':'receiver' ]">
-  <div class="d-flex flex-column w-100">
+<div [ngClass]="[ isOut? 'sender':'receiver' ]" class="d-flex flex-row my-2 px-3 pt-1 w-75 message-container">
+  <div class="d-flex flex-column w-100 text-break">
     <p class="m-0 msg text-white">{{ message }}</p>
     <div class="m-0 pb-1 d-flex justify-content-end align-items-center">
       <p [ngClass]="['m-0 time text-white', isOut? 'px-2' : 'px-0']">{{ messageDate | date: 'h:mm a' }}</p>
