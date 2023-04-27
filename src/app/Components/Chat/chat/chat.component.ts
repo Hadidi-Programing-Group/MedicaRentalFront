@@ -7,22 +7,22 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import {ChatService} from "../../../Services/Chat/chat.service";
-import {SignalRService} from "../../../Services/SignalR/signal-r.service";
-import {ChatDto} from "../../../Dtos/Message/ChatDto";
-import {MessageDto} from "../../../Dtos/Message/MessageDto";
-import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
-import {DateHelper} from "../../../Dtos/DateHelper";
-import {NotificationComponent} from "../notification/notification.component";
-import {NotificationService} from "../../../Services/Chat/notification.service";
+import { ChatService } from "../../../Services/Chat/chat.service";
+import { SignalRService } from "../../../Services/SignalR/signal-r.service";
+import { ChatDto } from "../../../Dtos/Message/ChatDto";
+import { MessageDto } from "../../../Dtos/Message/MessageDto";
+import { MessageStatus } from "../../../Dtos/Message/MessageStatus";
+import { DateHelper } from "../../../Dtos/DateHelper";
+import { NotificationComponent } from "../notification/notification.component";
+import { NotificationService } from "../../../Services/Chat/notification.service";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, OnDestroy
-{
+export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, OnDestroy {
   public users: ChatDto[] = [];
   public messages: MessageDto[] = [];
   public currentUser: string = "";
@@ -32,29 +32,25 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
     private chatService: ChatService,
     private signalRService: SignalRService,
     private notificationService: NotificationService,
-    private  changeDetector: ChangeDetectorRef
-  )
-  {
+    private changeDetector: ChangeDetectorRef,
+    private activeRoute: ActivatedRoute,
+  ) {
   }
 
   ngOnDestroy(): void {
-        this.notificationService.outChat.emit()
-    }
+    this.notificationService.outChat.emit()
+  }
 
-  public trackChats(index: number, chat: ChatDto)
-  {
+  public trackChats(index: number, chat: ChatDto) {
     return chat.userId;
   }
 
-  ngOnChanges(): void
-  {
+  ngOnChanges(): void {
     console.log("Changed");
   }
 
-  ngAfterContentChecked(): void
-  {
-    if (this.messagesDiv)
-    {
+  ngAfterContentChecked(): void {
+    if (this.messagesDiv) {
       this.messagesDiv.nativeElement.scrollTo({
         top: Number(this.messagesDiv.nativeElement.scrollHeight),
         left: 0,
@@ -63,28 +59,25 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
     }
   }
 
-  ngOnInit(): void
-  {
-    setInterval(()=>this.changeDetector.detectChanges(), 3000)
+  ngOnInit(): void {
+    setInterval(() => this.changeDetector.detectChanges(), 3000)
     this.checkConnection()
     this.getUserChats()
     this.sortUsers()
+    this.openChatByUrl();
+
 
     this.signalRService.newMessageEvent.subscribe({
-      next: (message: MessageDto) =>
-      {
-        if (message.senderId == this.currentUser)
-        {
+      next: (message: MessageDto) => {
+        if (message.senderId == this.currentUser) {
           message.messageStatus = MessageStatus.Seen;
           this.messages.push(message);
           this.signalRService.setMessageSeen(message.id, message.senderId)
         }
 
-        else
-        {
+        else {
           let user = this.users.find(u => u.userId == message.senderId)
-          if (user)
-          {
+          if (user) {
             user.lastMessage = message.message;
             user.messageDate = message.messageDate;
             user.messageStatus = message.messageStatus;
@@ -99,16 +92,13 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
     })
 
     this.signalRService.messageSeenEvent.subscribe({
-      next: (messageId: string) =>
-      {
+      next: (messageId: string) => {
         let msg = this.messages.find(m => m.id == messageId)
-        if (msg)
-        {
+        if (msg) {
           msg.messageStatus = MessageStatus.Seen
           this.messages = [...this.messages]
         }
-        else
-        {
+        else {
           console.error('No message with the received id')
         }
       },
@@ -116,12 +106,9 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
     })
 
     this.signalRService.allMessagesSeenEvent.subscribe({
-      next: (userId: string) =>
-      {
-        if (userId == this.currentUser)
-        {
-          for (let message of this.messages)
-          {
+      next: (userId: string) => {
+        if (userId == this.currentUser) {
+          for (let message of this.messages) {
             message.messageStatus = MessageStatus.Seen
           }
           //this.messages = [...this.messages]
@@ -130,16 +117,13 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
     })
   }
 
-  checkConnection()
-  {
-    if (!this.signalRService.isConnected)
-    {
+  checkConnection() {
+    if (!this.signalRService.isConnected) {
       this.signalRService.startConnection();
     }
   }
 
-  getUserChats()
-  {
+  getUserChats() {
     this.chatService.GetUserChats(20)
       .subscribe({
         next: (data: ChatDto[]) => this.users = data,
@@ -147,24 +131,19 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
       })
   }
 
-  public sendMessage(message: HTMLInputElement)
-  {
-    if (message.value != '' && this.currentUser != '')
-    {
+  public sendMessage(message: HTMLInputElement) {
+    if (message.value != '' && this.currentUser != '') {
       let date = new Date();
 
       this.signalRService.sendMessage(message.value, this.currentUser, date)
-        .then((messageId: string) =>
-        {
-          if (messageId != '')
-          {
+        .then((messageId: string) => {
+          if (messageId != '') {
             let msg = Object.assign({}, new MessageDto(messageId, message.value, '', date.toString(), MessageStatus.Sent))
             this.messages.push(msg)
 
             message.value = ''
 
-            if (this.messagesDiv)
-            {
+            if (this.messagesDiv) {
               this.messagesDiv.nativeElement.scrollTo({
                 top: Number(this.messagesDiv.nativeElement.scrollHeight),
                 left: 0,
@@ -176,36 +155,19 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
     }
   }
 
-  chatChangedEvent(userId: string)
-  {
+  chatChangedEvent(userId: string) {
     this.currentUser = userId;
     let c = this.users.find(u => u.userId == userId)?.unseenMessagesCount
 
-    if (c && c > 0)
-    {
-      this.notificationService.chatClicked.emit({id: userId, count: c})
+    if (c && c > 0) {
+      this.notificationService.chatClicked.emit({ id: userId, count: c })
     }
+    this.getChats(this.currentUser, 5);
 
-    this.chatService.GetChat(userId, 20, new Date())
-      .subscribe({
-        next: (data) =>
-        {
-          let user = this.users.find(u => u.userId == this.currentUser);
-          if (user)
-          {
-            user.unseenMessagesCount = 0;
-          }
-          this.messages = data
-
-        },
-        error: (err) => console.error(err)
-      })
   }
 
-  checkNewDate(i: number): boolean
-  {
-    if (i == 0)
-    {
+  checkNewDate(i: number): boolean {
+    if (i == 0) {
       return true;
     }
 
@@ -217,11 +179,32 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
       date1.getDate() === date2.getDate());
   }
 
-  sortUsers()
-  {
+  sortUsers() {
     this.users.sort((a, b) => new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime());
   }
 
+  getChats(userId: string = '', numOfDays: number = 20) {
+    this.chatService.GetChat(userId, numOfDays, new Date())
+      .subscribe({
+        next: (data) => {
+          let user = this.users.find(u => u.userId == this.currentUser);
+          if (user) {
+            user.unseenMessagesCount = 0;
+          }
+          this.messages = data
 
+        },
+        error: (err) => console.error(err)
+      })
+  }
+  openChatByUrl() {
+    if (this.activeRoute.snapshot.params["id"]) {
 
+      this.currentUser = this.activeRoute.snapshot.params["id"];
+      let c = this.users.find(u => u.userId == this.currentUser)?.unseenMessagesCount
+      this.notificationService.chatClicked.emit({ id: this.currentUser, count: c })
+      this.getChats(this.currentUser, 5);
+    }
+
+  }
 }

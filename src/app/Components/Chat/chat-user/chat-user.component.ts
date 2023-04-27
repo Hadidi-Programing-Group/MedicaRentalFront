@@ -15,14 +15,14 @@ export class ChatUserComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log(this.chat);
+    // console.log(this.chat);
     this.signalRService.newMessageEvent.subscribe({
 
     })
   }
   isValidBase64(str: string | null): boolean
   {
-    console.log()
+    // console.log()
     if (str == null || str == '') {
       return false;
     }
