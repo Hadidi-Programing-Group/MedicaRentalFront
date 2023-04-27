@@ -1,0 +1,38 @@
+<li class="nav-item dropdown no-arrow mx-1">
+  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fas fa-envelope fa-fw" style="font-size: 1.5em"></i>
+
+    <span *ngIf="notificationCount > 0" class="badge badge-danger badge-counter"
+          style="font-size: 1em">{{notificationCount}}</span>
+  </a>
+
+  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+       aria-labelledby="messagesDropdown"
+       style="width: 35rem">
+    <p class="h6 dropdown-header">
+      Message Center
+    </p>
+
+    <a class="dropdown-item d-flex align-items-center" routerLink= "chat/{{message.senderId}}" (click)="openChat(message.senderId)" *ngFor="let message of messages">
+      <div class="col-2 d-flex flex-column dropdown-list-image">
+        <img *ngIf="message.profileImage != ''" class="rounded-circle profile-img" src="{{message.profileImage}}" alt="...">
+
+        <div *ngIf="message.profileImage == ''" class="bg-danger m-auto text-center text-white my-auto rounded-circle profile-img">
+          <i class="fa-solid fa-user my-2"></i>
+        </div>
+        <!-- online or offline <div class="status-indicator bg-success"></div>-->
+      </div>
+      <div class="col-10">
+        <div class="text-truncate">{{message.message}}</div>
+        <div class="d-flex justify-content-between">
+          <div class="small text-gray-500">{{message.username}}</div>
+          <div class="small text-gray-500">{{getDate(message.messageDate)}}</div>
+        </div>
+      </div>
+    </a>
+
+    <a class="dropdown-item text-center small text-gray-500" routerLink="/chat">Read More Messages</a>
+  </div>
+</li>
+

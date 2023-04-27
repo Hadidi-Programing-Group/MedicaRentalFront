@@ -1,0 +1,13 @@
+<div class="d-flex flex-column" style="max-width: 75%">
+<div [ngClass]="[ isOut? 'sender':'receiver' ]" class="d-flex flex-row my-2 px-3 pt-1 message-container">
+  <div class="d-flex flex-column w-100 text-break">
+    <p class="m-0 msg text-white">{{ message }}</p>
+    <div class="m-0 pb-1 d-flex justify-content-end align-items-center">
+      <p [ngClass]="['m-0 time text-white', isOut? 'px-2' : 'px-0']">{{ DateHelper.getDate(messageDate) | date: 'h:mm a' }}</p>
+      <i *ngIf="isOut && seenStatus == 2" class="fas fa-check-double" style="color: #80f0ff;"></i>
+      <i *ngIf="isOut && seenStatus == 1" class="fas fa-check-double" style="color: #a3a3a3;"></i>
+      <i *ngIf="isOut && seenStatus == 0" class="fas fa-check" style="color: #a3a3a3;"></i>
+    </div>
+  </div>
+</div>
+</div>

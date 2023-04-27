@@ -60,6 +60,39 @@
           >
         </li>
 
+        <li  *ngIf="isAuthenticated && userRole == 'Client'"  class="nav-item">
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/chat"
+          >Chat</a
+          >
+        </li>
+      </ul>
+
+
+      <div class="d-flex me-auto">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          [(ngModel)]="searchText"
+        />
+        <button (click)="searchProduct()" class="btn btn-outline-light">
+          Search
+        </button>
+      </div>
+
+      <form [formGroup]="toggleFormGroup">
+        <label class="text-light m-3">
+          <mat-slide-toggle formControlName="darkMode"></mat-slide-toggle>
+          Dark Mode
+        </label>
+      </form>
+      <ul class="navbar-nav mx-2 mt-2 mt-lg-0">
+      <app-notification *ngIf="isAuthenticated && userRole == 'Client'" ></app-notification>
         <li *ngIf="isAuthenticated" class="nav-item">
           <button class="nav-link btn btn-outline-danger" (click)="LogOut()">
             Log out
@@ -72,37 +105,19 @@
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/login"
-            >Login</a
+          >Login</a
           >
         </li>
+
         <li *ngIf="!isAuthenticated" class="nav-item">
           <a
             class="nav-link"
             style="cursor: pointer"
             (click)="ShowRegistrationForm()"
-            >Register</a
+          >Register</a
           >
         </li>
       </ul>
-
-      <form [formGroup]="toggleFormGroup">
-        <label class="text-light m-3">
-          <mat-slide-toggle formControlName="darkMode"></mat-slide-toggle>
-          Dark Mode
-        </label>
-      </form>
-      <div class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-          [(ngModel)]="searchText"
-        />
-        <button (click)="searchProduct()" class="btn btn-outline-light">
-          Search
-        </button>
-      </div>
     </div>
   </div>
 </nav>

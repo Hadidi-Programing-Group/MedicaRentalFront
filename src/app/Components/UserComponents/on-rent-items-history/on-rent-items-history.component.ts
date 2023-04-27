@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
+import {DateHelper} from "../../../Dtos/DateHelper";
 
 @Component({
   selector: 'app-on-rent-items-history',
@@ -58,9 +59,7 @@ export class OnRentItemsHistoryComponent implements OnInit {
       );
   }
 
-  getDate(date: Date) {
-    return new Date(date).toLocaleDateString('en-US');
-  }
+  protected readonly DateHelper = DateHelper;
 }
 
 

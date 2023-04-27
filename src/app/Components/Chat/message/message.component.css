@@ -1,0 +1,29 @@
+.time, i{
+  font-size: 0.7em;
+}
+.msg{
+  font-size: 1em;
+}
+
+.rounded-pill{
+  padding-left: 1.8em;
+  padding-right: 1.8em;
+  padding-top: 0.5em;
+}
+
+.message-container{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 1rem;
+  background: #52b0a4;
+  min-height: 2.25rem;
+  min-width: 8.5em;
+}
+
+.message-container.sender{
+  border-radius: 1.125rem 1.125rem 0 1.125rem;
+}
+
+.message-container.receiver{
+  border-radius: 1.125rem 1.125rem 1.125rem 0;
+}

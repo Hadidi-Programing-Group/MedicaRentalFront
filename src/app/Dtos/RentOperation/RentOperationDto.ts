@@ -1,8 +1,8 @@
 export class RentOperationDto {
   constructor(
     public id: string,
-    public rentDate: Date,
-    public returnDate: Date,
+    public rentDate: string,
+    public returnDate: string,
     public price: number,
     public userId: string,
     public userName: string,

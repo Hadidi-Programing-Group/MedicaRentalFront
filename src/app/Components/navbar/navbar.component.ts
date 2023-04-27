@@ -6,6 +6,11 @@ import { FilterService } from 'src/app/Services/Filter/filter.service';
 import { LoginService } from 'src/app/Services/Login/login.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { SignalRService } from "../../Services/SignalR/signal-r.service";
+import { ChatService } from "../../Services/Chat/chat.service";
+import { MessageNotificationDto } from "../../Dtos/Message/MessageNotificationDto";
+import { MessageDto } from "../../Dtos/Message/MessageDto";
+import { MessageStatus } from "../../Dtos/Message/MessageStatus";
 
 @Component({
   selector: 'app-navbar',
@@ -13,40 +18,56 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+
+  private OrderByStrings = OrderByStrings;
+  searchText = '';
+  page = 1;
+  orderBy = this.OrderByStrings.PriceDesc;
+  isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+  userRole: string = localStorage.getItem('userRole') ?? "";
+  @HostBinding('class') className = '';
+  darkClassName = 'theme-dark';
+  lightClassName = 'theme-light';
   toggleFormGroup = new FormGroup({
     darkMode: new FormControl(false),
   });
 
-  @HostBinding('class') className = '';
-  darkClassName = 'theme-dark';
-  lightClassName = 'theme-light';
 
   constructor(
     private NavBarService: CommunicationService,
     private router: Router,
     private readonly filterService: FilterService,
     public readonly loginService: LoginService,
+    private signalRService: SignalRService,
     private overlay: OverlayContainer
-  ) {}
+  ) {
+    // console.log("isAuthenticated" , localStorage.getItem('isAuthenticated')==='true');
+    // this.isAuthenticated = localStorage.getItem('isAuthenticated') == 'true';
+
+  }
 
   ngOnInit(): void {
+    console.log("isAuthenticated", localStorage.getItem('isAuthenticated') === 'true');
+    this.isAuthenticated = localStorage.getItem('isAuthenticated') == 'true';
+
     this.toggleFormGroup.get('darkMode')!.valueChanges.subscribe((darkMode) => {
       if (darkMode) {
         document.body.classList.add('theme-dark');
-      } else {
+      }
+      else {
         document.body.classList.remove('theme-dark');
       }
     });
 
     this.loginService.isAuthenticatedChanged.subscribe({
       next: (data: boolean) => {
+        console.log("isAuthenticatedChanged triggered");
         this.isAuthenticated = data;
       },
     });
 
     this.loginService.changeUserRole.subscribe({
       next: (data: string) => {
-        console.log(data);
         this.userRole = data;
       },
     });
@@ -58,20 +79,12 @@ export class NavbarComponent implements OnInit {
   }
 
   LogOut() {
-    this.loginService.revokeToken().subscribe({
-      next: (data) => console.log(data),
-      error: (err) => console.log(err),
-    });
+    this.loginService.revokeToken()
     this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
+    this.signalRService.endConnection()
   }
 
-  private OrderByStrings = OrderByStrings;
-  searchText = '';
-  page = 1;
-  orderBy = this.OrderByStrings.PriceDesc;
-  isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  userRole: string = '';
 
   searchProduct() {
     this.filterService.updateSearchText(this.searchText);
@@ -84,4 +97,6 @@ export class NavbarComponent implements OnInit {
       });
     }
   }
+
+
 }
