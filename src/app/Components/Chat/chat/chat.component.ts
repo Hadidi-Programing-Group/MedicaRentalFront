@@ -1,9 +1,9 @@
 import {
-  AfterContentChecked,
+  AfterViewChecked,
   ChangeDetectorRef,
   Component,
   ElementRef,
-  OnChanges, OnDestroy,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -22,7 +22,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, OnDestroy {
+export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   public users: ChatDto[] = [];
   public messages: MessageDto[] = [];
   public currentUser: string = "";
@@ -45,11 +45,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked, On
     return chat.userId;
   }
 
-  ngOnChanges(): void {
-    console.log("Changed");
-  }
 
-  ngAfterContentChecked(): void {
+  ngAfterViewChecked(): void {
     if (this.messagesDiv) {
       this.messagesDiv.nativeElement.scrollTo({
         top: Number(this.messagesDiv.nativeElement.scrollHeight),
