@@ -2,14 +2,14 @@
   <div class="d-sm-none d-md-block col-md-4 col-lg-3 justify-content-start" id="usersArea">
     <h4>Users</h4>
     <div class="row col-12">
-      <app-chat-user *ngFor="let user of users" [chat]="user" (chatClicked)="chatChangedEvent($event)"></app-chat-user>
+      <app-chat-user *ngFor="let user of users; let i=index;trackBy: trackChats " [chat]="user" (chatClicked)="chatChangedEvent($event)"></app-chat-user>
     </div>
   </div>
 
   <div class="col-md-8 col-lg-9 p-3" id="chatArea">
 
-    <div class="row d-flex flex-row bg-secondary border rounded-5" id="messagesArea">
-      <div *ngFor="let message of messages; let i=index;trackBy: trackItem">
+    <div class="row d-flex flex-row bg-secondary border rounded-5" id="messagesArea" #messagesDiv>
+      <div   *ngFor="let message of messages; let i=index;trackBy: trackMessages">
         <app-date *ngIf="checkNewDate(i)" [date]="message.messageDate" class="justify-content-center"></app-date>
         <app-message [ngClass]="['d-flex', message.senderId == currentUser? 'justify-content-end' : '']"
                      [message]="message.message"

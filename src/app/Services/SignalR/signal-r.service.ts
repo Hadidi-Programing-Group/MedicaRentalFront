@@ -14,6 +14,7 @@ export class SignalRService
   private url = `${environment.apiURL}/chatHub`; //API
   public newMessageEvent = new EventEmitter();
   public messageSeenEvent = new EventEmitter();
+  public incMesCountEvent = new EventEmitter();
   public isConnected: boolean = false;
 
   startConnection(token?: string)
@@ -47,6 +48,10 @@ export class SignalRService
     {
       this.messageSeenEvent.emit(messageId)
     });
+    // this.connection.on("MessageSeen", (messageId: string) =>
+    // {
+    //   this.messageSeenEvent.emit(messageId)
+    // });
   }
 
   endConnection()
