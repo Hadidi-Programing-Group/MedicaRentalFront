@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, Component, ElementRef, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {ChatService} from "../../../Services/Chat/chat.service";
 import {SignalRService} from "../../../Services/SignalR/signal-r.service";
 import {ChatDto} from "../../../Dtos/Message/ChatDto";
@@ -113,12 +113,12 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked {
       this.signalRService.sendMessage(message, this.currentUser, date)
         .then((messageId: string) => {
           if (messageId != '') {
-            let msg = Object.assign({}, new MessageDto(messageId, message, '', date, MessageStatus.Sent))
+            let msg = Object.assign({}, new MessageDto(messageId, message, '', date.toString(), MessageStatus.Sent))
             this.messages.push(msg)
             if (this.messagesDiv) {
               console.log("this.messagesDiv.nativeElement", this.messagesDiv.nativeElement);
               this.messagesDiv.nativeElement.scrollTo({
-                top: new Number(this.messagesDiv.nativeElement.scrollHeight),
+                top: Number(this.messagesDiv.nativeElement.scrollHeight),
                 left: 0,
                 behavior: "smooth",
               });

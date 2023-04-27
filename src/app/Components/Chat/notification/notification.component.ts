@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {MessageDto} from "../../../Dtos/Message/MessageDto";
 import {MessageNotificationDto} from "../../../Dtos/Message/MessageNotificationDto";
-import {DateHelper} from "../../../Dtos/DateHelper";
 
 @Component({
   selector: 'app-notification',

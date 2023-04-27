@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChatDto } from "../../../Dtos/Message/ChatDto";
-import { MessageStatus } from 'src/app/Dtos/Message/MessageStatus';
 import { SignalRService } from 'src/app/Services/SignalR/signal-r.service';
-import {Component, EventEmitter, Input, Output, ViewRef} from '@angular/core';
 import {DateHelper} from "../../../Dtos/DateHelper";
 
 @Component({

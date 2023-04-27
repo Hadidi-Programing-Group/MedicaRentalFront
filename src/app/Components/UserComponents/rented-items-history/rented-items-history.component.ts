@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
-import {getLocaleDateFormat} from "@angular/common";
 import {DateHelper} from "../../../Dtos/DateHelper";
 
 @Component({
