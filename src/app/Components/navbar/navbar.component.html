@@ -60,7 +60,7 @@
           >
         </li>
 
-        <li class="nav-item">
+        <li  *ngIf="isAuthenticated && userRole == 'Client'"  class="nav-item">
           <a
             class="nav-link"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -92,7 +92,7 @@
         </label>
       </form>
       <ul class="navbar-nav mx-2 mt-2 mt-lg-0">
-      <app-notification></app-notification>
+      <app-notification *ngIf="isAuthenticated && userRole == 'Client'" ></app-notification>
         <li *ngIf="isAuthenticated" class="nav-item">
           <button class="nav-link btn btn-outline-danger" (click)="LogOut()">
             Log out

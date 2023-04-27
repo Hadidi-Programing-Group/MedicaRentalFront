@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/Services/Login/login.service';
-import {SignalRService} from "../../Services/SignalR/signal-r.service";
-import {environment} from "../../../environments/environment";
+import { SignalRService } from "../../Services/SignalR/signal-r.service";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
   wrongInfo = false;
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit() {
     if (this.loginForm.valid) {
@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('isAuthenticated', 'true');
           this.loginservies.isAuthenticatedChanged.emit(true);
           this.signalRService.startConnection(data['token'])
+          localStorage.setItem("userRole", data['userRole'])
           this.loginservies.changeUserRole.emit(data['userRole']);
           this.router.navigate(['/']);
         },
