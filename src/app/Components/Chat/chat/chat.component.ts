@@ -33,18 +33,15 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked {
     console.log("Changed");
   }
   ngAfterContentChecked(): void {
-    console.log("checked");
     if (this.messagesDiv) {
-      console.log("this.messagesDiv.nativeElement", this.messagesDiv.nativeElement);
       this.messagesDiv.nativeElement.scrollTo({
-        top: new Number(this.messagesDiv.nativeElement.scrollHeight),
+        top: Number(this.messagesDiv.nativeElement.scrollHeight),
         left: 0,
         behavior: "smooth",
       });
     }
   }
   ngOnInit(): void {
-    console.log("init");
     this.checkConnection()
     this.getUserChats()
     this.sortUsers()
@@ -81,6 +78,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked {
         let msg = this.messages.find(m => m.id == messageId)
         if (msg) {
           msg.messageStatus = MessageStatus.Seen
+          this.messages = [...this.messages]
         }
         else {
 
@@ -115,8 +113,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked {
           if (messageId != '') {
             let msg = Object.assign({}, new MessageDto(messageId, message, '', date.toString(), MessageStatus.Sent))
             this.messages.push(msg)
+
             if (this.messagesDiv) {
-              console.log("this.messagesDiv.nativeElement", this.messagesDiv.nativeElement);
               this.messagesDiv.nativeElement.scrollTo({
                 top: Number(this.messagesDiv.nativeElement.scrollHeight),
                 left: 0,
@@ -160,6 +158,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked {
       date1.getMonth() === date2.getMonth() &&
       date1.getDate() === date2.getDate());
   }
+
   sortUsers() {
     this.users.sort((a, b) => new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime());
   }
