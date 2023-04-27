@@ -38,7 +38,7 @@ export class SignalRService
       .catch((err) => console.error(err.toString()));
 
     this.connection.on("ReceiveMessage", (
-      messageId: string, message: string, senderId: string, timeStamp: Date, messageStatus: MessageStatus) =>
+      messageId: string, message: string, senderId: string, timeStamp: string, messageStatus: MessageStatus) =>
     {
       let msg = new MessageDto(messageId, message, senderId, timeStamp, messageStatus);
       this.newMessageEvent.emit(msg)

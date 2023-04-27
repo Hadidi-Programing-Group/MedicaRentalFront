@@ -6,7 +6,7 @@ export class MessageDto
     public id: string,
     public message: string,
     public senderId: string,
-    public messageDate: Date,
+    public messageDate: string,
     public messageStatus: MessageStatus
   )
   {

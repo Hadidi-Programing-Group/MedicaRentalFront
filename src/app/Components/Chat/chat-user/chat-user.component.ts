@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChatDto } from "../../../Dtos/Message/ChatDto";
 import { MessageStatus } from 'src/app/Dtos/Message/MessageStatus';
 import { SignalRService } from 'src/app/Services/SignalR/signal-r.service';
+import {Component, EventEmitter, Input, Output, ViewRef} from '@angular/core';
+import {DateHelper} from "../../../Dtos/DateHelper";
 
 @Component({
   selector: 'app-chat-user',
@@ -9,7 +11,7 @@ import { SignalRService } from 'src/app/Services/SignalR/signal-r.service';
   styleUrls: ['./chat-user.component.css']
 })
 export class ChatUserComponent implements OnInit {
-  @Input() chat: ChatDto | null = null;
+  @Input() chat: ChatDto = new ChatDto("", "", "", "", 0, 0, "");
   @Output() chatClicked = new EventEmitter()
   constructor(private signalRService: SignalRService) {
 
@@ -17,10 +19,11 @@ export class ChatUserComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.chat);
     this.signalRService.newMessageEvent.subscribe({
-      
+
     })
   }
-  isValidBase64(str: string | null): boolean {
+  isValidBase64(str: string | null): boolean
+  {
     console.log()
     if (str == null || str == '') {
       return false;
@@ -33,22 +36,26 @@ export class ChatUserComponent implements OnInit {
     }
   }
 
-  getDate(messageDate: Date | string) {
+  getDate(messageDate: string)
+  {
     let date1 = new Date()
-    let date2 = new Date(messageDate)
+    let date2 = DateHelper.getDate(messageDate)
+
 
     let equal = (date1.getFullYear() === date2.getFullYear() &&
       date1.getMonth() === date2.getMonth() &&
       date1.getDate() === date2.getDate());
 
-    const options1: object = { hour: 'numeric', minute: 'numeric', hour12: true };
-    const options2: object = { month: 'numeric', day: 'numeric', year: 'numeric' };
+    if (equal)
+    {
+      return DateHelper.toOneDigitTimeOnly(date2)
+    }
+    return DateHelper.toOneDigitDateOnly(date2)
 
-    return equal ? date2.toLocaleTimeString(undefined, options1) : date2.toLocaleTimeString(undefined, options2)
   }
 
-  openChat(userId: string) {
-    
+  openChat(userId: string)
+  {
     this.chatClicked.emit(userId)
   }
 

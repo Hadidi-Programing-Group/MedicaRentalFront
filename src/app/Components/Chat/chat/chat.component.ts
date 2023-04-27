@@ -1,9 +1,10 @@
-import { Component, OnInit, OnChanges, ElementRef, ViewChild, AfterContentChecked } from '@angular/core';
-import { ChatService } from "../../../Services/Chat/chat.service";
-import { SignalRService } from "../../../Services/SignalR/signal-r.service";
-import { ChatDto } from "../../../Dtos/Message/ChatDto";
-import { MessageDto } from "../../../Dtos/Message/MessageDto";
-import { MessageStatus } from "../../../Dtos/Message/MessageStatus";
+import {Component, OnInit} from '@angular/core';
+import {ChatService} from "../../../Services/Chat/chat.service";
+import {SignalRService} from "../../../Services/SignalR/signal-r.service";
+import {ChatDto} from "../../../Dtos/Message/ChatDto";
+import {MessageDto} from "../../../Dtos/Message/MessageDto";
+import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
+import {DateHelper} from "../../../Dtos/DateHelper";
 
 @Component({
   selector: 'app-chat',
@@ -152,8 +153,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterContentChecked {
       return true;
     }
 
-    let date1 = new Date(this.messages[i - 1].messageDate)
-    let date2 = new Date(this.messages[i].messageDate)
+    let date1 = DateHelper.getDate(this.messages[i - 1].messageDate)
+    let date2 = DateHelper.getDate(this.messages[i].messageDate)
 
     return !(date1.getFullYear() === date2.getFullYear() &&
       date1.getMonth() === date2.getMonth() &&

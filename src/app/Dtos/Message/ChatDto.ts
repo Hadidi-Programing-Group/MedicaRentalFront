@@ -6,7 +6,7 @@ export class ChatDto
     public userId: string,
     public userName: string,
     public lastMessage: string,
-    public messageDate: Date,
+    public messageDate: string,
     public messageStatus: MessageStatus,
     public unseenMessagesCount: number,
     public userProfileImage: string

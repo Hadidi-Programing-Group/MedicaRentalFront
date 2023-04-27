@@ -3,6 +3,7 @@ import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
 import {getLocaleDateFormat} from "@angular/common";
+import {DateHelper} from "../../../Dtos/DateHelper";
 
 @Component({
   selector: 'app-rented-items-history',
@@ -59,8 +60,6 @@ export class RentedItemsHistoryComponent implements OnInit {
       );
   }
 
-  getDate(date: Date) {
-    return new Date(date).toLocaleDateString('en-US');
-  }
+  protected readonly DateHelper = DateHelper;
 }
 

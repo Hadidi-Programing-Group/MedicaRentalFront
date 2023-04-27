@@ -22,8 +22,8 @@
         <td><a href="items/{{operation.itemId}}}">{{operation.itemName}}</a></td>
         <td>{{ operation.price|currency:"EGP":"E£" }}</td>
         <td><a href="users/{{operation.userId}}}">{{operation.userName}}</a></td>
-        <td>{{ getDate(operation.rentDate) }}</td>
-        <td>{{ getDate(operation.returnDate) }}</td>
+        <td>{{ DateHelper.getDate(operation.rentDate) | date : 'MMMM dd, YYYY'  }}</td>
+        <td>{{ DateHelper.getDate(operation.returnDate) | date : 'MMMM dd, YYYY'  }}</td>
         <td class="d-none d-md-table-cell">
           <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
             <span class="star" [ngClass]="{ filled: star <= operation.rating }"

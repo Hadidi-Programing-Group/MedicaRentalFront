@@ -106,10 +106,10 @@ export class NavbarComponent implements OnInit {
       })
     }
     //on each receive append (pop>3)
-    this.signalRService.newMessageEvent.subscribe({
-      next: (data: any) => {
-
-      }
-    })
+    // this.signalRService.newMessageEvent.subscribe({
+    //   next: (data: any) => {
+    //
+    //   }
+    // })
   }
 }

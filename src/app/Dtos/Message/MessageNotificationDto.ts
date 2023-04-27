@@ -4,7 +4,7 @@ export class MessageNotificationDto
     public username: string,
     public profileImage: string,
     public message: string,
-    public messageDate: Date
+    public messageDate: string
   )
   {
   }
