@@ -20,10 +20,9 @@
         <p class="m-0" style="font-size: 0.8em">{{getDate(chat.messageDate)}}</p>
       </div>
       <div class="d-flex justify-content-end">
-        <p class="m-0 rounded-circle bg-info text-center"
+        <p class="m-0 rounded-circle bg-info text-center" *ngIf="chat.unseenMessagesCount > 0"
            style="width: 1.5em; height: 1.5em">{{chat.unseenMessagesCount}}</p>
       </div>
     </div>
 
 </div>
-<!-- "2023-04-27T01:10:12.1028977" -->

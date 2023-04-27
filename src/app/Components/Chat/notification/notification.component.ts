@@ -32,7 +32,7 @@ export class NotificationComponent implements OnInit
     this.signalRService.newMessageEvent.subscribe({
       next: (message: MessageDto) =>
       {
-        if (this.currentChat == '' || message.senderId == this.currentChat)
+        if (message.senderId == this.currentChat)
         {
           return;
         }
@@ -43,6 +43,7 @@ export class NotificationComponent implements OnInit
           let notification = this.messages[index]
           notification.messageDate = message.messageDate
           notification.message = message.message
+          notification.messageDate = message.messageDate
           this.messages.splice(index, 1)
           this.messages.unshift(notification)
           this.notificationCount++
