@@ -102,3 +102,8 @@
   overflow: auto;
   transition: max-height 0.3s ease-out;
 }
+
+.profile-img{
+  width: 2.5em;
+  height: 2.5em;
+}

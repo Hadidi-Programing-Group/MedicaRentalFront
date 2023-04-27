@@ -14,6 +14,7 @@ export class SignalRService
   private url = `${environment.apiURL}/chatHub`; //API
   public newMessageEvent = new EventEmitter();
   public messageSeenEvent = new EventEmitter();
+  public allMessagesSeenEvent = new EventEmitter();
   public incMesCountEvent = new EventEmitter();
   public isConnected: boolean = false;
 
@@ -48,10 +49,11 @@ export class SignalRService
     {
       this.messageSeenEvent.emit(messageId)
     });
-    // this.connection.on("MessageSeen", (messageId: string) =>
-    // {
-    //   this.messageSeenEvent.emit(messageId)
-    // });
+
+    this.connection.on("AllMessagesSeen", (userId: string) =>
+    {
+      this.allMessagesSeenEvent.emit(userId)
+    });
   }
 
   endConnection()
@@ -87,8 +89,21 @@ export class SignalRService
 
     this.connection.invoke("SetMessageSeen", messageId, senderId)
       .then(() =>
-      {
-      })
+      {})
       .catch((err) => console.error("Message couldn't be sent", err));
   }
+
+  // allMessagesSeen()
+  // {
+  //   if (!this.connection)
+  //   {
+  //     return console.error("SignalR connection isn't established")
+  //   }
+  //
+  //   this.connection.invoke("AllMessagesSeen")
+  //     .then(() =>
+  //     {
+  //     })
+  //     .catch((err) => console.error("Failed to reach signalR server", err));
+  // }
 }

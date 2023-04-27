@@ -64,15 +64,10 @@ export class ChatService
     );
   }
 
-  GetLastNUnseenChats(number: number)
+  GetUnseenChats()
   {
-    let params = new HttpParams();
-
-    params = params.set('number', number)
-
     return this.httpClient.get<MessageNotificationDto[]>(
-      `${this.baseUrl}/notifications`,
-      {params}
+      `${this.baseUrl}/notifications`
     );
   }
 }
