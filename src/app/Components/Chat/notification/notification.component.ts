@@ -20,12 +20,19 @@ export class NotificationComponent implements OnInit {
   constructor(private signalRService: SignalRService,
     private chatService: ChatService,
     private notificationService: NotificationService,
-    private changeDetector: ChangeDetectorRef) {
+    private changeDetector: ChangeDetectorRef,
+
+  ) {
   }
 
   ngOnInit(): void {
-    this.updateNotifications()
 
+    this.updateNotifications()
+    this.signalRService.connectionStartEvent.subscribe({
+      next: () => {
+        this.updateNotifications()
+      }
+    })
     this.signalRService.newMessageEvent.subscribe({
       next: (message: MessageDto) => {
         if (message.senderId == this.currentChat) {
@@ -59,7 +66,7 @@ export class NotificationComponent implements OnInit {
           this.messages.splice(index, 1)
           this.notificationCount -= data.count
           this.changeDetector.detectChanges()
-          }
+        }
       }
     })
 
