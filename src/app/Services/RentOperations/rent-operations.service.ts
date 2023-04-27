@@ -80,4 +80,8 @@ export class RentOperationsService {
       { params }
     );
   }
+
+  GetIsRented(ItemId:string){
+    return this.httpClient.get(this.baseUrl+`/isrented/`+ItemId)
+  }
 }

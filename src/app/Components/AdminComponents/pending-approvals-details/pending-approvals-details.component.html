@@ -1,0 +1,8 @@
+<p>pending-approvals-details works!</p>
+
+<div *ngIf="info">
+  <h2>Approval Details for ID {{ info.id }}</h2>
+  <p>National ID: {{ info.nationalId }}</p>
+  <img [src]="nationalImage" alt="National ID image">
+  <img [src]="unionImage" alt="Union image">
+</div>

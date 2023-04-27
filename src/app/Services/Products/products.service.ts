@@ -139,6 +139,10 @@ export class ProductsService {
     return this.httpClient.get(this.baseUrl + '/forrenter/' + id);
   }
 
+  GetItemByIdForSeller(id: string) {
+    return this.httpClient.get(this.baseUrl + '/forseller/' + id);
+  }
+
   GetUnListedItems(
     page: number,
     orderBy?: string,
@@ -181,5 +185,9 @@ export class ProductsService {
     let params = new HttpParams();
     params = params.set('id', itemId);
     return this.httpClient.delete<StatusDto>(`${this.baseUrl}/one`, {params,});
+  }
+
+  GetIfItemOwner(itemId: string){
+    return this.httpClient.get(`${this.baseUrl}/isowner/${itemId}`)
   }
 }
