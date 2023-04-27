@@ -26,41 +26,12 @@ import {
   AuthInterceptor,
   AuthResponseInterceptor,
 } from 'InterCeptors/auth.interceptor';
-import {MyAccountComponent} from './Components/UserComponents/my-account/my-account.component';
-import {ListedItemsComponent} from './Components/UserComponents/listed-items/listed-items.component';
-import {RentedItemsComponent} from './Components/UserComponents/rented-items/rented-items.component';
-import {OnRentItemsComponent} from './Components/UserComponents/on-rent-items/on-rent-items.component';
-import {
-  RentedItemsHistoryComponent
-} from './Components/UserComponents/rented-items-history/rented-items-history.component';
-import {
-  OnRentItemsHistoryComponent
-} from './Components/UserComponents/on-rent-items-history/on-rent-items-history.component';
-import {UnlistedItemsComponent} from './Components/UserComponents/unlisted-items/unlisted-items.component';
-import {ProfileComponent} from './Components/UserComponents/profile/profile.component';
-import {MyAccountNavbarComponent} from './Components/UserComponents/my-account-navbar/my-account-navbar.component';
-import {ItemDetailsRenterComponent} from './Components/item-details-renter/item-details-renter.component';
-import {ReviewsComponent} from './Components/reviews/reviews.component';
-import {PaginationComponent} from './Components/pagination/pagination.component';
-import {SearchComponent} from './Components/search/search.component';
-import {
-  ListOrderByComponent
-} from './Components/UserComponents/OrderByComponents/list-order-by/list-order-by.component';
-import {
-  RentOrderByComponent
-} from './Components/UserComponents/OrderByComponents/rent-order-by/rent-order-by.component';
-import {Forbidden403Component} from './Components/Errors/forbidden403/forbidden403.component';
-import {NotFound404Component} from './Components/Errors/not-found404/not-found404.component';
 import {ChatComponent} from './Components/Chat/chat/chat.component';
 import {MessageComponent} from './Components/Chat/message/message.component';
 import {DateComponent} from './Components/Chat/date/date.component';
 import {NgOptimizedImage} from "@angular/common";
 import {NotificationComponent} from './Components/Chat/notification/notification.component';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {ReportsComponent} from './Components/AdminComponents/reports/reports.component';
-import {ReportDetailsComponent} from './Components/AdminComponents/report-details/report-details.component';
 import { ChatUserComponent } from './Components/Chat/chat-user/chat-user.component';
 import { MyAccountComponent } from './Components/UserComponents/my-account/my-account.component';
 import { ListedItemsComponent } from './Components/UserComponents/listed-items/listed-items.component';
