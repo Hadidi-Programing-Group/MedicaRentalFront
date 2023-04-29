@@ -70,10 +70,7 @@ export class ItemDetailsRenterComponent implements OnInit {
 
     this.myService.GetIfItemOwner(this.ID).subscribe({
       next:(data:any)=>{
-        if(data["isOwner"]==false)
-          this.IsOwner=false;
-        else
-          this.IsOwner=true;
+          this.IsOwner=data["isOwner"];
       },
       error:(err)=>{
         console.log(err);
