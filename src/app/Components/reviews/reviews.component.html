@@ -8,18 +8,26 @@
               <div *ngFor="let review of reviews" class="row">
                 <div class="col-sm-12">
                   <div class="testimonial-wrapper">
-                    <div class="testimonial">{{review.clientReview}}</div>
+                    <div class="testimonial">{{ review.clientReview }}</div>
                     <div class="media">
                       <div class="media-body">
                         <div class="overview">
-                          <div class="name mb-2"><b>{{review.clientName}}</b></div>
+                          <div class="name mb-2">
+                            <b>{{ review.clientName }}</b>
+                          </div>
                           <div class="star-rating">
                             <ul class="list-inline">
-                              <li *ngFor="let star of counter(review.rating)" class="list-inline-item"><i
-                                  class="fa fa-star"></i>
+                              <li
+                                *ngFor="let star of counter(review.rating)"
+                                class="list-inline-item"
+                              >
+                                <i class="fa fa-star"></i>
                               </li>
-                              <li *ngFor="let star of counter(5-review.rating)" class="list-inline-item"><i
-                                  class="far fa-star"></i>
+                              <li
+                                *ngFor="let star of counter(5 - review.rating)"
+                                class="list-inline-item"
+                              >
+                                <i class="far fa-star"></i>
                               </li>
                             </ul>
                           </div>
@@ -29,7 +37,7 @@
                   </div>
                 </div>
                 <div></div>
-                <hr style="width: 100%;">
+                <hr style="width: 100%" />
                 <div></div>
               </div>
             </div>
@@ -41,34 +49,5 @@
 </div>
 
 <ng-template #loadingBlock>
-  <div class="m-auto text-center d-flex align-items-center justify-content-center" style="height: 500px;">
-    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
-      <!-- <span class="visually-hidden">Loading...</span> -->
-    </div>
-    <div class="spinner-grow text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow" style="color: rgb(255, 255, 255);" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-
-  </div>
+  <app-loading></app-loading>
 </ng-template>
