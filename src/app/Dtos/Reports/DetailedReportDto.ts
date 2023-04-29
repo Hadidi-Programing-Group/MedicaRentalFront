@@ -14,6 +14,7 @@ export class DetailedReportDto {
     public content: string,
     public contentTimeStamp: string,
     public reportCategory: string,
+    public isReportedUserBlocked: boolean,
     public reportActions: ReportActionDto[]
   ) {}
 }

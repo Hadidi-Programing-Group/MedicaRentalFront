@@ -49,10 +49,20 @@
       <h4 class="mt-4">Reported To</h4>
       <ul class="list-group">
         <li class="list-group-item">
-          <strong>ID:</strong> {{ report.reportedId }}
+          <strong>Name:</strong> {{ report.reportedName }}
         </li>
         <li class="list-group-item">
-          <strong>Name:</strong> {{ report.reportedName }}
+          <strong>Status: </strong>
+          <span
+            *ngIf="!report.isReportedUserBlocked"
+            class="badge rounded-pill text-bg-success"
+            >Open</span
+          >
+          <span
+            *ngIf="report.isReportedUserBlocked"
+            class="badge rounded-pill text-bg-danger"
+            >Blocked</span
+          >
         </li>
       </ul>
     </div>
@@ -106,6 +116,7 @@
   >
     <div class="d-flex justify-content-center align-items-center gap-2">
       <button
+        *ngIf="!report.isReportedUserBlocked"
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#blockUserModal"
