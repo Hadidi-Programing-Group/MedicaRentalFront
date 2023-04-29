@@ -7,6 +7,7 @@ import {
   ReportActionDto,
 } from 'src/app/Dtos/Reports/DetailedReportDto';
 import { ReportListNames } from 'src/app/Dtos/Reports/ReportListNames';
+import { StatusDto } from 'src/app/Dtos/StatusDto';
 import { ChatService } from 'src/app/Services/Chat/chat.service';
 import { ReportsService } from 'src/app/Services/Reports/reports.service';
 import { UserService } from 'src/app/Services/User/user.service';
@@ -49,20 +50,9 @@ export class ReportDetailsComponent implements OnInit {
       this.endTime,
       this.reportId
     );
-    this.userService.BlockUser(blockUserInfo).subscribe({
-      next: (data) => {
-        console.log(data);
-        if (data.statusCode == 200) {
-          // Do This or refresh page
-          //   this.report.reportActions.push(new ReportActionDto(data.statusMessage, new Date().toDateString(), ""));
-          window.location.reload();
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.userService.BlockUser(blockUserInfo).subscribe(this.callObject);
   }
+
   DeletedReportedItem() {
     const deleteMessageRequestDto = new DeleteMessageRequestDto(
       this.report.reportedId,
@@ -70,33 +60,32 @@ export class ReportDetailsComponent implements OnInit {
       this.reportId
     );
 
-    this.chatService.DeleteMessage(deleteMessageRequestDto).subscribe({
-      next: (data) => {
-        console.log(data);
-        if (data.statusCode == 200) {
-          // Do This or refresh page
-          //   this.report.reportActions.push(new ReportActionDto(data.statusMessage, new Date().toDateString(), ""));
-          window.location.reload();
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.chatService
+      .DeleteMessage(deleteMessageRequestDto)
+      .subscribe(this.callObject);
   }
+
   MarkAsSolved() {
-    this.reportSerivce.markAsSolved(this.reportId).subscribe({
-      next: (data) => {
-        console.log(data);
-        if (data.statusCode == 200) {
-          // Do This or refresh page
-          //   this.report.reportActions.push(new ReportActionDto(data.statusMessage, new Date().toDateString(), ""));
-          window.location.reload();
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.reportSerivce.markAsSolved(this.reportId).subscribe(this.callObject);
+  }
+
+  private readonly callObject = {
+    next: (data: StatusDto) => {
+      this.handleReportActionResponse(data);
+    },
+    error: (err: any) => {
+      console.log(err);
+    },
+  };
+
+  private handleReportActionResponse(data: StatusDto) {
+    console.log(data);
+    if (data.statusCode == 200) {
+      // Do This or refresh page
+      // const reportAction = new ReportActionDto(data.statusMessage, new Date().toDateString(), "");
+      // this.report.reportActions.push(reportAction);
+
+      window.location.reload();
+    }
   }
 }
