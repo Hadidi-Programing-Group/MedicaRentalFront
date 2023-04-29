@@ -20,8 +20,8 @@
         <td><a href="items/{{operation.itemId}}}">{{operation.itemName}}</a></td>
         <td>{{ operation.price|currency:"EGP":"E£" }}</td>
         <td><a href="users/{{operation.userId}}}">{{operation.userName}}</a></td>
-        <td>{{ getDate(operation.rentDate) }}</td>
-        <td>{{ getDate(operation.returnDate) }}</td>
+        <td>{{ DateHelper.getDate(operation.rentDate) | date : 'MMMM dd, YYYY'  }}</td>
+        <td>{{ DateHelper.getDate(operation.returnDate) | date : 'MMMM dd, YYYY'  }}</td>
       </tr>
       </tbody>
     </table>

@@ -1,0 +1,12 @@
+.profile-img{
+  width: 2.5em;
+  height: 2.5em;
+}
+
+.row{
+  background-color: #1cc88a;
+}
+
+.row:hover{
+  background-color: blue;
+}

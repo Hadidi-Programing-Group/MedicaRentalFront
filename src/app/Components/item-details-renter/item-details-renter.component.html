@@ -1,16 +1,16 @@
 <div *ngIf="Item && image; else loadingBlock" class="container mt-5 mb-5 pt-0 ms-5">
   <div class="card mt-0 pt-0">
     <div class="row g-0">
-      <div class="col-md-6 border-end mt-0 pt-0">
+      <div class="col-md-6 border-end mt-0 pt-0 ">
         <div class="d-flex flex-column justify-content-center mt-0 pt-0">
-          <div class="main_image">
+          <div class="main_image itemrent">
             <img [src]="image" id="main_product_image" width="350" />
           </div>
         </div>
       </div>
-      <div class="col-md-6 mb-0 pb-0">
+      <div class="col-md-6 mb-0 pb-0 itemrent" >
         <div class="p-3 right-side mt-4 mb-0 pb-0">
-          <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between align-items-center ">
             <h2>{{ Item.name }}</h2>
             <span class="heart"><i class="bx bx-heart"></i></span>
           </div>
