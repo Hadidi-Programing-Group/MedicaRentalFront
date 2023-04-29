@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -13,7 +13,6 @@ import { ProductsService } from 'src/app/Services/Products/products.service';
 import { RentOperationsService } from 'src/app/Services/RentOperations/rent-operations.service';
 import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
 import { ReviewsComponent } from '../reviews/reviews.component';
-
 
 @Component({
   selector: 'app-item-details-renter',
@@ -32,7 +31,7 @@ export class ItemDetailsRenterComponent implements OnInit {
   reviewForm: FormGroup;
   @ViewChild(ReviewsComponent, { static: false })
   reviewComponent!: ReviewsComponent;
-  IsOwner:boolean=false;
+  IsOwner: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,7 +39,7 @@ export class ItemDetailsRenterComponent implements OnInit {
     private myService: ProductsService,
     private renService: RentOperationsService,
     private ReviewSerivce: ReviewsService,
-    private router: Router,
+    private router: Router
   ) {
     this.ID = activeRoute.snapshot.params['id'];
     this.reviewForm = this.fb.group({
@@ -69,13 +68,13 @@ export class ItemDetailsRenterComponent implements OnInit {
     });
 
     this.myService.GetIfItemOwner(this.ID).subscribe({
-      next:(data:any)=>{
-          this.IsOwner=data["isOwner"];
+      next: (data: any) => {
+        this.IsOwner = data['isOwner'];
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
 
   onSubmit() {
@@ -85,8 +84,8 @@ export class ItemDetailsRenterComponent implements OnInit {
       rating: parseInt(this.reviewForm.get('radioControl')?.value),
       isDeleted: false,
       clientReview: this.reviewForm.get('review')?.value,
-      itemId: this.ID
-    }
+      itemId: this.ID,
+    };
     this.ReviewSerivce.AddReview(UserRev).subscribe({
       next: (res) => {
         this.ngOnInit();
@@ -97,8 +96,8 @@ export class ItemDetailsRenterComponent implements OnInit {
     });
   }
 
-  UpdateItem(){
-    let URL = 'products/forseller/'+this.ID;
+  UpdateItem() {
+    let URL = 'products/forseller/' + this.ID;
     this.router.navigate([URL]);
   }
 }
