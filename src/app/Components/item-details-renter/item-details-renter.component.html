@@ -1,16 +1,19 @@
-<div *ngIf="Item && image; else loadingBlock" class="container mt-5 mb-5 pt-0 ms-5">
+<div
+  *ngIf="Item && image; else loadingBlock"
+  class="container mt-5 mb-5 pt-0 ms-5"
+>
   <div class="card mt-0 pt-0">
     <div class="row g-0">
-      <div class="col-md-6 border-end mt-0 pt-0 ">
+      <div class="col-md-6 border-end mt-0 pt-0">
         <div class="d-flex flex-column justify-content-center mt-0 pt-0">
           <div class="main_image itemrent">
             <img [src]="image" id="main_product_image" width="350" />
           </div>
         </div>
       </div>
-      <div class="col-md-6 mb-0 pb-0 itemrent" >
+      <div class="col-md-6 mb-0 pb-0 itemrent">
         <div class="p-3 right-side mt-4 mb-0 pb-0">
-          <div class="d-flex justify-content-between align-items-center ">
+          <div class="d-flex justify-content-between align-items-center">
             <h2>{{ Item.name }}</h2>
             <span class="heart"><i class="bx bx-heart"></i></span>
           </div>
@@ -23,9 +26,14 @@
               <i *ngFor="let star of RatingStars" class="bx bxs-star"></i>
               <i *ngFor="let star of RestOfStars" class="bx bx-star"></i>
             </div>
-            <span>{{ Item.reviews.length }} Reviews</span>
-            <button *ngIf="ShowRatingBtn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              class="btn btn-outline-secondary Rate">
+            <span *ngIf="Item.reviews">{{ Item.reviews.length }} Reviews</span>
+            <button
+              *ngIf="ShowRatingBtn"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              class="btn btn-outline-secondary Rate"
+            >
               Rate
             </button>
           </div>
@@ -46,53 +54,111 @@
           </div>
           <div class="buttons d-flex flex-row mt-4 gap-3">
             <button class="btn btn-dark">Contact Owner</button>
-            <button *ngIf="IsOwner" (click)="UpdateItem()" class="btn btn-dark">Update</button>
+            <button *ngIf="IsOwner" (click)="UpdateItem()" class="btn btn-dark">
+              Update
+            </button>
           </div>
-
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Your Rating</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
 
         <div class="rating-box m-auto">
           <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="pb-3">
             <div class="rating-container">
-              <input type="radio" name="radioControl" value="5" id="star-6" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="5"
+                id="star-6"
+                formControlName="radioControl"
+              />
               <label for="star-6">&#9733;</label>
 
-              <input type="radio" name="radioControl" value="4" id="star-7" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="4"
+                id="star-7"
+                formControlName="radioControl"
+              />
               <label for="star-7">&#9733;</label>
 
-              <input type="radio" name="radioControl" value="3" id="star-8" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="3"
+                id="star-8"
+                formControlName="radioControl"
+              />
               <label for="star-8">&#9733;</label>
 
-              <input type="radio" name="radioControl" value="2" id="star-9" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="2"
+                id="star-9"
+                formControlName="radioControl"
+              />
               <label for="star-9">&#9733;</label>
 
-              <input type="radio" name="radioControl" value="1" id="star-10" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="1"
+                id="star-10"
+                formControlName="radioControl"
+              />
               <label for="star-10">&#9733;</label>
             </div>
             <div>
               <p>Your review:</p>
-              <textarea formControlName="review" name="" id="Comment" cols="30" rows="3"></textarea>
+              <textarea
+                formControlName="review"
+                name=""
+                id="Comment"
+                cols="30"
+                rows="3"
+              ></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer m-auto">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
             Close
           </button>
-          <button type="submit" class="btn btn-primary" id="SaveRating" data-bs-dismiss="modal" (click)="onSubmit()">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="SaveRating"
+            data-bs-dismiss="modal"
+            (click)="onSubmit()"
+          >
             Save Changes
           </button>
         </div>
@@ -103,38 +169,13 @@
 
 <div class="reviews">
   <h2 *ngIf="Item" class="ms-4 mb-0 pb-0">Item Reviews</h2>
-  <app-reviews #reviewComponent [reviews]="Item.reviews"></app-reviews>
+  <app-reviews
+    *ngIf="Item && Item.reviews"
+    #reviewComponent
+    [reviews]="Item.reviews"
+  ></app-reviews>
 </div>
 
-
 <ng-template #loadingBlock>
-  <div class="m-auto text-center d-flex align-items-center justify-content-center" style="height: 500px">
-    <div class="spinner-grow" style="color: rgb(255, 255, 255)" role="status">
-      <!-- <span class="visually-hidden">Loading...</span> -->
-    </div>
-    <div class="spinner-grow text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow" style="color: rgb(255, 255, 255)" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow" style="color: rgb(255, 255, 255)" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow" style="color: rgb(255, 255, 255)" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div class="spinner-grow" style="color: rgb(255, 255, 255)" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
+  <app-loading></app-loading>
 </ng-template>

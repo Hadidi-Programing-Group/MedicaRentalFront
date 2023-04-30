@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div *ngIf="report; else loadingBlock" class="container mt-5">
   <h1 class="text-center">Detailed Report</h1>
   <hr />
 
@@ -14,7 +14,17 @@
           <strong>Statement:</strong> {{ report.statement }}
         </li>
         <li class="list-group-item">
-          <strong>Is Solved:</strong> {{ report.isSolved ? "Yes" : "No" }}
+          <strong>Is Solved: </strong>
+          <span
+            *ngIf="report.isSolved"
+            class="badge rounded-pill text-bg-success"
+            >Solved</span
+          >
+          <span
+            *ngIf="!report.isSolved"
+            class="badge rounded-pill text-bg-danger"
+            >Not Solved</span
+          >
         </li>
         <li class="list-group-item">
           <strong>Created Date:</strong> {{ report.createdDate | date }}
@@ -39,10 +49,20 @@
       <h4 class="mt-4">Reported To</h4>
       <ul class="list-group">
         <li class="list-group-item">
-          <strong>ID:</strong> {{ report.reportedId }}
+          <strong>Name:</strong> {{ report.reportedName }}
         </li>
         <li class="list-group-item">
-          <strong>Name:</strong> {{ report.reportedName }}
+          <strong>Status: </strong>
+          <span
+            *ngIf="!report.isReportedUserBlocked"
+            class="badge rounded-pill text-bg-success"
+            >Open</span
+          >
+          <span
+            *ngIf="report.isReportedUserBlocked"
+            class="badge rounded-pill text-bg-danger"
+            >Blocked</span
+          >
         </li>
       </ul>
     </div>
@@ -52,9 +72,6 @@
     <div class="col-md-12">
       <h4>Content Details</h4>
       <ul class="list-group">
-        <li class="list-group-item">
-          <strong>Content ID:</strong> {{ report.contentId }}
-        </li>
         <li class="list-group-item">
           <strong>Content: </strong>
           <a
@@ -70,7 +87,177 @@
           <strong>Content Timestamp:</strong>
           {{ report.contentTimeStamp | date }}
         </li>
+        <li class="list-group-item">
+          <strong>Status: </strong>
+          <span
+            *ngIf="!report.isContentDeleted"
+            class="badge rounded-pill text-bg-success"
+            >Open</span
+          >
+          <span
+            *ngIf="report.isContentDeleted"
+            class="badge rounded-pill text-bg-danger"
+            >Deleted</span
+          >
+        </li>
       </ul>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h4>Actions Taken</h4>
+      <ul class="list-group">
+        <li
+          *ngFor="let reportAction of report.reportActions"
+          class="list-group-item"
+        >
+          <strong>Action:</strong> {{ reportAction.action }}
+          <strong>By:</strong> {{ reportAction.takenBy }} <strong>At:</strong>
+          {{ reportAction.createDate | date : "medium" }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div
+    *ngIf="!report.isSolved; else reOpenBlock"
+    class="d-flex justify-content-center align-items-center row mt-4 mb-4"
+  >
+    <div class="d-flex justify-content-center align-items-center gap-2">
+      <button
+        *ngIf="!report.isReportedUserBlocked"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#blockUserModal"
+        class="btn btn-danger"
+      >
+        Block User
+      </button>
+      <button
+        *ngIf="!report.isContentDeleted"
+        type="button"
+        class="btn btn-warning"
+        data-bs-toggle="modal"
+        data-bs-target="#deleteContentModal"
+      >
+        Delete {{ report.reportCategory }}
+      </button>
+      <button type="button" (click)="MarkAsSolved()" class="btn btn-success">
+        Mark as Solved
+      </button>
+    </div>
+  </div>
+
+  <ng-template #reOpenBlock>
+    <div class="d-flex justify-content-center align-items-center row mt-4 mb-4">
+      <div class="d-flex justify-content-center align-items-center gap-2">
+        <button type="button" (click)="MarkAsSolved()" class="btn btn-primary">
+          Re-Open Report
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Block User Modal -->
+<div
+  class="modal fade"
+  id="blockUserModal"
+  tabindex="-1"
+  aria-labelledby="blockUserModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="blockUserModalLabel">Block User</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure that you want to block user {{ report?.reportedName }}
+        </p>
+        <div class="mb-3">
+          <label for="" class="form-label">Select End Date</label>
+          <input
+            class="form-control"
+            type="date"
+            id="blockEndTime"
+            name="blockEndTime"
+            [ngModel]="endTime | date : 'yyyy-MM-dd'"
+            (ngModelChange)="endTime = $event"
+          />
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="BlockReported()"
+          >
+            Block User
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loadingBlock>
+    <app-loading></app-loading>
+  </ng-template>
+</div>
+
+<!-- Delete Modal -->
+<div
+  class="modal fade"
+  id="deleteContentModal"
+  tabindex="-1"
+  aria-labelledby="deleteContentModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteContentModalLabel">
+          Delete {{ report?.reportCategory }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Are you sure that you want to delete {{ report?.content }}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="DeletedReportedItem()"
+        >
+          Delete {{ report?.reportCategory }}
+        </button>
+      </div>
     </div>
   </div>
 </div>

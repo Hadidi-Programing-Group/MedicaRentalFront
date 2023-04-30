@@ -27,3 +27,7 @@
 .message-container.receiver{
   border-radius: 1.125rem 1.125rem 1.125rem 0;
 }
+
+svg:hover{
+  opacity: 80%;
+}

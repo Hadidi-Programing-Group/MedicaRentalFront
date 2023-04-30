@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
 import {DateHelper} from "../../../Dtos/DateHelper";
 
@@ -13,5 +13,25 @@ export class MessageComponent {
   @Input() seenStatus: MessageStatus = MessageStatus.Sent;
   @Input() isOut: boolean = false;
   @Input() isNewDate: boolean = false
+  @Input() messageId: string = ''
   protected readonly DateHelper = DateHelper;
+
+  @Output() deleteMessageEvent = new EventEmitter()
+  @Output() reportMessageEvent = new EventEmitter()
+
+  constructor()
+  {
+  }
+
+  delete(messageId: string)
+  {
+    this.deleteMessageEvent.emit(messageId)
+
+  }
+
+  report(messageId: string)
+  {
+    console.log('hi')
+    this.reportMessageEvent.emit(messageId)
+  }
 }
