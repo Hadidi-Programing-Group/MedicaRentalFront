@@ -1,20 +1,24 @@
 <div class="row m-0">
   <div class="d-sm-none d-md-block col-md-4 col-lg-3 justify-content-start rounded-right bg-gradient" id="usersArea">
     <div class="row mt-4 mx-auto col-12">
-      <app-chat-user *ngFor="let user of users; let i=index;trackBy: trackChats " [chat]="user" (chatClicked)="chatChangedEvent($event)"></app-chat-user>
+      <app-chat-user *ngFor="let user of users; let i=index;trackBy: trackChats " [chat]="user"
+                     (chatClicked)="chatChangedEvent($event)"></app-chat-user>
     </div>
   </div>
 
   <div *ngIf="currentUser != ''" class="col-md-8 col-lg-9 p-3" id="chatArea">
 
     <div class="row d-flex flex-row bg-secondary border rounded-5" id="messagesArea" #messagesDiv>
-      <div   *ngFor="let message of messages; let i=index">
+      <div *ngFor="let message of messages; let i=index">
         <app-date *ngIf="checkNewDate(i)" [date]="message.messageDate" class="justify-content-center"></app-date>
         <app-message [ngClass]="['d-flex', message.senderId != currentUser? 'justify-content-end' : '']"
                      [message]="message.message"
                      [messageDate]="message.messageDate"
                      [seenStatus]="message.messageStatus"
-                     [isOut]="message.senderId != currentUser"></app-message>
+                     [isOut]="message.senderId != currentUser"
+                     [messageId]="message.id"
+                     (deleteMessageEvent)="deleteMessage($event)"
+                     (reportMessageEvent)="reportMessage($event)"></app-message>
       </div>
     </div>
 
@@ -24,7 +28,49 @@
       </div>
       <button type="button" class="btn btn-success col-1" (click)="sendMessage(msg)">Send</button>
     </div>
-
   </div>
 </div>
 
+
+<app-report-modal [contentA]="reportContentA" [contentB]="reportContentB"
+                  [successMessage]="'Message reported successfully.'"
+                  [failureMessage]="'Message couldn\'t be reported.'"
+                  [submitted] = "submitted"
+                  [success] = "success"
+                  (cancelReportEvent)="cancelReport()"
+                  (submitReportEvent)="confirmedReportMessage($event)"></app-report-modal>
+
+
+<div class="modal fade" id="deleteStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title m-0 h5" id="staticBackdropLabel">Warning</p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="cancelDelete()"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!submitted">
+          <div>
+            <p class="fs-6">You are about to delete the following message, are you sure?</p>
+          </div>
+          <div class="rounded-3 my-2 mx-4 px-2 py-2" style="background-color: #ebebeb">
+            <p class="my-auto fs-6">{{deleteContent}}</p>
+          </div>
+        </div>
+        <div *ngIf="submitted && success" class="alert alert-success">
+          Message deleted successfully.
+        </div>
+        <div *ngIf="submitted && !success" class="alert alert-danger">
+          Message couldn't be deleted.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelDelete()">Cancel</button>
+        <button *ngIf="!submitted" type="button" class="btn btn-danger" (click)="confirmedDeleteMessage()">Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
