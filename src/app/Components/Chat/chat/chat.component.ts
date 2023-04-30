@@ -298,9 +298,9 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked, O
     })
   }
 
-  confirmedReportMessage(statement: string)
+  confirmedReportMessage(obj: any)
   {
-    let report = new InsertReportDto('', statement, this.currentUser, this.reportedMessageId, null, null)
+    let report = new InsertReportDto(obj.title, obj.statement, this.currentUser, this.reportedMessageId, null, null)
     this.reportsService.insertReport(report).subscribe({
       next: (): void =>
       {

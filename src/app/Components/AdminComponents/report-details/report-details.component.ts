@@ -19,7 +19,7 @@ import { UserService } from 'src/app/Services/User/user.service';
 })
 export class ReportDetailsComponent implements OnInit {
   constructor(
-    private readonly reportSerivce: ReportsService,
+    private readonly reportService: ReportsService,
     private readonly route: ActivatedRoute,
     private readonly userService: UserService,
     private readonly chatService: ChatService
@@ -34,7 +34,7 @@ export class ReportDetailsComponent implements OnInit {
   endTime: Date = new Date();
   ngOnInit(): void {
     this.endTime.setFullYear(this.endTime.getFullYear() + 20);
-    this.reportSerivce.getDetailedReport(this.reportId).subscribe({
+    this.reportService.getDetailedReport(this.reportId).subscribe({
       next: (data) => {
         this.report = data;
       },
@@ -65,7 +65,7 @@ export class ReportDetailsComponent implements OnInit {
   }
 
   MarkAsSolved() {
-    this.reportSerivce.markAsSolved(this.reportId).subscribe(this.callObject);
+    this.reportService.markAsSolved(this.reportId).subscribe(this.callObject);
   }
 
   private readonly callObject = {
