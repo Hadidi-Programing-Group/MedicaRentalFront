@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ReportDto } from 'src/app/Dtos/Reports/ReportDto';
 import { DetailedReportDto } from 'src/app/Dtos/Reports/DetailedReportDto';
 import { PageDto } from 'src/app/Dtos/PageDto';
+import {InsertReportDto} from "../../Dtos/Reports/InsertReportDto";
 import { StatusDto } from 'src/app/Dtos/StatusDto';
 
 @Injectable({
@@ -54,6 +55,13 @@ export class ReportsService {
     return this.httpClient.post<StatusDto>(
       `${this.baseUrl}/MarkAsSolved/${Id}`,
       {}
+    );
+  }
+
+  insertReport(report: InsertReportDto) {
+    return this.httpClient.post(
+      `${this.baseUrl}/InsertReport`,
+      report
     );
   }
 }
