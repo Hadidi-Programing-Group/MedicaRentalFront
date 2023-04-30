@@ -1,7 +1,9 @@
-export class DeleteMessageRequestDto {
+export class DeleteMessageRequestDto
+{
   constructor(
-    public userId: string,
     public messageId: string,
-    public reportId?: string
-  ) {}
+    public reportId?: string | null
+  )
+  {
+  }
 }
