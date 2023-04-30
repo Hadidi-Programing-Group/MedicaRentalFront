@@ -55,7 +55,6 @@ export class ReportDetailsComponent implements OnInit {
 
   DeletedReportedItem() {
     const deleteMessageRequestDto = new DeleteMessageRequestDto(
-      this.report.reportedId,
       this.report.contentId,
       this.reportId
     );
