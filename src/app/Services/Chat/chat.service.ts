@@ -10,7 +10,8 @@ import { DeleteMessageRequestDto } from 'src/app/Dtos/Message/DeleteMessageReque
 @Injectable({
   providedIn: 'root',
 })
-export class ChatService {
+export class ChatService
+{
   private baseUrl = `${environment.apiURL}/api/Messages`; //API
 
   constructor(private readonly httpClient: HttpClient) {}
@@ -37,17 +38,6 @@ export class ChatService {
     });
   }
 
-  // DeleteMessage(userId: string, messageId: string) {
-  //   let params = new HttpParams();
-
-  //   params = params.set('userId', userId);
-  //   params = params.set('messageId', messageId);
-
-  //   return this.httpClient.delete<StatusDto>(`${this.baseUrl}`, {
-  //     params,
-  //   });
-  // }
-
   GetNotificationCount() {
     return this.httpClient.get<number>(`${this.baseUrl}/notificationCount`);
   }
@@ -65,6 +55,3 @@ export class ChatService {
     );
   }
 }
-
-//put box for sender
-//notification
