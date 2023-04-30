@@ -50,8 +50,6 @@ export class ReportsService {
   }
 
   markAsSolved(Id: string): Observable<StatusDto> {
-    let params = new HttpParams();
-    params = params.set('Id', Id);
     return this.httpClient.post<StatusDto>(
       `${this.baseUrl}/MarkAsSolved/${Id}`,
       {}

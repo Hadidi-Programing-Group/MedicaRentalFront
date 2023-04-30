@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
 import {DateHelper} from "../../../Dtos/DateHelper";
-import {ChatService} from "../../../Services/Chat/chat.service";
 
 @Component({
   selector: 'app-message',
@@ -19,9 +18,8 @@ export class MessageComponent {
 
   @Output() deleteMessageEvent = new EventEmitter()
   @Output() reportMessageEvent = new EventEmitter()
-  showModal: boolean = false;
 
-  constructor(private chatService: ChatService)
+  constructor()
   {
   }
 

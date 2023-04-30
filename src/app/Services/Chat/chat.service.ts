@@ -31,7 +31,7 @@ export class ChatService
 
     params = params.set('secondUserId', secondUserId);
     params = params.set('upTo', upTo);
-    params = params.set('dateOpened', new Date().toISOString());
+    params = params.set('dateOpened', dateOpened.toISOString());
 
     return this.httpClient.get<MessageDto[]>(`${this.baseUrl}/chat`, {
       params,

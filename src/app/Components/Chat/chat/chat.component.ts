@@ -19,7 +19,6 @@ import {ReportsService} from "../../../Services/Reports/reports.service";
 import {DeleteMessageRequestDto} from "../../../Dtos/Message/DeleteMessageRequestDto";
 import {Modal} from 'bootstrap';
 import {InsertReportDto} from "../../../Dtos/Reports/InsertReportDto";
-import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-chat',
