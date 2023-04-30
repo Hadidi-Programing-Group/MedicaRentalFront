@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm">
+<nav class="navbar navbar-expand-sm ">
   <div class="container-fluid">
     <a
       class="btn btn-light"
@@ -41,6 +41,13 @@
             >Products</a
           >
         </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" routerLink="/contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" routerLink="/about">About</a>
+        </li>
+
         <li *ngIf="isAuthenticated" class="nav-item">
           <a
             *ngIf="userRole == 'Client'"

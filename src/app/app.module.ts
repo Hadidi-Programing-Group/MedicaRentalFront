@@ -58,6 +58,9 @@ import { PendingApprovalsComponent } from './Components/AdminComponents/pending-
 import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/pending-approvals-details/pending-approvals-details.component';
 import { ReportsComponent } from './Components/AdminComponents/reports/reports.component';
 import { ReportDetailsComponent } from './Components/AdminComponents/report-details/report-details.component';
+import { FooterComponent } from './Components/footer/footer.component';
+import { AboutComponent } from './Components/about/about.component';
+import { ContactComponent } from './Components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +108,10 @@ import { ReportDetailsComponent } from './Components/AdminComponents/report-deta
     PendingApprovalsComponent,
     PendingApprovalsDetailsComponent,
     ReportsComponent,
-    ReportDetailsComponent
+    ReportDetailsComponent,
+    FooterComponent,
+    AboutComponent,
+    ContactComponent
   ],
 
   imports: [
