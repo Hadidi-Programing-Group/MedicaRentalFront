@@ -45,6 +45,12 @@ export class AdminService {
     );
   }
 
+  ApproveUser(email:string){
+
+    const url = `${this.baseUrl}/ApproveUser?Email=${email}`;
+    return this.httpClient.post<string>(url, {});
+  }
+
 
 
 
