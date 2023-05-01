@@ -167,10 +167,10 @@
   </div>
 </div>
 
-<div class="reviews">
+<div *ngIf="Item && Item.reviews.length > 0" class="reviews mb-5">
   <h2 *ngIf="Item" class="ms-4 mb-0 pb-0">Item Reviews</h2>
   <app-reviews
-    *ngIf="Item && Item.reviews"
+    *ngIf="Item && Item.reviews.length > 0"
     #reviewComponent
     [reviews]="Item.reviews"
   ></app-reviews>

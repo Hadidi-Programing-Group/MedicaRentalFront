@@ -7,9 +7,11 @@ import {
   ReportActionDto,
 } from 'src/app/Dtos/Reports/DetailedReportDto';
 import { ReportListNames } from 'src/app/Dtos/Reports/ReportListNames';
+import { DeleteReviewRequestDto } from 'src/app/Dtos/Reviews/DeleteReviewRequestDto';
 import { StatusDto } from 'src/app/Dtos/StatusDto';
 import { ChatService } from 'src/app/Services/Chat/chat.service';
 import { ReportsService } from 'src/app/Services/Reports/reports.service';
+import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
 import { UserService } from 'src/app/Services/User/user.service';
 
 @Component({
@@ -22,7 +24,8 @@ export class ReportDetailsComponent implements OnInit {
     private readonly reportService: ReportsService,
     private readonly route: ActivatedRoute,
     private readonly userService: UserService,
-    private readonly chatService: ChatService
+    private readonly chatService: ChatService,
+    private readonly reviewService: ReviewsService
   ) {
     this.reportId = route.snapshot.params['id'];
   }
@@ -69,6 +72,14 @@ export class ReportDetailsComponent implements OnInit {
       case ReportListNames.Items:
         break;
       case ReportListNames.Reviews:
+        const deleteReviewRequestDto = new DeleteReviewRequestDto(
+          this.report.contentId,
+          this.reportId
+        );
+
+        this.reviewService
+          .DeleteReview(deleteReviewRequestDto)
+          .subscribe(this.callObject);
         break;
     }
   }
