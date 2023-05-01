@@ -1,0 +1,87 @@
+<div
+  class="align-items-center align-items-sm-center px-3 pt-3 text-white min-vh-100 bg-dark"
+>
+  <!-- <a
+    href="/"
+    class="d-flex align-items-center pb-3 mb-md-0 text-white text-decoration-none"
+  >
+    <span class="fs-5 d-none d-sm-inline">Menu</span>
+  </a> -->
+  <ul
+    class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+    id="menu"
+  >
+    <li class="nav-item">
+      <a
+        routerLink="/admin"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link p-2 mt-2 align-middle"
+      >
+        <i class="fs-4 bi-house"></i>
+        <span class="ms-1 d-none d-sm-inline">Home</span>
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="reports"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link p-2 mt-2 align-middle"
+      >
+        <i class="fs-4 bi-speedometer2"></i>
+        <span class="ms-1 d-none d-sm-inline"> Reports</span>
+      </a>
+    </li>
+    <li>
+      <a
+        routerLink="pendingapprovals"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link p-2 mt-2 align-middle"
+      >
+        <i class="fs-4 bi-table"></i>
+        <span class="ms-1 d-none d-sm-inline"> Approve Users</span></a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="blockusers"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link p-2 mt-2 align-middle"
+      >
+        <i class="fs-4 bi-table"></i>
+        <span class="ms-1 d-none d-sm-inline"> Block Users</span></a
+      >
+    </li>
+  </ul>
+  <!-- <hr />
+  <div class="dropdown pb-4">
+    <a
+      href="#"
+      class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+      id="dropdownUser1"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img
+        src="https://github.com/mdo.png"
+        alt="hugenerd"
+        width="30"
+        height="30"
+        class="rounded-circle"
+      />
+      <span class="d-none d-sm-inline mx-1">loser</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+      <li><a class="dropdown-item" href="#">New project...</a></li>
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li>
+        <hr class="dropdown-divider" />
+      </li>
+      <li><a class="dropdown-item" href="#">Sign out</a></li>
+    </ul>
+  </div> -->
+</div>

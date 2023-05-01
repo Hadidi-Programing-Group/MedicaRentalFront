@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm ">
+<nav class="navbar navbar-expand-sm">
   <div class="container-fluid">
     <a
       class="btn btn-light"
@@ -42,10 +42,22 @@
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" routerLink="/contact">Contact</a>
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/contact"
+            >Contact</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" routerLink="/about">About</a>
+          <a
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/about"
+            >About</a
+          >
         </li>
 
         <li *ngIf="isAuthenticated" class="nav-item">
@@ -60,37 +72,22 @@
           <a
             *ngIf="userRole == 'Admin'"
             class="nav-link"
-            [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
-            routerLink="/admin/reports"
+            routerLink="/admin"
             >Admin Panel</a
           >
-
-
-        </li>
-        <li *ngIf="isAuthenticated" class="nav-item">
-          <a
-            *ngIf="userRole == 'Admin'"
-            class="nav-link"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
-            routerLink="/admin/pendingapprovals"
-            >ApproveUsers</a
-          >
-
         </li>
 
-        <li  *ngIf="isAuthenticated && userRole == 'Client'"  class="nav-item">
+        <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
           <a
             class="nav-link"
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/chat"
-          >Chat</a
+            >Chat</a
           >
         </li>
       </ul>
-
 
       <div class="d-flex me-auto">
         <input
@@ -112,7 +109,9 @@
         </label>
       </form>
       <ul class="navbar-nav mx-2 mt-2 mt-lg-0">
-      <app-notification *ngIf="isAuthenticated && userRole == 'Client'" ></app-notification>
+        <app-notification
+          *ngIf="isAuthenticated && userRole == 'Client'"
+        ></app-notification>
         <li *ngIf="isAuthenticated" class="nav-item">
           <button class="nav-link btn btn-outline-danger" (click)="LogOut()">
             Log out
@@ -125,7 +124,7 @@
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/login"
-          >Login</a
+            >Login</a
           >
         </li>
 
@@ -134,7 +133,7 @@
             class="nav-link"
             style="cursor: pointer"
             (click)="ShowRegistrationForm()"
-          >Register</a
+            >Register</a
           >
         </li>
       </ul>

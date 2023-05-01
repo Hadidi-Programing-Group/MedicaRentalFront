@@ -65,6 +65,8 @@ import { ContactComponent } from './Components/contact/contact.component';
 
 import { ReportModalComponent } from './Components/report-modal/report-modal.component';
 import { LoadingComponent } from './Components/loading/loading.component';
+import { AdminPanelComponent } from './Components/AdminComponents/admin-panel/admin-panel.component';
+import { AdminSideBarComponent } from './Components/AdminComponents/admin-side-bar/admin-side-bar.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +123,8 @@ import { LoadingComponent } from './Components/loading/loading.component';
     ReportModalComponent,
     ReportDetailsComponent,
     LoadingComponent,
+    AdminPanelComponent,
+    AdminSideBarComponent,
   ],
 
   imports: [

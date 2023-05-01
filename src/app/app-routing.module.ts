@@ -21,7 +21,7 @@ import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/p
 import { BlockUsersComponent } from './Components/AdminComponents/block-users/block-users.component';
 import { AboutComponent } from './Components/about/about.component';
 import { ContactComponent } from './Components/contact/contact.component';
-
+import { AdminPanelComponent } from './Components/AdminComponents/admin-panel/admin-panel.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,15 +37,23 @@ const routes: Routes = [
   { path: 'user/myaccount', component: MyAccountComponent },
   { path: 'reviews/:id', component: ReviewsComponent },
   { path: 'forbidden', component: Forbidden403Component },
-  { path: 'admin/pendingapprovals', component: PendingApprovalsComponent},
-  { path: 'admin/pendingapprovals/:id', component: PendingApprovalsDetailsComponent},
-  { path: 'admin/blockusers', component: BlockUsersComponent},
-  { path: 'admin/reports', component: ReportsComponent },
-  { path: 'admin/reports/:id', component: ReportDetailsComponent },
-  {path:'about',component:AboutComponent},
-  {path:'contact',component:ContactComponent},
+  {
+    path: 'admin',
+    component: AdminPanelComponent,
+    children: [
+      { path: 'pendingapprovals', component: PendingApprovalsComponent },
+      {
+        path: 'pendingapprovals/:id',
+        component: PendingApprovalsDetailsComponent,
+      },
+      { path: 'blockusers', component: BlockUsersComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'reports/:id', component: ReportDetailsComponent },
+    ],
+  },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
   { path: '**', component: NotFound404Component },
-  
 ];
 
 @NgModule({
