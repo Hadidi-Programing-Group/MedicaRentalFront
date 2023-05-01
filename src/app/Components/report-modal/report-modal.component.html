@@ -15,9 +15,15 @@
             <p class="my-auto fs-6">{{contentB}}</p>
           </div>
           <div class="col-12 mt-3">
+            <label for="title">Title</label>
+            <div class="d-flex justify-content-center">
+              <input id="title" type="text" class="d-block col-10 my-2 form-control" #title/>
+            </div>
+          </div>
+          <div class="col-12 mt-3">
             <p class="fs-6">Help us understand why are you reporting</p>
             <div class="d-flex justify-content-center">
-              <textarea class="d-block col-10 my-2" #statement></textarea>
+              <textarea class="d-block form-control  my-2" #statement></textarea>
             </div>
           </div>
         </div>

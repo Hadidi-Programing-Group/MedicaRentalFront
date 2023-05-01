@@ -1,38 +1,58 @@
+<!-- <section class="pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h1 class="mb-3">Brand</h1>
+      </div>
 
-  <section class="pt-5 pb-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <h1 class="mb-3">Brand</h1>
-        </div>
+      <div class="col-12">
+        <div id="carouselExampleIndicators4" class="carousel slide" data-ride="carousel" data-wrap="true">
 
-        <div class="col-12">
-          <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-
-            <div class="carousel-inner">
-                <div class="carousel-item" *ngFor="let product of Products; let i = index;" [ngClass]="{'active': i === 0}">
-                <div class="row">
-
-                  <div class="col-md-3 mb-3" *ngFor="let productItem of Products.slice(i, i + 4); let j = index;">
-
-                      <app-product-card [product]="productItem"></app-product-card>
-
-                  </div>
-
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <app-product-card [product]="Products[0]"></app-product-card>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <app-product-card [product]="Products[1]"></app-product-card>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <app-product-card [product]="Products[2]"></app-product-card>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <app-product-card [product]="Products[3]"></app-product-card>
                 </div>
               </div>
             </div>
-
-              <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </a>
+            <div class="carousel-item">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <app-product-card [product]="Products[4]"></app-product-card>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <app-product-card [product]="Products[5]"></app-product-card>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <app-product-card [product]="Products[6]"></app-product-card>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <app-product-card [product]="Products[7]"></app-product-card>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <a class="carousel-control-prev" href="#carouselExampleIndicators4" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators4" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section> -->

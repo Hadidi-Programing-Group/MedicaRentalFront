@@ -19,6 +19,8 @@ import { ReportDetailsComponent } from './Components/AdminComponents/report-deta
 import { PendingApprovalsComponent } from './Components/AdminComponents/pending-approvals/pending-approvals.component';
 import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/pending-approvals-details/pending-approvals-details.component';
 import { BlockUsersComponent } from './Components/AdminComponents/block-users/block-users.component';
+import { AboutComponent } from './Components/about/about.component';
+import { ContactComponent } from './Components/contact/contact.component';
 
 
 const routes: Routes = [
@@ -40,7 +42,10 @@ const routes: Routes = [
   { path: 'admin/blockusers', component: BlockUsersComponent},
   { path: 'admin/reports', component: ReportsComponent },
   { path: 'admin/reports/:id', component: ReportDetailsComponent },
+  {path:'about',component:AboutComponent},
+  {path:'contact',component:ContactComponent},
   { path: '**', component: NotFound404Component },
+  
 ];
 
 @NgModule({

@@ -17,6 +17,7 @@ export class ReportModalComponent {
   @Output() cancelReportEvent = new EventEmitter();
 
   @ViewChild('statement', { static: false }) statement: ElementRef | undefined;
+  @ViewChild('title', { static: false }) title: ElementRef | undefined;
 
 
   cancel()
@@ -26,7 +27,10 @@ export class ReportModalComponent {
 
   report()
   {
-    this.submitReportEvent.emit(this.statement?.nativeElement?.value??'')
+    this.submitReportEvent.emit({
+      statement: this.statement?.nativeElement?.value??'',
+      title: this.title?.nativeElement?.value??''
+    })
   }
 
   protected readonly ondblclick = ondblclick;
