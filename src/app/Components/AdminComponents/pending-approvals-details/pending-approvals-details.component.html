@@ -1,8 +1,64 @@
-<p>pending-approvals-details works!</p>
 
-<div *ngIf="info">
-  <h2>Approval Details for ID {{ info.id }}</h2>
-  <p>National ID: {{ info.nationalId }}</p>
-  <img [src]="nationalImage" alt="National ID image">
-  <img [src]="unionImage" alt="Union image">
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          Approval Details for ID {{ info.id }}
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td><strong>National ID:</strong></td>
+                <td>{{ info.nationalId }}</td>
+              </tr>
+              <tr>
+                <td><strong>Name:</strong></td>
+                <td>{{ extraInfo.name }}</td>
+              </tr>
+              <tr>
+                <td><strong>Phone Number:</strong></td>
+                <td>{{ extraInfo.phoneNumber }}</td>
+              </tr>
+              <tr>
+                <td><strong>Address:</strong></td>
+                <td>{{ extraInfo.address }}</td>
+              </tr>
+              <tr>
+                <td><strong>Email:</strong></td>
+                <td>{{ extraInfo.email }}</td>
+              </tr>
+              <tr>
+                <td><strong>Images:</strong></td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <img [src]="nationalImage" alt="National ID image" class="img-fluid">
+                    </div>
+                    <div class="col-md-6">
+                      <img [src]="unionImage" alt="Union image" class="img-fluid">
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-6 text-center">
+                      <button type="button" class="btn btn-success btn-block">Approve</button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                      <button type="button" class="btn btn-danger btn-block">Reject</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

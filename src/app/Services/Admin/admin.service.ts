@@ -38,6 +38,13 @@ export class AdminService {
     );
   }
 
+  GetClientInfoWithId(id:string):Observable<UserProfileInfoWithIdDto>{
+
+    return this.httpClient.get<UserProfileInfoWithIdDto>(
+      `${this.baseUrl}/GetInfo/${id}`
+    );
+  }
+
 
 
 
