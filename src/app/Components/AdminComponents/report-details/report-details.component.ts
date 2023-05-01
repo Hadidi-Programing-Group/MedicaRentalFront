@@ -54,14 +54,23 @@ export class ReportDetailsComponent implements OnInit {
   }
 
   DeletedReportedItem() {
-    const deleteMessageRequestDto = new DeleteMessageRequestDto(
-      this.report.contentId,
-      this.reportId
-    );
+    switch (this.report.reportCategory) {
+      case ReportListNames.Chats:
+        const deleteMessageRequestDto = new DeleteMessageRequestDto(
+          this.report.contentId,
+          this.reportId
+        );
 
-    this.chatService
-      .DeleteMessage(deleteMessageRequestDto)
-      .subscribe(this.callObject);
+        this.chatService
+          .DeleteMessage(deleteMessageRequestDto)
+          .subscribe(this.callObject);
+        break;
+
+      case ReportListNames.Items:
+        break;
+      case ReportListNames.Reviews:
+        break;
+    }
   }
 
   MarkAsSolved() {
