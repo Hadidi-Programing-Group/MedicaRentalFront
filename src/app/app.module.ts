@@ -117,7 +117,7 @@ import { LoadingComponent } from './Components/loading/loading.component';
 
     FooterComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
 
     ReportModalComponent,
     ReportDetailsComponent,
