@@ -1,5 +1,5 @@
 
-<div class="container my-4">
+<div  *ngIf="info && extraInfo else loadingBlock" class="container my-4">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
@@ -9,6 +9,13 @@
         <div class="card-body">
           <table class="table table-bordered">
             <tbody>
+              <tr *ngIf="isApproved">
+                <td colspan="2">
+                  <div class="alert alert-success" role="alert">
+                    User has been approved!
+                  </div>
+                </td>
+              </tr>
               <tr>
                 <td><strong>National ID:</strong></td>
                 <td>{{ info.nationalId }}</td>
@@ -44,15 +51,27 @@
               </tr>
               <tr>
                 <td></td>
+
+
                 <td>
-                  <div class="row">
+
+                  <div class="row" *ngIf="!isApproved">
                     <div class="col-md-6 text-center">
-                      <button type="button"  (click)="onApproveClick(extraInfo.email)" class="btn btn-success btn-block">Approve</button>
+                      <button  type="button"  (click)="onApproveClick(extraInfo.email)" class="btn btn-success btn-block">Approve</button>
                     </div>
                     <div class="col-md-6 text-center">
                       <button type="button" class="btn btn-danger btn-block">Reject</button>
                     </div>
                   </div>
+
+                  <div class="row" *ngIf="isApproved">
+                    <div class="col-md-12 text-center">
+                      <button type="button" class="btn btn-primary btn-block" routerLink="/admin/pendingapprovals">
+                        Back to Main Menu
+                      </button>
+                    </div>
+                  </div>
+
                 </td>
               </tr>
             </tbody>
@@ -62,3 +81,10 @@
     </div>
   </div>
 </div>
+
+<ng-template #loadingBlock>
+  <app-loading></app-loading>
+</ng-template>
+
+
+

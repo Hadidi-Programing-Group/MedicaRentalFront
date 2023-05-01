@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/Admin/admin.service';
 
 import {UserApprovalInfoWithIdDto,
@@ -18,12 +18,13 @@ export class PendingApprovalsDetailsComponent implements OnInit{
   nationalId:any;
   nationalImage:any;
   unionImage:any;
+  isApproved = false;
 
 
   info:UserApprovalInfoWithIdDto | any;
   extraInfo: UserProfileInfoWithIdDto| any;
 
-constructor(activeRoute: ActivatedRoute, private adminService : AdminService){
+constructor(activeRoute: ActivatedRoute, private adminService : AdminService , private router: Router){
   this.ID = activeRoute.snapshot.params["id"];
 
 }
@@ -44,6 +45,7 @@ ngOnInit(): void {
   this.adminService.GetClientInfoWithId(this.ID).subscribe({
     next:(data:UserProfileInfoWithIdDto|any) => {
       this.extraInfo = data;
+      this.isApproved = data.isGrantedRent;
     },
     error: (err) => {console.log(err)}
   })
@@ -51,6 +53,7 @@ ngOnInit(): void {
 
 
 onApproveClick(email: string): void {
+  this.isApproved = true;
   this.adminService.ApproveUser(email).subscribe({
     next: (data) => {console.log("Approved")},
     error: ( err) => {console.log(err)}
@@ -58,6 +61,8 @@ onApproveClick(email: string): void {
   );
 
 }
+
+
 
 // export class UserApprovalInfoWithIdDto {
 //   constructor(
@@ -67,6 +72,7 @@ onApproveClick(email: string): void {
 //     public unionImage: string
 //   ) {}
 // }
+
 
 
 }
