@@ -6,6 +6,7 @@ import { ListItemDto } from '../../Dtos/ListItemDto';
 import { PageDto } from 'src/app/Dtos/PageDto';
 import { environment } from 'src/environments/environment';
 import { StatusDto } from '../../Dtos/StatusDto';
+import { DeleteItemAdminRequestDto } from 'src/app/Dtos/DeleteItemAdminRequestDto';
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +47,7 @@ export class ProductsService {
   GetAllItems(
     page: number = 1,
     orderBy?: string,
-    searchText?: string|null
+    searchText?: string | null
   ): Observable<PageDto<HomeItemDto>> {
     return this.getItems('', [], page, orderBy);
   }
@@ -118,7 +119,7 @@ export class ProductsService {
   GetListedItems(
     page: number,
     orderBy?: string,
-    searchText?: string | null,
+    searchText?: string | null
   ): Observable<PageDto<ListItemDto>> {
     let params = new HttpParams();
     if (orderBy) {
@@ -146,9 +147,8 @@ export class ProductsService {
   GetUnListedItems(
     page: number,
     orderBy?: string,
-    searchText?: string | null,
-  ):
-    Observable<PageDto<ListItemDto>> {
+    searchText?: string | null
+  ): Observable<PageDto<ListItemDto>> {
     let params = new HttpParams();
     if (orderBy) {
       params = params.set('orderBy', orderBy);
@@ -184,10 +184,17 @@ export class ProductsService {
   DeleteItem(itemId: string) {
     let params = new HttpParams();
     params = params.set('id', itemId);
-    return this.httpClient.delete<StatusDto>(`${this.baseUrl}/one`, {params,});
+    return this.httpClient.delete<StatusDto>(`${this.baseUrl}/one`, { params });
   }
 
-  GetIfItemOwner(itemId: string){
-    return this.httpClient.get(`${this.baseUrl}/isowner/${itemId}`)
+  GetIfItemOwner(itemId: string) {
+    return this.httpClient.get(`${this.baseUrl}/isowner/${itemId}`);
+  }
+
+  DeleteItemByAdmin(deleteItemAdminRequestDto: DeleteItemAdminRequestDto) {
+    return this.httpClient.post<StatusDto>(
+      `${this.baseUrl}/DeleteByAdmin`,
+      deleteItemAdminRequestDto
+    );
   }
 }
