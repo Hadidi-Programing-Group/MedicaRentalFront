@@ -5,6 +5,7 @@ import { AdminService } from 'src/app/Services/Admin/admin.service';
 import {UserApprovalInfoWithIdDto,
   UserProfileInfoWithIdDto
 }from 'src/app/Dtos/AdminDto'
+import { error } from 'jquery';
 @Component({
   selector: 'app-pending-approvals-details',
   templateUrl: './pending-approvals-details.component.html',
@@ -48,6 +49,15 @@ ngOnInit(): void {
   })
 }
 
+
+onApproveClick(email: string): void {
+  this.adminService.ApproveUser(email).subscribe({
+    next: (data) => {console.log("Approved")},
+    error: ( err) => {console.log(err)}
+  }
+  );
+
+}
 
 // export class UserApprovalInfoWithIdDto {
 //   constructor(
