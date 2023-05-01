@@ -65,6 +65,19 @@
             routerLink="/admin/reports"
             >Admin Panel</a
           >
+
+
+        </li>
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <a
+            *ngIf="userRole == 'Admin'"
+            class="nav-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            routerLink="/admin/pendingapprovals"
+            >ApproveUsers</a
+          >
+
         </li>
 
         <li  *ngIf="isAuthenticated && userRole == 'Client'"  class="nav-item">

@@ -38,6 +38,19 @@ export class AdminService {
     );
   }
 
+  GetClientInfoWithId(id:string):Observable<UserProfileInfoWithIdDto>{
+
+    return this.httpClient.get<UserProfileInfoWithIdDto>(
+      `${this.baseUrl}/GetInfo/${id}`
+    );
+  }
+
+  ApproveUser(email:string){
+
+    const url = `${this.baseUrl}/ApproveUser?Email=${email}`;
+    return this.httpClient.post<string>(url, {});
+  }
+
 
 
 
