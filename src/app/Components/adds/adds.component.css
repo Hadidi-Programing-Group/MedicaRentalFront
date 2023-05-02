@@ -5,7 +5,13 @@
 .carousel.carousel-dark .carousel-inner .carousel-item {
   height: 100%;
 }
-.carousel.carousel-dark .carousel-inner img {
+
+/* #adsImage {
   object-fit: fill;
-  height: 100%;
+  padding: 50px;
+} */
+
+.carousel-item img {
+  object-fit: contain;
+  height: 400px;
 }
