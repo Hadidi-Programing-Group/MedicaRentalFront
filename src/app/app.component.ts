@@ -1,20 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CommunicationService } from './Services/Communication/communication.service';
 import { SignalRService } from './Services/SignalR/signal-r.service';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = environment.title;
+  showNavbar = true;
 
-  constructor(private navbarService: CommunicationService,
+  constructor(
+    private navbarService: CommunicationService,
     private signalRService: SignalRService,
+    private readonly router: Router
   ) {
-    this.checkConnection()
+    this.checkConnection();
+  }
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        if (event.url === '/admin' || event.url.startsWith('/admin/')) {
+          this.showNavbar = false;
+        } else {
+          this.showNavbar = true;
+        }
+      });
   }
   get isVisible(): boolean {
     return this.navbarService.isVisible;

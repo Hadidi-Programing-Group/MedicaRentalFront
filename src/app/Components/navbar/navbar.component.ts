@@ -1,16 +1,16 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommunicationService } from 'src/app/Services/Communication/communication.service';
 import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
 import { FilterService } from 'src/app/Services/Filter/filter.service';
 import { LoginService } from 'src/app/Services/Login/login.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { SignalRService } from "../../Services/SignalR/signal-r.service";
-import { ChatService } from "../../Services/Chat/chat.service";
-import { MessageNotificationDto } from "../../Dtos/Message/MessageNotificationDto";
-import { MessageDto } from "../../Dtos/Message/MessageDto";
-import { MessageStatus } from "../../Dtos/Message/MessageStatus";
+import { SignalRService } from '../../Services/SignalR/signal-r.service';
+import { ChatService } from '../../Services/Chat/chat.service';
+import { MessageNotificationDto } from '../../Dtos/Message/MessageNotificationDto';
+import { MessageDto } from '../../Dtos/Message/MessageDto';
+import { MessageStatus } from '../../Dtos/Message/MessageStatus';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
   page = 1;
   orderBy = this.OrderByStrings.PriceDesc;
   isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  userRole: string = localStorage.getItem('userRole') ?? "";
+  userRole: string = localStorage.getItem('userRole') ?? '';
   @HostBinding('class') className = '';
   darkClassName = 'theme-dark';
   lightClassName = 'theme-light';
@@ -32,10 +32,10 @@ export class NavbarComponent implements OnInit {
     darkMode: new FormControl(false),
   });
 
-
   constructor(
     private NavBarService: CommunicationService,
     private router: Router,
+    private readonly route: ActivatedRoute,
     private readonly filterService: FilterService,
     public readonly loginService: LoginService,
     private signalRService: SignalRService,
@@ -43,25 +43,27 @@ export class NavbarComponent implements OnInit {
   ) {
     // console.log("isAuthenticated" , localStorage.getItem('isAuthenticated')==='true');
     // this.isAuthenticated = localStorage.getItem('isAuthenticated') == 'true';
-
   }
 
   ngOnInit(): void {
-    console.log("isAuthenticated", localStorage.getItem('isAuthenticated') === 'true');
+  
+    console.log(
+      'isAuthenticated',
+      localStorage.getItem('isAuthenticated') === 'true'
+    );
     this.isAuthenticated = localStorage.getItem('isAuthenticated') == 'true';
 
     this.toggleFormGroup.get('darkMode')!.valueChanges.subscribe((darkMode) => {
       if (darkMode) {
         document.body.classList.add('theme-dark');
-      }
-      else {
+      } else {
         document.body.classList.remove('theme-dark');
       }
     });
 
     this.loginService.isAuthenticatedChanged.subscribe({
       next: (data: boolean) => {
-        console.log("isAuthenticatedChanged triggered");
+        console.log('isAuthenticatedChanged triggered');
         this.isAuthenticated = data;
       },
     });
@@ -79,12 +81,11 @@ export class NavbarComponent implements OnInit {
   }
 
   LogOut() {
-    this.loginService.revokeToken()
+    this.loginService.revokeToken();
     this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
-    this.signalRService.endConnection()
+    this.signalRService.endConnection();
   }
-
 
   searchProduct() {
     this.filterService.updateSearchText(this.searchText);
@@ -97,6 +98,4 @@ export class NavbarComponent implements OnInit {
       });
     }
   }
-
-
 }
