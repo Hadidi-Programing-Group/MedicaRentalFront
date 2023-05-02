@@ -32,6 +32,4 @@ export class ReportModalComponent {
       title: this.title?.nativeElement?.value??''
     })
   }
-
-  protected readonly ondblclick = ondblclick;
 }

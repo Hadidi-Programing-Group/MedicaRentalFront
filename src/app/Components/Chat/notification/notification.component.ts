@@ -73,6 +73,7 @@ export class NotificationComponent implements OnInit {
     this.notificationService.outChat.subscribe(({
       next: () => {
         this.currentChat = ''
+        console.log('outchat', this.currentChat)
       }
     }))
   }
