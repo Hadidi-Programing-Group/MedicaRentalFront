@@ -1,9 +1,17 @@
-.carousel.carousel-dark,
+.carousel.carousel-dark {
+  height: 70%;
+}
 .carousel.carousel-dark .carousel-inner,
 .carousel.carousel-dark .carousel-inner .carousel-item {
   height: 100%;
 }
-.carousel.carousel-dark .carousel-inner img {
-  object-fit:fill;
-  height: 100%;
+
+/* #adsImage {
+  object-fit: fill;
+  padding: 50px;
+} */
+
+.carousel-item img {
+  object-fit: contain;
+  height: 400px;
 }
