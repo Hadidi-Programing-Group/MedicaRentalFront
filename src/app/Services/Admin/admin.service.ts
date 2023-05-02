@@ -7,6 +7,7 @@ import {
   // UpdateApprovalInfoDto,
   // UpdateProfileInfoDto,
   // UserApprovalInfoDto,
+  UpdateApprovalInfoDto,
   UserApprovalInfoWithIdDto,
   UserProfileInfoWithIdDto
 } from 'src/app/Dtos/AdminDto';
@@ -51,7 +52,9 @@ export class AdminService {
     return this.httpClient.post<string>(url, {});
   }
 
-
+  RejectUser(id: string, nationalInfo: any): Observable<any> {
+    return this.httpClient.put(`${this.baseUrl}/UpdateApprovalInfo/${id}`, nationalInfo);
+  }
 
 
 

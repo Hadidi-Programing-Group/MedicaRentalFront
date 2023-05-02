@@ -37,6 +37,7 @@ ngOnInit(): void {
       console.log(data);
       this.nationalImage = 'data:image/png;base64,'+ data.nationalImage;
       this.unionImage = 'data:image/png;base64,'+ data.unionImage;
+      this.nationalId = data.nationalId;
 
     },
     error:(err)=>{console.log(err)}
@@ -62,6 +63,30 @@ onApproveClick(email: string): void {
 
 }
 
+
+onRejectedNationalClick():void {
+  this.adminService.RejectUser(this.ID, {
+    "nationalId": this.nationalId,
+    "nationalImage": null,
+    "unionImage": this.unionImage
+  }).subscribe({
+    next: (data) => {console.log("Data saved")},
+    error: ( err) => {console.log(err)}
+  });
+
+}
+
+onRejectedUnionClick():void {
+  this.adminService.RejectUser(this.ID, {
+    "nationalId": this.nationalId,
+    "nationalImage": this.nationalImage,
+    "unionImage": null
+  }).subscribe({
+    next: (data) => {console.log("Data saved")},
+    error: ( err) => {console.log(err)}
+  });
+
+}
 
 
 // export class UserApprovalInfoWithIdDto {
