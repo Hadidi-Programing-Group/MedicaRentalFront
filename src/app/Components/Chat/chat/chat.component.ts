@@ -35,8 +35,7 @@ export class ChatComponent implements OnInit, OnDestroy
   constructor(
     private chatService: ChatService,
     private signalRService: SignalRService,
-    private notificationService: NotificationService,
-    //private changeDetector: ChangeDetectorRef,
+    private notificationService: NotificationService
   )
   {
   }
@@ -50,7 +49,12 @@ export class ChatComponent implements OnInit, OnDestroy
 
   ngOnInit(): void
   {
-    //setInterval(() => this.changeDetector.detectChanges(), 3000)
+    this.chatService.chatOpened.subscribe({
+      next: (userId:string) => {
+        this.currentUser = userId
+        console.log(this.currentUser)
+      }
+    })
     this.chatService.newMessage.subscribe({
       next: (message: MessageDto)=>{
         let user = this.users.find(u => u.userId == message.senderId)

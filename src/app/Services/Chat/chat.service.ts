@@ -15,6 +15,7 @@ export class ChatService
   private baseUrl = `${environment.apiURL}/api/Messages`; //API
 
   newMessage = new EventEmitter();
+  chatOpened = new EventEmitter();
 
   constructor(private readonly httpClient: HttpClient) {}
 

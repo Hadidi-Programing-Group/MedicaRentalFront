@@ -61,6 +61,7 @@ export class ChatAreaComponent implements AfterViewChecked, OnInit, AfterViewIni
     this.activeRoute.params.subscribe(params =>
     {
       this.currentUser = params['id'];
+      this.chatService.chatOpened.emit(this.currentUser)
       this.getChat(20)
     });
 
