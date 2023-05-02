@@ -25,11 +25,9 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        if (event.url === '/admin' || event.url.startsWith('/admin/')) {
-          this.showNavbar = false;
-        } else {
-          this.showNavbar = true;
-        }
+        this.showNavbar = !(
+          event.url === '/admin' || event.url.startsWith('/admin/')
+        );
       });
   }
   get isVisible(): boolean {
