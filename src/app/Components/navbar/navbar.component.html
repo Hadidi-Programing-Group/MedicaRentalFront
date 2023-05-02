@@ -124,6 +124,9 @@
           >
         </li>
         <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
+          <app-notification></app-notification>
+        </li>
+        <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
           <a
             class="nav-link mx-2 text-uppercase"
             [routerLinkActiveOptions]="{ exact: true }"
