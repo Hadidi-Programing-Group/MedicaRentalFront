@@ -16,7 +16,7 @@ import * as $ from 'jquery';
 export class BestRentalsComponent implements OnInit, AfterViewInit {
   constructor(private readonly ProductsService: ProductsService) {}
   scrollPosition = 0;
-  randomId = Math.floor(Math.random() * 100);
+  randomId = crypto.randomUUID();
   ngAfterViewInit() {
     // Set the interval to move right every `intervalTime` milliseconds
     setInterval(() => {
