@@ -18,7 +18,6 @@ import { MessageStatus } from '../../Dtos/Message/MessageStatus';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-
   private OrderByStrings = OrderByStrings;
   searchText = '';
   page = 1;
@@ -45,8 +44,13 @@ export class NavbarComponent implements OnInit {
     // this.isAuthenticated = localStorage.getItem('isAuthenticated') == 'true';
   }
 
+  navbarToggler: any;
+  navbarCollapse: any;
+  isCollapsed: boolean = false;
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
+  }
   ngOnInit(): void {
-  
     console.log(
       'isAuthenticated',
       localStorage.getItem('isAuthenticated') === 'true'
