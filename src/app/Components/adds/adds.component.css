@@ -1,4 +1,6 @@
-.carousel.carousel-dark,
+.carousel.carousel-dark {
+  height: 70%;
+}
 .carousel.carousel-dark .carousel-inner,
 .carousel.carousel-dark .carousel-inner .carousel-item {
   height: 100%;
