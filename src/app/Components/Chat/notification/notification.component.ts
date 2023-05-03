@@ -13,8 +13,8 @@ import { count } from "rxjs";
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit {
-  @Input() messages: MessageNotificationDto[] = [];
-  @Input() notificationCount: number = 0
+  messages: MessageNotificationDto[] = [];
+  notificationCount: number = 0
   currentChat: string = ''
 
   constructor(private signalRService: SignalRService,
@@ -35,12 +35,18 @@ export class NotificationComponent implements OnInit {
     })
     this.signalRService.newMessageEvent.subscribe({
       next: (message: MessageDto) => {
+        console.log(this.currentChat)
         if (message.senderId == this.currentChat) {
+          console.log('2')
           return;
         }
+        console.log('3')
+
         let index = this.messages.findIndex(m => m.senderId == message.senderId)
 
         if (index != -1) {
+          console.log('4')
+
           let notification = this.messages[index]
           notification.messageDate = message.messageDate
           notification.message = message.message
@@ -60,8 +66,8 @@ export class NotificationComponent implements OnInit {
 
     this.notificationService.chatClicked.subscribe({
       next: (data: { id: string, count: number }) => {
-        let index = this.messages.findIndex(m => m.senderId == data.id)
         this.currentChat = data.id
+        let index = this.messages.findIndex(m => m.senderId == data.id)
         if (index >= 0) {
           this.messages.splice(index, 1)
           this.notificationCount -= data.count
@@ -126,7 +132,7 @@ export class NotificationComponent implements OnInit {
 
   }
 
-  openChat(senderId: string) {
-    this.notificationService.chatClicked.emit(senderId)
-  }
+  // openChat(senderId: string) {
+  //   this.notificationService.chatClicked.emit(senderId)
+  // }
 }

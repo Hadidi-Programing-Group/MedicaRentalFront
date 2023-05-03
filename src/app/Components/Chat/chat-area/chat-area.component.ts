@@ -4,7 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
+  Input, OnDestroy,
   OnInit,
   Output,
   ViewChild
@@ -19,13 +19,14 @@ import {DeleteMessageRequestDto} from "../../../Dtos/Message/DeleteMessageReques
 import {InsertReportDto} from "../../../Dtos/Reports/InsertReportDto";
 import {ReportsService} from "../../../Services/Reports/reports.service";
 import {ChatService} from "../../../Services/Chat/chat.service";
+import {NotificationService} from "../../../Services/Chat/notification.service";
 
 @Component({
   selector: 'app-chat-area',
   templateUrl: './chat-area.component.html',
   styleUrls: ['./chat-area.component.css']
 })
-export class ChatAreaComponent implements AfterViewChecked, OnInit, AfterViewInit
+export class ChatAreaComponent implements AfterViewChecked, OnInit, AfterViewInit, OnDestroy
 {
   public messages: MessageDto[] = [];
   public currentUser = ''
@@ -45,9 +46,15 @@ export class ChatAreaComponent implements AfterViewChecked, OnInit, AfterViewIni
   constructor(private signalRService: SignalRService,
               private activeRoute: ActivatedRoute,
               private reportsService: ReportsService,
-              private chatService: ChatService
+              private chatService: ChatService,
+              private notificationService: NotificationService
   )
   {
+  }
+
+  ngOnDestroy(): void
+  {
+    this.currentUser = ''
   }
 
   ngAfterViewInit(): void
@@ -58,6 +65,8 @@ export class ChatAreaComponent implements AfterViewChecked, OnInit, AfterViewIni
 
   ngOnInit(): void
   {
+    this.checkConnection()
+
     this.activeRoute.params.subscribe(params =>
     {
       this.currentUser = params['id'];
@@ -74,12 +83,8 @@ export class ChatAreaComponent implements AfterViewChecked, OnInit, AfterViewIni
           this.messages.push(message);
           this.signalRService.setMessageSeen(message.id, message.senderId)
         }
-        else
-        {
-          this.chatService.newMessage.emit(message)
-        }
 
-        //this.changeDetector.detectChanges()
+        this.chatService.newMessage.emit({message, user: message.senderId})
       },
       error: (err: any) => console.error(err)
     })
@@ -129,6 +134,14 @@ export class ChatAreaComponent implements AfterViewChecked, OnInit, AfterViewIni
     }
   }
 
+  checkConnection()
+  {
+    if (!this.signalRService.isConnected)
+    {
+      this.signalRService.startConnection();
+    }
+  }
+
   checkNewDate(i: number): boolean
   {
     if (i == 0)
@@ -159,6 +172,8 @@ export class ChatAreaComponent implements AfterViewChecked, OnInit, AfterViewIni
             this.messages.push(msg)
 
             message.value = ''
+
+            this.chatService.newMessage.emit({message: msg, user: this.currentUser})
 
             if (this.messagesDiv)
             {

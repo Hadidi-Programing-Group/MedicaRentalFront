@@ -34,8 +34,8 @@ export class ChatComponent implements OnInit, OnDestroy
 
   constructor(
     private chatService: ChatService,
-    private signalRService: SignalRService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private changeDetector: ChangeDetectorRef
   )
   {
   }
@@ -50,36 +50,36 @@ export class ChatComponent implements OnInit, OnDestroy
   ngOnInit(): void
   {
     this.chatService.chatOpened.subscribe({
-      next: (userId:string) => {
+      next: (userId: string) =>
+      {
+        console.log('in chatOpened subs')
         this.currentUser = userId
-        console.log(this.currentUser)
+        this.chatChangedEvent(this.currentUser)
+
       }
     })
     this.chatService.newMessage.subscribe({
-      next: (message: MessageDto)=>{
-        let user = this.users.find(u => u.userId == message.senderId)
+      next: (obj: { message: MessageDto, user: String }) =>
+      {
+        console.log('chat comp new msg')
+        let user = this.users.find(u => u.userId == obj.user)
         if (user)
         {
-          user.lastMessage = message.message;
-          user.messageDate = message.messageDate;
-          user.messageStatus = message.messageStatus;
-          user.unseenMessagesCount += 1;
+          user.lastMessage = obj.message.message;
+          user.messageDate = obj.message.messageDate;
+          user.messageStatus = obj.message.messageStatus;
+          if (obj.user != this.currentUser)
+          {
+            user.unseenMessagesCount += 1;
+          }
           this.sortUsers()
         }
       }
     })
-    this.checkConnection()
     this.getUserChats()
     this.sortUsers()
   }
 
-  checkConnection()
-  {
-    if (!this.signalRService.isConnected)
-    {
-      this.signalRService.startConnection();
-    }
-  }
 
   trackChats(index: number, chat: ChatDto)
   {
@@ -102,6 +102,7 @@ export class ChatComponent implements OnInit, OnDestroy
 
     if (c && c > 0)
     {
+      console.log('emitted to notif with id', userId)
       this.notificationService.chatClicked.emit({id: userId, count: c})
 
       let user = this.users.find(u => u.userId == this.currentUser);

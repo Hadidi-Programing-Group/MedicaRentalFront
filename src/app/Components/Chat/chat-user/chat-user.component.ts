@@ -48,6 +48,4 @@ export class ChatUserComponent {
   {
     this.chatClicked.emit(userId)
   }
-
-  protected readonly open = open;
 }
