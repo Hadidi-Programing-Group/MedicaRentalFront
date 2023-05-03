@@ -64,8 +64,6 @@ export class ChatAreaComponent
     this.reportModal = new Modal(
       document.getElementById('reportStaticBackdrop')!
     );
-
-    this.scrollToTheEnd();
   }
 
   ngOnInit(): void {
@@ -190,6 +188,7 @@ export class ChatAreaComponent
       .subscribe({
         next: (data) => {
           this.messages = data;
+          this.scrollToTheEnd();
         },
         error: (err) => console.error(err),
       });
