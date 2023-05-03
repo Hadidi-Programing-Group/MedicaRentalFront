@@ -7,6 +7,7 @@ import {
   // UpdateApprovalInfoDto,
   // UpdateProfileInfoDto,
   // UserApprovalInfoDto,
+  RoleMangerUserInfoDto,
   UpdateApprovalInfoDto,
   UserApprovalInfoWithIdDto,
   UserProfileInfoWithIdDto
@@ -23,6 +24,15 @@ export class AdminService {
   constructor(private readonly httpClient: HttpClient) { }
 
   private baseUrl = `${environment.apiURL}/api/Users`;
+
+
+  GetAllAdminMod():Observable<RoleMangerUserInfoDto[]>{
+
+    return this.httpClient.get<RoleMangerUserInfoDto[]>(
+      `${environment.apiURL}/api/Admins/GetAllAdminMod`
+    );
+
+  }
 
   clientsNeedingApproval():Observable<UserProfileInfoWithIdDto[]>{
 

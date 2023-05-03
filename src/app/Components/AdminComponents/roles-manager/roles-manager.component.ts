@@ -9,6 +9,18 @@ import { Router } from '@angular/router';
 import { CommunicationService } from 'src/app/Services/Communication/communication.service';
 import { RegistrationService } from 'src/app/Services/Registration/registration.service';
 
+import { AdminService } from 'src/app/Services/Admin/admin.service';
+
+
+import {
+  // UpdateApprovalInfoDto,
+  // UpdateProfileInfoDto,
+  // UserApprovalInfoDto,
+  RoleMangerUserInfoDto
+} from 'src/app/Dtos/AdminDto';
+import { error } from 'jquery';
+
+
 @Component({
   selector: 'app-roles-manager',
   templateUrl: './roles-manager.component.html',
@@ -19,12 +31,14 @@ export class RolesManagerComponent implements OnInit {
   NationalImgBase64: any;
   UnionCardImgBase64: any;
   IsSubmitButtonClicked = false;
+  AdminModData : RoleMangerUserInfoDto | any ;
 
   constructor(
     private fb: FormBuilder,
     private registrationService: RegistrationService,
     private router: Router,
-    private navbarService: CommunicationService
+    private navbarService: CommunicationService,
+    private adminService : AdminService
   ) {
     this.registerForm = this.fb.group({
       FName: [
@@ -53,8 +67,18 @@ export class RolesManagerComponent implements OnInit {
       role: ['', [Validators.required]]
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
 
+    this.adminService.GetAllAdminMod().subscribe({
+     next : (data)=> {
+      this.AdminModData = data;
+      console.log(this.AdminModData);
+     },
+     error: (err)=> {
+      console.log(err);
+     }
+    })
+  }
 
 
 
