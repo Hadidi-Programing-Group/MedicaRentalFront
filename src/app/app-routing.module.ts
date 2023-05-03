@@ -27,6 +27,7 @@ import {AboutComponent} from './Components/about/about.component';
 import {ContactComponent} from './Components/contact/contact.component';
 import {AdminPanelComponent} from './Components/AdminComponents/admin-panel/admin-panel.component';
 import {ChatAreaComponent} from "./Components/Chat/chat-area/chat-area.component";
+import { CartComponent } from './Components/cart/cart.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -63,6 +64,7 @@ const routes: Routes = [
     ],
   },
   {path: 'about', component: AboutComponent},
+  {path: 'cart', component: CartComponent},
   {path: 'contact', component: ContactComponent},
   {path: '**', component: NotFound404Component},
 ];
