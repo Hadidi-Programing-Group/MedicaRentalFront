@@ -7,3 +7,7 @@
   max-height: 90vh;
   overflow-y: scroll;
 }
+
+#chatPage::-webkit-scrollbar {
+  display: none;
+}
