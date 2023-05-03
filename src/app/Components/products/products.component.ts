@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit {
 
   protected readonly Math = Math;
   orderByString = OrderByStrings;
-  Products: HomeItemDto[] = [];
+  Products?: HomeItemDto[];
   orderBy: string = '';
   categoryIds: string[] = [];
   subCategoryIds: string[] = [];
@@ -157,7 +157,7 @@ export class ProductsComponent implements OnInit {
   }
 
   //#endregion
-  
+
   onSelectCategories(selectedCategoryIds: string[]) {
     // Update categoryId with the selected category IDs
     this.categoryIds = selectedCategoryIds;

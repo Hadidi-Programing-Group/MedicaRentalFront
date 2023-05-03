@@ -13,6 +13,8 @@ import { ProductsService } from 'src/app/Services/Products/products.service';
 import { RentOperationsService } from 'src/app/Services/RentOperations/rent-operations.service';
 import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
 import { ReviewsComponent } from '../reviews/reviews.component';
+import { CartService } from 'src/app/Services/Cart/cart.service';
+import { AddItemToCartDto } from 'src/app/Dtos/Cart/AddItemToCartDto';
 
 @Component({
   selector: 'app-item-details-renter',
@@ -32,6 +34,8 @@ export class ItemDetailsRenterComponent implements OnInit {
   @ViewChild(ReviewsComponent, { static: false })
   reviewComponent!: ReviewsComponent;
   IsOwner: boolean = false;
+  inCart: boolean = false;
+  numberOfDays: number = 1;
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +43,7 @@ export class ItemDetailsRenterComponent implements OnInit {
     private myService: ProductsService,
     private renService: RentOperationsService,
     private ReviewSerivce: ReviewsService,
+    private readonly cartService: CartService,
     private router: Router
   ) {
     this.ID = activeRoute.snapshot.params['id'];
@@ -70,6 +75,14 @@ export class ItemDetailsRenterComponent implements OnInit {
     this.myService.GetIfItemOwner(this.ID).subscribe({
       next: (data: any) => {
         this.IsOwner = data['isOwner'];
+        this.cartService.isInCart(this.ID).subscribe({
+          next: (data: boolean) => {
+            this.inCart = data;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
       },
       error: (err) => {
         console.log(err);
@@ -99,5 +112,33 @@ export class ItemDetailsRenterComponent implements OnInit {
   UpdateItem() {
     let URL = 'products/forseller/' + this.ID;
     this.router.navigate([URL]);
+  }
+
+  PromoteItem() {
+    const addItemRequest: AddItemToCartDto = new AddItemToCartDto(
+      this.ID,
+      this.numberOfDays
+    );
+    this.cartService.addToCart(addItemRequest).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.inCart = true;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  RemoveFromCart() {
+    this.cartService.removeFromCart(this.ID).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.inCart = false;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }
