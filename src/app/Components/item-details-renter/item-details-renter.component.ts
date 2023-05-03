@@ -14,6 +14,7 @@ import { RentOperationsService } from 'src/app/Services/RentOperations/rent-oper
 import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
 import { ReviewsComponent } from '../reviews/reviews.component';
 import { CartService } from 'src/app/Services/Cart/cart.service';
+import { AddItemToCartDto } from 'src/app/Dtos/Cart/AddItemToCartDto';
 
 @Component({
   selector: 'app-item-details-renter',
@@ -33,6 +34,7 @@ export class ItemDetailsRenterComponent implements OnInit {
   @ViewChild(ReviewsComponent, { static: false })
   reviewComponent!: ReviewsComponent;
   IsOwner: boolean = false;
+  inCart: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -104,6 +106,27 @@ export class ItemDetailsRenterComponent implements OnInit {
   }
 
   PromoteItem() {
-    
+    const addItemRequest: AddItemToCartDto = new AddItemToCartDto(this.ID);
+    this.cartService.addToCart(addItemRequest).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.inCart = true;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  RemoveFromCart() {
+    this.cartService.removeFromCart(this.ID).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.inCart = false;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

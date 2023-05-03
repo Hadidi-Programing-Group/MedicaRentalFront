@@ -57,8 +57,19 @@
             <button *ngIf="IsOwner" (click)="UpdateItem()" class="btn btn-dark">
               Update
             </button>
-            <button *ngIf="IsOwner" (click)="PromoteItem()" class="btn btn-dark">
+            <button
+              *ngIf="IsOwner && !inCart"
+              (click)="PromoteItem()"
+              class="btn btn-dark"
+            >
               Promote
+            </button>
+            <button
+              *ngIf="IsOwner && inCart"
+              (click)="RemoveFromCart()"
+              class="btn btn-danger"
+            >
+              Remove From Cart
             </button>
           </div>
         </div>
