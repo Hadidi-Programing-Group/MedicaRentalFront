@@ -35,6 +35,7 @@ export class ItemDetailsRenterComponent implements OnInit {
   reviewComponent!: ReviewsComponent;
   IsOwner: boolean = false;
   inCart: boolean = false;
+  numberOfDays: number = 1;
 
   constructor(
     private fb: FormBuilder,
@@ -114,7 +115,10 @@ export class ItemDetailsRenterComponent implements OnInit {
   }
 
   PromoteItem() {
-    const addItemRequest: AddItemToCartDto = new AddItemToCartDto(this.ID);
+    const addItemRequest: AddItemToCartDto = new AddItemToCartDto(
+      this.ID,
+      this.numberOfDays
+    );
     this.cartService.addToCart(addItemRequest).subscribe({
       next: (data) => {
         console.log(data);

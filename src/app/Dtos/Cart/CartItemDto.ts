@@ -4,7 +4,8 @@ export class CartItemDto {
     public itemId: string,
     public name: string,
     public model: string,
-    public price: number,
-    public image: string
+    public pricePerDay: number,
+    public image: string,
+    public numberOfDays: number
   ) {}
 }

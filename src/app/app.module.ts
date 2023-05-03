@@ -69,6 +69,7 @@ import { AdminPanelComponent } from './Components/AdminComponents/admin-panel/ad
 import { AdminSideBarComponent } from './Components/AdminComponents/admin-side-bar/admin-side-bar.component';
 import { ChatAreaComponent } from './Components/Chat/chat-area/chat-area.component';
 import { CartComponent } from './Components/cart/cart.component';
+import { CartItemCardComponent } from './Components/cart-item-card/cart-item-card.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +130,7 @@ import { CartComponent } from './Components/cart/cart.component';
     AdminSideBarComponent,
     ChatAreaComponent,
     CartComponent,
+    CartItemCardComponent,
   ],
 
   imports: [
