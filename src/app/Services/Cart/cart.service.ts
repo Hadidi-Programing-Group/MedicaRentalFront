@@ -25,4 +25,8 @@ export class CartService {
   removeFromCart(itemId: string): Observable<StatusDto> {
     return this.httpClient.delete<StatusDto>(`${this.baseUrl}/${itemId}`);
   }
+
+  isInCart(itemId: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.baseUrl}/IsInCart/${itemId}`);
+  }
 }

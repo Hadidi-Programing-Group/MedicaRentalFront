@@ -74,6 +74,14 @@ export class ItemDetailsRenterComponent implements OnInit {
     this.myService.GetIfItemOwner(this.ID).subscribe({
       next: (data: any) => {
         this.IsOwner = data['isOwner'];
+        this.cartService.isInCart(this.ID).subscribe({
+          next: (data: boolean) => {
+            this.inCart = data;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
       },
       error: (err) => {
         console.log(err);
