@@ -118,12 +118,10 @@ import { ChatAreaComponent } from './Components/Chat/chat-area/chat-area.compone
     PendingApprovalsDetailsComponent,
     ReportsComponent,
     ReportDetailsComponent,
-    PaymentComponent
-
+    PaymentComponent,
     FooterComponent,
     AboutComponent,
     ContactComponent,
-
     ReportModalComponent,
     ReportDetailsComponent,
     LoadingComponent,
