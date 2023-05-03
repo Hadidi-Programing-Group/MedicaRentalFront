@@ -15,4 +15,8 @@ export class RegistrationService {
   RegisterUser(UserData: any) {
     return this.client.post(this.URL, UserData);
   }
+
+  RegisterAdminMod(UserData:any){
+    return this.client.post(`${environment.apiURL}/RegisterAdminMod`,UserData);
+  }
 }

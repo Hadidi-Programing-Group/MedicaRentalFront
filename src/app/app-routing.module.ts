@@ -28,6 +28,8 @@ import {ContactComponent} from './Components/contact/contact.component';
 import {AdminPanelComponent} from './Components/AdminComponents/admin-panel/admin-panel.component';
 import {ChatAreaComponent} from "./Components/Chat/chat-area/chat-area.component";
 
+import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
+
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {
@@ -56,6 +58,10 @@ const routes: Routes = [
       {
         path: 'pendingapprovals/:id',
         component: PendingApprovalsDetailsComponent,
+      },
+      {
+        path: 'rolesmanger',
+        component: RolesManagerComponent,
       },
       {path: 'blockusers', component: BlockUsersComponent},
       {path: 'reports', component: ReportsComponent},
