@@ -31,6 +31,7 @@ import {ChatAreaComponent} from "./Components/Chat/chat-area/chat-area.component
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'checkout', component: PaymentComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'chat/:id', component: ChatComponent },
   { path: 'products', component: ProductsComponent },
