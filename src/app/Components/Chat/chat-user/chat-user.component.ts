@@ -8,18 +8,10 @@ import {DateHelper} from "../../../Dtos/DateHelper";
   templateUrl: './chat-user.component.html',
   styleUrls: ['./chat-user.component.css']
 })
-export class ChatUserComponent implements OnInit {
+export class ChatUserComponent {
   @Input() chat: ChatDto = new ChatDto("", "", "", "", 0, 0, "");
   @Output() chatClicked = new EventEmitter()
-  constructor(private signalRService: SignalRService) {
 
-  }
-  ngOnInit(): void {
-    // console.log(this.chat);
-    this.signalRService.newMessageEvent.subscribe({
-
-    })
-  }
   isValidBase64(str: string | null): boolean
   {
     // console.log()
@@ -56,5 +48,4 @@ export class ChatUserComponent implements OnInit {
   {
     this.chatClicked.emit(userId)
   }
-
 }
