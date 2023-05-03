@@ -52,4 +52,16 @@ export class RoleMangerUserInfoDto {
 
 
   ) {}
+
 }
+
+export class UpdateUserRoleDto {
+  constructor(
+    public Id: string,
+    public newRole: number
+
+
+  ) {}
+
+}
+

@@ -11,35 +11,44 @@ import { RegistrationService } from 'src/app/Services/Registration/registration.
 
 import { AdminService } from 'src/app/Services/Admin/admin.service';
 
-
 import {
   // UpdateApprovalInfoDto,
   // UpdateProfileInfoDto,
   // UserApprovalInfoDto,
-  RoleMangerUserInfoDto
+  UpdateUserRoleDto,
+  RoleMangerUserInfoDto,
 } from 'src/app/Dtos/AdminDto';
 import { error } from 'jquery';
-
 
 @Component({
   selector: 'app-roles-manager',
   templateUrl: './roles-manager.component.html',
-  styleUrls: ['./roles-manager.component.css']
+  styleUrls: ['./roles-manager.component.css'],
 })
 export class RolesManagerComponent implements OnInit {
   registerForm: FormGroup;
   NationalImgBase64: any;
   UnionCardImgBase64: any;
   IsSubmitButtonClicked = false;
-  AdminModData : RoleMangerUserInfoDto | any ;
+  AdminModData: RoleMangerUserInfoDto | any;
+
+  updateRole: UpdateUserRoleDto | any;
+
+  // selectedUserId: string = "";
+  // updateRoleForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private registrationService: RegistrationService,
     private router: Router,
     private navbarService: CommunicationService,
-    private adminService : AdminService
+    private adminService: AdminService
   ) {
+    // this.updateRoleForm = this.fb.group({
+    //   userId: [{value: '', disabled: true}],
+    //   newRole: ['', Validators.required]
+    // });
+
     this.registerForm = this.fb.group({
       FName: [
         '',
@@ -64,23 +73,63 @@ export class RolesManagerComponent implements OnInit {
         '',
         [Validators.required, Validators.pattern('^(010|011|012|015)\\d{8}$')],
       ],
-      role: ['', [Validators.required]]
+      role: ['', [Validators.required]],
     });
   }
   ngOnInit(): void {
-
     this.adminService.GetAllAdminMod().subscribe({
-     next : (data)=> {
-      this.AdminModData = data;
-      console.log(this.AdminModData);
-     },
-     error: (err)=> {
-      console.log(err);
-     }
-    })
+      next: (data) => {
+        this.AdminModData = data;
+        console.log(this.AdminModData);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
+  // openModal() {
+  //   $('#addAdminModModal').modal('show');
+  // }
 
+  // openUpdateModal(userId: string): void {
+  //   // Set the selected user id in the form
+  //   this.selectedUserId = userId;
+  //   this.updateRoleForm.patchValue({userId: userId});
+
+  //   // Show the update modal
+  //   const updateModal = document.getElementById('updateRoleModal');
+
+  // }
+
+  openUpdateModal(userId: string) {
+    const userIdInput = document.getElementById('userId') as HTMLInputElement;
+    userIdInput.value = userId;
+  }
+
+  submitUpdate() {
+    const userId = (document.getElementById('userId') as HTMLInputElement)
+      .value;
+    const userRole = (document.getElementById('userRole') as HTMLSelectElement)
+      .value;
+
+    this.updateRole.Id = userId;
+    this.updateRole.newRole = userRole;
+    // Send a request to the updateuserole endpoint with the form data
+    // Replace the URL and method with the correct values for your API
+    this.adminService.UpdateUserRole(this.updateRole).subscribe({
+      next: (res) => {
+        // this.router.navigate(['/']);
+        // console.log(`Account registered: ${userData.role} `);
+
+        $('#updateAdminModModal').modal('hide'); // Close the modal
+        this.ngOnInit(); // Reload the data without refreshing the page
+      },
+      error: (error) => {
+        console.log(error.error);
+      },
+    });
+  }
 
   onSubmit(): void {
     if (this.registerForm.valid) {
@@ -91,18 +140,20 @@ export class RolesManagerComponent implements OnInit {
         email: userData.email,
         password: userData.password,
         phoneNumber: userData.phoneNumber,
-        userRole: parseInt(userData.role)
+        userRole: parseInt(userData.role),
       };
       this.registrationService.RegisterAdminMod(DataToBeSent).subscribe({
         next: (res) => {
           // this.router.navigate(['/']);
           console.log(`Account registered: ${userData.role} `);
+
+          $('#addAdminModModal').modal('hide'); // Close the modal
+          this.ngOnInit(); // Reload the data without refreshing the page
         },
         error: (error) => {
           console.log(error.error);
           if (
-            error.error ==
-            `Username '${DataToBeSent.email}' is already taken.`
+            error.error == `Username '${DataToBeSent.email}' is already taken.`
           ) {
             // this.router.navigate(['/emailerror']);
           } else {
@@ -110,16 +161,10 @@ export class RolesManagerComponent implements OnInit {
           }
         },
       });
-      // this.navbarService.toggleVisibility();
     } else if (!this.registerForm.valid) this.IsSubmitButtonClicked = true;
   }
 
+  AddMod() {}
 
-  AddMod(){
-
-  }
-
-  ViewMod(){
-
-  }
+  ViewMod() {}
 }

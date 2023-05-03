@@ -10,7 +10,8 @@ import {
   RoleMangerUserInfoDto,
   UpdateApprovalInfoDto,
   UserApprovalInfoWithIdDto,
-  UserProfileInfoWithIdDto
+  UserProfileInfoWithIdDto,
+  UpdateUserRoleDto
 } from 'src/app/Dtos/AdminDto';
 import { environment } from 'src/environments/environment';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
@@ -66,6 +67,10 @@ export class AdminService {
     return this.httpClient.put(`${this.baseUrl}/UpdateApprovalInfo/${id}`, nationalInfo);
   }
 
+
+ UpdateUserRole(updateRole:UpdateUserRoleDto): Observable<any> {
+    return this.httpClient.post(`${environment.apiURL}/api/Admins/UpdateUserRole`, updateRole);
+  }
 
 
 }
