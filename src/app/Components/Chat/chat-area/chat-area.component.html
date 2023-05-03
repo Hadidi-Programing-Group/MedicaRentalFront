@@ -1,4 +1,4 @@
-<div *ngIf="currentUser != ''" class="container">
+<div *ngIf="currentUser != ''" class="container d-flex flex-column h-100">
   <div class=" bg-light border rounded-5 overflow-auto p-3" id="messagesArea" #messagesDiv>
     <div *ngFor="let message of messages; let i=index">
       <app-date *ngIf="checkNewDate(i)" [date]="message.messageDate" class="justify-content-center"></app-date>
