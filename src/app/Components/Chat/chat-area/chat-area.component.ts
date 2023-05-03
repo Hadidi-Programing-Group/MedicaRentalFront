@@ -65,15 +65,7 @@ export class ChatAreaComponent
       document.getElementById('reportStaticBackdrop')!
     );
 
-    setTimeout(() => {
-      if (this.messagesDiv) {
-        this.messagesDiv.nativeElement.scrollTo({
-          top: Number(this.messagesDiv.nativeElement.scrollHeight),
-          left: 0,
-          behavior: 'smooth',
-        });
-      }
-    }, 200);
+    this.scrollToTheEnd();
   }
 
   ngOnInit(): void {
@@ -174,16 +166,22 @@ export class ChatAreaComponent
               user: this.currentUser,
             });
 
-            if (this.messagesDiv) {
-              this.messagesDiv.nativeElement.scrollTo({
-                top: Number(this.messagesDiv.nativeElement.scrollHeight),
-                left: 0,
-                behavior: 'smooth',
-              });
-            }
+            this.scrollToTheEnd();
           }
         });
     }
+  }
+
+  scrollToTheEnd() {
+    setTimeout(() => {
+      if (this.messagesDiv) {
+        this.messagesDiv.nativeElement.scrollTo({
+          top: Number(this.messagesDiv.nativeElement.scrollHeight),
+          left: 0,
+          behavior: 'smooth',
+        });
+      }
+    }, 200);
   }
 
   getChat(numOfDays: number = 20) {
