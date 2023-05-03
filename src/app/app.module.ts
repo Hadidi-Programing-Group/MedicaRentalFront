@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import { NgxStripeModule } from 'ngx-stripe';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -58,6 +59,7 @@ import { PendingApprovalsComponent } from './Components/AdminComponents/pending-
 import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/pending-approvals-details/pending-approvals-details.component';
 import { ReportsComponent } from './Components/AdminComponents/reports/reports.component';
 import { ReportDetailsComponent } from './Components/AdminComponents/report-details/report-details.component';
+import { PaymentComponent } from './Components/Checkout/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +107,8 @@ import { ReportDetailsComponent } from './Components/AdminComponents/report-deta
     PendingApprovalsComponent,
     PendingApprovalsDetailsComponent,
     ReportsComponent,
-    ReportDetailsComponent
+    ReportDetailsComponent,
+    PaymentComponent
   ],
 
   imports: [
@@ -123,7 +126,8 @@ import { ReportDetailsComponent } from './Components/AdminComponents/report-deta
     HttpClientModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxStripeModule.forRoot('pk_test_51Mq0DEDRs2d2XncXUz4PYsdzJmFpgfHrSetrfTWKRN1q3qKkiUUwSK2t7fBL1h6tDY9oWREgtcpKQzsBwZihtgmg00wgHkggZw'),
   ],
   providers: [
     ProductsService,

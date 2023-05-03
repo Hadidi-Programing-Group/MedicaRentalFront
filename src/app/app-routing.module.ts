@@ -19,10 +19,12 @@ import { ReportDetailsComponent } from './Components/AdminComponents/report-deta
 import { PendingApprovalsComponent } from './Components/AdminComponents/pending-approvals/pending-approvals.component';
 import { PendingApprovalsDetailsComponent } from './Components/AdminComponents/pending-approvals-details/pending-approvals-details.component';
 import { BlockUsersComponent } from './Components/AdminComponents/block-users/block-users.component';
+import { PaymentComponent } from './Components/Checkout/payment/payment.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'checkout', component: PaymentComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'chat/:id', component: ChatComponent },
   { path: 'products', component: ProductsComponent },
@@ -47,4 +49,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
