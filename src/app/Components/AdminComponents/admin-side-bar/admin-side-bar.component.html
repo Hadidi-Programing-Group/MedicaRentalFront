@@ -46,6 +46,17 @@
     </li>
     <li>
       <a
+        routerLink="rolesmanger"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link p-2 mt-2 align-middle"
+      >
+        <i class="fs-4 bi-table"></i>
+        <span class="ms-1 d-none d-sm-inline"> RolesManger</span></a
+      >
+    </li>
+    <li>
+      <a
         routerLink="blockusers"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
