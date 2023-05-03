@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { ReportDto } from 'src/app/Dtos/Reports/ReportDto';
 import { DetailedReportDto } from 'src/app/Dtos/Reports/DetailedReportDto';
 import { PageDto } from 'src/app/Dtos/PageDto';
+import {InsertReportDto} from "../../Dtos/Reports/InsertReportDto";
+import { StatusDto } from 'src/app/Dtos/StatusDto';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +46,20 @@ export class ReportsService {
   getDetailedReport(reportId: string): Observable<DetailedReportDto> {
     return this.httpClient.get<DetailedReportDto>(
       `${this.baseUrl}/${reportId}`
+    );
+  }
+
+  markAsSolved(Id: string): Observable<StatusDto> {
+    return this.httpClient.post<StatusDto>(
+      `${this.baseUrl}/MarkAsSolved/${Id}`,
+      {}
+    );
+  }
+
+  insertReport(report: InsertReportDto) {
+    return this.httpClient.post(
+      `${this.baseUrl}/InsertReport`,
+      report
     );
   }
 }

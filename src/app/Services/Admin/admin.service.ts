@@ -7,6 +7,7 @@ import {
   // UpdateApprovalInfoDto,
   // UpdateProfileInfoDto,
   // UserApprovalInfoDto,
+  UpdateApprovalInfoDto,
   UserApprovalInfoWithIdDto,
   UserProfileInfoWithIdDto
 } from 'src/app/Dtos/AdminDto';
@@ -38,7 +39,22 @@ export class AdminService {
     );
   }
 
+  GetClientInfoWithId(id:string):Observable<UserProfileInfoWithIdDto>{
 
+    return this.httpClient.get<UserProfileInfoWithIdDto>(
+      `${this.baseUrl}/GetInfo/${id}`
+    );
+  }
+
+  ApproveUser(email:string){
+
+    const url = `${this.baseUrl}/ApproveUser?Email=${email}`;
+    return this.httpClient.post<string>(url, {});
+  }
+
+  RejectUser(id: string, nationalInfo: any): Observable<any> {
+    return this.httpClient.put(`${this.baseUrl}/UpdateApprovalInfo/${id}`, nationalInfo);
+  }
 
 
 

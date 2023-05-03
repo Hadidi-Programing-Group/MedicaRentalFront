@@ -14,5 +14,16 @@ export class DetailedReportDto {
     public content: string,
     public contentTimeStamp: string,
     public reportCategory: string,
+    public isReportedUserBlocked: boolean,
+    public isContentDeleted: boolean,
+    public reportActions: ReportActionDto[]
+  ) {}
+}
+
+export class ReportActionDto {
+  constructor(
+    public action: string,
+    public createDate: string,
+    public takenBy: string
   ) {}
 }

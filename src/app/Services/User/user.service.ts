@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BlockUserInfoDto } from 'src/app/Dtos/BlockUserInfoDto';
 import { StatusDto } from 'src/app/Dtos/StatusDto';
 import {
   UpdateApprovalInfoDto,
@@ -36,10 +37,16 @@ export class UserService {
   }
 
   UpdateApprovalInfo(newData: UpdateApprovalInfoDto) {
-    console.log(newData);
     return this.httpClient.put<StatusDto>(
       `${this.baseUrl}/UpdateApprovalInfo`,
       newData
+    );
+  }
+
+  BlockUser(blockUserInfo: BlockUserInfoDto) {
+    return this.httpClient.post<StatusDto>(
+      `${this.baseUrl}/BlockUser`,
+      blockUserInfo
     );
   }
 }

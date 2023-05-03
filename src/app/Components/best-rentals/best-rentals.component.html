@@ -1,38 +1,31 @@
-
-  <section class="pt-5 pb-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <h1 class="mb-3">Best Rentals</h1>
-        </div>
-
-        <div class="col-12">
-          <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-
-            <div class="carousel-inner">
-                <div class="carousel-item" *ngFor="let product of Products; let i = index;" [ngClass]="{'active': i === 0}">
-                <div class="row">
-
-                  <div class="col-md-3 mb-3" *ngFor="let productItem of Products.slice(i, i + 4); let j = index;">
-
-                      <app-product-card [product]="productItem"></app-product-card>
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-              <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </a>
-          </div>
+<section class="pt-5 pb-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-1 text-right">
+        <a class="me-2" role="button" (click)="moveLeft()">
+          <i class="fa fa-arrow-left fs-3"></i>
+        </a>
+      </div>
+      <div
+        style="overflow: hidden"
+        id="cardRow{{ randomId }}"
+        class="col-10 row flex-nowrap"
+      >
+        <div
+          *ngFor="let product of Products"
+          id="productCard{{ randomId }}"
+          class="col-12 col-lg-4 col-xl-3"
+        >
+          <app-product-card [product]="product"></app-product-card>
         </div>
       </div>
+      <div class="col-1 text-right">
+        <a class="me-2" role="button" (click)="moveRight()">
+          <i class="fa fa-arrow-right fs-3"></i>
+        </a>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<script></script>
