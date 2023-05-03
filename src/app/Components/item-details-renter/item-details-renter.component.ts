@@ -13,6 +13,7 @@ import { ProductsService } from 'src/app/Services/Products/products.service';
 import { RentOperationsService } from 'src/app/Services/RentOperations/rent-operations.service';
 import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
 import { ReviewsComponent } from '../reviews/reviews.component';
+import { CartService } from 'src/app/Services/Cart/cart.service';
 
 @Component({
   selector: 'app-item-details-renter',
@@ -39,6 +40,7 @@ export class ItemDetailsRenterComponent implements OnInit {
     private myService: ProductsService,
     private renService: RentOperationsService,
     private ReviewSerivce: ReviewsService,
+    private readonly cartService: CartService,
     private router: Router
   ) {
     this.ID = activeRoute.snapshot.params['id'];
@@ -99,5 +101,9 @@ export class ItemDetailsRenterComponent implements OnInit {
   UpdateItem() {
     let URL = 'products/forseller/' + this.ID;
     this.router.navigate([URL]);
+  }
+
+  PromoteItem() {
+    
   }
 }
