@@ -83,6 +83,7 @@ import { RolesManagerComponent } from './Components/AdminComponents/roles-manage
 import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.component';
 import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item.component';
 import { BrandCardComponent } from './Components/brand-card/brand-card.component';
+import { ReportModalV2Component } from './Components/report-modalV2/report-modal-v2/report-modal-v2.component';
 
 @NgModule({
   declarations: [
@@ -154,6 +155,7 @@ import { BrandCardComponent } from './Components/brand-card/brand-card.component
     BrandsFilterComponent,
     AddItemComponent,
     BrandCardComponent,
+    ReportModalV2Component,
 
   ],
 

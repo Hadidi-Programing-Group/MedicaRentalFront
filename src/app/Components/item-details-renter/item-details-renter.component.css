@@ -28,7 +28,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 0px solid #eee;
   height: 500px;
   width: 100%;
   overflow: hidden;
