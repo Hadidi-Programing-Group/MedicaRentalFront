@@ -2,7 +2,7 @@
   <a class="nav-link rounded-3" aria-current="page" [routerLinkActiveOptions]="{ exact:true}" routerLinkActive="active" (click)="openChat(chat.userId)" routerLink="{{chat.userId}}">
     <div class="row">
       <div class="col-2 my-auto">
-        <img *ngIf="isValidBase64(chat.userProfileImage); else icon" class="bg-dark border border-3 border-success rounded-circle profile-img"
+        <img *ngIf="ImageHelper.isValidBase64(chat.userProfileImage); else icon" class="bg-dark border border-3 border-success rounded-circle profile-img"
              ngSrc="{{chat.userProfileImage}}" fill alt="">
         <ng-template #icon>
           <div class="d-inline-block text-center text-white bg-dark border border-3 border-success rounded-circle profile-img">
@@ -34,7 +34,7 @@
     <div class="row justify-content-center">
       <div class="col-10 text-center">
 
-        <img *ngIf="isValidBase64(chat.userProfileImage); else icon" class="bg-dark border border-3 border-success rounded-circle profile-img"
+        <img *ngIf="ImageHelper.isValidBase64(chat.userProfileImage); else icon" class="bg-dark border border-3 border-success rounded-circle profile-img"
              ngSrc="{{chat.userProfileImage}}" fill alt="">
         <ng-template #icon>
           <div class="d-inline-block text-center text-white bg-dark border border-3 border-success rounded-circle profile-img">

@@ -12,7 +12,7 @@ import {SignalRService} from "../../../Services/SignalR/signal-r.service";
 import {ChatDto} from "../../../Dtos/Message/ChatDto";
 import {MessageDto} from "../../../Dtos/Message/MessageDto";
 import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
-import {DateHelper} from "../../../Dtos/DateHelper";
+import {DateHelper} from "../../../Helpers/DateHelper";
 import {NotificationService} from "../../../Services/Chat/notification.service";
 import {ActivatedRoute} from '@angular/router';
 import {ReportsService} from "../../../Services/Reports/reports.service";
