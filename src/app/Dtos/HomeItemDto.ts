@@ -8,6 +8,7 @@ export class HomeItemDto {
     public sellerId: string,
     public sellerName: string,
     public brandName: string,
-    public image: string
+    public image: string,
+    public isAd: boolean
   ) {}
 }
