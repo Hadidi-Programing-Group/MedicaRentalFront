@@ -27,6 +27,15 @@ import { ManageCategoriesComponent } from './Components/AdminComponents/Categori
 import { CartComponent } from './Components/cart/cart.component';
 
 import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
+
+
+import { RentOperationsComponent } from './Components/AdminComponents/Rent/rent-operations/rent-operations.component';
+
+import { PastDueComponent } from './Components/AdminComponents/Rent/past-due/past-due.component';
+
+import { ReturnTodayComponent } from './Components/AdminComponents/Rent/return-today/return-today.component';
+
+
 import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item.component';
 
 const routes: Routes = [
@@ -70,6 +79,16 @@ const routes: Routes = [
       {
         path: 'rolesmanger',
         component: RolesManagerComponent,
+      },
+      {
+        path: 'rentoperations',
+        component: RentOperationsComponent,
+      }, {
+        path: 'pastedue',
+        component: PastDueComponent,
+      }, {
+        path: 'returntoday',
+        component: ReturnTodayComponent,
       },
       { path: 'blockusers', component: BlockUsersComponent },
       { path: 'reports', component: ReportsComponent },

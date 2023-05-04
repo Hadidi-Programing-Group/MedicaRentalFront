@@ -84,6 +84,9 @@ import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.
 import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item.component';
 import { BrandCardComponent } from './Components/brand-card/brand-card.component';
 import { ReportModalV2Component } from './Components/report-modalV2/report-modal-v2/report-modal-v2.component';
+import { RentOperationsComponent } from './Components/AdminComponents/Rent/rent-operations/rent-operations.component';
+import { ReturnTodayComponent } from './Components/AdminComponents/Rent/return-today/return-today.component';
+import { PastDueComponent } from './Components/AdminComponents/Rent/past-due/past-due.component';
 
 @NgModule({
   declarations: [
@@ -156,6 +159,9 @@ import { ReportModalV2Component } from './Components/report-modalV2/report-modal
     AddItemComponent,
     BrandCardComponent,
     ReportModalV2Component,
+    RentOperationsComponent,
+    ReturnTodayComponent,
+    PastDueComponent,
 
   ],
 
