@@ -78,7 +78,7 @@ export class ItemDetailsRenterComponent implements OnInit {
         this.Item = data;
         this.RatingStars = new Array(data.rating);
         this.RestOfStars = new Array(5 - data.rating);
-        this.image = 'data:image/png;base64,' + data.image;
+        this.image = data.image;
       },
       error: (err) => {
         console.log(err);

@@ -4,8 +4,9 @@
   style="display: grid; grid-template-rows: auto 1fr auto"
 >
   <div class="ProductImageContainer mb-2">
-    <a routerLink="/products/{{ product.id }}"
-      ><img src="data:image/png;base64,{{ product.image }}" class="img-fluid"
+    <a routerLink="{{ product.id }}"
+      ><img src="{{ product.image }}" class="img-fluid"
+
     /></a>
   </div>
   <div class="ProductName lead">

@@ -35,9 +35,10 @@ export class CategoriesFilterComponent implements OnInit {
       },
     });
 
-    this.CategoriesService.GetAllCategories().subscribe({
+    this.CategoriesService.GetAllWithSubCategories().subscribe({
       next: (data) => {
         this.Categories = data;
+        console.log(data)
       },
 
       error: (error) => console.log(error),
