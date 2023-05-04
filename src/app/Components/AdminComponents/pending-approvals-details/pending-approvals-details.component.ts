@@ -35,8 +35,8 @@ export class PendingApprovalsDetailsComponent implements OnInit {
       next: (data: UserApprovalInfoWithIdDto | any) => {
         this.info = data;
         console.log(data);
-        this.nationalImage = 'data:image/png;base64,' + data.nationalImage;
-        this.unionImage = 'data:image/png;base64,' + data.unionImage;
+        this.nationalImage = data.nationalImage;
+        this.unionImage = data.unionImage;
         this.nationalId = data.nationalId;
       },
       error: (err) => {

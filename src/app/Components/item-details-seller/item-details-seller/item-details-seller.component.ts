@@ -113,7 +113,7 @@ export class ItemDetailsSellerComponent {
   }
 
   ngOnInit(): void {
-    this.CatService.GetAllCategories().subscribe({
+    this.CatService.GetAllWithSubCategories().subscribe({
       next: (data: any) => {
         this.categories = data;
       },

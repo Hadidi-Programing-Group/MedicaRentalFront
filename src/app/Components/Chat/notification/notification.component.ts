@@ -3,7 +3,7 @@ import { MessageNotificationDto } from "../../../Dtos/Message/MessageNotificatio
 import { MessageDto } from "../../../Dtos/Message/MessageDto";
 import { SignalRService } from "../../../Services/SignalR/signal-r.service";
 import { ChatService } from "../../../Services/Chat/chat.service";
-import { DateHelper } from "../../../Dtos/DateHelper";
+import { DateHelper } from "../../../Helpers/DateHelper";
 import { NotificationService } from "../../../Services/Chat/notification.service";
 import { count } from "rxjs";
 

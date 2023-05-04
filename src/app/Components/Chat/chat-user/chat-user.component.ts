@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChatDto } from "../../../Dtos/Message/ChatDto";
 import { SignalRService } from 'src/app/Services/SignalR/signal-r.service';
-import {DateHelper} from "../../../Dtos/DateHelper";
+import {DateHelper} from "../../../Helpers/DateHelper";
+import {ImageHelper} from "../../../Helpers/ImageHelper";
 
 @Component({
   selector: 'app-chat-user',
@@ -11,20 +12,6 @@ import {DateHelper} from "../../../Dtos/DateHelper";
 export class ChatUserComponent {
   @Input() chat: ChatDto = new ChatDto("", "", "", "", 0, 0, "");
   @Output() chatClicked = new EventEmitter()
-
-  isValidBase64(str: string | null): boolean
-  {
-    // console.log()
-    if (str == null || str == '') {
-      return false;
-    }
-    try {
-      const decodedStr = atob(str);
-      return decodedStr.length === str.length;
-    } catch (e) {
-      return false;
-    }
-  }
 
   getDate(messageDate: string)
   {
@@ -48,4 +35,6 @@ export class ChatUserComponent {
   {
     this.chatClicked.emit(userId)
   }
+
+  protected readonly ImageHelper = ImageHelper;
 }

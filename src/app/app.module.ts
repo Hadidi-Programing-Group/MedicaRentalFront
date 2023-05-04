@@ -68,6 +68,14 @@ import { LoadingComponent } from './Components/loading/loading.component';
 import { AdminPanelComponent } from './Components/AdminComponents/admin-panel/admin-panel.component';
 import { AdminSideBarComponent } from './Components/AdminComponents/admin-side-bar/admin-side-bar.component';
 import { ChatAreaComponent } from './Components/Chat/chat-area/chat-area.component';
+import { CategoriesComponent } from './Components/AdminComponents/Categories/categories/categories.component';
+import {CdkTableModule} from "@angular/cdk/table";
+import { DeleteConfirmationModalComponent } from './Components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { ManageCategoriesComponent } from './Components/AdminComponents/Categories/manage-categories/manage-categories.component';
+import { ManageCategoriesNavbarComponent } from './Components/AdminComponents/Categories/manage-categories-navbar/manage-categories-navbar.component';
+import { SubcategoriesComponent } from './Components/AdminComponents/Categories/subcategories/subcategories.component';
+import { CategoryModalComponent } from './Components/AdminComponents/Categories/category-modal/category-modal.component';
+import { SubcategoryModalComponent } from './Components/AdminComponents/Categories/subcategory-modal/subcategory-modal.component';
 
 import { CartComponent } from './Components/cart/cart.component';
 import { CartItemCardComponent } from './Components/cart-item-card/cart-item-card.component';
@@ -133,6 +141,13 @@ import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.
     AdminPanelComponent,
     AdminSideBarComponent,
     ChatAreaComponent,
+    CategoriesComponent,
+    DeleteConfirmationModalComponent,
+    ManageCategoriesComponent,
+    ManageCategoriesNavbarComponent,
+    SubcategoriesComponent,
+    CategoryModalComponent,
+    SubcategoryModalComponent,
 
     CartComponent,
     CartItemCardComponent,
@@ -157,6 +172,7 @@ import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.
     NgxPaginationModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
+    CdkTableModule,
   ],
   providers: [
     ProductsService,

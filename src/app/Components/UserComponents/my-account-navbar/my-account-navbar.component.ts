@@ -17,8 +17,6 @@ export class MyAccountNavbarComponent implements OnInit {
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  // ...
-
   ngOnInit() {
     // Manually trigger change detection after a short delay
     setTimeout(() => {

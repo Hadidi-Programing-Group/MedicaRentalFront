@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {DateHelper} from "../../../Dtos/DateHelper";
+import {DateHelper} from "../../../Helpers/DateHelper";
 
 @Component({
   selector: 'app-date',

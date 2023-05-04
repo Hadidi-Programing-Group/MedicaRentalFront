@@ -27,6 +27,9 @@ import {AboutComponent} from './Components/about/about.component';
 import {ContactComponent} from './Components/contact/contact.component';
 import {AdminPanelComponent} from './Components/AdminComponents/admin-panel/admin-panel.component';
 import {ChatAreaComponent} from "./Components/Chat/chat-area/chat-area.component";
+import {
+  ManageCategoriesComponent
+} from "./Components/AdminComponents/Categories/manage-categories/manage-categories.component";
 import { CartComponent } from './Components/cart/cart.component';
 
 import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
@@ -67,6 +70,7 @@ const routes: Routes = [
       {path: 'blockusers', component: BlockUsersComponent},
       {path: 'reports', component: ReportsComponent},
       {path: 'reports/:id', component: ReportDetailsComponent},
+      {path: 'manageCategories', component: ManageCategoriesComponent}
     ],
   },
   {path: 'about', component: AboutComponent},
