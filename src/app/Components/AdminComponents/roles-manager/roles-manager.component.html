@@ -191,6 +191,10 @@
               <div>
                 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"
                   class="pb-3">
+
+                  <div *ngIf="emailTaken" class="alert alert-danger" role="alert">
+                    Email is already taken!
+                  </div>
                   <!-- First Name input -->
                   <div class="form-outline mb-4">
                     <input

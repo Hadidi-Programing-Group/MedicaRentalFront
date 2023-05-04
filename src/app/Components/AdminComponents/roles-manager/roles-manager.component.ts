@@ -37,6 +37,8 @@ export class RolesManagerComponent implements OnInit {
   IsSubmitButtonClicked = false;
   AdminModData: RoleMangerUserInfoDto | any;
 
+  emailTaken = false;
+
   updateRole: UpdateUserRoleDto = {userId: "" ,newRole: 0};
 
   // selectedUserId: string = "";
@@ -175,6 +177,7 @@ export class RolesManagerComponent implements OnInit {
           if (
             error.error == `Username '${DataToBeSent.email}' is already taken.`
           ) {
+            this.emailTaken = true;
             // this.router.navigate(['/emailerror']);
           } else {
             // this.router.navigate(['/registration']);
