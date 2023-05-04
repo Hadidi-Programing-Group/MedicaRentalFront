@@ -80,8 +80,10 @@
               [routerLinkActiveOptions]="{ exact: true }"
               class="nav-link px-md-0 px-2"
             >
-              <i class="fs-5 fa-sharp fa-solid  fa-boxes-stacked"></i>
-              <span class="ms-1 d-none d-md-inline"> Manage Categories </span></a
+              <i class="fs-5 fa-sharp fa-solid fa-boxes-stacked"></i>
+              <span class="ms-1 d-none d-md-inline">
+                Manage Categories
+              </span></a
             >
           </li>
         </ul>
@@ -95,13 +97,13 @@
         </div>
       </div>
     </div>
-    <div class="col d-flex flex-column h-sm-100">
-      <main class="row overflow-auto">
+    <div
+      class="col d-flex flex-column h-sm-100 vh-100"
+      style="height: 90vh; overflow-y: scroll"
+    >
+      <main class="row">
         <router-outlet></router-outlet>
       </main>
-      <footer class="row bg-light py-4 mt-auto">
-        <div class="col">Footer content here...</div>
-      </footer>
     </div>
   </div>
 </div>
