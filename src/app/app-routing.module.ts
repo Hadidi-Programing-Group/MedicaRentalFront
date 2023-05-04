@@ -30,6 +30,7 @@ import {ChatAreaComponent} from "./Components/Chat/chat-area/chat-area.component
 import { CartComponent } from './Components/cart/cart.component';
 
 import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
+import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -51,6 +52,7 @@ const routes: Routes = [
   {path: 'user/myaccount', component: MyAccountComponent},
   {path: 'reviews/:id', component: ReviewsComponent},
   {path: 'forbidden', component: Forbidden403Component},
+  {path: 'additem', component:AddItemComponent},
   {
     path: 'admin',
     component: AdminPanelComponent,
