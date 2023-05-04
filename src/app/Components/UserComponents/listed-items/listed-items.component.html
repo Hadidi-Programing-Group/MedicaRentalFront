@@ -1,8 +1,10 @@
 <div class="container-fluid">
 
   <app-search (searchEvent)="onSearchClick($event)"></app-search>
-
-  <app-list-order-by (orderByEvent)="onOrderByChange($event)"></app-list-order-by>
+<div class="row">
+  <button (click)="AddItem()" class="my-4 btn btn-success  col-3">Add new item</button>
+  <app-list-order-by class="col-9" (orderByEvent)="onOrderByChange($event)"></app-list-order-by>
+</div>
 
   <div class="row" *ngIf="listedItems && listedItems.length > 0">
     <table class="table table-striped table- table-hover">
@@ -32,7 +34,7 @@
           </ng-container>
         </td>
         <td class="text-center d-none d-lg-table-cell">
-          <button class="mx-3 btn btn-primary">Update</button>
+          <button (click)="update(item.id)" class="mx-3 btn btn-primary">Update</button>
           <button class="mx-3 btn btn-danger" (click)="unListItem(item.id)">Un-List</button>
         </td>
       </tr>
