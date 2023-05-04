@@ -1,11 +1,7 @@
 export class DateHelper
 {
   static getDate(_date: string){
-    const date = new Date(_date);
-    const timezoneOffset = date.getTimezoneOffset();
-    const timezoneOffsetMs = timezoneOffset * 60 * 1000 * -1;
-    const adjustedTime = date.getTime() + timezoneOffsetMs;
-    return new Date(adjustedTime)
+    return new Date(_date)
   }
 
   static toOneDigitTimeOnly(_date: Date){

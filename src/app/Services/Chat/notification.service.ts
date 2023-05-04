@@ -7,6 +7,4 @@ export class NotificationService {
   chatClicked = new EventEmitter()
   outChat = new EventEmitter()
   constructor() { }
-
-
 }

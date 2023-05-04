@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ChatDto } from '../../Dtos/Message/ChatDto';
@@ -13,6 +13,9 @@ import { DeleteMessageRequestDto } from 'src/app/Dtos/Message/DeleteMessageReque
 export class ChatService
 {
   private baseUrl = `${environment.apiURL}/api/Messages`; //API
+
+  newMessage = new EventEmitter();
+  chatOpened = new EventEmitter();
 
   constructor(private readonly httpClient: HttpClient) {}
 

@@ -1,58 +1,33 @@
-<!-- <section class="pt-5 pb-5">
+<section *ngIf="Products; else loadingBlock" class="pt-5 pb-5">
   <div class="container">
-    <div class="row">
-      <div class="col-6">
-        <h1 class="mb-3">Best Rentals</h1>
+    <div class="row align-items-center">
+      <div class="col-1 text-right">
+        <a class="me-2" role="button" (click)="moveLeft()">
+          <i class="fa fa-arrow-left fs-3"></i>
+        </a>
       </div>
-
-      <div class="col-12">
-        <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel" data-wrap="true">
-
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <app-product-card [product]="Products[0]"></app-product-card>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <app-product-card [product]="Products[1]"></app-product-card>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <app-product-card [product]="Products[2]"></app-product-card>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <app-product-card [product]="Products[3]"></app-product-card>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <app-product-card [product]="Products[4]"></app-product-card>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <app-product-card [product]="Products[5]"></app-product-card>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <app-product-card [product]="Products[6]"></app-product-card>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <app-product-card [product]="Products[7]"></app-product-card>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </a>
+      <div
+        style="overflow: hidden"
+        id="cardRow{{ randomId }}"
+        class="col-10 row flex-nowrap"
+      >
+        <div
+          *ngFor="let product of Products"
+          id="productCard{{ randomId }}"
+          class="col-12 col-lg-4 col-xl-3"
+        >
+          <app-product-card [product]="product"></app-product-card>
         </div>
+      </div>
+      <div class="col-1 text-right">
+        <a class="me-2" role="button" (click)="moveRight()">
+          <i class="fa fa-arrow-right fs-3"></i>
+        </a>
       </div>
     </div>
   </div>
-</section> -->
+</section>
+
+<ng-template #loadingBlock>
+  <app-loading></app-loading>
+</ng-template>

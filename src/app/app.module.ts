@@ -67,6 +67,13 @@ import { ReportModalComponent } from './Components/report-modal/report-modal.com
 import { LoadingComponent } from './Components/loading/loading.component';
 import { AdminPanelComponent } from './Components/AdminComponents/admin-panel/admin-panel.component';
 import { AdminSideBarComponent } from './Components/AdminComponents/admin-side-bar/admin-side-bar.component';
+import { ChatAreaComponent } from './Components/Chat/chat-area/chat-area.component';
+
+import { CartComponent } from './Components/cart/cart.component';
+import { CartItemCardComponent } from './Components/cart-item-card/cart-item-card.component';
+
+import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
+import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +132,13 @@ import { AdminSideBarComponent } from './Components/AdminComponents/admin-side-b
     LoadingComponent,
     AdminPanelComponent,
     AdminSideBarComponent,
+    ChatAreaComponent,
+
+    CartComponent,
+    CartItemCardComponent,
+
+    RolesManagerComponent,
+      BrandsFilterComponent,
   ],
 
   imports: [

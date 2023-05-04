@@ -1,0 +1,20 @@
+#messagesArea,
+#usersArea {
+  min-height: 75vh;
+  max-height: 75vh;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+#messagesArea::-webkit-scrollbar,
+#usersArea::-webkit-scrollbar {
+  display: none;
+}
+
+input[type="text"]:focus {
+  border-color: rgba(25, 135, 84, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+}

@@ -7,8 +7,11 @@ import {
   // UpdateApprovalInfoDto,
   // UpdateProfileInfoDto,
   // UserApprovalInfoDto,
+  RoleMangerUserInfoDto,
+  UpdateApprovalInfoDto,
   UserApprovalInfoWithIdDto,
-  UserProfileInfoWithIdDto
+  UserProfileInfoWithIdDto,
+  UpdateUserRoleDto
 } from 'src/app/Dtos/AdminDto';
 import { environment } from 'src/environments/environment';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
@@ -22,6 +25,15 @@ export class AdminService {
   constructor(private readonly httpClient: HttpClient) { }
 
   private baseUrl = `${environment.apiURL}/api/Users`;
+
+
+  GetAllAdminMod():Observable<RoleMangerUserInfoDto[]>{
+
+    return this.httpClient.get<RoleMangerUserInfoDto[]>(
+      `${environment.apiURL}/api/Admins/GetAllAdminMod`
+    );
+
+  }
 
   clientsNeedingApproval():Observable<UserProfileInfoWithIdDto[]>{
 
@@ -51,8 +63,14 @@ export class AdminService {
     return this.httpClient.post<string>(url, {});
   }
 
+  RejectUser(id: string, nationalInfo: any): Observable<any> {
+    return this.httpClient.put(`${this.baseUrl}/UpdateApprovalInfo/${id}`, nationalInfo);
+  }
 
 
+ UpdateUserRole(updateRole:UpdateUserRoleDto): Observable<any> {
+    return this.httpClient.post(`${environment.apiURL}/api/Admins/UpdateUserRole`, updateRole);
+  }
 
 
 }

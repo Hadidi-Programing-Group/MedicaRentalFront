@@ -1,0 +1,39 @@
+<div
+  *ngIf="cartItem; else loadingBlock"
+  class="container border pt-3 pb-3 mb-3"
+>
+  <div class="row">
+    <div class="ProductImageContainer pb-2 col-6">
+      <a routerLink="/products/{{ cartItem.itemId }}"
+        ><img
+          src="data:image/png;base64,{{ cartItem.image }}"
+          class="img-fluid"
+      /></a>
+    </div>
+    <div class="col-6">
+      <div class="ProductName lead">
+        <a
+          class="link-secondary"
+          routerLink="/products/{{ cartItem.itemId }}"
+          >{{ cartItem.name }}</a
+        >
+        <i
+          id="removeButton"
+          (click)="RemoveFromCart(cartItem.itemId)"
+          class="ms-2 fa-solid fa-xmark"
+        ></i>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 fs-6">From {{ startDate | date : "d/M/yy" }}</div>
+        <div class="col-xs-12 fs-6">To {{ endDate | date : "d/M/yy" }}</div>
+        <div class="col-xs-12 ProductPrice">
+          {{ cartItem.pricePerDay * cartItem.numberOfDays }} EGP
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingBlock>
+  <app-loading></app-loading>
+</ng-template>

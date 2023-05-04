@@ -1,11 +1,12 @@
 <div class="d-flex flex-column vh-100">
-  <div>
+  <div *ngIf="showNavbar">
     <app-navbar></app-navbar>
   </div>
-  <div class="d-flex flex-column flex-grow-1">
+  <div class="flex-grow-1">
     <router-outlet></router-outlet>
   </div>
-  <div>
+  <div style="clear: both"></div>
+  <div *ngIf="showNavbar" id="footerSection">
     <app-footer></app-footer>
   </div>
 </div>

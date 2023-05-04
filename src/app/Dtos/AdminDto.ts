@@ -41,3 +41,27 @@ export class UpdateApprovalInfoDto {
     public unionImage: string
   ) {}
 }
+
+
+export class RoleMangerUserInfoDto {
+  constructor(
+    public Id: string,
+    public FullName: string,
+    public Email: string,
+    public Role: string
+
+
+  ) {}
+
+}
+
+export class UpdateUserRoleDto {
+  constructor(
+    public Id: string,
+    public newRole: number
+
+
+  ) {}
+
+}
+

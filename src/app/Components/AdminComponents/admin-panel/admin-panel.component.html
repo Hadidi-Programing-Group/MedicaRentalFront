@@ -1,12 +1,95 @@
-<div class="row">
-  <div class="col-3">
-    <app-admin-side-bar></app-admin-side-bar>
-  </div>
-  <div class="col-9">
-    <router-outlet></router-outlet>
-    <!-- <app-reports *ngIf="selected == 'reports'"></app-reports>
-    <app-pending-approvals
-      *ngIf="selected == 'approve_users'"
-    ></app-pending-approvals> -->
+<div class="container-fluid overflow-hidden">
+  <div class="row vh-100 overflow-auto">
+    <div
+      class="col-12 navbarHeight col-md-3 col-xl-2 px-md-2 px-0 bg-dark d-flex sticky-top"
+    >
+      <div
+        class="d-flex flex-md-column flex-row flex-grow-1 align-items-center align-items-md-start px-3 pt-2 text-white"
+      >
+        <a
+          routerLink="/"
+          class="d-flex align-items-center pb-md-3 mb-md-0 me-md-auto text-white text-decoration-none"
+        >
+          <i class="bi bi-arrow-left-square-fill me-3 fs-5"> </i
+          ><span class="fs-5 d-none d-sm-block"> MedicaRental</span>
+        </a>
+        <ul
+          class="nav nav-pills flex-md-column flex-row flex-nowrap flex-shrink-1 flex-md-grow-0 flex-grow-1 mb-md-auto mb-0 justify-content-center align-items-center align-items-md-start"
+          id="menu"
+        >
+          <li class="nav-item">
+            <a
+              routerLink="/admin"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link px-md-0 px-2"
+            >
+              <i class="fs-5 fa-sharp fa-solid fa-house"></i
+              ><span class="ms-1 d-none d-md-inline"> Home</span>
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="reports"
+              routerLinkActive="active"
+              class="nav-link px-md-0 px-2"
+            >
+              <i class="fs-5 fa-sharp fa-solid fa-flag"></i
+              ><span class="ms-1 d-none d-md-inline"> Reports</span>
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="pendingapprovals"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link px-md-0 px-2"
+            >
+              <i class="fs-5 fa-sharp fa-solid fa-person-circle-check"></i
+              ><span class="ms-1 d-none d-md-inline"> Approve Users</span></a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="rolesmanger"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link p-2 mt-2 align-middle"
+            >
+              <i class="fs-4 bi-dice-1"></i>
+              <span class="ms-1 d-none d-sm-inline"> RolesManger</span></a
+            >
+          </li>
+
+          <li>
+            <a
+              routerLink="blockusers"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link px-md-0 px-2"
+            >
+              <i class="fs-5 fa-sharp fa-solid fa-ban"></i
+              ><span class="ms-1 d-none d-md-inline"> Block Users</span></a
+            >
+          </li>
+        </ul>
+        <div class="dropdown py-md-4 mt-md-auto ms-auto ms-md-0 flex-shrink-1">
+          <a
+            href="#"
+            class="d-flex align-items-center text-white text-decoration-none"
+          >
+            <span class="d-inline mx-1">Logout</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col d-flex flex-column h-sm-100">
+      <main class="row overflow-auto">
+        <router-outlet></router-outlet>
+      </main>
+      <footer class="row bg-light py-4 mt-auto">
+        <div class="col">Footer content here...</div>
+      </footer>
+    </div>
   </div>
 </div>
