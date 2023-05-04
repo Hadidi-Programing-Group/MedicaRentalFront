@@ -96,7 +96,7 @@ export class RolesManagerComponent implements OnInit {
 
 
   openUpdateModal(userId: string) {
-    debugger
+
     const userIdInputUpdate = document.getElementById('userIdUpdate') as HTMLInputElement;
     const userIdInputDelete = document.getElementById('userIdDelete') as HTMLInputElement;
     userIdInputUpdate.value = userId;
@@ -131,7 +131,7 @@ export class RolesManagerComponent implements OnInit {
   }
 
   submitDelete() {
-    debugger
+
     const userId = (document.getElementById('userIdDelete') as HTMLInputElement)
       .value;
 
