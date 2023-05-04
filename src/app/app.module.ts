@@ -81,6 +81,7 @@ import { CartItemCardComponent } from './Components/cart-item-card/cart-item-car
 
 import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
 import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.component';
+import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item.component';
 import { BrandCardComponent } from './Components/brand-card/brand-card.component';
 
 @NgModule({
@@ -147,13 +148,13 @@ import { BrandCardComponent } from './Components/brand-card/brand-card.component
     SubcategoriesComponent,
     CategoryModalComponent,
     SubcategoryModalComponent,
-
     CartComponent,
     CartItemCardComponent,
-
     RolesManagerComponent,
     BrandsFilterComponent,
+    AddItemComponent,
     BrandCardComponent,
+
   ],
 
   imports: [
