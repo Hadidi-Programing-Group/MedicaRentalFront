@@ -5,7 +5,7 @@ import { FilterService } from 'src/app/Services/Filter/filter.service';
 @Component({
   selector: 'app-brands-filter',
   templateUrl: './brands-filter.component.html',
-  styleUrls: ['./brands-filter.component.css']
+  styleUrls: ['./brands-filter.component.css'],
 })
 export class BrandsFilterComponent {
   constructor(
@@ -17,7 +17,6 @@ export class BrandsFilterComponent {
   Brands: any;
   ngOnInit(): void {
     this.selectedBrandIds = this.filterService.getSelectedBrands();
-    
 
     this.filterService.updateBrandsSelected.subscribe({
       next: (data: string[]) => {
@@ -47,6 +46,6 @@ export class BrandsFilterComponent {
       }
     }
     // Emit the updated selectedBrandIds array
-    this.filterService.updateSelectedCategories(this.selectedBrandIds);
+    this.filterService.updateSelectedBrands(this.selectedBrandIds);
   }
 }

@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row" id="main-row">
+    <div class="col-12 pt-4 pb-3 bg-light" id="manage-categories-navbar">
+      <app-manage-categories-navbar
+        (componentUpdater)="updateComponent($event)"
+      ></app-manage-categories-navbar>
+    </div>
+    <div class="col-12">
+      <app-categories #categories *ngIf="selected == 'categories'" (deleteCategoryEvent)="deleteCategory($event)"></app-categories>
+      <app-subcategories #subcategories *ngIf="selected == 'subcategories'" (deleteSubCategoryEvent)="deleteSubCategory($event)"></app-subcategories>
+
+    </div>
+  </div>
+</div>
+
+<app-delete-confirmation-modal [type]="type"
+                               [failureMessage]="type + ' couldn\'t be deleted, items exist in it!'"
+                               [successMessage]="type + ' deleted successfully.'"
+                               (cancelDeleteEvent)="cancelDelete()"
+                               (confirmDeleteEvent)="confirmedDelete()"
+                               [deleteContent]="deleteContent"
+                               [success]="success"
+                               [submitted]="submitted"></app-delete-confirmation-modal>
+

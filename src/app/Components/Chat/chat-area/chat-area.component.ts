@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MessageDto } from '../../../Dtos/Message/MessageDto';
-import { DateHelper } from '../../../Dtos/DateHelper';
+import { DateHelper } from '../../../Helpers/DateHelper';
 import { MessageStatus } from '../../../Dtos/Message/MessageStatus';
 import { SignalRService } from '../../../Services/SignalR/signal-r.service';
 import { ActivatedRoute } from '@angular/router';

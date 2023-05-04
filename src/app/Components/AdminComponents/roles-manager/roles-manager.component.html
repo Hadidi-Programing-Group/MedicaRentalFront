@@ -1,6 +1,6 @@
 
 
-<div class="container">
+<div class="container" >
 
   <!-- <button type="button" class="btn btn-primary mt-5" (click)="openModal()">Add Admin/Mod</button> -->
   <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal"
@@ -29,45 +29,57 @@
         <td>{{ user.email }}</td>
 
         <td>
-          <span *ngIf="user.role === 'Admin'">
+          <div *ngIf="user.email === 'admin@admin.com'">
+            <div class="badge text-bg-dark"> Owner</div>
+          </div>
+          <span *ngIf="user.role === 'Admin' && user.email !== 'admin@admin.com' ">
             <span class="badge text-bg-danger">{{ user.role }}</span>
           </span>
           <span *ngIf="user.role === 'Moderator'">
             <span class="badge text-bg-warning">{{ user.role }}</span>
           </span>
-          <span *ngIf="user.role !== 'Admin' && user.role !== 'Moderator'">
-            {{ user.role }}
-          </span>
+
         </td>
-        <td>
+        <td *ngIf="user.email !== 'admin@admin.com'">
 
           <div class="btn-group" role="group" aria-label="Basic mixed styles example">
             <button type="button" class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#updateAdminModModal"
             (click)="openUpdateModal(user.id)">
               Update Role
             </button>
-            <button type="button" class="btn btn-danger">Delete Account</button>
+            <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deleteAdminModModal"
+            (click)="openUpdateModal(user.id)">
+              Delete Account
+            </button>
           </div>
         </td>
+
+        <td  *ngIf="user.email === 'admin@admin.com'">
+          <!-- <span>*******</span> -->
+      </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- Modal -->
+
+
+
+
+<!-- Update Modal -->
 <div class="modal fade" id="updateAdminModModal" tabindex="-1" aria-labelledby="addAdminModModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addAdminModModalLabel">Update User Role</h5>
+        <h3 class="modal-title" id="addAdminModModalLabel">Update User Role</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="userId" class="col-form-label">User ID:</label>
-            <input type="text" class="form-control" id="userId" disabled>
+            <label for="userIdUpdate" class="col-form-label">User ID:</label>
+            <input type="text" class="form-control" id="userIdUpdate" disabled>
           </div>
           <div class="mb-3">
             <label for="userRole" class="col-form-label">Role:</label>
@@ -80,12 +92,42 @@
         </form>
       </div>
       <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="submitUpdate()">Submit</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" (click)="submitUpdate()">Submit</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Delete Modal -->
+
+<div class="modal fade" id="deleteAdminModModal" tabindex="-1" aria-labelledby="addAdminModModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addAdminModModalLabel">Delete Admin/Mod</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div>
+            <h4> Are you sure you want to delete? </h4>
+          </div>
+          <div class="mb-3">
+            <label for="userIdDelete" class="col-form-label">User ID:</label>
+            <input type="text" class="form-control" id="userIdDelete" disabled>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="submitDelete()">Submit</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -126,7 +168,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Admin/Mod</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal"
           aria-label="Close"></button>
       </div>
@@ -149,6 +191,10 @@
               <div>
                 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"
                   class="pb-3">
+
+                  <div *ngIf="emailTaken" class="alert alert-danger" role="alert">
+                    Email is already taken!
+                  </div>
                   <!-- First Name input -->
                   <div class="form-outline mb-4">
                     <input

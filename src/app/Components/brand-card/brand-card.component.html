@@ -1,0 +1,23 @@
+<div
+  *ngIf="brand"
+  class="container border pt-3 mb-3"
+  style="display: grid; grid-template-rows: auto 1fr auto"
+>
+  <div class="ProductImageContainer mb-2 position-relative">
+    <i
+      *ngIf="brand.isAd"
+      class="bi bi-badge-ad-fill text-warning fs-3 position-absolute"
+    ></i>
+    <a routerLink="/products" [queryParams]="{ brandId: [brand.id] }"
+      ><img src="{{ brand.image }}" class="img-fluid"
+    /></a>
+  </div>
+  <div class="ProductName lead mt-2 text-center">
+    <a
+      class="link-secondary"
+      routerLink="/products"
+      [queryParams]="{ brandId: [brand.id] }"
+      >{{ brand.name }}</a
+    >
+  </div>
+</div>

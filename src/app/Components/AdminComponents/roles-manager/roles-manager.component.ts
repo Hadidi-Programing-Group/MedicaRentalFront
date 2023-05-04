@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild, ElementRef } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -10,6 +10,8 @@ import { CommunicationService } from 'src/app/Services/Communication/communicati
 import { RegistrationService } from 'src/app/Services/Registration/registration.service';
 
 import { AdminService } from 'src/app/Services/Admin/admin.service';
+
+import { Modal } from 'bootstrap';
 
 import {
   // UpdateApprovalInfoDto,
@@ -26,13 +28,18 @@ import { error } from 'jquery';
   styleUrls: ['./roles-manager.component.css'],
 })
 export class RolesManagerComponent implements OnInit {
+
+
+
   registerForm: FormGroup;
   NationalImgBase64: any;
   UnionCardImgBase64: any;
   IsSubmitButtonClicked = false;
   AdminModData: RoleMangerUserInfoDto | any;
 
-  updateRole: UpdateUserRoleDto | any;
+  emailTaken = false;
+
+  updateRole: UpdateUserRoleDto = {userId: "" ,newRole: 0};
 
   // selectedUserId: string = "";
   // updateRoleForm: FormGroup;
@@ -88,41 +95,54 @@ export class RolesManagerComponent implements OnInit {
     });
   }
 
-  // openModal() {
-  //   $('#addAdminModModal').modal('show');
-  // }
 
-  // openUpdateModal(userId: string): void {
-  //   // Set the selected user id in the form
-  //   this.selectedUserId = userId;
-  //   this.updateRoleForm.patchValue({userId: userId});
-
-  //   // Show the update modal
-  //   const updateModal = document.getElementById('updateRoleModal');
-
-  // }
 
   openUpdateModal(userId: string) {
-    const userIdInput = document.getElementById('userId') as HTMLInputElement;
-    userIdInput.value = userId;
+
+    const userIdInputUpdate = document.getElementById('userIdUpdate') as HTMLInputElement;
+    const userIdInputDelete = document.getElementById('userIdDelete') as HTMLInputElement;
+    userIdInputUpdate.value = userId;
+    userIdInputDelete.value = userId;
   }
 
   submitUpdate() {
-    const userId = (document.getElementById('userId') as HTMLInputElement)
+
+    const userId = (document.getElementById('userIdUpdate') as HTMLInputElement)
       .value;
     const userRole = (document.getElementById('userRole') as HTMLSelectElement)
       .value;
 
-    this.updateRole.Id = userId;
-    this.updateRole.newRole = userRole;
+    this.updateRole.userId = userId;
+    this.updateRole.newRole = parseInt(userRole) ;
+
+    // console.log(` The update role modal ===> ${this.updateRole}`);
     // Send a request to the updateuserole endpoint with the form data
     // Replace the URL and method with the correct values for your API
     this.adminService.UpdateUserRole(this.updateRole).subscribe({
       next: (res) => {
-        // this.router.navigate(['/']);
-        // console.log(`Account registered: ${userData.role} `);
 
-        $('#updateAdminModModal').modal('hide'); // Close the modal
+        $('#updateAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+
+
+        this.ngOnInit(); // Reload the data without refreshing the page
+      },
+      error: (error) => {
+        console.log(error.error);
+      },
+    });
+  }
+
+  submitDelete() {
+
+    const userId = (document.getElementById('userIdDelete') as HTMLInputElement)
+      .value;
+
+    this.adminService.DeleteAdminMod(userId).subscribe({
+      next: (res) => {
+
+        $('#deleteAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+
+
         this.ngOnInit(); // Reload the data without refreshing the page
       },
       error: (error) => {
@@ -147,7 +167,9 @@ export class RolesManagerComponent implements OnInit {
           // this.router.navigate(['/']);
           console.log(`Account registered: ${userData.role} `);
 
-          $('#addAdminModModal').modal('hide'); // Close the modal
+        $('#addAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+
+          // $('#addAdminModModal').modal('hide'); // Close the modal
           this.ngOnInit(); // Reload the data without refreshing the page
         },
         error: (error) => {
@@ -155,6 +177,7 @@ export class RolesManagerComponent implements OnInit {
           if (
             error.error == `Username '${DataToBeSent.email}' is already taken.`
           ) {
+            this.emailTaken = true;
             // this.router.navigate(['/emailerror']);
           } else {
             // this.router.navigate(['/registration']);
@@ -164,7 +187,5 @@ export class RolesManagerComponent implements OnInit {
     } else if (!this.registerForm.valid) this.IsSubmitButtonClicked = true;
   }
 
-  AddMod() {}
 
-  ViewMod() {}
 }

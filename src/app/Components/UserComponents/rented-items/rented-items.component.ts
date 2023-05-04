@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
-import {DateHelper} from "../../../Dtos/DateHelper";
+import {DateHelper} from "../../../Helpers/DateHelper";
 
 @Component({
   selector: 'app-rented-items',

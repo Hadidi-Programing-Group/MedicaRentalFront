@@ -57,7 +57,7 @@ export class RoleMangerUserInfoDto {
 
 export class UpdateUserRoleDto {
   constructor(
-    public Id: string,
+    public userId: string,
     public newRole: number
 
 

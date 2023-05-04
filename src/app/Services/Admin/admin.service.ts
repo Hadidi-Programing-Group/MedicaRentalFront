@@ -68,8 +68,13 @@ export class AdminService {
   }
 
 
- UpdateUserRole(updateRole:UpdateUserRoleDto): Observable<any> {
+ UpdateUserRole(updateRole:UpdateUserRoleDto){
     return this.httpClient.post(`${environment.apiURL}/api/Admins/UpdateUserRole`, updateRole);
+  }
+
+
+  DeleteAdminMod(userId: string){
+    return this.httpClient.post(`${environment.apiURL}/api/Admins/DeleteAdminMod?id=${userId}`, {});
   }
 
 
