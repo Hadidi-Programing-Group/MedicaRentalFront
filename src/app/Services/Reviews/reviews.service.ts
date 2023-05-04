@@ -22,4 +22,8 @@ export class ReviewsService {
       deleteReviewRequestDto
     );
   }
+
+  GetReviewById(ReviewId: string) {
+    return this.client.get(`${this.URL}/${ReviewId}`);
+  }
 }
