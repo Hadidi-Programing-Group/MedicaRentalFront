@@ -2,124 +2,221 @@
   <div class="row">
     <div class="col-md-5 border-right"></div>
     <form [formGroup]="AddItemForm" class="row mt-3">
-        <!-- *ngIf="!currentUser?.isGrantedRent" -->
+      <!-- *ngIf="!currentUser?.isGrantedRent" -->
 
       <div class="col-xs-12">
         <label class="labels">Item name</label>
-        <input type="text" class="form-control" formControlName="ItemName" placeholder="Item Name" />
-        <div *ngIf="
-        AddItemForm.get('ItemName')?.hasError('required') &&
+        <input
+          type="text"
+          class="form-control"
+          formControlName="ItemName"
+          placeholder="Item Name"
+        />
+        <div
+          *ngIf="
+            AddItemForm.get('ItemName')?.hasError('required') &&
             IsSubmitButtonClicked
-          " class="text-danger">
+          "
+          class="text-danger"
+        >
           Item name is required!
         </div>
       </div>
       <div class="col-xs-12 mt-3">
         <label class="labels">Description</label>
-        <input type="text" class="form-control" formControlName="description" placeholder="Description" />
-        <div *ngIf="
-        AddItemForm.get('Description')?.hasError('required') &&
+        <input
+          type="text"
+          class="form-control"
+          formControlName="description"
+          placeholder="Description"
+        />
+        <div
+          *ngIf="
+            AddItemForm.get('Description')?.hasError('required') &&
             IsSubmitButtonClicked
-          " class="text-danger">
+          "
+          class="text-danger"
+        >
           Description is required!
         </div>
       </div>
       <div class="col-xs-12 mt-3">
-        <label class="labels">Serial number</label><input type="text" class="form-control"
-          formControlName="serialNumber" placeholder="Serial Number" />
-        <div *ngIf="
-        AddItemForm.get('serialNumber')?.hasError('required') &&
+        <label class="labels">Serial number</label
+        ><input
+          type="text"
+          class="form-control"
+          formControlName="serialNumber"
+          placeholder="Serial Number"
+        />
+        <div
+          *ngIf="
+            AddItemForm.get('serialNumber')?.hasError('required') &&
             IsSubmitButtonClicked
-          " class="text-danger">
+          "
+          class="text-danger"
+        >
           Serial number is required!
         </div>
       </div>
 
       <div class="col-xs-12 mt-3">
-        <label class="labels">Model</label><input type="text" class="form-control" formControlName="model"
-          placeholder="Model" />
-        <div *ngIf="
-        AddItemForm.get('model')?.hasError('required') &&
+        <label class="labels">Model</label
+        ><input
+          type="text"
+          class="form-control"
+          formControlName="model"
+          placeholder="Model"
+        />
+        <div
+          *ngIf="
+            AddItemForm.get('model')?.hasError('required') &&
             IsSubmitButtonClicked
-          " class="text-danger">
+          "
+          class="text-danger"
+        >
           Model is required!
         </div>
       </div>
 
       <div class="col-xs-12 mt-3">
-        <label class="labels">Stock</label><input type="number" class="form-control" formControlName="Stock"
-          placeholder="Stock" />
-        <div *ngIf="
-        AddItemForm.get('Stock')?.hasError('required') &&
+        <label class="labels">Stock</label
+        ><input
+          type="number"
+          class="form-control"
+          formControlName="Stock"
+          placeholder="Stock"
+        />
+        <div
+          *ngIf="
+            AddItemForm.get('Stock')?.hasError('required') &&
             IsSubmitButtonClicked
-          " class="text-danger">
+          "
+          class="text-danger"
+        >
           Stock is required!
         </div>
       </div>
 
       <div class="col-xs-12 mt-3">
-        <label class="labels">Price</label><input type="number" class="form-control" formControlName="Price"
-          placeholder="Price" />
-        <div *ngIf="
-        AddItemForm.get('Price')?.hasError('required') &&
+        <label class="labels">Price</label
+        ><input
+          type="number"
+          class="form-control"
+          formControlName="Price"
+          placeholder="Price"
+        />
+        <div
+          *ngIf="
+            AddItemForm.get('Price')?.hasError('required') &&
             IsSubmitButtonClicked
-          " class="text-danger">
+          "
+          class="text-danger"
+        >
           Price is required!
         </div>
       </div>
 
       <div class="col-xs-12 mt-3">
         <label for="category-select">Brand:</label>
-        <select class="form-select form-select-lg" id="Brand-select" (ngModelChange)="onSelectBrand($event)"
-          formControlName="Brand">
-          <option *ngFor="let brand of Brands" value="{{brand.id}}">{{ brand.name }}</option>
+        <select
+          class="form-select form-select-lg"
+          id="Brand-select"
+          (ngModelChange)="onSelectBrand($event)"
+          formControlName="Brand"
+        >
+          <option *ngFor="let brand of Brands" value="{{ brand.id }}">
+            {{ brand.name }}
+          </option>
         </select>
       </div>
 
-
       <div class="col-xs-12 mt-3">
         <label for="category-select">Category:</label>
-        <select class="form-select form-select-lg" id="category-select" (ngModelChange)="onSelectCategory($event)"
-          formControlName="CategoryName">
-          <option *ngFor="let category of categories" value="{{category.id}}">{{ category.name }}</option>
+        <select
+          class="form-select form-select-lg"
+          id="category-select"
+          (ngModelChange)="onSelectCategory($event)"
+          formControlName="CategoryName"
+        >
+          <option *ngFor="let category of categories" value="{{ category.id }}">
+            {{ category.name }}
+          </option>
         </select>
       </div>
 
       <div class="col-xs-12 mt-3">
         <label for="sub-category-select">Subcategory:</label>
-        <select class="form-select form-select-lg" id="sub-category-select"
-          (ngModelChange)="onSelectSubCategory($event)" formControlName="SubCategoryName">
-          <option *ngFor="let subCategory of subcategories" value="{{subCategory.id}}">{{ subCategory.name}}</option>
+        <select
+          class="form-select form-select-lg"
+          id="sub-category-select"
+          (ngModelChange)="onSelectSubCategory($event)"
+          formControlName="SubCategoryName"
+        >
+          <option
+            *ngFor="let subCategory of subcategories"
+            value="{{ subCategory.id }}"
+          >
+            {{ subCategory.name }}
+          </option>
         </select>
       </div>
 
       <div class="col-xs-12 col-lg-6 form-outline mt-3">
-        <label  class="labels">Item Image</label>
-        <div *ngIf="ItemImgBase64" style="height: 200px; overflow: hidden" class="mb-3">
-          <img style="object-fit: contain; width: 100%; height: 100%" class="img-fluid"
-            src="data:image/png;base64, {{ ItemImgBase64 }}" />
+        <label class="labels">Item Image</label>
+        <div
+          *ngIf="ItemImgBase64"
+          style="height: 200px; overflow: hidden"
+          class="mb-3"
+        >
+          <img
+            style="object-fit: contain; width: 100%; height: 100%"
+            class="img-fluid"
+            src="data:image/png;base64, {{ ItemImgBase64 }}"
+          />
         </div>
-        <input type="file" formControlName="ItemImg" name="ItemImg" id="ItemImg" class="form-control"
-          accept="image/png, image/jpeg, image/jpg" (change)="onItemImgSelected($event)" placeholder="Item Image" />
-        <div *ngIf="
-        AddItemForm.get('ItemImg')?.hasError('required') &&
-      IsSubmitButtonClicked
-    " class="text-danger">
+        <input
+          type="file"
+          formControlName="ItemImg"
+          name="ItemImg"
+          id="ItemImg"
+          class="form-control"
+          accept="image/png, image/jpeg, image/jpg"
+          (change)="onItemImgSelected($event)"
+          placeholder="Item Image"
+        />
+        <div
+          *ngIf="
+            AddItemForm.get('ItemImg')?.hasError('required') &&
+            IsSubmitButtonClicked
+          "
+          class="text-danger"
+        >
           Item Image is required!
         </div>
-        <div *ngIf="
-        AddItemForm
-        .get('ItemImg')
-        ?.hasError('invalidFileType') &&
-        AddItemForm.get('ItemImg')?.touched
-    " class="text-danger">
+        <div
+          *ngIf="
+            AddItemForm.get('ItemImg')?.hasError('invalidFileType') &&
+            AddItemForm.get('ItemImg')?.touched
+          "
+          class="text-danger"
+        >
           Invalid image type!
         </div>
       </div>
       <div class="mt-3 text-center">
-        <button class="btn btn-primary profile-button" (click)="onApprovalInfoSubmit()">Add Item Data</button>
+        <button
+          *ngIf="!IsApproveAdded"
+          class="btn btn-primary profile-button"
+          (click)="onApprovalInfoSubmit()"
+        >
+          Add Item Data
+        </button>
 
-        <div *ngIf="IsApproveAdded" class="alert alert-success mt-3" role="alert">
+        <div
+          *ngIf="IsApproveAdded"
+          class="alert alert-success mt-3"
+          role="alert"
+        >
           Item has been added successfully!
         </div>
       </div>

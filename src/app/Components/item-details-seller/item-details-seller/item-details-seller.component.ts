@@ -18,8 +18,8 @@ export class ItemDetailsSellerComponent {
     private readonly fb: FormBuilder,
     activeRoute: ActivatedRoute,
     private CatService: CategoriesService,
-    private UpdateService : ItemDetailsService,
-    private router: Router,
+    private UpdateService: ItemDetailsService,
+    private router: Router
   ) {
     this.ID = activeRoute.snapshot.params['id'];
   }
@@ -44,8 +44,9 @@ export class ItemDetailsSellerComponent {
   selectedCategory: any;
   selectedSubCategory: any;
   categories: any;
-  subcategories :any;
-
+  subcategories: any;
+  ItemImgBase64WithMimeType?: string;
+  ItemImgBase64ToDb: string = '';
 
   onItemImgSelected(event: any): void {
     const file = event.target.files[0];
@@ -53,23 +54,23 @@ export class ItemDetailsSellerComponent {
 
     const AllowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-    if (!AllowedFileTypes.includes(file.type))
-      this.UpdateItemForm
-        .get('ItemImg')
-        ?.setErrors({ invalidFileType: true });
+    if (!AllowedFileTypes.includes(file.type)) {
+      this.UpdateItemForm.get('ItemImg')?.setErrors({ invalidFileType: true });
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
       const base64String = reader.result as string;
       this.ItemImgBase64 = base64String;
       const Arr = this.ItemImgBase64.split(',', 2);
-      this.ItemImgBase64 = Arr[1];
+      this.ItemImgBase64ToDb = Arr[1];
     };
     reader.readAsDataURL(file);
     return;
   }
 
   onApprovalInfoSubmit() {
-    if (this.UpdateItemForm.get("ItemImg")?.valid) {
+    if (this.UpdateItemForm.get('ItemImg')?.valid) {
       const userData = this.UpdateItemForm.value;
       const DataToBeSent: UpdateUserItemDto = new UpdateUserItemDto(
         this.ID,
@@ -79,33 +80,36 @@ export class ItemDetailsSellerComponent {
         this.UpdateItemForm.controls['model'].value,
         this.UpdateItemForm.controls['Stock'].value,
         this.UpdateItemForm.controls['Price'].value,
-        this.ItemImgBase64,
+        this.ItemImgBase64ToDb,
         true,
-        this.currentUser?.brand.id??"",
+        this.currentUser?.brand.id ?? '',
         this.selectedCategory,
         this.selectedSubCategory
       );
 
       this.UpdateService.UpdateItem(DataToBeSent).subscribe({
-        next:(res) => {
+        next: (res) => {
           this.IsApproveUpdated = true;
-          let URL = 'products/'+this.ID;
+          let URL = 'products/' + this.ID;
           this.router.navigate([URL]);
         },
-        error:(err) => {
+        error: (err) => {
           this.IsApproveUpdated = false;
-        }
-      })
-
+        },
+      });
     } else this.IsSubmitButtonClicked = true;
   }
 
-   onSelectCategory(category: any) {
+  onSelectCategory(category: any) {
     this.selectedCategory = category;
-    const cat = this.categories.find((c: { [x: string]: any; }) => c["id"]==category)
-    this.subcategories = cat["subCategories"];
-    this.selectedSubCategory = this.subcategories[0]["id"];
-    this.UpdateItemForm.controls['SubCategoryName'].setValue(this.selectedSubCategory)
+    const cat = this.categories.find(
+      (c: { [x: string]: any }) => c['id'] == category
+    );
+    this.subcategories = cat['subCategories'];
+    this.selectedSubCategory = this.subcategories[0]['id'];
+    this.UpdateItemForm.controls['SubCategoryName'].setValue(
+      this.selectedSubCategory
+    );
   }
 
   onSelectSubCategory(subCategory: any) {
@@ -128,11 +132,11 @@ export class ItemDetailsSellerComponent {
         this.UpdateItemForm.controls['Stock'].setValue(data.stock);
         this.UpdateItemForm.controls['Price'].setValue(data.price);
         this.UpdateItemForm.controls['CategoryName'].setValue(data.category.id);
-        this.onSelectCategory(
-          data.category.id
+        this.onSelectCategory(data.category.id);
+        this.UpdateItemForm.controls['SubCategoryName'].setValue(
+          data.subCategory.id
         );
-        this.UpdateItemForm.controls['SubCategoryName'].setValue(data.subCategory.id);
-        this.UpdateItemForm.controls['ItemImg'].setValue(data.image);
+        //    this.UpdateItemForm.controls['ItemImg'].setValue(data.image);
         this.ItemImgBase64 = data.image;
       },
       error: (err) => {
