@@ -12,7 +12,7 @@ import { ProductsService } from 'src/app/Services/Products/products.service';
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.css']
+  styleUrls: ['./add-item.component.css'],
 })
 export class AddItemComponent {
   constructor(
@@ -20,9 +20,9 @@ export class AddItemComponent {
     private readonly fb: FormBuilder,
     activeRoute: ActivatedRoute,
     private CatService: CategoriesService,
-    private AddService : ItemDetailsService,
+    private AddService: ItemDetailsService,
     private BrandService: BrandsService,
-    private router: Router,
+    private router: Router
   ) {
     this.ID = activeRoute.snapshot.params['id'];
   }
@@ -48,10 +48,9 @@ export class AddItemComponent {
   selectedCategory: any;
   selectedSubCategory: any;
   categories: any;
-  subcategories :any;
+  subcategories: any;
   Brands: any;
   selectedBrand: any;
-
 
   onItemImgSelected(event: any): void {
     const file = event.target.files[0];
@@ -60,9 +59,7 @@ export class AddItemComponent {
     const AllowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
     if (!AllowedFileTypes.includes(file.type))
-      this.AddItemForm
-        .get('ItemImg')
-        ?.setErrors({ invalidFileType: true });
+      this.AddItemForm.get('ItemImg')?.setErrors({ invalidFileType: true });
     const reader = new FileReader();
     reader.onload = () => {
       const base64String = reader.result as string;
@@ -75,7 +72,7 @@ export class AddItemComponent {
   }
 
   onApprovalInfoSubmit() {
-    if (this.AddItemForm.get("ItemImg")?.valid) {
+    if (this.AddItemForm.get('ItemImg')?.valid) {
       const userData = this.AddItemForm.value;
       const DataToBeSent: AddUserItemDto = new AddUserItemDto(
         this.AddItemForm.controls['ItemName'].value,
@@ -93,23 +90,27 @@ export class AddItemComponent {
       );
 
       this.AddService.AddItem(DataToBeSent).subscribe({
-        next:(res) => {
+        next: (res) => {
           this.IsApproveAdded = true;
         },
-        error:(err) => {
+        error: (err) => {
           this.IsApproveAdded = false;
-        }
-      })
-
+        },
+      });
     } else this.IsSubmitButtonClicked = true;
   }
 
-   onSelectCategory(category: any) {
+  onSelectCategory(category: any) {
     this.selectedCategory = category;
-    const cat = this.categories.find((c: { [x: string]: any; }) => c["id"]==category)
-    this.subcategories = cat["subCategories"];
-    this.selectedSubCategory = this.subcategories[0]["id"];
-    this.AddItemForm.controls['SubCategoryName'].setValue(this.selectedSubCategory)
+    const cat = this.categories.find(
+      (c: { [x: string]: any }) => c['id'] == category
+    );
+    console.log(this.categories);
+    this.subcategories = cat['subCategories'];
+    this.selectedSubCategory = this.subcategories[0]['id'];
+    this.AddItemForm.controls['SubCategoryName'].setValue(
+      this.selectedSubCategory
+    );
   }
 
   onSelectSubCategory(subCategory: any) {
@@ -121,16 +122,16 @@ export class AddItemComponent {
   }
 
   ngOnInit(): void {
-    this.CatService.GetAllCategories().subscribe({
+    this.CatService.GetAllWithSubCategories().subscribe({
       next: (data: any) => {
         this.categories = data;
       },
     });
     this.BrandService.GetAllBrands().subscribe({
-      next: (data:any) => {
+      next: (data: any) => {
         this.Brands = data;
-      }
-    })
+      },
+    });
     // this.ItemService.GetItemByIdForSeller(this.ID).subscribe({
     //   next: (data: SellerItemDto | any) => {
     //     this.currentUser = data;
