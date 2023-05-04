@@ -1,7 +1,6 @@
-<form [formGroup]="paymentElementForm" class="container my-5">
-    <input matInput placeholder="name" formControlName="name" class="form-control my-2" />
-    <input matInput placeholder="Email" type="email" formControlName="email" class="form-control " />
-    <input matInput placeholder="Address" formControlName="address" class="form-control" />
+<!--  <input matInput placeholder="Card Holder Name" formControlName="name" class="form-control my-2" />
+    <input matInput placeholder="Card Holder Email" type="email" formControlName="email" class="form-control " />
+   <input matInput placeholder="Address" formControlName="address" class="form-control" />
     <div class="row ">
       <div class=" col-6">
         <input matInput placeholder="ZIP Code" formControlName="zipcode" class="form-control" />
@@ -9,10 +8,10 @@
       <div class=" col-6">
         <input matInput placeholder="city" formControlName="city" class="form-control" />
       </div>
-    </div>
-  
-    <ng-container *ngIf="elementsOptions.clientSecret as clientSecret">
-      <ngx-stripe-payment [clientSecret]="clientSecret"> </ngx-stripe-payment>
-    </ng-container>
-    <button (click)="pay()">PAY</button>
-  </form>
+    </div> -->
+<form action="" class="container my-5">
+  <ng-container *ngIf="elementsOptions.clientSecret as clientSecret">
+    <ngx-stripe-payment [clientSecret]="clientSecret"> </ngx-stripe-payment>
+  </ng-container>
+  <button (click)="pay()">PAY</button>
+</form>
