@@ -6,6 +6,7 @@ import { PageDto } from 'src/app/Dtos/PageDto';
 import { ProductsService } from 'src/app/Services/Products/products.service';
 import { FilterService } from 'src/app/Services/Filter/filter.service';
 import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
+import { data } from 'jquery';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -25,6 +26,7 @@ export class ProductsComponent implements OnInit {
   orderBy: string = '';
   categoryIds: string[] = [];
   subCategoryIds: string[] = [];
+  brandIds:string[] = [];//--------------------------
   searchText: string = '';
 
   pagination = 1;
@@ -51,8 +53,11 @@ export class ProductsComponent implements OnInit {
           : [params['subCategoryId']]
         : [];
 
+      this.brandIds=params['brandId']? Array.isArray(params['brandId'])?params['brandId']:[params['brandId']]:[];
+
       this.filterService.updateSelectedCategories(this.categoryIds);
       this.filterService.updateSelectedSubcategories(this.subCategoryIds);
+      this.filterService.updateSelectedBrands(this.brandIds);
 
       this.fetchProducts();
     });
@@ -75,6 +80,12 @@ export class ProductsComponent implements OnInit {
         this.onSelectSubCategories(data);
       },
     });
+
+    this.filterService.updateBrandsSelected.subscribe({
+      next:(data:string[])=>{
+        this.onSelectBrands(data);
+      }
+    })
   }
 
   fetchProducts(): void {
@@ -106,7 +117,7 @@ export class ProductsComponent implements OnInit {
     this.ProductsService.GetItems(
       this.categoryIds,
       this.subCategoryIds,
-      [], // for brands
+      this.brandIds,
       this.searchText,
       this.pagination,
       this.orderBy
@@ -135,6 +146,19 @@ export class ProductsComponent implements OnInit {
       // If categoryId is present, call getItemsByCategory method
       this.ProductsService.GetItemsByCategories(
         this.categoryIds,
+        this.pagination,
+        this.orderBy
+      ).subscribe(this.successObjCall);
+    } else {
+      this.fetchProducts();
+    }
+  }
+
+  fetchItemsByBrands():void{
+    if (this.brandIds && this.brandIds.length > 0) {
+     
+      this.ProductsService.GetItemsByCategories(
+        this.brandIds,
         this.pagination,
         this.orderBy
       ).subscribe(this.successObjCall);
@@ -172,6 +196,17 @@ export class ProductsComponent implements OnInit {
     this.fetchProducts();
   }
 
+  onSelectBrands(selectedBrandIds:string[]){
+    this.brandIds=selectedBrandIds;
+    this.pagination = 1;
+    this.searchText = '';
+    this.router.navigate([],{
+      queryParams: { searchText: null, brandId: this.brandIds, page: 1 },
+      queryParamsHandling: 'merge',
+    });
+    this.fetchProducts();
+  }
+
   onSearchQuery(searchText: string) {
     // Update categoryId with the selected category IDs
     this.searchText = searchText;
@@ -179,6 +214,7 @@ export class ProductsComponent implements OnInit {
       queryParams: {
         categoryId: null,
         subCategoryId: null,
+        brandId:null,
         searchText: this.searchText,
         page: this.pagination,
       },
@@ -233,6 +269,7 @@ export class ProductsComponent implements OnInit {
       queryParams: {
         categoryId: [],
         subCategoryId: [],
+        brandId:[],
         orderBy: null,
         page: this.pagination,
       },
