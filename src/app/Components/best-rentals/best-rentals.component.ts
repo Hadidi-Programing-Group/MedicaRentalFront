@@ -30,8 +30,9 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
         () => {
           // When the animation completes, check if we've scrolled past the last card
           if (
+            $(`#cardRow${this.randomId}`)[0] &&
             this.scrollPosition >=
-            $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
+              $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
           ) {
             // If we have, scroll back to the first card
             this.scrollPosition = 0;
