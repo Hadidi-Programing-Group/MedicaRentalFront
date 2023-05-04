@@ -25,8 +25,9 @@ export class BrandComponent implements OnInit {
         () => {
           // When the animation completes, check if we've scrolled past the last card
           if (
+            $(`#cardRow${this.randomId}`)[0] &&
             this.scrollPosition >=
-            $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
+              $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
           ) {
             // If we have, scroll back to the first card
             this.scrollPosition = 0;
@@ -61,7 +62,8 @@ export class BrandComponent implements OnInit {
 
   updateCardRow() {
     const cardRow: any = document.getElementById(`#cardRow${this.randomId}`);
-    cardRow.style.transform = `translateX(${this.currentPosition}px)`;
+    if (cardRow)
+      cardRow.style.transform = `translateX(${this.currentPosition}px)`;
   }
 
   Brands?: BrandDto[];

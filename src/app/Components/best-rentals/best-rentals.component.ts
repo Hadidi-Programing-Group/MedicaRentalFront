@@ -59,7 +59,6 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
 
   moveRight() {
     const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(true);
-    console.log(cardWidth);
     this.scrollPosition += cardWidth;
     $(`#cardRow${this.randomId}`).animate({ scrollLeft: '+=' + cardWidth });
     this.updateCardRow();
