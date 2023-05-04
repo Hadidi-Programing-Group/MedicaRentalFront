@@ -1,0 +1,23 @@
+<div class="d-flex align-items-center justify-content-center">
+  <div class="btn-group col-sm-9 col-md-11">
+    <button
+      (click)="notifyChange('categories')"
+      [ngClass]="
+        selected == 'categories' ? 'btn btn-dark active' : 'btn btn-outline-dark'
+      "
+      type="button"
+    >
+      Categories
+    </button>
+
+    <button
+      (click)="notifyChange('subcategories')"
+      [ngClass]="
+        selected == 'subcategories' ? 'btn btn-dark active' : 'btn btn-outline-dark'
+      "
+      type="button"
+    >
+      Sub-Categories
+    </button>
+  </div>
+</div>

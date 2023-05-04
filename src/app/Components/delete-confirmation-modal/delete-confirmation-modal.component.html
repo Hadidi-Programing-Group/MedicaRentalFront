@@ -1,0 +1,33 @@
+<div class="modal fade" id="deleteStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title m-0 h5" id="staticBackdropLabel">Warning</p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="cancelDelete()"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!submitted">
+          <div>
+            <p class="fs-6">You are about to delete the following {{type}}, are you sure?</p>
+          </div>
+          <div class="rounded-3 my-2 mx-4 px-2 py-2" style="background-color: #ebebeb">
+            <p class="my-auto fs-6">{{deleteContent}}</p>
+          </div>
+        </div>
+        <div *ngIf="submitted && success" class="alert alert-success">
+          {{successMessage}}
+        </div>
+        <div *ngIf="submitted && !success" class="alert alert-danger">
+          {{failureMessage}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelDelete()">Cancel</button>
+        <button *ngIf="!submitted" type="button" class="btn btn-danger" (click)="confirmedDeleteMessage()">Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

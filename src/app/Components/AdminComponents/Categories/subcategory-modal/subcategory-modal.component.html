@@ -1,0 +1,93 @@
+<div class="modal fade" id="subcategoryStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title m-0 h5" id="staticBackdropLabel">Add Subcategory</p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
+      </div>
+      <form class="" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div *ngIf="!submitted">
+            <div class="form-group py-2">
+              <label class="form-label" for="name">Name:</label>
+              <input type="text" class="form-control" formControlName="name" id="name" placeholder="Name">
+              <div
+                *ngIf="
+                categoryForm.get('name')?.hasError('required') &&
+                submitClicked
+              "
+                class="text-danger form-text"
+              >
+                Category name is required!
+              </div>
+              <div
+                *ngIf="
+                categoryForm.get('name')?.hasError('minlength') &&
+                categoryForm.get('name')?.touched
+              "
+                class="text-danger form-text"
+              >
+                Category name cannot be less that three characters!
+              </div>
+              <div
+                *ngIf="
+                categoryForm.get('name')?.hasError('pattern') &&
+                categoryForm.get('name')?.touched
+              "
+                class="text-danger form-text"
+              >
+                Please enter a valid name!
+              </div>
+            </div>
+            <div class="form-group py-2">
+              <label class="form-label" for="icon">Icon:</label>
+              <input type="file" class="form-control" (change)="onImageSelected($event)" formControlName="icon"
+                     id="icon" accept=".ico">
+              <div
+                *ngIf="categoryForm.get('icon')?.hasError('required') && submitClicked"
+                class="text-danger form-text"
+              >
+                Category icon is required!
+              </div>
+              <div
+                *ngIf="
+                categoryForm.get('icon')?.hasError('invalidFileType') &&
+                categoryForm.get('icon')?.touched
+              "
+                class="text-danger form-text"
+              >
+                Invalid image type!
+              </div>
+            </div>
+            <div class="form-group py-2">
+              <label class="form-label" for="icon">Category:</label>
+              <select  class="form-select" formControlName="categoryId" id="categoryId">
+                <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+              </select>
+              <div
+                *ngIf="categoryForm.get('categoryId')?.hasError('required') && submitClicked"
+                class="text-danger form-text"
+              >
+                A category is required!
+              </div>
+            </div>
+          </div>
+          <div *ngIf="submitted && success" class="alert alert-success">
+            Subcategory was added successfully.
+          </div>
+          <div *ngIf="submitted && !success" class="alert alert-danger">
+            Subcategory couldn't be added.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancel()">Cancel</button>
+          <button *ngIf="!submitted" type="submit" class="btn btn-danger">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
