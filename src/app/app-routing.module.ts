@@ -84,7 +84,7 @@ const routes: Routes = [
         path: 'rentoperations',
         component: RentOperationsComponent,
       }, {
-        path: 'pastedue',
+        path: 'pastdue',
         component: PastDueComponent,
       }, {
         path: 'returntoday',
