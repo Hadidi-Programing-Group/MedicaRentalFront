@@ -67,6 +67,7 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
 
   updateCardRow() {
     const cardRow: any = document.getElementById(`#cardRow${this.randomId}`);
+    if(cardRow)
     cardRow.style.transform = `translateX(${this.currentPosition}px)`;
   }
 
