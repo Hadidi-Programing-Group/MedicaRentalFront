@@ -73,6 +73,7 @@ import { CartComponent } from './Components/cart/cart.component';
 import { CartItemCardComponent } from './Components/cart-item-card/cart-item-card.component';
 
 import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
+import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +138,7 @@ import { RolesManagerComponent } from './Components/AdminComponents/roles-manage
     CartItemCardComponent,
 
     RolesManagerComponent,
+      BrandsFilterComponent,
   ],
 
   imports: [
