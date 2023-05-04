@@ -140,6 +140,12 @@ export class ProductsService {
     return this.httpClient.get(this.baseUrl + '/forrenter/' + id);
   }
 
+  GetAllAdsAsync() {
+    return this.httpClient.get<PageDto<HomeItemDto>>(
+      this.baseUrl + '/getAllAds/'
+    );
+  }
+
   GetItemByIdForSeller(id: string) {
     return this.httpClient.get(this.baseUrl + '/forseller/' + id);
   }

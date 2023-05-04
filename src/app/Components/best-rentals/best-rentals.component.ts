@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { ProductsService } from 'src/app/Services/Products/products.service';
 import * as $ from 'jquery';
+import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 
 @Component({
   selector: 'app-best-rentals',
@@ -68,12 +69,12 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
     cardRow.style.transform = `translateX(${this.currentPosition}px)`;
   }
 
-  Products: any;
+  Products?: HomeItemDto[];
 
   ngOnInit(): void {
-    this.ProductsService.GetAllItems().subscribe({
+    this.ProductsService.GetAllAdsAsync().subscribe({
       next: (data) => {
-        this.Products = data['data'];
+        this.Products = data.data;
       },
       error: (err) => {
         console.log(err);
