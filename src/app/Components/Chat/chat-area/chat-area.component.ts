@@ -10,19 +10,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {MessageDto} from "../../../Dtos/Message/MessageDto";
-import {DateHelper} from "../../../Helpers/DateHelper";
-import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
-import {SignalRService} from "../../../Services/SignalR/signal-r.service";
-import {ActivatedRoute} from "@angular/router";
-import {Modal} from "bootstrap";
-import {DeleteMessageRequestDto} from "../../../Dtos/Message/DeleteMessageRequestDto";
-import {InsertReportDto} from "../../../Dtos/Reports/InsertReportDto";
-import {ReportsService} from "../../../Services/Reports/reports.service";
-import {ChatService} from "../../../Services/Chat/chat.service";
-import {NotificationService} from "../../../Services/Chat/notification.service";
 import { MessageDto } from '../../../Dtos/Message/MessageDto';
-import { DateHelper } from '../../../Dtos/DateHelper';
+import { DateHelper } from '../../../Helpers/DateHelper';
 import { MessageStatus } from '../../../Dtos/Message/MessageStatus';
 import { SignalRService } from '../../../Services/SignalR/signal-r.service';
 import { ActivatedRoute } from '@angular/router';
@@ -55,7 +44,6 @@ export class ChatAreaComponent
   private reportModal: any;
 
   @ViewChild('messagesDiv') messagesDiv: ElementRef | undefined;
-
 
   constructor(
     private signalRService: SignalRService,
