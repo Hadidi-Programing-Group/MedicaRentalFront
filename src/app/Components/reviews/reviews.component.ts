@@ -27,7 +27,7 @@ export class ReviewsComponent {
   constructor(private reportsService: ReportsService, private reviewService : ReviewsService){}
   ngAfterViewInit(): void
   {
-    this.reportModal = new Modal(document.getElementById('reportStaticBackdrop')!)
+    this.reportModal = new Modal(document.getElementById('reportStaticBackdropV2')!)
   }
   counter(NumToArray:number){
     let array = new Array(NumToArray);

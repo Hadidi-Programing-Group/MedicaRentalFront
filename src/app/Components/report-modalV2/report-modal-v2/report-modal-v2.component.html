@@ -1,0 +1,44 @@
+<div class="modal fade" id="reportStaticBackdropV2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title m-0 h5" id="staticBackdropLabel">Report Form</p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!submitted">
+          <div>
+            <p class="fs-6">{{contentA}}</p>
+          </div>
+          <div class="rounded-3 my-2 mx-4 px-2 py-2" style="background-color: #ebebeb">
+            <p class="my-auto fs-6">{{contentB}}</p>
+          </div>
+          <div class="col-12 mt-3">
+            <label for="title" style="color: #304b6a ;">Title</label>
+            <div class="d-flex justify-content-center">
+              <input id="title" type="text" class="d-block col-10 my-2 form-control" #title/>
+            </div>
+          </div>
+          <div class="col-12 mt-3">
+            <p class="fs-6">Help us understand why are you reporting</p>
+            <div class="d-flex justify-content-center">
+              <textarea class="d-block form-control  my-2" #statement></textarea>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="submitted && success" class="alert alert-success">
+          {{successMessage}}
+        </div>
+        <div *ngIf="submitted && !success" class="alert alert-danger">
+          {{failureMessage}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancel()">Cancel</button>
+        <button *ngIf="!submitted" type="button" class="btn btn-danger" (click)="report()">Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
