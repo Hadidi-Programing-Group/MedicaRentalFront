@@ -66,10 +66,9 @@ import { ContactComponent } from './Components/contact/contact.component';
 import { ReportModalComponent } from './Components/report-modal/report-modal.component';
 import { LoadingComponent } from './Components/loading/loading.component';
 import { AdminPanelComponent } from './Components/AdminComponents/admin-panel/admin-panel.component';
-import { AdminSideBarComponent } from './Components/AdminComponents/admin-side-bar/admin-side-bar.component';
 import { ChatAreaComponent } from './Components/Chat/chat-area/chat-area.component';
 import { CategoriesComponent } from './Components/AdminComponents/Categories/categories/categories.component';
-import {CdkTableModule} from "@angular/cdk/table";
+import { CdkTableModule } from '@angular/cdk/table';
 import { DeleteConfirmationModalComponent } from './Components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { ManageCategoriesComponent } from './Components/AdminComponents/Categories/manage-categories/manage-categories.component';
 import { ManageCategoriesNavbarComponent } from './Components/AdminComponents/Categories/manage-categories-navbar/manage-categories-navbar.component';
@@ -139,7 +138,6 @@ import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.
     ReportDetailsComponent,
     LoadingComponent,
     AdminPanelComponent,
-    AdminSideBarComponent,
     ChatAreaComponent,
     CategoriesComponent,
     DeleteConfirmationModalComponent,
@@ -153,7 +151,7 @@ import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.
     CartItemCardComponent,
 
     RolesManagerComponent,
-      BrandsFilterComponent,
+    BrandsFilterComponent,
   ],
 
   imports: [
