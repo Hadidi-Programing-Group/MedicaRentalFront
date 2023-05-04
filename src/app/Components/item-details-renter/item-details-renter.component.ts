@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -13,6 +13,11 @@ import { ProductsService } from 'src/app/Services/Products/products.service';
 import { RentOperationsService } from 'src/app/Services/RentOperations/rent-operations.service';
 import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
 import { ReviewsComponent } from '../reviews/reviews.component';
+import { ReportsService } from 'src/app/Services/Reports/reports.service';
+import { InsertReportDto } from 'src/app/Dtos/Reports/InsertReportDto';
+import Modal from 'bootstrap/js/dist/modal';
+import { CartService } from 'src/app/Services/Cart/cart.service';
+import { AddItemToCartDto } from 'src/app/Dtos/Cart/AddItemToCartDto';
 
 @Component({
   selector: 'app-item-details-renter',
@@ -29,9 +34,20 @@ export class ItemDetailsRenterComponent implements OnInit {
   blobUrl: any;
   ShowRatingBtn: Boolean = true;
   reviewForm: FormGroup;
+  private reportModal: any;
   @ViewChild(ReviewsComponent, { static: false })
   reviewComponent!: ReviewsComponent;
   IsOwner: boolean = false;
+
+  public submitted = false;
+  public success = false;
+  public reportContentA = '';
+  public reportContentB = '';
+  public reportedId: any;
+  @Output() reportMessageEvent = new EventEmitter()
+  inCart: boolean = false;
+  numberOfDays: number = 1;
+
 
   constructor(
     private fb: FormBuilder,
@@ -39,13 +55,21 @@ export class ItemDetailsRenterComponent implements OnInit {
     private myService: ProductsService,
     private renService: RentOperationsService,
     private ReviewSerivce: ReviewsService,
-    private router: Router
+    private router: Router,
+    private reportsService: ReportsService,
+    private readonly cartService: CartService,
+
   ) {
     this.ID = activeRoute.snapshot.params['id'];
     this.reviewForm = this.fb.group({
       radioControl: new FormControl(),
       review: [''],
     });
+  }
+
+  ngAfterViewInit(): void
+  {
+    console.log(this.reportModal)
   }
 
   ngOnInit(): void {
@@ -70,6 +94,14 @@ export class ItemDetailsRenterComponent implements OnInit {
     this.myService.GetIfItemOwner(this.ID).subscribe({
       next: (data: any) => {
         this.IsOwner = data['isOwner'];
+        this.cartService.isInCart(this.ID).subscribe({
+          next: (data: boolean) => {
+            this.inCart = data;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
       },
       error: (err) => {
         console.log(err);
@@ -99,5 +131,66 @@ export class ItemDetailsRenterComponent implements OnInit {
   UpdateItem() {
     let URL = 'products/forseller/' + this.ID;
     this.router.navigate([URL]);
+  }
+
+  confirmedReportMessage(obj: any)
+  {
+    console.log(this.Item.seller.id)
+    let report = new InsertReportDto(obj.title, obj.statement, this.Item.seller.id, null, null, this.ID)
+    this.reportsService.insertReport(report).subscribe({
+      next: (): void =>
+      {
+        this.submitted = true
+        this.success = true
+        this.cancelReport()
+      },
+      error: (err) =>
+      {
+        this.submitted = true
+        this.success = false
+        console.error(err)
+      }
+    })
+  }
+
+  cancelReport()
+  {
+    this.reportContentA = ''
+    this.reportContentB = ''
+  }
+
+  report()
+  {
+    this.reportModal = new Modal(document.getElementById('reportStaticBackdrop')!);
+    console.log(this.reportModal);
+    this.reportModal.show();
+  }
+  
+  PromoteItem() {
+    const addItemRequest: AddItemToCartDto = new AddItemToCartDto(
+      this.ID,
+      this.numberOfDays
+    );
+    this.cartService.addToCart(addItemRequest).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.inCart = true;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  RemoveFromCart() {
+    this.cartService.removeFromCart(this.ID).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.inCart = false;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

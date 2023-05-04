@@ -6,10 +6,11 @@
   <div class="ProductImageContainer mb-2">
     <a routerLink="{{ product.id }}"
       ><img src="{{ product.image }}" class="img-fluid"
+
     /></a>
   </div>
   <div class="ProductName lead">
-    <a class="link-secondary" routerLink="{{ product.id }}">{{
+    <a class="link-secondary" routerLink="/products/{{ product.id }}">{{
       product.name
     }}</a>
   </div>

@@ -77,6 +77,12 @@ import { SubcategoriesComponent } from './Components/AdminComponents/Categories/
 import { CategoryModalComponent } from './Components/AdminComponents/Categories/category-modal/category-modal.component';
 import { SubcategoryModalComponent } from './Components/AdminComponents/Categories/subcategory-modal/subcategory-modal.component';
 
+import { CartComponent } from './Components/cart/cart.component';
+import { CartItemCardComponent } from './Components/cart-item-card/cart-item-card.component';
+
+import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
+import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -142,6 +148,12 @@ import { SubcategoryModalComponent } from './Components/AdminComponents/Categori
     SubcategoriesComponent,
     CategoryModalComponent,
     SubcategoryModalComponent,
+
+    CartComponent,
+    CartItemCardComponent,
+
+    RolesManagerComponent,
+      BrandsFilterComponent,
   ],
 
   imports: [

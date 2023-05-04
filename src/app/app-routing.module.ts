@@ -30,6 +30,9 @@ import {ChatAreaComponent} from "./Components/Chat/chat-area/chat-area.component
 import {
   ManageCategoriesComponent
 } from "./Components/AdminComponents/Categories/manage-categories/manage-categories.component";
+import { CartComponent } from './Components/cart/cart.component';
+
+import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -60,6 +63,10 @@ const routes: Routes = [
         path: 'pendingapprovals/:id',
         component: PendingApprovalsDetailsComponent,
       },
+      {
+        path: 'rolesmanger',
+        component: RolesManagerComponent,
+      },
       {path: 'blockusers', component: BlockUsersComponent},
       {path: 'reports', component: ReportsComponent},
       {path: 'reports/:id', component: ReportDetailsComponent},
@@ -67,6 +74,7 @@ const routes: Routes = [
     ],
   },
   {path: 'about', component: AboutComponent},
+  {path: 'cart', component: CartComponent},
   {path: 'contact', component: ContactComponent},
   {path: '**', component: NotFound404Component},
 ];

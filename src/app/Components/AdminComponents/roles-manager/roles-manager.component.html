@@ -1,0 +1,374 @@
+
+
+<div class="container" >
+
+  <!-- <button type="button" class="btn btn-primary mt-5" (click)="openModal()">Add Admin/Mod</button> -->
+  <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal"
+    data-bs-target="#addAdminModModal">
+    Register new Admin/Mod
+  </button>
+
+  <h1 class="mt-3">User List</h1>
+  <table class="table table-striped table-hover table-bordered text-center">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of AdminModData; let i=index">
+        <td>{{ i+1 }}</td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.fullName }}</td>
+        <td>{{ user.email }}</td>
+
+        <td>
+          <div *ngIf="user.email === 'admin@admin.com'">
+            <div class="badge text-bg-dark"> Owner</div>
+          </div>
+          <span *ngIf="user.role === 'Admin' && user.email !== 'admin@admin.com' ">
+            <span class="badge text-bg-danger">{{ user.role }}</span>
+          </span>
+          <span *ngIf="user.role === 'Moderator'">
+            <span class="badge text-bg-warning">{{ user.role }}</span>
+          </span>
+
+        </td>
+        <td *ngIf="user.email !== 'admin@admin.com'">
+
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#updateAdminModModal"
+            (click)="openUpdateModal(user.id)">
+              Update Role
+            </button>
+            <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deleteAdminModModal"
+            (click)="openUpdateModal(user.id)">
+              Delete Account
+            </button>
+          </div>
+        </td>
+
+        <td  *ngIf="user.email === 'admin@admin.com'">
+          <!-- <span>*******</span> -->
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateAdminModModal" tabindex="-1" aria-labelledby="addAdminModModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addAdminModModalLabel">Update User Role</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="userIdUpdate" class="col-form-label">User ID:</label>
+            <input type="text" class="form-control" id="userIdUpdate" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="userRole" class="col-form-label">Role:</label>
+            <select class="form-select" id="userRole">
+              <option value="" disabled selected>Select Role</option>
+              <option value="0">Admin</option>
+              <option value="1">Moderator</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="submitUpdate()">Submit</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+
+<div class="modal fade" id="deleteAdminModModal" tabindex="-1" aria-labelledby="addAdminModModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addAdminModModalLabel">Delete Admin/Mod</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div>
+            <h4> Are you sure you want to delete? </h4>
+          </div>
+          <div class="mb-3">
+            <label for="userIdDelete" class="col-form-label">User ID:</label>
+            <input type="text" class="form-control" id="userIdDelete" disabled>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="submitDelete()">Submit</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- The Modal -->
+<!-- <div class="modal fade" id="addAdminModModal" tabindex="-1" role="dialog"
+  aria-labelledby="addAdminModModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addAdminModModalLabel">Register Admin/Mod</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"> -->
+
+
+<!-- Modal -->
+
+<div class="modal fade" id="addAdminModModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Admin/Mod</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+
+
+
+
+
+
+
+
+
+        <section class="mt-4">
+          <div class="container-fluid h-custom">
+            <div >
+
+              <div>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"
+                  class="pb-3">
+                  <!-- First Name input -->
+                  <div class="form-outline mb-4">
+                    <input
+                      type="text"
+                      formControlName="FName"
+                      class="form-control form-control-lg"
+                      placeholder="First Name"
+                      />
+                    <div
+                      *ngIf="
+                      registerForm.get('FName')?.hasError('required') &&
+                      IsSubmitButtonClicked
+                      "
+                      class="text-danger">
+                      First name is required!
+                    </div>
+                    <div
+                      *ngIf="
+                      registerForm.get('FName')?.hasError('minlength') &&
+                      registerForm.get('FName')?.touched
+                      "
+                      class="text-danger">
+                      Name cannot be less that three characters!
+                    </div>
+                    <div
+                      *ngIf="
+                      registerForm.get('FName')?.hasError('pattern') &&
+                      registerForm.get('FName')?.touched
+                      "
+                      class="text-danger">
+                      Please enter a valid name!
+                    </div>
+                  </div>
+
+                  <!-- Last Name input -->
+                  <div class="form-outline mb-4">
+                    <input
+                      type="text"
+                      formControlName="LName"
+                      class="form-control form-control-lg"
+                      placeholder="Last Name"
+                      />
+                    <div
+                      *ngIf="
+                      registerForm.get('LName')?.hasError('required') &&
+                      IsSubmitButtonClicked
+                      "
+                      class="text-danger">
+                      Last name is required!
+                    </div>
+                    <div
+                      *ngIf="
+                      registerForm.get('LName')?.hasError('minlength') &&
+                      registerForm.get('LName')?.touched
+                      "
+                      class="text-danger">
+                      Name cannot be less that three characters!
+                    </div>
+                    <div
+                      *ngIf="
+                      registerForm.get('LName')?.hasError('pattern') &&
+                      registerForm.get('LName')?.touched
+                      "
+                      class="text-danger">
+                      Please enter a valid name!
+                    </div>
+                  </div>
+
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                    <input
+                      type="email"
+                      formControlName="email"
+                      class="form-control form-control-lg"
+                      placeholder="Email"
+                      />
+                    <div
+                      *ngIf="
+                      registerForm.get('email')?.hasError('required') &&
+                      IsSubmitButtonClicked
+                      "
+                      class="text-danger">
+                      Email is required!
+                    </div>
+                    <div
+                      *ngIf="
+                      registerForm.get('email')?.hasError('pattern') &&
+                      registerForm.get('email')?.touched
+                      "
+                      class="text-danger">
+                      Please enter a valid email!
+                    </div>
+                  </div>
+
+                  <!-- Password input -->
+                  <div class="form-outline mb-3">
+                    <input
+                      type="password"
+                      formControlName="password"
+                      class="form-control form-control-lg"
+                      placeholder="Password"
+                      />
+                    <div
+                      *ngIf="
+                      registerForm.get('password')?.hasError('required') &&
+                      IsSubmitButtonClicked
+                      "
+                      class="text-danger">
+                      Password is required!
+                    </div>
+                  </div>
+
+                  <!-- Phone Number input -->
+                  <div class="form-outline mb-4">
+                    <input
+                      type="text"
+                      formControlName="phoneNumber"
+                      class="form-control form-control-lg"
+                      placeholder="Phone Number"
+                      />
+                    <div
+                      *ngIf="
+                      registerForm.get('phoneNumber')?.hasError('required') &&
+                      IsSubmitButtonClicked
+                      "
+                      class="text-danger">
+                      Phone Number is required!
+                    </div>
+                    <div
+                      *ngIf="
+                      registerForm.get('phoneNumber')?.hasError('pattern') &&
+                      registerForm.get('phoneNumber')?.touched
+                      "
+                      class="text-danger">
+                      Please enter a valid Phone Number!
+                    </div>
+                  </div>
+
+
+                  <!-- Choose Role -->
+                  <div class="form-outline mb-4">
+                    <label for="role">Choose Role:</label>
+                    <select formControlName="role" class="form-select">
+                      <option value="" disabled>-- Select Role --</option>
+                      <option value="0">Admin</option>
+                      <option value="1">Moderator</option>
+                    </select>
+                    <div *ngIf="registerForm.get('role')?.hasError('required')
+                      &&
+                      IsSubmitButtonClicked" class="text-danger">
+                      Role is required!
+                    </div>
+                  </div>
+
+
+                  <div class="modal-footer text-center text-lg-start mt-4 pt-2">
+                    <button
+                    type="button"
+                    (click)="onSubmit()"
+                    class="btn btn-success"
+                    >
+                    AddUserRole
+                  </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- </div>
+    </div>
+  </div>
+</div> -->

@@ -1,3 +1,13 @@
-#usersArea{
+#usersArea {
   height: 92vh;
+}
+
+#chatPage {
+  min-height: 90vh;
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+
+#chatPage::-webkit-scrollbar {
+  display: none;
 }
