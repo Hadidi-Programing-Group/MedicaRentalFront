@@ -11,6 +11,8 @@ import { RegistrationService } from 'src/app/Services/Registration/registration.
 
 import { AdminService } from 'src/app/Services/Admin/admin.service';
 
+import { Modal } from 'bootstrap';
+
 import {
   // UpdateApprovalInfoDto,
   // UpdateProfileInfoDto,
@@ -32,7 +34,7 @@ export class RolesManagerComponent implements OnInit {
   IsSubmitButtonClicked = false;
   AdminModData: RoleMangerUserInfoDto | any;
 
-  updateRole: UpdateUserRoleDto | any;
+  updateRole: UpdateUserRoleDto = {userId: "" ,newRole: 0};
 
   // selectedUserId: string = "";
   // updateRoleForm: FormGroup;
@@ -108,13 +110,16 @@ export class RolesManagerComponent implements OnInit {
   }
 
   submitUpdate() {
+
     const userId = (document.getElementById('userId') as HTMLInputElement)
       .value;
     const userRole = (document.getElementById('userRole') as HTMLSelectElement)
       .value;
 
-    this.updateRole.Id = userId;
-    this.updateRole.newRole = userRole;
+    this.updateRole.userId = userId;
+    this.updateRole.newRole = parseInt(userRole) ;
+
+    console.log(` The update role modal ===> ${this.updateRole}`);
     // Send a request to the updateuserole endpoint with the form data
     // Replace the URL and method with the correct values for your API
     this.adminService.UpdateUserRole(this.updateRole).subscribe({
@@ -123,6 +128,11 @@ export class RolesManagerComponent implements OnInit {
         // console.log(`Account registered: ${userData.role} `);
 
         $('#updateAdminModModal').modal('hide'); // Close the modal
+
+
+        // const updateAdminModModal = new Modal(document.getElementById('updateAdminModModal'));
+        // updateAdminModModal.hide();
+
         this.ngOnInit(); // Reload the data without refreshing the page
       },
       error: (error) => {
@@ -164,7 +174,5 @@ export class RolesManagerComponent implements OnInit {
     } else if (!this.registerForm.valid) this.IsSubmitButtonClicked = true;
   }
 
-  AddMod() {}
 
-  ViewMod() {}
 }
