@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild, ElementRef } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -28,6 +28,9 @@ import { error } from 'jquery';
   styleUrls: ['./roles-manager.component.css'],
 })
 export class RolesManagerComponent implements OnInit {
+
+
+
   registerForm: FormGroup;
   NationalImgBase64: any;
   UnionCardImgBase64: any;
@@ -90,28 +93,19 @@ export class RolesManagerComponent implements OnInit {
     });
   }
 
-  // openModal() {
-  //   $('#addAdminModModal').modal('show');
-  // }
 
-  // openUpdateModal(userId: string): void {
-  //   // Set the selected user id in the form
-  //   this.selectedUserId = userId;
-  //   this.updateRoleForm.patchValue({userId: userId});
-
-  //   // Show the update modal
-  //   const updateModal = document.getElementById('updateRoleModal');
-
-  // }
 
   openUpdateModal(userId: string) {
-    const userIdInput = document.getElementById('userId') as HTMLInputElement;
-    userIdInput.value = userId;
+    debugger
+    const userIdInputUpdate = document.getElementById('userIdUpdate') as HTMLInputElement;
+    const userIdInputDelete = document.getElementById('userIdDelete') as HTMLInputElement;
+    userIdInputUpdate.value = userId;
+    userIdInputDelete.value = userId;
   }
 
   submitUpdate() {
 
-    const userId = (document.getElementById('userId') as HTMLInputElement)
+    const userId = (document.getElementById('userIdUpdate') as HTMLInputElement)
       .value;
     const userRole = (document.getElementById('userRole') as HTMLSelectElement)
       .value;
@@ -119,19 +113,33 @@ export class RolesManagerComponent implements OnInit {
     this.updateRole.userId = userId;
     this.updateRole.newRole = parseInt(userRole) ;
 
-    console.log(` The update role modal ===> ${this.updateRole}`);
+    // console.log(` The update role modal ===> ${this.updateRole}`);
     // Send a request to the updateuserole endpoint with the form data
     // Replace the URL and method with the correct values for your API
     this.adminService.UpdateUserRole(this.updateRole).subscribe({
       next: (res) => {
-        // this.router.navigate(['/']);
-        // console.log(`Account registered: ${userData.role} `);
 
-        $('#updateAdminModModal').modal('hide'); // Close the modal
+        $('#updateAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
 
 
-        // const updateAdminModModal = new Modal(document.getElementById('updateAdminModModal'));
-        // updateAdminModModal.hide();
+        this.ngOnInit(); // Reload the data without refreshing the page
+      },
+      error: (error) => {
+        console.log(error.error);
+      },
+    });
+  }
+
+  submitDelete() {
+    debugger
+    const userId = (document.getElementById('userIdDelete') as HTMLInputElement)
+      .value;
+
+    this.adminService.DeleteAdminMod(userId).subscribe({
+      next: (res) => {
+
+        $('#deleteAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+
 
         this.ngOnInit(); // Reload the data without refreshing the page
       },
@@ -157,7 +165,9 @@ export class RolesManagerComponent implements OnInit {
           // this.router.navigate(['/']);
           console.log(`Account registered: ${userData.role} `);
 
-          $('#addAdminModModal').modal('hide'); // Close the modal
+        $('#addAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+
+          // $('#addAdminModModal').modal('hide'); // Close the modal
           this.ngOnInit(); // Reload the data without refreshing the page
         },
         error: (error) => {

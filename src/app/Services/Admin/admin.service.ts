@@ -73,4 +73,9 @@ export class AdminService {
   }
 
 
+  DeleteAdminMod(userId: string){
+    return this.httpClient.post(`${environment.apiURL}/api/Admins/DeleteAdminMod?id=${userId}`, {});
+  }
+
+
 }
