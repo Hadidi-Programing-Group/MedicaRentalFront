@@ -24,7 +24,9 @@
           </ng-template>
         </td>
         <td class="text-center d-none d-lg-table-cell">
-          <button class="mx-3 btn btn-primary">Update</button>
+          <button class="mx-3 btn btn-primary" (click)="updateCategory(category.id, category.name,category.icon)">
+            Update
+          </button>
           <button class="mx-3 btn btn-danger" (click)="deleteCategory(category.id)">Delete</button>
         </td>
       </tr>
@@ -44,8 +46,9 @@
     results!</p>
 </div>
 
-<app-category-modal
-               [submitted]="submitted"
-               [success]="success"
-               (cancelAddEvent)="cancelAdd()"
-               (confirmAddEvent)="confirmAdd($event)"></app-category-modal>
+<app-category-modal [category]="category"
+                    [isAdd]="isAdd"
+                    [submitted]="submitted"
+                    [success]="success"
+                    (cancelAddEvent)="cancelModal()"
+                    (confirmAddEvent)="confirmModal($event)"></app-category-modal>

@@ -1,34 +1,46 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoriesService} from "../../../../Services/Categories/categories.service";
-import {SubCategoriesService} from "../../../../Services/SubCatrgories/sub-categories.service";
-import {Modal} from "bootstrap";
-import {CategoryDto} from "../../../../Dtos/Categories/CategoryDto";
 
 @Component({
   selector: 'app-category-modal',
   templateUrl: './category-modal.component.html',
   styleUrls: ['./category-modal.component.css']
 })
-export class CategoryModalComponent implements OnInit
+export class CategoryModalComponent implements OnInit, OnChanges
 {
   @Input() submitted = false
   @Input() success = false
+  @Input() isAdd = false
+
+  @Input() category: { name: string, icon: string } = {name: '', icon: ''}
 
   @Output() cancelAddEvent = new EventEmitter()
   @Output() confirmAddEvent = new EventEmitter()
 
+  operation = ''
+  operationVerb = ''
   submitClicked = false
   categoryForm: FormGroup = new FormGroup<any>({})
   iconBase64: string = ''
   modal: any
 
-  constructor(
-    private categoriesService: CategoriesService,
-    private subcategoriesService: SubCategoriesService,
-    private formBuilder: FormBuilder
-  )
+  constructor(private formBuilder: FormBuilder)
   {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void
+  {
+    this.resetForm()
   }
 
   ngOnInit(): void
@@ -38,17 +50,27 @@ export class CategoryModalComponent implements OnInit
 
   resetForm()
   {
+    if (this.isAdd)
+    {
+      this.operation = "added"
+      this.operationVerb = "Add"
+    }
+    else{
+      this.operation = "updated"
+      this.operationVerb = "Update"
+    }
+
     this.categoryForm = this.formBuilder.group({
       name:
         [
-          '',
+          this.category.name,
           [
             Validators.required,
             Validators.minLength(3),
             Validators.pattern("^[a-zA-Z ]+$"),
           ]
         ],
-      icon: ['', [Validators.required]],
+      icon: ['', this.isAdd?[Validators.required]:[]],
     });
   }
 
@@ -59,7 +81,7 @@ export class CategoryModalComponent implements OnInit
     {
       this.confirmAddEvent.emit({
         name: this.categoryForm.get('name')?.value,
-        icon: this.cleanBase64(this.iconBase64)
+        icon: this.iconBase64 == ''? this.cleanBase64(this.category.icon):this.cleanBase64(this.iconBase64)
       })
     }
   }

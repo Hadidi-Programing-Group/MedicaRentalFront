@@ -4,6 +4,9 @@ import {SubCategoryWithCategoryDto} from "../../../../Dtos/SubCategories/SubCate
 import {SubCategoriesService} from "../../../../Services/SubCatrgories/sub-categories.service";
 import {ImageHelper} from "../../../../Helpers/ImageHelper";
 import {InsertSubCategoryDto} from "../../../../Dtos/SubCategories/InsertSubCategoryDto";
+import {InsertCategoryDto} from "../../../../Dtos/Categories/InsertCategoryDto";
+import {UpdateCategoryDto} from "../../../../Dtos/Categories/UpdateCategoryDto";
+import {UpdateSubCategoryDto} from "../../../../Dtos/SubCategories/UpdateSubCategoryDto";
 
 @Component({
   selector: 'app-subcategories',
@@ -16,10 +19,11 @@ export class SubcategoriesComponent  implements OnInit, AfterViewInit
   pagesCount: number = 0;
   currentPage: number = 1;
   searchText: null | string = null
-  deletedSubCategoryId = ''
-  deleteContent = ''
   submitted = false
   success = false
+  isAdd = false
+  updatedId = ''
+  subcategory: { name: string, icon: string, categoryId: string } = {name: '', icon: '', categoryId: ''}
 
   @Output() deleteSubCategoryEvent = new EventEmitter()
 
@@ -77,28 +81,64 @@ export class SubcategoriesComponent  implements OnInit, AfterViewInit
 
   addSubCategory()
   {
+    this.isAdd = true
     this.modal.show()
   }
 
-  cancelAdd()
+
+  cancelModal()
   {
+    this.isAdd = false
+    this.updatedId = ''
+    this.subcategory.name = this.subcategory.icon =  this.subcategory.categoryId = ''
     this.submitted = this.success = false
   }
 
-  confirmAdd(subcategory: any)
+  confirmModal(category: any)
   {
-    let subCategoryDto = new InsertSubCategoryDto(subcategory.name, subcategory.icon, subcategory.categoryId)
-    this.subcategoriesService.InsertSubCategory(subCategoryDto).subscribe({
-      next: (data) => {
-        this.success = this.submitted = true
-        this.getSubCategories()
-      },
-      error: (err) =>
-      {
-        this.submitted = true;
-        console.error(err)
-      }
-    })
+    if (this.isAdd)
+    {
+      let subcategoryDto = new InsertSubCategoryDto(category.name, category.icon, category.categoryId)
+      this.subcategoriesService.InsertSubCategory(subcategoryDto).subscribe({
+        next: (data) =>
+        {
+          this.success = this.submitted = true
+          this.getSubCategories()
+        },
+        error: (err) =>
+        {
+          this.submitted = true;
+          console.error(err)
+        }
+      })
+    }
+
+    else
+    {
+      let subcategoryDto = new UpdateSubCategoryDto(this.updatedId, category.name, category.icon, category.categoryId)
+      this.subcategoriesService.UpdateSubCategory(subcategoryDto).subscribe({
+        next: (data) =>
+        {
+          debugger
+          this.success = this.submitted = true
+          this.getSubCategories()
+        },
+        error: (err) =>
+        {
+          this.submitted = true;
+          console.error(err)
+        }
+      })
+    }
+  }
+
+  updateSubCategory(id: string, name: string, icon: string, categoryId: string)
+  {
+    this.subcategory = {
+      name, icon, categoryId
+    }
+    this.updatedId = id
+    this.modal.show()
   }
 
 }

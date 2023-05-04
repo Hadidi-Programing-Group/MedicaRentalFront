@@ -4,7 +4,6 @@ export class UpdateCategoryDto
     public id: string,
     public name:string,
     public icon:string,
-    public subCategories: string[]
   )
   {
   }

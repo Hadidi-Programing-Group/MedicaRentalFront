@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoriesService} from "../../../../Services/Categories/categories.service";
 import {SubCategoriesService} from "../../../../Services/SubCatrgories/sub-categories.service";
@@ -9,25 +19,32 @@ import {CategoryDto} from "../../../../Dtos/Categories/CategoryDto";
   templateUrl: './subcategory-modal.component.html',
   styleUrls: ['./subcategory-modal.component.css']
 })
-export class SubcategoryModalComponent implements OnInit{
+export class SubcategoryModalComponent implements OnInit, OnChanges
+{
   @Input() submitted = false
   @Input() success = false
-  submitClicked = false
+  @Input() isAdd = false
+
+  @Input() subcategory: { name: string, icon: string, categoryId: string } = {name: '', icon: '', categoryId: ''}
 
   @Output() cancelAddEvent = new EventEmitter()
   @Output() confirmAddEvent = new EventEmitter()
 
-  categories: CategoryDto[] = []
-  categoryForm: FormGroup = new FormGroup<any>({})
+  operation = ''
+  operationVerb = ''
+  submitClicked = false
+  subcategoryForm: FormGroup = new FormGroup<any>({})
   iconBase64: string = ''
   modal: any
+  categories: CategoryDto[] = []
 
-  constructor(
-    private categoriesService: CategoriesService,
-    private formBuilder: FormBuilder
-  )
+  constructor(private formBuilder: FormBuilder, private categoriesService: CategoriesService)
   {
+  }
 
+  ngOnChanges(changes: SimpleChanges): void
+  {
+    this.resetForm()
   }
 
   ngOnInit(): void
@@ -40,31 +57,46 @@ export class SubcategoryModalComponent implements OnInit{
     this.resetForm()
   }
 
-  resetForm(){
-    this.categoryForm = this.formBuilder.group({
+  resetForm()
+  {
+    if (this.isAdd)
+    {
+      this.operation = "added"
+      this.operationVerb = "Add"
+    }
+    else
+    {
+      this.operation = "updated"
+      this.operationVerb = "Update"
+    }
+    this.subcategoryForm = this.formBuilder.group({
       name:
         [
-          '',
+          this.subcategory.name,
           [
             Validators.required,
             Validators.minLength(3),
             Validators.pattern("^[a-zA-Z ]+$"),
           ]
         ],
-      icon: ['', [Validators.required]],
+      icon: ['', this.isAdd ? [Validators.required] : []],
       categoryId: [this.categories, [Validators.required]]
     });
+
+
+    this.subcategoryForm.patchValue({categoryId: this.subcategory.categoryId});
+
   }
 
   onSubmit()
   {
     this.submitClicked = true
-    if (this.categoryForm.valid)
+    if (this.subcategoryForm.valid)
     {
       this.confirmAddEvent.emit({
-        name: this.categoryForm.get('name')?.value,
-        icon: this.cleanBase64(this.iconBase64),
-        categoryId: this.categoryForm.get('categoryId')?.value
+        name: this.subcategoryForm.get('name')?.value,
+        icon: this.iconBase64 == '' ? this.cleanBase64(this.subcategory.icon) : this.cleanBase64(this.iconBase64),
+        categoryId: this.subcategoryForm.get('categoryId')?.value
       })
     }
   }
@@ -75,28 +107,29 @@ export class SubcategoryModalComponent implements OnInit{
 
     if (file.type != 'image/x-icon')
     {
-      this.categoryForm
+      this.subcategoryForm
         .get('icon')
         ?.setErrors({invalidFileType: true});
     }
 
     const reader = new FileReader();
 
-    reader.onload = () => {
+    reader.onload = () =>
+    {
       this.iconBase64 = reader.result as string
     };
     reader.readAsDataURL(file);
   }
 
-  cleanBase64(str: string){
+  cleanBase64(str: string)
+  {
     let i = str.indexOf(',')
-    return str.substring(i+1)
+    return str.substring(i + 1)
   }
 
   cancel()
   {
     this.resetForm()
-
     this.cancelAddEvent.emit()
   }
 }

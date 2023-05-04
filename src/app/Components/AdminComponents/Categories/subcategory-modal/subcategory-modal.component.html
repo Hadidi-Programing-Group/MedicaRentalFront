@@ -3,10 +3,10 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="modal-title m-0 h5" id="staticBackdropLabel">Add Subcategory</p>
+        <p class="modal-title m-0 h5" id="staticBackdropLabel">{{operationVerb}} Subcategory</p>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
       </div>
-      <form class="" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+      <form class="" [formGroup]="subcategoryForm" (ngSubmit)="onSubmit()">
         <div class="modal-body">
           <div *ngIf="!submitted">
             <div class="form-group py-2">
@@ -14,7 +14,7 @@
               <input type="text" class="form-control" formControlName="name" id="name" placeholder="Name">
               <div
                 *ngIf="
-                categoryForm.get('name')?.hasError('required') &&
+                subcategoryForm.get('name')?.hasError('required') &&
                 submitClicked
               "
                 class="text-danger form-text"
@@ -23,8 +23,8 @@
               </div>
               <div
                 *ngIf="
-                categoryForm.get('name')?.hasError('minlength') &&
-                categoryForm.get('name')?.touched
+                subcategoryForm.get('name')?.hasError('minlength') &&
+                subcategoryForm.get('name')?.touched
               "
                 class="text-danger form-text"
               >
@@ -32,8 +32,8 @@
               </div>
               <div
                 *ngIf="
-                categoryForm.get('name')?.hasError('pattern') &&
-                categoryForm.get('name')?.touched
+                subcategoryForm.get('name')?.hasError('pattern') &&
+                subcategoryForm.get('name')?.touched
               "
                 class="text-danger form-text"
               >
@@ -45,15 +45,15 @@
               <input type="file" class="form-control" (change)="onImageSelected($event)" formControlName="icon"
                      id="icon" accept=".ico">
               <div
-                *ngIf="categoryForm.get('icon')?.hasError('required') && submitClicked"
+                *ngIf="subcategoryForm.get('icon')?.hasError('required') && submitClicked"
                 class="text-danger form-text"
               >
                 Category icon is required!
               </div>
               <div
                 *ngIf="
-                categoryForm.get('icon')?.hasError('invalidFileType') &&
-                categoryForm.get('icon')?.touched
+                subcategoryForm.get('icon')?.hasError('invalidFileType') &&
+                subcategoryForm.get('icon')?.touched
               "
                 class="text-danger form-text"
               >
@@ -66,7 +66,7 @@
                 <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
               </select>
               <div
-                *ngIf="categoryForm.get('categoryId')?.hasError('required') && submitClicked"
+                *ngIf="subcategoryForm.get('categoryId')?.hasError('required') && submitClicked"
                 class="text-danger form-text"
               >
                 A category is required!
@@ -74,15 +74,15 @@
             </div>
           </div>
           <div *ngIf="submitted && success" class="alert alert-success">
-            Subcategory was added successfully.
+            Subcategory was {{operation}} successfully.
           </div>
           <div *ngIf="submitted && !success" class="alert alert-danger">
-            Subcategory couldn't be added.
+            Subcategory couldn't be {{operation}}.
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancel()">Cancel</button>
-          <button *ngIf="!submitted" type="submit" class="btn btn-danger">Add</button>
+          <button *ngIf="!submitted" type="submit" class="btn btn-danger">{{operationVerb}}</button>
         </div>
       </form>
     </div>

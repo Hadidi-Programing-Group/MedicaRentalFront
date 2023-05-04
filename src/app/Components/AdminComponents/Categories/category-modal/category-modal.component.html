@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="modal-title m-0 h5" id="staticBackdropLabel">Add Category</p>
+        <p class="modal-title m-0 h5" id="staticBackdropLabel">{{operationVerb}} Category</p>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
       </div>
       <form class="" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
@@ -62,15 +62,15 @@
             </div>
           </div>
           <div *ngIf="submitted && success" class="alert alert-success">
-            Category was added successfully.
+            Category was {{operation}} successfully.
           </div>
           <div *ngIf="submitted && !success" class="alert alert-danger">
-            Category couldn't be added.
+            Category couldn't be {{operation}}.
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancel()">Cancel</button>
-          <button *ngIf="!submitted" type="submit" class="btn btn-danger">Add</button>
+          <button *ngIf="!submitted" type="submit" class="btn btn-danger">{{operationVerb}}</button>
         </div>
       </form>
     </div>

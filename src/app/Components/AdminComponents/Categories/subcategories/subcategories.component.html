@@ -26,7 +26,7 @@
           </ng-template>
         </td>
         <td class="text-center d-none d-lg-table-cell">
-          <button class="mx-3 btn btn-primary">Update</button>
+          <button class="mx-3 btn btn-primary" (click)="updateSubCategory(subcategory.id, subcategory.name, subcategory.icon, subcategory.categoryId)">Update</button>
           <button class="mx-3 btn btn-danger" (click)="deleteSubCategory(subcategory.id)">Delete</button>
         </td>
       </tr>
@@ -47,8 +47,10 @@
 </div>
 
 <app-subcategory-modal
+  [subcategory]="subcategory"
+  [isAdd]="isAdd"
   [submitted]="submitted"
   [success]="success"
-  (cancelAddEvent)="cancelAdd()"
-  (confirmAddEvent)="confirmAdd($event)"></app-subcategory-modal>
+  (cancelAddEvent)="cancelModal()"
+  (confirmAddEvent)="confirmModal($event)"></app-subcategory-modal>
 
