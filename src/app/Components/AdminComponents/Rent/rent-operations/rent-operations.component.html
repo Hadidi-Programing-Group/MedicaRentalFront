@@ -1,40 +1,55 @@
-
-
-<div class="container">
+<div class="container mb-4">
   <div class="row justify-content-center">
     <div class="col-md-6">
 
-      <div class="btn-group mt-5 d-flex justify-content-center" role="group">
-        <button type="button" class="btn btn-primary" routerLink="/admin/rentoperations">Rent Operation</button>
-        <button type="button" class="btn btn-success" routerLink="/admin/returntoday">Return Today</button>
-        <button type="button" class="btn btn-secondary" routerLink="/admin/pastdue">Past Due</button>
+      <div class="btn-group mt-3 d-flex justify-content-center" role="group">
+        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{ exact:true}" routerLinkActive="active" routerLink="/admin/rentoperations">Rent Operation</a>
+        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{ exact:true}" routerLinkActive="active" routerLink="/admin/returntoday">Return Today</a>
+        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{ exact:true}" routerLinkActive="active" routerLink="/admin/pastdue">Past Due</a>
       </div>
-
-      <h2 class="text-center mb-4 mt-5">Rent Operations</h2>
-      <form [formGroup]="rentForm" (ngSubmit)="submit()">
+      <form class="mt-5" [formGroup]="rentForm" (ngSubmit)="submit()">
+        <div *ngIf="invalidSubmit" class="mb-3 alert alert-danger">The client and/or seller were not validated</div>
         <div class="mb-3">
-          <label for="client-email" class="form-label">Client Email</label>
-          <input type="email" class="form-control" id="client-email" formControlName="clientEmail">
-        </div>
-        <div class="mb-3">
-          <label for="seller-email" class="form-label">Seller Email</label>
+          <label for="client-email" class="form-label">Rentee Email</label>
           <div class="input-group">
-            <input type="email" class="form-control" id="seller-email" formControlName="sellerEmail">
-            <button class="btn btn-outline-secondary" type="button" (click)="getSellerItems()">Get</button>
+            <input #clientElem type="email" class="form-control" placeholder="Rentee Email" (input)="clientChanged()" id="client-email" formControlName="clientEmail">
+            <button class="btn btn-outline-secondary" type="button" (click)="validateClient(clientElem.value)">Validate</button>
+          </div>
+
+          <div *ngIf="submittedClient && invalidClient" class="my-2 alert alert-danger">User doesn't exist</div>
+          <div *ngIf="submittedClient && !invalidClient" class="my-2 alert alert-success">
+            <p class="my-1">Name: {{client?.name}}</p>
+            <p class="my-1">SSN: {{client?.ssn}}</p>
           </div>
         </div>
         <div class="mb-3">
-          <label for="seller-items" class="form-label">Seller Items</label>
+          <label for="seller-email" class="form-label">Renter Email</label>
+          <div class="input-group">
+            <input #sellerElem type="email" class="form-control" placeholder="Renter Email" (input)="sellerChanged()" id="seller-email" formControlName="sellerEmail">
+            <button class="btn btn-outline-secondary" type="button" (click)="validateSeller(sellerElem.value)">Validate</button>
+          </div>
+          <div *ngIf="submittedSeller && invalidSeller" class="my-2 alert alert-danger">User doesn't exist</div>
+          <div *ngIf="submittedSeller && !invalidSeller" class="my-2 alert alert-success">
+            <p class="my-1">Name: {{seller?.name}}</p>
+            <p class="my-1">SSN: {{seller?.ssn}}</p>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="seller-items" class="form-label">Item</label>
           <select class="form-select" id="seller-items" formControlName="selectedItem">
-            <option *ngFor="let item of sellerItems" [value]="item">{{item}}</option>
+            <option *ngFor="let item of sellerItems" [value]="item.id">{{item.name}}</option>
           </select>
         </div>
         <div class="mb-3">
           <label for="return-date" class="form-label">Return Date</label>
-          <input type="date" class="form-control" id="return-date" formControlName="returnDate">
+          <input type="date" class="form-control" min="{{minDate}}" id="return-date" formControlName="returnDate">
         </div>
         <button type="submit" class="btn btn-primary w-100">Submit</button>
       </form>
+
+      <div *ngIf="success" class="alert alert-success h4 mt-4 text-center">
+        Operation added successfully
+      </div>
     </div>
   </div>
 </div>
