@@ -21,7 +21,6 @@ import { InsertReportDto } from '../../../Dtos/Reports/InsertReportDto';
 import { ReportsService } from '../../../Services/Reports/reports.service';
 import { ChatService } from '../../../Services/Chat/chat.service';
 import { NotificationService } from '../../../Services/Chat/notification.service';
-import {ChatUsersService} from "../../../Services/chat-users.service";
 
 @Component({
   selector: 'app-chat-area',
@@ -51,7 +50,7 @@ export class ChatAreaComponent
     private activeRoute: ActivatedRoute,
     private reportsService: ReportsService,
     private chatService: ChatService,
-    private chatUsersService: ChatUsersService
+    private notificationService: NotificationService
   ) {}
 
   ngOnDestroy(): void {
@@ -72,12 +71,8 @@ export class ChatAreaComponent
 
     this.activeRoute.params.subscribe((params) => {
       this.currentUser = params['id'];
-      this.chatUsersService.getData().subscribe(data => {
-        if(data){
-          this.chatService.chatOpened.emit(this.currentUser);
-          this.getChat(20);
-        }
-      })
+      this.chatService.chatOpened.emit(this.currentUser);
+      this.getChat(20);
     });
 
     this.signalRService.newMessageEvent.subscribe({
