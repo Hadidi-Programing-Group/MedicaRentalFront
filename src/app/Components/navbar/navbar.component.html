@@ -73,7 +73,6 @@
         <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
           <a
             class="nav-link mx-2 text-uppercase"
-            [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/chat"
             >Chat</a
