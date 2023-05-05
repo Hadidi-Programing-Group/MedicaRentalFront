@@ -1,23 +1,39 @@
 <div class="container mb-4">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+
+
+    <div class="col-md-6 mt-5">
 
       <div class="btn-group mt-3 d-flex justify-content-center" role="group">
-        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{ exact:true}" routerLinkActive="active" routerLink="/admin/rentoperations">Rent Operation</a>
-        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{ exact:true}" routerLinkActive="active" routerLink="/admin/returntoday">Return Today</a>
-        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{ exact:true}" routerLinkActive="active" routerLink="/admin/pastdue">Past Due</a>
+        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{
+          exact:true}" routerLinkActive="active"
+          routerLink="/admin/rentoperations">Rent Operation</a>
+        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{
+          exact:true}" routerLinkActive="active"
+          routerLink="/admin/returntoday">Manage Returns</a>
+        <!-- <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{
+          exact:true}" routerLinkActive="active" routerLink="/admin/pastdue">Past
+          Due</a> -->
       </div>
+    </div>
+    <div class="col-md-8">
       <form class="mt-5" [formGroup]="rentForm" (ngSubmit)="submit()">
-        <div *ngIf="invalidSubmit" class="mb-3 alert alert-danger">The client and/or seller were not validated</div>
+        <div *ngIf="invalidSubmit" class="mb-3 alert alert-danger">The client
+          and/or seller were not validated</div>
         <div class="mb-3">
           <label for="client-email" class="form-label">Rentee Email</label>
           <div class="input-group">
-            <input #clientElem type="email" class="form-control" placeholder="Rentee Email" (input)="clientChanged()" id="client-email" formControlName="clientEmail">
-            <button class="btn btn-outline-secondary" type="button" (click)="validateClient(clientElem.value)">Validate</button>
+            <input #clientElem type="email" class="form-control"
+              placeholder="Rentee Email" (input)="clientChanged()"
+              id="client-email" formControlName="clientEmail">
+            <button class="btn btn-outline-secondary" type="button"
+              (click)="validateClient(clientElem.value)">Validate</button>
           </div>
 
-          <div *ngIf="submittedClient && invalidClient" class="my-2 alert alert-danger">User doesn't exist</div>
-          <div *ngIf="submittedClient && !invalidClient" class="my-2 alert alert-success">
+          <div *ngIf="submittedClient && invalidClient" class="my-2 alert
+            alert-danger">User doesn't exist</div>
+          <div *ngIf="submittedClient && !invalidClient" class="my-2 alert
+            alert-success">
             <p class="my-1">Name: {{client?.name}}</p>
             <p class="my-1">SSN: {{client?.ssn}}</p>
           </div>
@@ -25,24 +41,31 @@
         <div class="mb-3">
           <label for="seller-email" class="form-label">Renter Email</label>
           <div class="input-group">
-            <input #sellerElem type="email" class="form-control" placeholder="Renter Email" (input)="sellerChanged()" id="seller-email" formControlName="sellerEmail">
-            <button class="btn btn-outline-secondary" type="button" (click)="validateSeller(sellerElem.value)">Validate</button>
+            <input #sellerElem type="email" class="form-control"
+              placeholder="Renter Email" (input)="sellerChanged()"
+              id="seller-email" formControlName="sellerEmail">
+            <button class="btn btn-outline-secondary" type="button"
+              (click)="validateSeller(sellerElem.value)">Validate</button>
           </div>
-          <div *ngIf="submittedSeller && invalidSeller" class="my-2 alert alert-danger">User doesn't exist</div>
-          <div *ngIf="submittedSeller && !invalidSeller" class="my-2 alert alert-success">
+          <div *ngIf="submittedSeller && invalidSeller" class="my-2 alert
+            alert-danger">User doesn't exist</div>
+          <div *ngIf="submittedSeller && !invalidSeller" class="my-2 alert
+            alert-success">
             <p class="my-1">Name: {{seller?.name}}</p>
             <p class="my-1">SSN: {{seller?.ssn}}</p>
           </div>
         </div>
         <div class="mb-3">
           <label for="seller-items" class="form-label">Item</label>
-          <select class="form-select" id="seller-items" formControlName="selectedItem">
+          <select class="form-select" id="seller-items"
+            formControlName="selectedItem">
             <option *ngFor="let item of sellerItems" [value]="item.id">{{item.name}}</option>
           </select>
         </div>
         <div class="mb-3">
           <label for="return-date" class="form-label">Return Date</label>
-          <input type="date" class="form-control" min="{{minDate}}" id="return-date" formControlName="returnDate">
+          <input type="date" class="form-control" min="{{minDate}}"
+            id="return-date" formControlName="returnDate">
         </div>
         <button type="submit" class="btn btn-primary w-100">Submit</button>
       </form>
