@@ -33,6 +33,9 @@ export class RentOperationsComponent implements OnInit
   client?: UserBasicInfoDto;
   seller?: UserBasicInfoDto;
 
+  success= false
+  minDate: string;
+
   constructor(
     private accountsService: AccountsService,
     private formBuilder: FormBuilder,
@@ -40,23 +43,40 @@ export class RentOperationsComponent implements OnInit
     private itemsService: ProductsService
   )
   {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2); // add leading zero if needed
+    const day = ('0' + date.getDate()).slice(-2); // add leading zero if needed
+    this.minDate = `${year}-${month}-${day}`;
   }
 
 
   ngOnInit(): void
   {
+   this.resetForm()
+  }
+
+  resetForm(){
     this.rentForm = this.formBuilder.group({
       clientEmail: ['', [Validators.required]],
       sellerEmail: ['', [Validators.required]],
       selectedItem: ['', [Validators.required]],
       returnDate: ['', [Validators.required]]
     });
+
+    this.submittedClient = false;
+    this.submittedSeller = false;
+    this.invalidClient = true;
+    this.invalidSeller = true;
+    this.invalidSubmit = false;
   }
 
-  getSellerItems(id:string)
+  getSellerItems(id: string)
   {
     this.itemsService.GetSellerItemsMinimal(id).subscribe({
-      next:(data)=> {
+      next: (data) =>
+      {
         console.log(data)
         this.sellerItems = data
       }
@@ -65,7 +85,6 @@ export class RentOperationsComponent implements OnInit
 
   submit()
   {
-
     this.formSubmitted = true
 
     if (this.invalidClient || this.invalidSeller)
@@ -75,19 +94,21 @@ export class RentOperationsComponent implements OnInit
 
     if (this.rentForm.valid)
     {
-      console.log('heeeeeeereeeeeeeeee')
+      let id = this.rentForm.get('selectedItem')?.value
       let dto = new InsertRentOperationDto(
         new Date().toISOString(),
-        this.rentForm.get('returnDate')?.value,
-        200,
+        new Date(this.rentForm.get('returnDate')?.value).toISOString(),
+        this.sellerItems.find(i => i.id == id)?.price ?? 0,
         this.client?.id ?? '',
         this.seller?.id ?? '',
-        this.rentForm.get('selectedItem')?.value,
+        id
       )
+
       this.rentOperationService.InsertRentOperation(dto).subscribe({
-        next: () =>
-        {
-          console.log('posted')
+        next: () => {
+          this.success = true
+          this.resetForm()
+          setTimeout(()=> this.success = false, 6000)
         }
       })
     }

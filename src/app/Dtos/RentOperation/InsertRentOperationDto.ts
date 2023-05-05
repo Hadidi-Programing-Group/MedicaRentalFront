@@ -1,12 +1,12 @@
 export class InsertRentOperationDto
 {
   constructor(
-    rentDate:string,
-    returnDate:string,
-    price:number,
-    clientId:string,
-    sellerId:string,
-    itemId:string
+    public rentDate:string,
+    public returnDate:string,
+    public price:number,
+    public clientId:string,
+    public sellerId:string,
+    public itemId:string
   )
   {
   }
