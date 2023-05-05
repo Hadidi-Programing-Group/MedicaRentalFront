@@ -6,7 +6,6 @@ import { StatusDto } from '../../Dtos/StatusDto';
 import { MessageDto } from '../../Dtos/Message/MessageDto';
 import { MessageNotificationDto } from '../../Dtos/Message/MessageNotificationDto';
 import { DeleteMessageRequestDto } from 'src/app/Dtos/Message/DeleteMessageRequestDto';
-import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,6 @@ import {BehaviorSubject} from "rxjs";
 export class ChatService
 {
   private baseUrl = `${environment.apiURL}/api/Messages`; //API
-
 
   newMessage = new EventEmitter();
   chatOpened = new EventEmitter();
