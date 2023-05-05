@@ -49,4 +49,11 @@ export class UserService {
       blockUserInfo
     );
   }
+
+  UnblockUser(email: string) {
+    return this.httpClient.post<StatusDto>(
+      `${this.baseUrl}/UnBlockUser/${email}`,
+      {}
+    );
+  }
 }
