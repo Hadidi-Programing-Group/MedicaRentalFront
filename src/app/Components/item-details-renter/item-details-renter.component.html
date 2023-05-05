@@ -60,7 +60,7 @@
             </p>
           </div>
           <div class="buttons d-flex flex-row mt-4 gap-3">
-            <button class="btn btn-dark">Contact Owner</button>
+            <a routerLink="/chat/{{Item.seller.id}}" *ngIf="!IsOwner" class="btn btn-dark">Contact Owner</a>
             <button *ngIf="IsOwner" (click)="UpdateItem()" class="btn btn-dark">
               Update
             </button>
