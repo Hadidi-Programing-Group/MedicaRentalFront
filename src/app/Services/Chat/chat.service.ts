@@ -16,6 +16,7 @@ export class ChatService
 
   newMessage = new EventEmitter();
   chatOpened = new EventEmitter();
+  chatClicked = new EventEmitter();
 
   constructor(private readonly httpClient: HttpClient) {}
 

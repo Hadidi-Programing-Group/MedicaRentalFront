@@ -8,7 +8,6 @@
           <app-chat-user
             *ngFor="let user of users; let i = index; trackBy: trackChats"
             [chat]="user"
-            (chatClicked)="chatChangedEvent($event)"
           ></app-chat-user>
         </ul>
       </div>

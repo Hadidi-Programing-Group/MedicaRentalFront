@@ -80,6 +80,7 @@ export class ChatAreaComponent
         if (message.senderId == this.currentUser) {
           message.messageStatus = MessageStatus.Seen;
           this.messages.push(message);
+          this.scrollToTheEnd();
           this.signalRService.setMessageSeen(message.id, message.senderId);
         }
 

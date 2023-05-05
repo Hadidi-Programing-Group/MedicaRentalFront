@@ -132,6 +132,11 @@ export class NotificationComponent implements OnInit {
 
   }
 
+  openChat(senderId: string)
+  {
+    this.chatService.chatClicked.emit(senderId);
+  }
+
   // openChat(senderId: string) {
   //   this.notificationService.chatClicked.emit(senderId)
   // }
