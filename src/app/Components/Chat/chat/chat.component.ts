@@ -20,6 +20,7 @@ import {DeleteMessageRequestDto} from "../../../Dtos/Message/DeleteMessageReques
 import {Modal} from 'bootstrap';
 import {InsertReportDto} from "../../../Dtos/Reports/InsertReportDto";
 import {ChatAreaComponent} from "../chat-area/chat-area.component";
+import {ChatUsersService} from "../../../Services/chat-users.service";
 
 @Component({
   selector: 'app-chat',
@@ -35,7 +36,7 @@ export class ChatComponent implements OnInit, OnDestroy
   constructor(
     private chatService: ChatService,
     private notificationService: NotificationService,
-    private changeDetector: ChangeDetectorRef
+    private chatUsersService: ChatUsersService
   )
   {
   }
@@ -44,6 +45,7 @@ export class ChatComponent implements OnInit, OnDestroy
   ngOnDestroy(): void
   {
     this.currentUser = ''
+    this.chatUsersService.setData(null)
     this.notificationService.outChat.emit()
   }
 
@@ -94,6 +96,7 @@ export class ChatComponent implements OnInit, OnDestroy
         {
           this.users = data
           this.sortUsers()
+          this.chatUsersService.setData(data)
         },
         error: (err) => console.error(err)
       })
