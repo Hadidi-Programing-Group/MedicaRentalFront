@@ -35,8 +35,17 @@ export class ReturnTodayComponent implements OnInit {
     return date.toISOString().slice(0, 10);
   }
 
-  acceptReturn(item: any) {
-    // Increase item stock in the database
-    // ...
+  acceptReturn(item: GetRentedItemsDto) {
+    this.rentOperationService.acceptReturn(item.id).subscribe({
+      next: () => {
+        // Remove the item from the table
+        this.ngOnInit();
+        // this.items = this.items.filter(i => i.id !== item.id);
+      },
+      error: (error) => {
+        // Handle error
+        console.error(error);
+      }
+    });
   }
 }

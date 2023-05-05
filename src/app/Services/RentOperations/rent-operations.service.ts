@@ -97,4 +97,8 @@ export class RentOperationsService {
   getRentedItems(): Observable<GetRentedItemsDto[]> {
     return this.httpClient.get<GetRentedItemsDto[]>(`${this.baseUrl}/GetRentedItems`);
   }
+
+  acceptReturn(rentOperationId: string){
+    return this.httpClient.put(`${this.baseUrl}/acceptReturn/${rentOperationId}`, {});
+  }
 }
