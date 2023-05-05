@@ -52,18 +52,19 @@ export class ChatComponent implements OnInit, OnDestroy
     this.chatService.chatOpened.subscribe({
       next: (userId: string) =>
       {
-        console.log('in chatOpened subs')
         this.currentUser = userId
         this.chatChangedEvent(this.currentUser)
-
       }
     })
     this.chatService.newMessage.subscribe({
       next: (obj: { message: MessageDto, user: String }) =>
       {
-        console.log('chat comp new msg')
         let user = this.users.find(u => u.userId == obj.user)
-        if (user)
+        if (!user)
+        {
+          this.getUserChats()
+        }
+        else
         {
           user.lastMessage = obj.message.message;
           user.messageDate = obj.message.messageDate;
@@ -77,7 +78,6 @@ export class ChatComponent implements OnInit, OnDestroy
       }
     })
     this.getUserChats()
-    this.sortUsers()
   }
 
 
@@ -90,7 +90,11 @@ export class ChatComponent implements OnInit, OnDestroy
   {
     this.chatService.GetUserChats(20)
       .subscribe({
-        next: (data: ChatDto[]) => this.users = data,
+        next: (data: ChatDto[]) =>
+        {
+          this.users = data
+          this.sortUsers()
+        },
         error: (err) => console.error(err)
       })
   }
