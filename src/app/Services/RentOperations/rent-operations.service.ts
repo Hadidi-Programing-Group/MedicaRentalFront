@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { HomeItemDto } from '../../Dtos/HomeItemDto';
 import { RentOperationDto } from '../../Dtos/RentOperation/RentOperationDto';
 import {PageDto} from "../../Dtos/PageDto";
+import {InsertRentOperationDto} from "../../Dtos/RentOperation/InsertRentOperationDto";
 
 @Injectable({
   providedIn: 'root',
@@ -83,5 +84,9 @@ export class RentOperationsService {
 
   GetIsRented(ItemId:string){
     return this.httpClient.get(this.baseUrl+`/isrented/`+ItemId)
+  }
+
+  InsertRentOperation(rentOperation: InsertRentOperationDto){
+    return this.httpClient.post(this.baseUrl, rentOperation)
   }
 }
