@@ -51,7 +51,8 @@
               <span class="ms-1 d-none d-md-inline"> Approve Users</span>
             </a>
           </li>
-          <li class="my-lg-1 col-md-12 nav-item">
+
+          <li class="my-lg-1 col-md-12 nav-item" *ngIf="userRole == 'Admin'">
             <a
               routerLink="rolesmanger"
               routerLinkActive="active"
