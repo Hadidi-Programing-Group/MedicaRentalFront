@@ -1,11 +1,12 @@
-<div class="container-fluid p-5">
+<div *ngIf="Products; else loadingBlock" class="container-fluid p-5">
   <div class="row">
     <div class="col-md-3 d-none d-md-block">
       <div class="col-12">
         <select
           [(ngModel)]="orderBy"
           (ngModelChange)="onOrderByChange(orderBy)"
-          class="form-control mb-3 " id="fm"
+          class="form-control mb-3"
+          id="fm"
         >
           <option value="">Order By</option>
           <option value="{{ orderByString.PriceDesc }}">
@@ -24,6 +25,7 @@
       </div>
       <div class="col-12">
         <app-categories-filter></app-categories-filter>
+        <app-brands-filter></app-brands-filter>
       </div>
       <div class="col-12 mt-3">
         <button class="btn btn-secondary mb-3" (click)="resetFilters()">
@@ -49,7 +51,7 @@
           ></app-product-card>
         </div>
       </div>
-    
+
       <div class="row">
         <div class="d-flex justify-content-center my-4">
           <app-pagination
@@ -60,11 +62,16 @@
           </app-pagination>
         </div>
       </div>
-    
+
       <!--      <div class="d-flex justify-content-center">-->
       <!--        <pagination-controls-->
       <!--          (pageChange)="renderPage($event)"-->
       <!--        ></pagination-controls>-->
       <!--      </div>-->
     </div>
-    
+  </div>
+</div>
+
+<ng-template #loadingBlock>
+  <app-loading></app-loading>
+</ng-template>

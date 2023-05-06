@@ -1,1 +1,167 @@
-<p>block-users works!</p>
+<div class="container d-flex flex-column vh-100 justify-content-center p-5">
+  <div class="input-group">
+    <input
+      #clientElem
+      type="email"
+      class="form-control"
+      placeholder="Client Email"
+      (input)="clientChanged()"
+      id="client-email"
+    />
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      (click)="validateclient(clientElem.value)"
+    >
+      Validate
+    </button>
+  </div>
+  <div *ngIf="submittedclient && invalidclient" class="my-2 alert alert-danger">
+    User doesn't exist
+  </div>
+  <div
+    *ngIf="submittedclient && !invalidclient"
+    class="my-2 alert alert-success"
+  >
+    <p class="my-1">Name: {{ client?.name }}</p>
+    <p class="my-1">SSN: {{ client?.ssn }}</p>
+    <p *ngIf="client?.isBlocked" class="my-1">Status: Blocked</p>
+    <p *ngIf="!client?.isBlocked" class="my-1">Status: Open</p>
+    <button
+      *ngIf="!client?.isBlocked"
+      type="button"
+      data-bs-toggle="modal"
+      data-bs-target="#blockUserModal"
+      class="btn btn-danger"
+    >
+      Block User
+    </button>
+    <button
+      *ngIf="client?.isBlocked"
+      type="button"
+      data-bs-toggle="modal"
+      data-bs-target="#unblockUserModal"
+      class="btn btn-danger"
+    >
+      Unblock
+    </button>
+  </div>
+  <div *ngIf="formSubmitted && requestSuccess" class="my-2 alert alert-success">
+    <p class="my-1">{{ requestMessage }}</p>
+  </div>
+  <div *ngIf="formSubmitted && !requestSuccess" class="my-2 alert alert-danger">
+    <p class="my-1">{{ requestMessage }}</p>
+  </div>
+</div>
+
+<!-- Block User Modal -->
+<div
+  class="modal fade"
+  id="blockUserModal"
+  tabindex="-1"
+  aria-labelledby="blockUserModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="blockUserModalLabel">Block User</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure that you want to block user {{ client?.name }}</p>
+        <!-- <div class="mb-3">
+          <label for="" class="form-label">Select End Date</label>
+          <input
+            class="form-control"
+            type="date"
+            id="blockEndTime"
+            name="blockEndTime"
+            [ngModel]="endTime | date : 'yyyy-MM-dd'"
+            (ngModelChange)="endTime = $event"
+          />
+        </div> -->
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="BlockReported()"
+          >
+            Block User
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UnBlock User Modal -->
+<div
+  class="modal fade"
+  id="unblockUserModal"
+  tabindex="-1"
+  aria-labelledby="unblockUserModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="unblockUserModalLabel">
+          Unblock User
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure that you want to unblock user {{ client?.name }}</p>
+        <!-- <div class="mb-3">
+          <label for="" class="form-label">Select End Date</label>
+          <input
+            class="form-control"
+            type="date"
+            id="blockEndTime"
+            name="blockEndTime"
+            [ngModel]="endTime | date : 'yyyy-MM-dd'"
+            (ngModelChange)="endTime = $event"
+          />
+        </div> -->
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="UnBlockReported(clientElem.value)"
+          >
+            Unblock User
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

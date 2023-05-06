@@ -1,0 +1,22 @@
+<div class="BrandFilter border mt-2">
+  <div class="container">
+    <h4 class="pt-3 lead">Brands</h4>
+    <hr />
+    <div *ngFor="let brand of Brands">
+      <div class="form-check">
+        <!-- Use Bootstrap form-check class -->
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [value]="brand.id"
+          id="{{ brand.id }}"
+          [checked]="selectedBrandIds.includes(brand.id)"
+          (change)="onBrandCheckboxChange($event, brand.id)"
+        />
+        <label class="form-check-label" for="{{ brand.id }}">{{
+          brand.name
+        }}</label>
+      </div>
+    </div>
+  </div>
+</div>

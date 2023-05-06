@@ -3,13 +3,17 @@
   class="container border p-3 mb-3"
   style="display: grid; grid-template-rows: auto 1fr auto"
 >
-  <div class="ProductImageContainer mb-2">
-    <a routerLink="{{ product.id }}"
-      ><img src="data:image/png;base64,{{ product.image }}" class="img-fluid"
+  <div class="ProductImageContainer mb-2 position-relative">
+    <i
+      *ngIf="product.isAd"
+      class="bi bi-badge-ad-fill text-warning fs-3 position-absolute"
+    ></i>
+    <a routerLink="/products/{{ product.id }}"
+      ><img src="{{ product.image }}" class="img-fluid"
     /></a>
   </div>
   <div class="ProductName lead">
-    <a class="link-secondary" routerLink="{{ product.id }}">{{
+    <a class="link-secondary" routerLink="/products/{{ product.id }}">{{
       product.name
     }}</a>
   </div>

@@ -68,9 +68,27 @@ import { ContactComponent } from './Components/contact/contact.component';
 import { ReportModalComponent } from './Components/report-modal/report-modal.component';
 import { LoadingComponent } from './Components/loading/loading.component';
 import { AdminPanelComponent } from './Components/AdminComponents/admin-panel/admin-panel.component';
-import { AdminSideBarComponent } from './Components/AdminComponents/admin-side-bar/admin-side-bar.component';
 import { ChatAreaComponent } from './Components/Chat/chat-area/chat-area.component';
-import { JsPaymentComponent } from './js-payment/js-payment.component';
+import { CategoriesComponent } from './Components/AdminComponents/Categories/categories/categories.component';
+import { CdkTableModule } from '@angular/cdk/table';
+import { DeleteConfirmationModalComponent } from './Components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { ManageCategoriesComponent } from './Components/AdminComponents/Categories/manage-categories/manage-categories.component';
+import { ManageCategoriesNavbarComponent } from './Components/AdminComponents/Categories/manage-categories-navbar/manage-categories-navbar.component';
+import { SubcategoriesComponent } from './Components/AdminComponents/Categories/subcategories/subcategories.component';
+import { CategoryModalComponent } from './Components/AdminComponents/Categories/category-modal/category-modal.component';
+import { SubcategoryModalComponent } from './Components/AdminComponents/Categories/subcategory-modal/subcategory-modal.component';
+
+import { CartComponent } from './Components/cart/cart.component';
+import { CartItemCardComponent } from './Components/cart-item-card/cart-item-card.component';
+
+import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
+import { BrandsFilterComponent } from './Components/brands-filter/brands-filter.component';
+import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item.component';
+import { BrandCardComponent } from './Components/brand-card/brand-card.component';
+import { ReportModalV2Component } from './Components/report-modalV2/report-modal-v2/report-modal-v2.component';
+import { RentOperationsComponent } from './Components/AdminComponents/Rent/rent-operations/rent-operations.component';
+import { ReturnTodayComponent } from './Components/AdminComponents/Rent/return-today/return-today.component';
+import { PastDueComponent } from './Components/AdminComponents/Rent/past-due/past-due.component';
 
 @NgModule({
   declarations: [
@@ -127,9 +145,25 @@ import { JsPaymentComponent } from './js-payment/js-payment.component';
     ReportDetailsComponent,
     LoadingComponent,
     AdminPanelComponent,
-    AdminSideBarComponent,
     ChatAreaComponent,
-    JsPaymentComponent,
+    CategoriesComponent,
+    DeleteConfirmationModalComponent,
+    ManageCategoriesComponent,
+    ManageCategoriesNavbarComponent,
+    SubcategoriesComponent,
+    CategoryModalComponent,
+    SubcategoryModalComponent,
+    CartComponent,
+    CartItemCardComponent,
+    RolesManagerComponent,
+    BrandsFilterComponent,
+    AddItemComponent,
+    BrandCardComponent,
+    ReportModalV2Component,
+    RentOperationsComponent,
+    ReturnTodayComponent,
+    PastDueComponent,
+
   ],
 
   imports: [
@@ -149,6 +183,7 @@ import { JsPaymentComponent } from './js-payment/js-payment.component';
     BrowserAnimationsModule,
     MatSlideToggleModule,
     NgxStripeModule.forRoot('pk_test_51Mq0DEDRs2d2XncXUz4PYsdzJmFpgfHrSetrfTWKRN1q3qKkiUUwSK2t7fBL1h6tDY9oWREgtcpKQzsBwZihtgmg00wgHkggZw'),
+    CdkTableModule,
   ],
   providers: [
     ProductsService,

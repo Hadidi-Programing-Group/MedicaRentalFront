@@ -49,6 +49,28 @@
               ><span class="ms-1 d-none d-md-inline"> Approve Users</span></a
             >
           </li>
+          <li>
+            <a
+              routerLink="rolesmanger"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link px-md-0 px-2"
+            >
+              <i class="fs-4 bi-dice-1"></i>
+              <span class="ms-1 d-none d-sm-inline"> RolesManger</span></a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="rentoperations"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link px-md-0 px-2"
+            >
+              <i class="fs-4 bi-check-circle-fill"></i>
+              <span class="ms-1 d-none d-sm-inline"> RentOperations</span></a
+            >
+          </li>
 
           <li>
             <a
@@ -61,24 +83,38 @@
               ><span class="ms-1 d-none d-md-inline"> Block Users</span></a
             >
           </li>
+
+          <li>
+            <a
+              routerLink="manageCategories"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link px-md-0 px-2"
+            >
+              <i class="fs-5 fa-sharp fa-solid fa-boxes-stacked"></i>
+              <span class="ms-1 d-none d-md-inline">
+                Manage Categories
+              </span></a
+            >
+          </li>
         </ul>
         <div class="dropdown py-md-4 mt-md-auto ms-auto ms-md-0 flex-shrink-1">
-          <a
-            href="#"
-            class="d-flex align-items-center text-white text-decoration-none"
+          <button
+            (click)="LogOut()"
+            class="d-flex align-items-center text-white text-decoration-none btn btn-outline-danger"
           >
             <span class="d-inline mx-1">Logout</span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
-    <div class="col d-flex flex-column h-sm-100">
-      <main class="row overflow-auto">
+    <div
+      class="col d-flex flex-column h-sm-100 vh-100"
+      style="height: 90vh; overflow-y: scroll"
+    >
+      <main class="row">
         <router-outlet></router-outlet>
       </main>
-      <footer class="row bg-light py-4 mt-auto">
-        <div class="col">Footer content here...</div>
-      </footer>
     </div>
   </div>
 </div>

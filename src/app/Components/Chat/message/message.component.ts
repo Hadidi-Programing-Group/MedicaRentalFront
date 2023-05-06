@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
-import {DateHelper} from "../../../Dtos/DateHelper";
+import {DateHelper} from "../../../Helpers/DateHelper";
 
 @Component({
   selector: 'app-message',

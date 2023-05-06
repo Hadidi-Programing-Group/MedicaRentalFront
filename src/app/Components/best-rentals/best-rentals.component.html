@@ -1,4 +1,4 @@
-<section class="pt-5 pb-5">
+<section *ngIf="Products; else loadingBlock" class="pt-2 pb-5">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-1 text-right">
@@ -28,4 +28,6 @@
   </div>
 </section>
 
-<script></script>
+<ng-template #loadingBlock>
+  <app-loading></app-loading>
+</ng-template>

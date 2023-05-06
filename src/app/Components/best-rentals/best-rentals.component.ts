@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { ProductsService } from 'src/app/Services/Products/products.service';
 import * as $ from 'jquery';
+import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
 
 @Component({
   selector: 'app-best-rentals',
@@ -29,8 +30,9 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
         () => {
           // When the animation completes, check if we've scrolled past the last card
           if (
+            $(`#cardRow${this.randomId}`)[0] &&
             this.scrollPosition >=
-            $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
+              $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
           ) {
             // If we have, scroll back to the first card
             this.scrollPosition = 0;
@@ -57,7 +59,6 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
 
   moveRight() {
     const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(true);
-    console.log(cardWidth);
     this.scrollPosition += cardWidth;
     $(`#cardRow${this.randomId}`).animate({ scrollLeft: '+=' + cardWidth });
     this.updateCardRow();
@@ -65,15 +66,16 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
 
   updateCardRow() {
     const cardRow: any = document.getElementById(`#cardRow${this.randomId}`);
+    if(cardRow)
     cardRow.style.transform = `translateX(${this.currentPosition}px)`;
   }
 
-  Products: any;
+  Products?: HomeItemDto[];
 
   ngOnInit(): void {
-    this.ProductsService.GetAllItems().subscribe({
+    this.ProductsService.GetAllAdsAsync().subscribe({
       next: (data) => {
-        this.Products = data['data'];
+        this.Products = data.data;
       },
       error: (err) => {
         console.log(err);

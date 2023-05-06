@@ -4,7 +4,7 @@
       <tr>
         <th class="bg-secondary col-2">Name</th>
         <th class="bg-secondary col-3">Phone Number</th>
-        <th class="bg-secondary col-4">Address</th>
+        <!-- <th class="bg-secondary col-4">Address</th> -->
         <th class="bg-secondary col-2">Email</th>
         <th class="bg-secondary text-center col-1">Actions</th>
       </tr>
@@ -14,10 +14,14 @@
       <tr *ngFor="let item of approvalList">
         <td>{{ item.name }}</td>
         <td>{{ item.phoneNumber }}</td>
-        <td>{{ item.address }}</td>
+        <!-- <td>{{ item.address }}</td> -->
         <td>{{ item.email }}</td>
         <td class="text-center">
-          <a routerLink="/admin/pendingapprovals/{{ item.id }}" class="mx-3 btn btn-primary">Details</a>
+          <a
+            routerLink="/admin/pendingapprovals/{{ item.id }}"
+            class="mx-3 btn btn-primary"
+            >Details</a
+          >
         </td>
       </tr>
     </tbody>

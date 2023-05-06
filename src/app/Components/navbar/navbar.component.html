@@ -82,7 +82,6 @@
         <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
           <a
             class="nav-link mx-2 text-uppercase"
-            [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
             routerLink="/chat"
             >Chat</a
@@ -128,7 +127,11 @@
           >
         </li>
         <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
-          <a class="nav-link mx-2 text-uppercase" href="#"
+          <a
+            class="nav-link mx-2 text-uppercase"
+            routerLink="cart"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
             ><i class="fa-solid fa-cart-shopping me-1"></i> Cart</a
           >
         </li>

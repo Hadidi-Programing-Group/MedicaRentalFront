@@ -12,7 +12,7 @@ import {SignalRService} from "../../../Services/SignalR/signal-r.service";
 import {ChatDto} from "../../../Dtos/Message/ChatDto";
 import {MessageDto} from "../../../Dtos/Message/MessageDto";
 import {MessageStatus} from "../../../Dtos/Message/MessageStatus";
-import {DateHelper} from "../../../Dtos/DateHelper";
+import {DateHelper} from "../../../Helpers/DateHelper";
 import {NotificationService} from "../../../Services/Chat/notification.service";
 import {ActivatedRoute} from '@angular/router';
 import {ReportsService} from "../../../Services/Reports/reports.service";
@@ -20,6 +20,7 @@ import {DeleteMessageRequestDto} from "../../../Dtos/Message/DeleteMessageReques
 import {Modal} from 'bootstrap';
 import {InsertReportDto} from "../../../Dtos/Reports/InsertReportDto";
 import {ChatAreaComponent} from "../chat-area/chat-area.component";
+import {ChatUsersService} from "../../../Services/chat-users.service";
 
 @Component({
   selector: 'app-chat',
@@ -35,7 +36,7 @@ export class ChatComponent implements OnInit, OnDestroy
   constructor(
     private chatService: ChatService,
     private notificationService: NotificationService,
-    private changeDetector: ChangeDetectorRef
+    private chatUsersService: ChatUsersService
   )
   {
   }
@@ -44,6 +45,7 @@ export class ChatComponent implements OnInit, OnDestroy
   ngOnDestroy(): void
   {
     this.currentUser = ''
+    this.chatUsersService.setData(null)
     this.notificationService.outChat.emit()
   }
 
@@ -52,18 +54,19 @@ export class ChatComponent implements OnInit, OnDestroy
     this.chatService.chatOpened.subscribe({
       next: (userId: string) =>
       {
-        console.log('in chatOpened subs')
         this.currentUser = userId
         this.chatChangedEvent(this.currentUser)
-
       }
     })
     this.chatService.newMessage.subscribe({
       next: (obj: { message: MessageDto, user: String }) =>
       {
-        console.log('chat comp new msg')
         let user = this.users.find(u => u.userId == obj.user)
-        if (user)
+        if (!user)
+        {
+          this.getUserChats()
+        }
+        else
         {
           user.lastMessage = obj.message.message;
           user.messageDate = obj.message.messageDate;
@@ -77,7 +80,6 @@ export class ChatComponent implements OnInit, OnDestroy
       }
     })
     this.getUserChats()
-    this.sortUsers()
   }
 
 
@@ -90,7 +92,12 @@ export class ChatComponent implements OnInit, OnDestroy
   {
     this.chatService.GetUserChats(20)
       .subscribe({
-        next: (data: ChatDto[]) => this.users = data,
+        next: (data: ChatDto[]) =>
+        {
+          this.users = data
+          this.sortUsers()
+          this.chatUsersService.setData(data)
+        },
         error: (err) => console.error(err)
       })
   }

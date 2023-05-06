@@ -1,0 +1,30 @@
+<div *ngIf="cartList; else loadingBlock" class="p-3 mt-3 container">
+  <div class="row">
+    <div class="col-12 col-md-9">
+      <div class="row">
+        <div class="col-12 col-lg-6" *ngFor="let cartItem of cartList">
+          <app-cart-item-card (itemDeleted)="deleteItemHandler($event)" [cartItem]="cartItem"></app-cart-item-card>
+        </div>
+      </div>
+    </div>
+    <div id="orderSummary" class="p-3 col-12 col-md-3 border mb-3">
+      <div class="container d-flex flex-column">
+        <p class="fs-3 p-3 text-warning">Order Summary</p>
+        <p class="fs-5 lead ps-3">Items count: {{ itemsCount }}</p>
+        <p class="fs-5 lead ps-3">Number of days: {{ numberOfDays }} EGP</p>
+        <p class="fs-5 lead ps-3">Price per day: {{ pricePerDay }} EGP</p>
+        <hr />
+        <p class="fs-3 p-3" style="color: #339">
+          Total Bill: {{ totalBill }} EGP
+        </p>
+        <button class="btn btn-primary" routerLink="/checkout">
+          Procced to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingBlock>
+  <app-loading></app-loading>
+</ng-template>

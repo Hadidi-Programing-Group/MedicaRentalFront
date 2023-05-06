@@ -1,0 +1,66 @@
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 mt-5">
+
+      <div class="btn-group mt-3 d-flex justify-content-center" role="group">
+        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{
+          exact:true}" routerLinkActive="active"
+          routerLink="/admin/rentoperations">Rent Operation</a>
+        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{
+          exact:true}" routerLinkActive="active"
+          routerLink="/admin/returntoday">Manage Returns</a>
+        <!--
+        <a class="btn btn-outline-dark" [routerLinkActiveOptions]="{
+          exact:true}" routerLinkActive="active" routerLink="/admin/pastdue">Past
+          Due</a> -->
+      </div>
+
+    </div>
+    <div class="col-md-12">
+
+
+      <table class="table mt-5 table-striped table-hover table-bordered
+        text-center">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Item ID</th>
+
+            <th>Item Name</th>
+            <th>Rent Date</th>
+            <th>Return Date</th>
+            <th>Price</th>
+            <th>User Name</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items; let i=index">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.itemId }}</td>
+
+            <td>{{ item.itemName }}</td>
+            <td>{{ item.rentDate | date:'MMMM d, y' }}</td>
+            <td>{{ item.returnDate | date:'MMMM d, y' }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.userName }}</td>
+            <td>
+              <ng-container *ngIf="getFormattedReturnDate(item.returnDate) ===
+                today; else lateReturn">
+                <span class="badge bg-success rounded-pill">Today Return</span>
+              </ng-container>
+              <ng-template #lateReturn>
+                <span class="badge bg-danger rounded-pill">Late Return</span>
+              </ng-template>
+            </td>
+            <td><button (click)="acceptReturn(item)" class="btn btn-primary">Accept
+                Return</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
