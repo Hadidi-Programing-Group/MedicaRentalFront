@@ -5,7 +5,7 @@
   <app-rent-order-by (orderByEvent)="onOrderByChange($event)"></app-rent-order-by>
 
   <div class="row" *ngIf="rentOperations && rentOperations.length > 0">
-    <table class="table table-striped table- table-hover">
+    <table class="table table-striped table-hover">
       <thead class="text-light">
       <tr>
         <th class="bg-secondary col-2">Item Name</th>
@@ -32,7 +32,7 @@
           </ng-container>
         </td>
         <td class="text-center d-none d-lg-table-cell">
-          <button *ngIf="operation.rating == 0" class="mx-3 btn btn-primary">View Review</button>
+          <button *ngIf="operation.rating == 0" class="mx-3 btn btn-primary">Review</button>
           <button class="mx-3 btn btn-danger">Report</button>
         </td>
       </tr>
@@ -48,6 +48,9 @@
     </div>
   </div>
 
-  <p *ngIf="rentOperations && rentOperations.length == 0" class="bg-danger text-center text-dark h1 p-4 mt-5 rounded">
-    Oops no results!</p>
+  <div *ngIf="rentOperations && rentOperations.length == 0" class=" text-center text-dark h1 p-4 mt-5 rounded">
+
+    <img src="assets/icons/NoRes.jpg" width="400px" height="400px"/>
+
+  </div>
 </div>

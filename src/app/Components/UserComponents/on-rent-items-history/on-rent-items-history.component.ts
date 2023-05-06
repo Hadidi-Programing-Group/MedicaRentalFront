@@ -61,5 +61,3 @@ export class OnRentItemsHistoryComponent implements OnInit {
 
   protected readonly DateHelper = DateHelper;
 }
-
-

@@ -56,4 +56,10 @@ export class UserService {
       {}
     );
   }
+
+  IsApproved(){
+    return this.httpClient.get<boolean>(
+      `${this.baseUrl}/isApproved`,
+    );
+  }
 }
