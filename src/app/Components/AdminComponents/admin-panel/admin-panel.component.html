@@ -1,95 +1,95 @@
 <div class="container-fluid overflow-hidden">
   <div class="row vh-100 overflow-auto">
     <div
-      class="col-12 navbarHeight col-md-3 col-xl-2 px-md-2 px-0 bg-dark d-flex sticky-top"
+      class="col-12 navbarHeight col-md-3 col-xl-2 px-0 p-sm-3 bg-dark d-flex sticky-top"
     >
       <div
-        class="d-flex flex-md-column flex-row flex-grow-1 align-items-center align-items-md-start px-3 pt-2 text-white"
+        class="d-flex flex-md-column flex-row flex-grow-1 align-items-center align-items-md-start pt-2 text-white"
       >
         <a
           routerLink="/"
           class="d-flex align-items-center pb-md-3 mb-md-0 me-md-auto text-white text-decoration-none"
         >
-          <i class="bi bi-arrow-left-square-fill me-3 fs-5"> </i
-          ><span class="fs-5 d-none d-sm-block"> MedicaRental</span>
+<!--          <i class="bi bi-arrow-left-square-fill me-3 fs-5"> </i-->
+<!--          >-->
+          <span class="fs-5 d-none d-sm-block fw-semibold"> MedicaRental</span>
         </a>
         <ul
-          class="nav nav-pills flex-md-column flex-row flex-nowrap flex-shrink-1 flex-md-grow-0 flex-grow-1 mb-md-auto mb-0 justify-content-center align-items-center align-items-md-start"
+          class="col-12 nav nav-pills flex-md-column flex-row flex-nowrap flex-shrink-1 flex-md-grow-0 flex-grow-1 mb-md-auto mb-0 justify-content-center align-items-center align-items-md-start"
           id="menu"
         >
-          <li class="nav-item">
+          <li class="my-lg-1 col-md-12 nav-item">
             <a
               routerLink="/admin"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link px-md-0 px-2"
+              class="nav-link "
             >
               <i class="fs-5 fa-sharp fa-solid fa-house"></i
               ><span class="ms-1 d-none d-md-inline"> Home</span>
             </a>
           </li>
-          <li>
+          <li class="my-lg-1 col-md-12 nav-item">
             <a
               routerLink="reports"
               routerLinkActive="active"
-              class="nav-link px-md-0 px-2"
+              class="nav-link "
             >
               <i class="fs-5 fa-sharp fa-solid fa-flag"></i
               ><span class="ms-1 d-none d-md-inline"> Reports</span>
             </a>
           </li>
-          <li>
+          <li class="my-lg-1 col-md-12 nav-item">
             <a
               routerLink="pendingapprovals"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link px-md-0 px-2"
+              class="nav-link "
             >
               <i class="fs-5 fa-sharp fa-solid fa-person-circle-check"></i
-              ><span class="ms-1 d-none d-md-inline"> Approve Users</span></a
-            >
+              >
+              <span class="ms-1 d-none d-md-inline"> Approve Users</span>
+            </a>
           </li>
-          <li>
+          <li class="my-lg-1 col-md-12 nav-item">
             <a
               routerLink="rolesmanger"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link px-md-0 px-2"
+              class="nav-link "
             >
               <i class="fs-4 bi-dice-1"></i>
-              <span class="ms-1 d-none d-sm-inline"> RolesManger</span></a
+              <span class="ms-1 d-none d-md-inline"> RolesManger</span></a
             >
           </li>
-          <li>
+          <li class="my-lg-1 col-md-12 nav-item">
             <a
               routerLink="rentoperations"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link px-md-0 px-2"
+              class="nav-link "
             >
               <i class="fs-4 bi-check-circle-fill"></i>
-              <span class="ms-1 d-none d-sm-inline"> RentOperations</span></a
+              <span class="ms-1 d-none d-md-inline"> RentOperations</span></a
             >
           </li>
-
-          <li>
+          <li class="my-lg-1 col-md-12 nav-item">
             <a
               routerLink="blockusers"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link px-md-0 px-2"
+              class="nav-link "
             >
               <i class="fs-5 fa-sharp fa-solid fa-ban"></i
               ><span class="ms-1 d-none d-md-inline"> Block Users</span></a
             >
           </li>
-
-          <li>
+          <li class="my-lg-1 col-md-12 nav-item">
             <a
               routerLink="manageCategories"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link px-md-0 px-2"
+              class="nav-link "
             >
               <i class="fs-5 fa-sharp fa-solid fa-boxes-stacked"></i>
               <span class="ms-1 d-none d-md-inline">
