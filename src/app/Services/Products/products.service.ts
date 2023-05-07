@@ -7,7 +7,7 @@ import { PageDto } from 'src/app/Dtos/PageDto';
 import { environment } from 'src/environments/environment';
 import { StatusDto } from '../../Dtos/StatusDto';
 import { DeleteItemAdminRequestDto } from 'src/app/Dtos/DeleteItemAdminRequestDto';
-import {ItemMinimalDto} from "../../Dtos/ItemMinimalDto";
+import { ItemMinimalDto } from '../../Dtos/ItemMinimalDto';
 
 @Injectable({
   providedIn: 'root',
@@ -16,76 +16,6 @@ export class ProductsService {
   constructor(private readonly httpClient: HttpClient) {}
 
   private baseUrl = `${environment.apiURL}/api/Items`; //API
-
-  //#region To Be Deleted
-  private getItems(
-    endpoint: string,
-    ids: string[],
-    page: number = 1,
-    orderBy?: string
-  ): Observable<PageDto<HomeItemDto>> {
-    let params = new HttpParams();
-    if (ids) {
-      for (const id of ids) {
-        params = params.append(
-          `${endpoint === 'categories' ? 'category' : 'subcategory'}Ids`,
-          id
-        ); // Append each ID
-      }
-    }
-    if (orderBy) {
-      params = params.set('orderBy', orderBy);
-    }
-    params = params.set('page', page);
-    return this.httpClient.get<PageDto<HomeItemDto>>(
-      `${this.baseUrl}/${endpoint}`,
-      {
-        params,
-      }
-    );
-  }
-
-  GetAllItems(
-    page: number = 1,
-    orderBy?: string,
-    searchText?: string | null
-  ): Observable<PageDto<HomeItemDto>> {
-    return this.getItems('', [], page, orderBy);
-  }
-
-  GetItemsByCategories(
-    categoryIds: string[],
-    page: number = 1,
-    orderBy?: string
-  ): Observable<PageDto<HomeItemDto>> {
-    return this.getItems('categories', categoryIds, page, orderBy);
-  }
-
-  GetItemsBySubCategories(
-    subCategoryIds: string[],
-    page: number = 1,
-    orderBy?: string
-  ): Observable<PageDto<HomeItemDto>> {
-    return this.getItems('subcategories', subCategoryIds, page, orderBy);
-  }
-
-  GetItemsBySearch(
-    searchText: string,
-    page: number = 1,
-    orderBy?: string
-  ): Observable<PageDto<HomeItemDto>> {
-    let params = new HttpParams();
-    if (orderBy) {
-      params = params.set('orderBy', orderBy);
-    }
-    params = params.set('searchText', searchText);
-    params = params.set('page', page);
-
-    return this.httpClient.get<PageDto<HomeItemDto>>(`${this.baseUrl}/search`, {
-      params,
-    });
-  }
-  //#endregion
 
   GetItems(
     categoryIds: string[],
@@ -207,6 +137,7 @@ export class ProductsService {
 
   GetSellerItemsMinimal(sellerId: string) {
     return this.httpClient.get<ItemMinimalDto[]>(
-      `${this.baseUrl}/sellerItems/${sellerId}`);
+      `${this.baseUrl}/sellerItems/${sellerId}`
+    );
   }
 }
