@@ -42,7 +42,7 @@ export class RentedItemsComponent implements OnInit {
 
   getListedItems() {
     this.RentOperationsService
-      .GetRentedItemsHistory(
+      .GetRentedItems(
         this.currentPage,
         this.orderBy,
         this.searchText
@@ -60,4 +60,5 @@ export class RentedItemsComponent implements OnInit {
   }
 
   protected readonly DateHelper = DateHelper;
+  protected readonly undefined = undefined;
 }

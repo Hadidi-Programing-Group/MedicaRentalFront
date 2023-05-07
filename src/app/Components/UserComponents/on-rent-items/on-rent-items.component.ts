@@ -61,5 +61,6 @@ export class OnRentItemsComponent implements OnInit {
   }
 
   protected readonly DateHelper = DateHelper;
+  protected readonly undefined = undefined;
 }
 
