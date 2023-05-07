@@ -229,6 +229,7 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
         this.cancelDelete();
       },
       error: (err) => {
+        if (err.status == 401) this.deleteModal.hide();
         this.submitted = true;
         this.success = false;
 
@@ -254,9 +255,10 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
         this.cancelReport();
       },
       error: (err) => {
+        if (err.status == 401) this.deleteModal.hide();
         this.submitted = true;
         this.success = false;
-        console.error(err);
+        console.error('hahah', err);
       },
     });
   }
