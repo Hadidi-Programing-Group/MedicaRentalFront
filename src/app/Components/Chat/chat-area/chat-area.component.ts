@@ -218,7 +218,7 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
   confirmedDeleteMessage() {
     this.chatService.DeleteMessageByClient(this.deletedMessageId).subscribe({
       next: () => {
-        this.reportModal.hide();
+        this.deleteModal.hide();
         this.submitted = true;
         this.success = true;
 
@@ -248,6 +248,7 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     this.reportsService.insertReport(report).subscribe({
       next: (): void => {
+        this.reportModal.hide();
         this.submitted = true;
         this.success = true;
         this.cancelReport();
