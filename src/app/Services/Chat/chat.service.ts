@@ -53,6 +53,10 @@ export class ChatService
     );
   }
 
+  DeleteMessageByClient(messageId: string) {
+    return this.httpClient.delete<StatusDto>(`${this.baseUrl}/${messageId}`);
+  }
+
   DeleteMessage(deleteMessageRequestDto: DeleteMessageRequestDto) {
     return this.httpClient.post<StatusDto>(
       `${this.baseUrl}`,

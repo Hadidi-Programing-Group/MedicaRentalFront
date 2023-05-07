@@ -216,26 +216,25 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   confirmedDeleteMessage() {
-    this.chatService
-      .DeleteMessage(new DeleteMessageRequestDto(this.deletedMessageId, null))
-      .subscribe({
-        next: () => {
-          this.submitted = true;
-          this.success = true;
+    this.chatService.DeleteMessageByClient(this.deletedMessageId).subscribe({
+      next: () => {
+        this.reportModal.hide();
+        this.submitted = true;
+        this.success = true;
 
-          let index = this.messages.findIndex(
-            (m) => m.id == this.deletedMessageId
-          );
-          this.messages.splice(index, 1);
-          this.cancelDelete();
-        },
-        error: (err) => {
-          this.submitted = true;
-          this.success = false;
+        let index = this.messages.findIndex(
+          (m) => m.id == this.deletedMessageId
+        );
+        this.messages.splice(index, 1);
+        this.cancelDelete();
+      },
+      error: (err) => {
+        this.submitted = true;
+        this.success = false;
 
-          console.error(err);
-        },
-      });
+        console.error(err);
+      },
+    });
   }
 
   confirmedReportMessage(obj: any) {
