@@ -87,6 +87,8 @@ import { ReportModalV2Component } from './Components/report-modalV2/report-modal
 import { RentOperationsComponent } from './Components/AdminComponents/Rent/rent-operations/rent-operations.component';
 import { ReturnTodayComponent } from './Components/AdminComponents/Rent/return-today/return-today.component';
 import { PastDueComponent } from './Components/AdminComponents/Rent/past-due/past-due.component';
+import { ForgetPasswordComponent } from './Components/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -162,6 +164,8 @@ import { PastDueComponent } from './Components/AdminComponents/Rent/past-due/pas
     RentOperationsComponent,
     ReturnTodayComponent,
     PastDueComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
 
   ],
 
