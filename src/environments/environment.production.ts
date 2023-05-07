@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   title: 'MedicaRental',
-  apiURL: 'https://api.medicarental.com/',
+  apiURL: 'https://api.medicarental.com',
 };
