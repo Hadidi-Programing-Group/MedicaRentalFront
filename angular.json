@@ -17,6 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "bootstrap/js/dist/modal",
+              "jquery"
+            ],
             "outputPath": "dist/dent-equip-rentals-front",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -50,8 +54,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "50kb",
-                  "maximumError": "100kb"
+                  "maximumWarning": "100kb",
+                  "maximumError": "200kb"
                 }
               ],
               "outputHashing": "all",
