@@ -7,7 +7,7 @@ import { PageDto } from 'src/app/Dtos/PageDto';
 import { environment } from 'src/environments/environment';
 import { StatusDto } from '../../Dtos/StatusDto';
 import { DeleteItemAdminRequestDto } from 'src/app/Dtos/DeleteItemAdminRequestDto';
-import {ItemMinimalDto} from "../../Dtos/ItemMinimalDto";
+import { ItemMinimalDto } from '../../Dtos/ItemMinimalDto';
 
 @Injectable({
   providedIn: 'root',
@@ -207,6 +207,7 @@ export class ProductsService {
 
   GetSellerItemsMinimal(sellerId: string) {
     return this.httpClient.get<ItemMinimalDto[]>(
-      `${this.baseUrl}/sellerItems/${sellerId}`);
+      `${this.baseUrl}/sellerItems/${sellerId}`
+    );
   }
 }
