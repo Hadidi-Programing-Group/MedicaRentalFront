@@ -37,9 +37,11 @@ import { ReturnTodayComponent } from './Components/AdminComponents/Rent/return-t
 
 
 import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item.component';
+import { PaymentComponent } from './Components/Checkout/payment/payment.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'checkout', component: PaymentComponent },
   {
     path: 'chat',
     component: ChatComponent,

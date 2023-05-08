@@ -92,7 +92,7 @@ export class PaymentComponent {
   private createPaymentIntent(amount: number): Observable<PaymentIntent> {
 
     return this.http.post<PaymentIntent>(
-      `${environment.apiURL}/api/Payments/create-payment-intent`,
+      `${environment.apiURL}/api/Transactions/create-payment-intent`,
       {
         amount
       }
