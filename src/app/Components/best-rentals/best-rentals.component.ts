@@ -1,8 +1,8 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
-  OnInit,
+  ElementRef, EventEmitter,
+  OnInit, Output,
   ViewChild,
 } from '@angular/core';
 import { ProductsService } from 'src/app/Services/Products/products.service';
@@ -18,6 +18,9 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
   constructor(private readonly ProductsService: ProductsService) {}
   scrollPosition = 0;
   randomId = crypto.randomUUID();
+
+  @Output() show = new EventEmitter()
+
   ngAfterViewInit() {
     // Set the interval to move right every `intervalTime` milliseconds
     setInterval(() => {
@@ -76,6 +79,7 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
     this.ProductsService.GetAllAdsAsync().subscribe({
       next: (data) => {
         this.Products = data.data;
+        this.show.emit(this.Products.length > 0)
       },
       error: (err) => {
         console.log(err);

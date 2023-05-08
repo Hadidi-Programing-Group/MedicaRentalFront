@@ -1,8 +1,8 @@
 <div class="container-fluid d-flex flex-column">
   <app-adds></app-adds>
-  <div>
+  <div *ngIf="showAds">
     <h1 class="fs-2 pt-4 text-center">Sponsored Equipments</h1>
-    <app-best-rentals></app-best-rentals>
+    <app-best-rentals (show)="show($event)"></app-best-rentals>
   </div>
   <div class="bg-light bg-gradient">
     <h1 class="fs-2 pt-4 text-center">Shop By Brand</h1>
