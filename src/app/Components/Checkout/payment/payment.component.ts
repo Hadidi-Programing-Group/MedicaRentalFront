@@ -11,7 +11,7 @@ import {
   PaymentIntent
 } from '@stripe/stripe-js';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 export class PaymentComponent {
   @ViewChild(StripePaymentElementComponent)
   paymentElement: StripePaymentElementComponent;
-
+  total:string = '0';
   paymentElementForm: FormGroup;
 
 
@@ -35,7 +35,8 @@ export class PaymentComponent {
     private http: HttpClient,
     private fb: FormBuilder,
     private stripeService: StripeService,
-    private router: Router
+    private router: Router,
+    private route:ActivatedRoute
   ) {
 
 
@@ -49,6 +50,9 @@ export class PaymentComponent {
         console.log("hmm", pi?.client_secret);
         this.elementsOptions.clientSecret = pi?.client_secret ?? "";
       });
+      this.route.params.subscribe(parms=>{
+        this.total = parms['totalBill'];
+      })
   }
 
   pay() {
