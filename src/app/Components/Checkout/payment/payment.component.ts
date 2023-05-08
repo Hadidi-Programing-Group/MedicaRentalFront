@@ -76,7 +76,6 @@ export class PaymentComponent {
       if (result.error) {
         console.log('Result', result.error);
         // Show error to your customer (e.g., insufficient funds)
-        alert(result.error.code);
       } else {
         console.log('Result', result.paymentIntent);
         // The payment has been processed!
