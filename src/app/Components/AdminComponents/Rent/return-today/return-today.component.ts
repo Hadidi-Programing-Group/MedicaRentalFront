@@ -12,7 +12,8 @@ import { RentOperationsService } from 'src/app/Services/RentOperations/rent-oper
 export class ReturnTodayComponent implements OnInit {
   items: GetRentedItemsDto[] = [];
   today = new Date().toISOString().slice(0, 10);
-
+  pagesCount: number = 0;
+  currentPage: number = 1;
 
   constructor(private rentOperationService: RentOperationsService) {
 
@@ -20,15 +21,20 @@ export class ReturnTodayComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData()
+  {
     this.rentOperationService
-    .getRentedItems().subscribe({
-      next: (data) => {
-        this.items = data;
+      .getToBeReturned(this.currentPage).subscribe({
+      next: (page) => {
+        this.items = page.data;
+        this.pagesCount = Math.ceil(page.count / 12);
         console.log(` Today's Date is ${this.today}`);
       }
     });
   }
-
 
   getFormattedReturnDate(returnDate: string): string {
     const date = new Date(returnDate);
@@ -47,5 +53,11 @@ export class ReturnTodayComponent implements OnInit {
         console.error(error);
       }
     });
+  }
+
+  onPageChanged(page: number)
+  {
+    this.currentPage = page;
+    this.getData();
   }
 }
