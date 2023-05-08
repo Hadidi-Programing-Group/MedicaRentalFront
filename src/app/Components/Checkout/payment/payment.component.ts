@@ -48,7 +48,6 @@ export class PaymentComponent {
       .subscribe(pi => {
         console.log("hmm", pi?.client_secret);
         this.elementsOptions.clientSecret = pi?.client_secret ?? "";
-
       });
   }
 
@@ -86,7 +85,6 @@ export class PaymentComponent {
         }
       }
     });
-
   }
 
   private createPaymentIntent(amount: number): Observable<PaymentIntent> {
