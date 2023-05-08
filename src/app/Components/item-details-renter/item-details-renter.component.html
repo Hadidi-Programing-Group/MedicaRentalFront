@@ -12,7 +12,7 @@
         <div class="p-3 right-side mt-4 mb-0 pb-0">
           <div class="d-flex justify-content-between align-items-center">
             <h2 class="pt-2">{{ Item.name }}</h2>
-            <button *ngIf="!IsOwner" (click)="report()" class="btn btn-sm ms-5 ps-5 float-end" fdprocessedid="dqlfd8"><svg
+            <button *ngIf="!IsOwner && isAuthenticated" (click)="report()" class="btn btn-sm ms-5 ps-5 float-end" fdprocessedid="dqlfd8"><svg
                 _ngcontent-hmg-c32="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545"
                 viewBox="0 0 16 16" class="bi bi-flag-fill">
                 <path _ngcontent-hmg-c32=""
@@ -205,10 +205,16 @@
   </div>
 </div>
 
-<div *ngIf="Item && Item.reviews.length > 0" class="reviews mb-5">
-  <h2 *ngIf="Item" class="ms-4 mb-0 pb-0">Item Reviews</h2>
-  <app-reviews *ngIf="Item && Item.reviews.length > 0" #reviewComponent [reviews]="Item.reviews"></app-reviews>
+<div class="container">
+<div class="row">
+
+  <div *ngIf="Item && Item.reviews.length > 0" class="reviews mb-5 col-12">
+    <h2 *ngIf="Item" class="ms-4 mb-0 pb-0">Item Reviews</h2>
+    <app-reviews *ngIf="Item && Item.reviews.length > 0" #reviewComponent [reviews]="Item.reviews"></app-reviews>
+  </div>
 </div>
+</div>
+
 
 <ng-template #loadingBlock>
   <app-loading></app-loading>

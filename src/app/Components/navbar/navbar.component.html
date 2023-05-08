@@ -87,7 +87,7 @@
             >Chat</a
           >
         </li>
-        <li *ngIf="isAuthenticated && userRole == 'Admin'" class="nav-item">
+        <li *ngIf="isAuthenticated && userRole != 'Client'" class="nav-item">
           <a
             class="nav-link mx-2 text-uppercase"
             [routerLinkActiveOptions]="{ exact: true }"

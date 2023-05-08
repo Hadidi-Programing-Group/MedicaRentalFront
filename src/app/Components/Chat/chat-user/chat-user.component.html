@@ -1,28 +1,51 @@
 <li class="nav-item d-none d-md-block px-3">
-  <a class="nav-link rounded-3" aria-current="page" [routerLinkActiveOptions]="{ exact:true}" routerLinkActive="active" (click)="openChat(chat.userId)" routerLink="{{chat.userId}}">
+  <a
+    class="nav-link rounded-3"
+    aria-current="page"
+    [routerLinkActiveOptions]="{ exact: true }"
+    routerLinkActive="active"
+    (click)="openChat(chat.userId)"
+    routerLink="{{ chat.userId }}"
+  >
     <div class="row">
       <div class="col-2 my-auto">
-        <img *ngIf="ImageHelper.isValidBase64(chat.userProfileImage); else icon" class="bg-dark border border-3 border-success rounded-circle profile-img"
-             ngSrc="{{chat.userProfileImage}}" fill alt="">
+        <img
+          *ngIf="ImageHelper.isValidBase64(chat.userProfileImage); else icon"
+          class="bg-dark border border-3 border-success rounded-circle profile-img"
+          ngSrc="{{ chat.userProfileImage }}"
+          fill
+          alt=""
+        />
         <ng-template #icon>
-          <div class="d-inline-block text-center text-white bg-dark border border-3 border-success rounded-circle profile-img">
+          <div
+            class="d-inline-block text-center text-white bg-dark border border-3 border-success rounded-circle profile-img"
+          >
             <i class="fa-solid fa-user my-2"></i>
           </div>
         </ng-template>
       </div>
 
       <div class="col-7">
-        <p class="m-0" style="font-size: 1.1em"><strong>{{chat.userName }}</strong></p>
-        <p class="m-0">{{chat.lastMessage }}</p>
+        <p class="m-0" style="font-size: 1.1em">
+          <strong>{{ chat.userName }}</strong>
+        </p>
+        <p class="m-0">{{ chat.lastMessage }}</p>
       </div>
 
       <div class="col-3">
         <div class="d-flex justify-content-end">
-          <p class="m-0" style="font-size: 0.8em">{{getDate(chat.messageDate)}}</p>
+          <p class="m-0" style="font-size: 0.8em">
+            {{ getDate(chat.messageDate) }}
+          </p>
         </div>
         <div class="d-flex justify-content-end">
-          <p class="m-0 rounded-circle bg-success text-center" *ngIf="chat.unseenMessagesCount > 0"
-             style="width: 1.5em; height: 1.5em">{{chat.unseenMessagesCount}}</p>
+          <p
+            class="m-0 rounded-circle bg-success text-center"
+            *ngIf="chat.unseenMessagesCount > 0"
+            style="width: 1.5em; height: 1.5em"
+          >
+            {{ chat.unseenMessagesCount }}
+          </p>
         </div>
       </div>
     </div>
@@ -30,14 +53,25 @@
 </li>
 
 <li class="nav-item d-sm-block d-md-none d-lg-none px-2">
-  <a class="nav-link rounded-3" aria-current="page" (click)="openChat(chat.userId)" routerLink="/{{chat.userId}}">
+  <a
+    class="nav-link rounded-3"
+    aria-current="page"
+    (click)="openChat(chat.userId)"
+    routerLink="{{ chat.userId }}"
+  >
     <div class="row justify-content-center">
       <div class="col-10 text-center">
-
-        <img *ngIf="ImageHelper.isValidBase64(chat.userProfileImage); else icon" class="bg-dark border border-3 border-success rounded-circle profile-img"
-             ngSrc="{{chat.userProfileImage}}" fill alt="">
+        <img
+          *ngIf="ImageHelper.isValidBase64(chat.userProfileImage); else icon"
+          class="bg-dark border border-3 border-success rounded-circle profile-img"
+          ngSrc="{{ chat.userProfileImage }}"
+          fill
+          alt=""
+        />
         <ng-template #icon>
-          <div class="d-inline-block text-center text-white bg-dark border border-3 border-success rounded-circle profile-img">
+          <div
+            class="d-inline-block text-center text-white bg-dark border border-3 border-success rounded-circle profile-img"
+          >
             <i class="fa-solid fa-user my-2"></i>
           </div>
         </ng-template>

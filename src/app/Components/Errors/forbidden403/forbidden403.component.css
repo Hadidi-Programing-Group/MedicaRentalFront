@@ -16,7 +16,6 @@ body {
 }
 
 a {
-  color: #ee4b5e !important;
   text-decoration: none;
 }
 a:hover {
@@ -61,9 +60,11 @@ a:hover {
   border-radius: 26px;
   transition: all 0.2s ease-in-out;
   display: inline-block;
+  color: #ee4b5e !important;
 }
 .buttons:hover {
+  cursor: pointer;
   background-color: #ee4b5e;
-  color: white;
+  color: white !important;
   transition: all 0.2s ease-in-out;
 }

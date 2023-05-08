@@ -10,27 +10,25 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {MessageDto} from '../../../Dtos/Message/MessageDto';
-import {DateHelper} from '../../../Helpers/DateHelper';
-import {MessageStatus} from '../../../Dtos/Message/MessageStatus';
-import {SignalRService} from '../../../Services/SignalR/signal-r.service';
-import {ActivatedRoute} from '@angular/router';
-import {Modal} from 'bootstrap';
-import {DeleteMessageRequestDto} from '../../../Dtos/Message/DeleteMessageRequestDto';
-import {InsertReportDto} from '../../../Dtos/Reports/InsertReportDto';
-import {ReportsService} from '../../../Services/Reports/reports.service';
-import {ChatService} from '../../../Services/Chat/chat.service';
-import {NotificationService} from '../../../Services/Chat/notification.service';
-import {ChatUsersService} from "../../../Services/chat-users.service";
+import { MessageDto } from '../../../Dtos/Message/MessageDto';
+import { DateHelper } from '../../../Helpers/DateHelper';
+import { MessageStatus } from '../../../Dtos/Message/MessageStatus';
+import { SignalRService } from '../../../Services/SignalR/signal-r.service';
+import { ActivatedRoute } from '@angular/router';
+import { Modal } from 'bootstrap';
+import { DeleteMessageRequestDto } from '../../../Dtos/Message/DeleteMessageRequestDto';
+import { InsertReportDto } from '../../../Dtos/Reports/InsertReportDto';
+import { ReportsService } from '../../../Services/Reports/reports.service';
+import { ChatService } from '../../../Services/Chat/chat.service';
+import { NotificationService } from '../../../Services/Chat/notification.service';
+import { ChatUsersService } from '../../../Services/chat-users.service';
 
 @Component({
   selector: 'app-chat-area',
   templateUrl: './chat-area.component.html',
   styleUrls: ['./chat-area.component.css'],
 })
-export class ChatAreaComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
   public messages: MessageDto[] = [];
   public currentUser = '';
 
@@ -52,18 +50,14 @@ export class ChatAreaComponent
     private reportsService: ReportsService,
     private chatService: ChatService,
     private chatUsersService: ChatUsersService
-  )
-  {
-  }
+  ) {}
 
-  ngOnDestroy(): void
-  {
+  ngOnDestroy(): void {
     this.currentUser = '';
-    this.chatUsersService.setData(null)
+    this.chatUsersService.setData(null);
   }
 
-  ngAfterViewInit(): void
-  {
+  ngAfterViewInit(): void {
     this.deleteModal = new Modal(
       document.getElementById('deleteStaticBackdrop')!
     );
@@ -72,54 +66,44 @@ export class ChatAreaComponent
     );
   }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.checkConnection();
 
-    this.activeRoute.params.subscribe((params) =>
-    {
+    this.activeRoute.params.subscribe((params) => {
       this.currentUser = params['id'];
 
-
-        this.chatUsersService.getData().subscribe(data =>
-        {
-          if (data != null && this.currentUser != '')
-          {
-            console.log('user', this.currentUser.charCodeAt(0))
-            this.chatService.chatOpened.emit(this.currentUser);
-            console.log("hhhhhhhhhhhhhhhh")
-            this.getChat(20);
-          }
-        })
+      this.chatUsersService.getData().subscribe((data) => {
+        if (data != null && this.currentUser != '') {
+          console.log('user', this.currentUser.charCodeAt(0));
+          this.chatService.chatOpened.emit(this.currentUser);
+          console.log('hhhhhhhhhhhhhhhh');
+          this.getChat(20);
+        }
+      });
     });
 
     this.signalRService.newMessageEvent.subscribe({
-      next: (message: MessageDto) =>
-      {
-        if (message.senderId == this.currentUser)
-        {
+      next: (message: MessageDto) => {
+        if (message.senderId == this.currentUser) {
           message.messageStatus = MessageStatus.Seen;
           this.messages.push(message);
+          this.scrollToTheEnd();
           this.signalRService.setMessageSeen(message.id, message.senderId);
         }
 
-        this.chatService.newMessage.emit({message, user: message.senderId});
+        this.chatService.newMessage.emit({ message, user: message.senderId });
       },
       error: (err: any) => console.error(err),
     });
 
     this.signalRService.messageSeenEvent.subscribe({
-      next: (messageId: string) =>
-      {
+      next: (messageId: string) => {
         debugger;
         let msg = this.messages.find((m) => m.id == messageId);
-        if (msg)
-        {
+        if (msg) {
           msg.messageStatus = MessageStatus.Seen;
           this.messages = [...this.messages];
-        }
-        else
-        {
+        } else {
           console.error('No message with the received id');
         }
       },
@@ -127,12 +111,9 @@ export class ChatAreaComponent
     });
 
     this.signalRService.allMessagesSeenEvent.subscribe({
-      next: (userId: string) =>
-      {
-        if (userId == this.currentUser)
-        {
-          for (let message of this.messages)
-          {
+      next: (userId: string) => {
+        if (userId == this.currentUser) {
+          for (let message of this.messages) {
             message.messageStatus = MessageStatus.Seen;
           }
           this.messages = [...this.messages];
@@ -141,19 +122,14 @@ export class ChatAreaComponent
     });
   }
 
-
-  checkConnection()
-  {
-    if (!this.signalRService.isConnected)
-    {
+  checkConnection() {
+    if (!this.signalRService.isConnected) {
       this.signalRService.startConnection();
     }
   }
 
-  checkNewDate(i: number): boolean
-  {
-    if (i == 0)
-    {
+  checkNewDate(i: number): boolean {
+    if (i == 0) {
       return true;
     }
 
@@ -167,18 +143,14 @@ export class ChatAreaComponent
     );
   }
 
-  sendMessage(message: HTMLInputElement)
-  {
-    if (message.value != '' && this.currentUser != '')
-    {
+  sendMessage(message: HTMLInputElement) {
+    if (message.value != '' && this.currentUser != '') {
       let date = new Date();
 
       this.signalRService
         .sendMessage(message.value, this.currentUser, date)
-        .then((messageId: string) =>
-        {
-          if (messageId != '')
-          {
+        .then((messageId: string) => {
+          if (messageId != '') {
             let msg = Object.assign(
               {},
               new MessageDto(
@@ -204,12 +176,9 @@ export class ChatAreaComponent
     }
   }
 
-  scrollToTheEnd()
-  {
-    setTimeout(() =>
-    {
-      if (this.messagesDiv)
-      {
+  scrollToTheEnd() {
+    setTimeout(() => {
+      if (this.messagesDiv) {
         this.messagesDiv.nativeElement.scrollTo({
           top: Number(this.messagesDiv.nativeElement.scrollHeight),
           left: 0,
@@ -219,13 +188,11 @@ export class ChatAreaComponent
     }, 200);
   }
 
-  getChat(numOfDays: number = 20)
-  {
+  getChat(numOfDays: number = 20) {
     this.chatService
       .GetChat(this.currentUser, numOfDays, new Date())
       .subscribe({
-        next: (data) =>
-        {
+        next: (data) => {
           this.messages = data;
           this.scrollToTheEnd();
         },
@@ -233,16 +200,14 @@ export class ChatAreaComponent
       });
   }
 
-  deleteMessage(messageId: string)
-  {
+  deleteMessage(messageId: string) {
     this.deletedMessageId = messageId;
     this.deleteContent =
       this.messages.find((m) => m.id == messageId)?.message ?? '';
     this.deleteModal.show();
   }
 
-  reportMessage(messageId: string)
-  {
+  reportMessage(messageId: string) {
     this.reportedMessageId = messageId;
     this.reportContentA = `You are reporting the following message:`;
     this.reportContentB =
@@ -250,34 +215,30 @@ export class ChatAreaComponent
     this.reportModal.show();
   }
 
-  confirmedDeleteMessage()
-  {
-    this.chatService
-      .DeleteMessage(new DeleteMessageRequestDto(this.deletedMessageId, null))
-      .subscribe({
-        next: () =>
-        {
-          this.submitted = true;
-          this.success = true;
+  confirmedDeleteMessage() {
+    this.chatService.DeleteMessageByClient(this.deletedMessageId).subscribe({
+      next: () => {
+        this.deleteModal.hide();
+        this.submitted = true;
+        this.success = true;
 
-          let index = this.messages.findIndex(
-            (m) => m.id == this.deletedMessageId
-          );
-          this.messages.splice(index, 1);
-          this.cancelDelete();
-        },
-        error: (err) =>
-        {
-          this.submitted = true;
-          this.success = false;
+        let index = this.messages.findIndex(
+          (m) => m.id == this.deletedMessageId
+        );
+        this.messages.splice(index, 1);
+        this.cancelDelete();
+      },
+      error: (err) => {
+        if (err.status == 401) this.deleteModal.hide();
+        this.submitted = true;
+        this.success = false;
 
-          console.error(err);
-        },
-      });
+        console.error(err);
+      },
+    });
   }
 
-  confirmedReportMessage(obj: any)
-  {
+  confirmedReportMessage(obj: any) {
     let report = new InsertReportDto(
       obj.title,
       obj.statement,
@@ -287,30 +248,28 @@ export class ChatAreaComponent
       null
     );
     this.reportsService.insertReport(report).subscribe({
-      next: (): void =>
-      {
+      next: (): void => {
+        this.reportModal.hide();
         this.submitted = true;
         this.success = true;
         this.cancelReport();
       },
-      error: (err) =>
-      {
+      error: (err) => {
+        if (err.status == 401) this.deleteModal.hide();
         this.submitted = true;
         this.success = false;
-        console.error(err);
+        console.error('hahah', err);
       },
     });
   }
 
-  cancelReport()
-  {
+  cancelReport() {
     this.reportContentA = '';
     this.reportContentB = '';
     this.reportedMessageId = '';
   }
 
-  cancelDelete()
-  {
+  cancelDelete() {
     this.deletedMessageId = '';
     this.deleteContent = '';
   }

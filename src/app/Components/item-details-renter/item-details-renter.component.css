@@ -1,4 +1,4 @@
-@import "node_modules/boxicons/css/boxicons.min.css";
+
 
 body {
   background-color: #ecedee;
@@ -154,8 +154,6 @@ body {
   width: 150px;
   border-radius: 0px !important;
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
   font-family: "Poppins", sans-serif;

@@ -38,6 +38,7 @@ export class ItemDetailsRenterComponent implements OnInit {
   @ViewChild(ReviewsComponent, { static: false })
   reviewComponent!: ReviewsComponent;
   IsOwner: boolean = false;
+  isAuthenticated: boolean = false;
 
   public submitted = false;
   public success = false;
@@ -65,14 +66,17 @@ export class ItemDetailsRenterComponent implements OnInit {
       radioControl: new FormControl(),
       review: [''],
     });
+    this.isAuthenticated = localStorage.getItem("isAuthenticated") == "true";
   }
 
   ngAfterViewInit(): void
   {
     console.log(this.reportModal)
+    this.isAuthenticated = localStorage.getItem("isAuthenticated") == "true";
   }
 
   ngOnInit(): void {
+    this.isAuthenticated = localStorage.getItem("isAuthenticated") == "true";
     this.myService.GetItemByIdForRenter(this.ID).subscribe({
       next: (data: RenterItemDto | any) => {
         this.Item = data;
@@ -165,7 +169,7 @@ export class ItemDetailsRenterComponent implements OnInit {
     console.log(this.reportModal);
     this.reportModal.show();
   }
-  
+
   PromoteItem() {
     const addItemRequest: AddItemToCartDto = new AddItemToCartDto(
       this.ID,

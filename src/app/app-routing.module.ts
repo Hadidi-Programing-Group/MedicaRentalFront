@@ -28,16 +28,16 @@ import { CartComponent } from './Components/cart/cart.component';
 
 import { RolesManagerComponent } from './Components/AdminComponents/roles-manager/roles-manager.component';
 
-
 import { RentOperationsComponent } from './Components/AdminComponents/Rent/rent-operations/rent-operations.component';
 
 import { PastDueComponent } from './Components/AdminComponents/Rent/past-due/past-due.component';
 
 import { ReturnTodayComponent } from './Components/AdminComponents/Rent/return-today/return-today.component';
 
-
 import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item.component';
 import { PaymentComponent } from './Components/Checkout/payment/payment.component';
+import { ForgetPasswordComponent } from './Components/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -48,22 +48,24 @@ const routes: Routes = [
     children: [{ path: ':id', component: ChatAreaComponent }],
   },
 
-  {path: 'products', component: ProductsComponent},
-  {path: 'products/:id', component: ItemDetailsRenterComponent},
-  {path: 'products/forseller/:id', component: ItemDetailsSellerComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'registration', component: RegistrationComponent},
-  {path: 'nationaliderror', component: NationalIDErrorComponent},
-  {path: 'emailerror', component: EmailErrorComponent},
-  {path: 'user/myaccount', component: MyAccountComponent},
-  {path: 'reviews/:id', component: ReviewsComponent},
-  {path: 'forbidden', component: Forbidden403Component},
-  {path: 'additem', component:AddItemComponent},
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ItemDetailsRenterComponent },
   { path: 'products/forseller/:id', component: ItemDetailsSellerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'nationaliderror', component: NationalIDErrorComponent },
+  { path: 'emailerror', component: EmailErrorComponent },
+  { path: 'user/myaccount', component: MyAccountComponent },
+  { path: 'reviews/:id', component: ReviewsComponent },
+  { path: 'forbidden', component: Forbidden403Component },
+  { path: 'additem', component: AddItemComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'products/:id', component: ItemDetailsRenterComponent },
+  { path: 'products/forseller/:id', component: ItemDetailsSellerComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'forgetpassword', component: ForgetPasswordComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent },
   { path: 'nationaliderror', component: NationalIDErrorComponent },
   { path: 'emailerror', component: EmailErrorComponent },
   { path: 'user/myaccount', component: MyAccountComponent },
@@ -85,10 +87,12 @@ const routes: Routes = [
       {
         path: 'rentoperations',
         component: RentOperationsComponent,
-      }, {
+      },
+      {
         path: 'pastdue',
         component: PastDueComponent,
-      }, {
+      },
+      {
         path: 'returntoday',
         component: ReturnTodayComponent,
       },

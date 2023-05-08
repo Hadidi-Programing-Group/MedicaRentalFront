@@ -1,13 +1,15 @@
 <div class="container-fluid">
 
   <app-search (searchEvent)="onSearchClick($event)"></app-search>
-<div class="row">
-  <button (click)="AddItem()" class="my-4 btn btn-success  col-3">Add new item</button>
+
   <app-list-order-by class="col-9" (orderByEvent)="onOrderByChange($event)"></app-list-order-by>
-</div>
+
+  <div class="row" *ngIf="isApproved">
+    <button (click)="AddItem()" class="my-4 btn btn-success col-1">Add new item</button>
+  </div>
 
   <div class="row" *ngIf="listedItems && listedItems.length > 0">
-    <table class="table table-striped table- table-hover">
+    <table class="table table-striped table-hover">
       <thead class="text-light">
       <tr>
         <th class="bg-secondary col-2">Name</th>
@@ -50,6 +52,8 @@
     </div>
   </div>
 
-  <p *ngIf="listedItems && listedItems.length == 0" class="bg-danger text-center text-dark h1 p-4 mt-5 rounded">Oops no
-    results!</p>
+
+  <div *ngIf="listedItems && listedItems.length == 0" class=" text-center text-dark h1 p-4 mt-5 rounded">
+    <img src="assets/icons/NoRes.jpg" width="400px" height="400px"/>
+  </div>
 </div>

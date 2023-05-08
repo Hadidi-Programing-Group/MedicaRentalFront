@@ -1,54 +1,70 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/Services/Products/products.service';
-import { OrderByStrings } from '../../../Dtos/OrderByStrings';
-import { ListItemDto } from '../../../Dtos/ListItemDto';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ProductsService} from 'src/app/Services/Products/products.service';
+import {OrderByStrings} from '../../../Dtos/OrderByStrings';
+import {ListItemDto} from '../../../Dtos/ListItemDto';
+import {Router} from '@angular/router';
+import {UserService} from "../../../Services/User/user.service";
 
 @Component({
   selector: 'app-listed-items',
   templateUrl: './listed-items.component.html',
   styleUrls: ['./listed-items.component.css'],
 })
-export class ListedItemsComponent implements OnInit {
+export class ListedItemsComponent implements OnInit
+{
   listedItems: ListItemDto[] | undefined = undefined;
   pagesCount: number = 0;
   currentPage: number = 1;
   orderBy: string = OrderByStrings.DateCreatedDesc;
   searchText: null | string = null;
+  isApproved = false;
 
   constructor(
     private readonly ProductsService: ProductsService,
+    private readonly usersService: UserService,
     private router: Router
-  ) {}
+  )
+  {
+  }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.getListedItems();
+    this.usersService.IsApproved().subscribe({
+      next: (approved: boolean) => this.isApproved = approved,
+      error: (err) => console.log(err)
+    })
   }
 
   protected readonly OrderByStrings = OrderByStrings;
 
-  onOrderByChange(orderBy: OrderByStrings) {
+  onOrderByChange(orderBy: OrderByStrings)
+  {
     this.getListedItems();
     this.orderBy = orderBy;
   }
 
-  onPageChanged(page: number) {
+  onPageChanged(page: number)
+  {
     this.currentPage = page;
     this.getListedItems();
   }
 
-  onSearchClick(searchText: string) {
+  onSearchClick(searchText: string)
+  {
     this.searchText = searchText == '' ? null : searchText;
     this.getListedItems();
   }
 
-  getListedItems() {
+  getListedItems()
+  {
     this.ProductsService.GetListedItems(
       this.currentPage,
       this.orderBy,
       this.searchText
     ).subscribe({
-      next: (data) => {
+      next: (data) =>
+      {
         this.listedItems = data.data;
         this.pagesCount = Math.ceil(data.count / 12);
       },
@@ -56,12 +72,17 @@ export class ListedItemsComponent implements OnInit {
     });
   }
 
-  unListItem(id: string) {
+  unListItem(id: string)
+  {
     this.ProductsService.UnListItem(id).subscribe({
-      next: (data) => {
-        if (data.statusCode == 204) {
+      next: (data) =>
+      {
+        if (data.statusCode == 204)
+        {
           this.getListedItems();
-        } else {
+        }
+        else
+        {
           console.log(data.statusMessage);
         }
       },
@@ -69,11 +90,13 @@ export class ListedItemsComponent implements OnInit {
     });
   }
 
-  AddItem() {
+  AddItem()
+  {
     this.router.navigate(['additem']);
   }
 
-  update(itemId: any) {
+  update(itemId: any)
+  {
     let URL = 'products/forseller/' + itemId;
     this.router.navigate([URL]);
   }

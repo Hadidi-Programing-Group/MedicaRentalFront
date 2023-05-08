@@ -1,7 +1,7 @@
 /* this is needed to make the content scrollable on larger screens */
 
-@media only screen and (max-width: 767px) {
-  .navbarHeight {
-    max-height: 10%;
-  }
-}
+/*@media only screen and (max-width: 767px) {*/
+/*  .navbarHeight {*/
+/*    max-height: 10%;*/
+/*  }*/
+/*}*/

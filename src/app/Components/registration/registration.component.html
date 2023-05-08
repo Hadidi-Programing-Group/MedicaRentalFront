@@ -10,23 +10,6 @@
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="pb-3">
-          <div
-            class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"
-          >
-            <p class="lead fw-normal text-dark mb-0 me-3">Sign up with</p>
-            <button type="button" class="btn btn-primary btn-floating mx-1">
-              <i class="fab fa-facebook-f"></i>
-            </button>
-
-            <button type="button" class="btn btn-primary btn-floating mx-1">
-              <i class="fab fa-google"></i>
-            </button>
-          </div>
-
-          <div class="divider d-flex align-items-center my-4">
-            <p class="text-center text-dark fw-bold mx-3 mb-0">Or</p>
-          </div>
-
           <!-- First Name input -->
           <div class="form-outline mb-4">
             <input
@@ -102,7 +85,7 @@
           </div>
 
           <!-- Email input -->
-          <div class="form-outline mb-4" >
+          <div class="form-outline mb-4">
             <input
               type="email"
               formControlName="email"
@@ -130,7 +113,7 @@
           </div>
 
           <!-- Password input -->
-          <div class="form-outline mb-3" >
+          <div class="form-outline mb-3">
             <input
               type="password"
               formControlName="password"
