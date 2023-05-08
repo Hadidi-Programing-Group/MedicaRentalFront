@@ -1,39 +1,47 @@
 <div *ngIf="Products; else loadingBlock" class="container-fluid p-5">
   <div class="row">
     <div class="col-md-3 d-none d-md-block">
-      <div class="col-12">
-        <select
-          [(ngModel)]="orderBy"
-          (ngModelChange)="onOrderByChange(orderBy)"
-          class="form-control mb-3"
-          id="fm"
-        >
-          <option value="">Order By</option>
-          <option value="{{ orderByString.PriceDesc }}">
-            Price: High to Low
-          </option>
-          <option value="{{ orderByString.PriceAsc }}">
-            Price: Low to High
-          </option>
-          <option value="{{ orderByString.RateDesc }}">
-            Rating: High to Low
-          </option>
-          <option value="{{ orderByString.RateAsc }}">
-            Rating: Low to High
-          </option>
-        </select>
-      </div>
-      <div class="col-12">
-        <app-categories-filter></app-categories-filter>
-        <app-brands-filter></app-brands-filter>
-      </div>
-      <div class="col-12 mt-3">
-        <button class="btn btn-secondary mb-3" (click)="resetFilters()">
-          Reset Filters
-        </button>
-      </div>
+      <ng-container *ngTemplateOutlet="filterArea"></ng-container>
     </div>
     <div class="col-12 col-md-9">
+      <div class="container mb-2 d-md-none">
+        <div class="row">
+          <div class="col-2">
+            <button
+              class="btn btn-warning"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasWithBothOptions"
+              aria-controls="offcanvasWithBothOptions"
+            >
+              <i class="bi bi-funnel-fill"></i
+              ><span class="d-none d-md-block"> Filter</span>
+            </button>
+          </div>
+          <div class="col-10">
+            <select
+              [(ngModel)]="orderBy"
+              (ngModelChange)="onOrderByChange(orderBy)"
+              class="form-control mb-3"
+              id="fm"
+            >
+              <option value="">Order By</option>
+              <option value="{{ orderByString.PriceDesc }}">
+                Price: High to Low
+              </option>
+              <option value="{{ orderByString.PriceAsc }}">
+                Price: Low to High
+              </option>
+              <option value="{{ orderByString.RateDesc }}">
+                Rating: High to Low
+              </option>
+              <option value="{{ orderByString.RateAsc }}">
+                Rating: Low to High
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
       <div class="container-fluid">
         <div class="row">
           <app-product-card
@@ -75,3 +83,50 @@
 <ng-template #loadingBlock>
   <app-loading></app-loading>
 </ng-template>
+
+<ng-template #filterArea>
+  <div class="col-12">
+    <select
+      [(ngModel)]="orderBy"
+      (ngModelChange)="onOrderByChange(orderBy)"
+      class="form-control mb-3"
+      id="fm"
+    >
+      <option value="">Order By</option>
+      <option value="{{ orderByString.PriceDesc }}">Price: High to Low</option>
+      <option value="{{ orderByString.PriceAsc }}">Price: Low to High</option>
+      <option value="{{ orderByString.RateDesc }}">Rating: High to Low</option>
+      <option value="{{ orderByString.RateAsc }}">Rating: Low to High</option>
+    </select>
+  </div>
+  <div class="col-12">
+    <app-categories-filter></app-categories-filter>
+    <app-brands-filter></app-brands-filter>
+  </div>
+  <div class="col-12 mt-3">
+    <button class="btn btn-secondary mb-3" (click)="resetFilters()">
+      Reset Filters
+    </button>
+  </div>
+</ng-template>
+
+<div
+  class="offcanvas offcanvas-start"
+  data-bs-scroll="true"
+  tabindex="-1"
+  id="offcanvasWithBothOptions"
+  aria-labelledby="offcanvasWithBothOptionsLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Filters</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <ng-container *ngTemplateOutlet="filterArea"></ng-container>
+  </div>
+</div>
