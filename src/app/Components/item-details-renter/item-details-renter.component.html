@@ -12,17 +12,37 @@
         <div class="p-3 right-side mt-4 mb-0 pb-0">
           <div class="d-flex justify-content-between align-items-center">
             <h2 class="pt-2">{{ Item.name }}</h2>
-            <button *ngIf="!IsOwner && isAuthenticated" (click)="report()" class="btn btn-sm ms-5 ps-5 float-end" fdprocessedid="dqlfd8"><svg
-                _ngcontent-hmg-c32="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545"
-                viewBox="0 0 16 16" class="bi bi-flag-fill">
-                <path _ngcontent-hmg-c32=""
-                  d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001">
-                </path>
-              </svg></button>
-            <app-report-modal [contentA]="reportContentA" [contentB]="reportContentB"
-              [successMessage]="'Message reported successfully.'" [failureMessage]="'Message couldn\'t be reported.'"
-              [submitted]="submitted" [success]="success" (cancelReportEvent)="cancelReport()"
-              (submitReportEvent)="confirmedReportMessage($event)"></app-report-modal>
+            <button
+              *ngIf="!IsOwner && isAuthenticated"
+              (click)="report()"
+              class="btn btn-sm ms-5 ps-5 float-end"
+              fdprocessedid="dqlfd8"
+            >
+              <svg
+                _ngcontent-hmg-c32=""
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#dc3545"
+                viewBox="0 0 16 16"
+                class="bi bi-flag-fill"
+              >
+                <path
+                  _ngcontent-hmg-c32=""
+                  d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"
+                ></path>
+              </svg>
+            </button>
+            <app-report-modal
+              [contentA]="reportContentA"
+              [contentB]="reportContentB"
+              [successMessage]="'Message reported successfully.'"
+              [failureMessage]="'Message couldn\'t be reported.'"
+              [submitted]="submitted"
+              [success]="success"
+              (cancelReportEvent)="cancelReport()"
+              (submitReportEvent)="confirmedReportMessage($event)"
+            ></app-report-modal>
           </div>
           <div class="mt-2 pr-3 content">
             <p>{{ Item.description }}</p>
@@ -60,12 +80,17 @@
             </p>
           </div>
           <div class="buttons d-flex flex-row mt-4 gap-3">
-            <a routerLink="/chat/{{Item.seller.id}}" *ngIf="!IsOwner" class="btn btn-dark">Contact Owner</a>
+            <a
+              routerLink="/chat/{{ Item.seller.id }}"
+              *ngIf="!IsOwner"
+              class="btn btn-dark"
+              >Contact Owner</a
+            >
             <button *ngIf="IsOwner" (click)="UpdateItem()" class="btn btn-dark">
               Update
             </button>
             <button
-              *ngIf="IsOwner && !inCart"
+              *ngIf="IsOwner && !inCart && !Item.isAd"
               type="button"
               data-bs-toggle="modal"
               data-bs-target="#addToCart"
@@ -75,7 +100,7 @@
               Promote
             </button>
             <button
-              *ngIf="IsOwner && inCart"
+              *ngIf="IsOwner && inCart && !Item.isAd"
               (click)="RemoveFromCart()"
               class="btn btn-danger"
             >
@@ -87,7 +112,6 @@
     </div>
   </div>
 </div>
-
 
 <div
   class="modal fade"
@@ -165,38 +189,83 @@
             data-bs-dismiss="modal"
             aria-label="Close"
           ></button>
-
         </div>
 
         <div class="rating-box m-auto">
           <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="pb-3">
             <div class="rating-container">
-              <input type="radio" name="radioControl" value="5" id="star-6" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="5"
+                id="star-6"
+                formControlName="radioControl"
+              />
               <label for="star-6">&#9733;</label>
 
-              <input type="radio" name="radioControl" value="4" id="star-7" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="4"
+                id="star-7"
+                formControlName="radioControl"
+              />
               <label for="star-7">&#9733;</label>
 
-              <input type="radio" name="radioControl" value="3" id="star-8" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="3"
+                id="star-8"
+                formControlName="radioControl"
+              />
               <label for="star-8">&#9733;</label>
 
-              <input type="radio" name="radioControl" value="2" id="star-9" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="2"
+                id="star-9"
+                formControlName="radioControl"
+              />
               <label for="star-9">&#9733;</label>
 
-              <input type="radio" name="radioControl" value="1" id="star-10" formControlName="radioControl" />
+              <input
+                type="radio"
+                name="radioControl"
+                value="1"
+                id="star-10"
+                formControlName="radioControl"
+              />
               <label for="star-10">&#9733;</label>
             </div>
             <div>
               <p>Your review:</p>
-              <textarea formControlName="review" name="" id="Comment" cols="30" rows="3"></textarea>
+              <textarea
+                formControlName="review"
+                name=""
+                id="Comment"
+                cols="30"
+                rows="3"
+              ></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer m-auto">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
             Close
           </button>
-          <button type="submit" class="btn btn-primary" id="SaveRating" data-bs-dismiss="modal" (click)="onSubmit()">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="SaveRating"
+            data-bs-dismiss="modal"
+            (click)="onSubmit()"
+          >
             Save Changes
           </button>
         </div>
@@ -206,15 +275,17 @@
 </div>
 
 <div class="container">
-<div class="row">
-
-  <div *ngIf="Item && Item.reviews.length > 0" class="reviews mb-5 col-12">
-    <h2 *ngIf="Item" class="ms-4 mb-0 pb-0">Item Reviews</h2>
-    <app-reviews *ngIf="Item && Item.reviews.length > 0" #reviewComponent [reviews]="Item.reviews"></app-reviews>
+  <div class="row">
+    <div *ngIf="Item && Item.reviews.length > 0" class="reviews mb-5 col-12">
+      <h2 *ngIf="Item" class="ms-4 mb-0 pb-0">Item Reviews</h2>
+      <app-reviews
+        *ngIf="Item && Item.reviews.length > 0"
+        #reviewComponent
+        [reviews]="Item.reviews"
+      ></app-reviews>
+    </div>
   </div>
 </div>
-</div>
-
 
 <ng-template #loadingBlock>
   <app-loading></app-loading>

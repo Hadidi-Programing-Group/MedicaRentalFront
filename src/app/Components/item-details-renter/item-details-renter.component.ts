@@ -48,6 +48,7 @@ export class ItemDetailsRenterComponent implements OnInit {
   @Output() reportMessageEvent = new EventEmitter()
   inCart: boolean = false;
   numberOfDays: number = 1;
+  isAd:boolean = false;
 
 
   constructor(
