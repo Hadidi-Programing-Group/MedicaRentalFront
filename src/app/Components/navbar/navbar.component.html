@@ -65,17 +65,8 @@
             class="nav-link"
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
-            routerLink="/checkout"
-            >Checkout</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
             routerLink="/products"
-            >Products</a
+            >PRODUCTS</a
           >
         </li>
         <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
