@@ -94,8 +94,12 @@ export class RentOperationsService {
   }
 
 
-  getRentedItems(): Observable<GetRentedItemsDto[]> {
-    return this.httpClient.get<GetRentedItemsDto[]>(`${this.baseUrl}/GetRentedItems`);
+  getToBeReturned(page: number) {
+    let params = new HttpParams();
+    if (page) {
+      params = params.set('page', page);
+    }
+    return this.httpClient.get<PageDto<GetRentedItemsDto>>(`${this.baseUrl}/toBeReturned`, {params});
   }
 
   acceptReturn(rentOperationId: string){
