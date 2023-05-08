@@ -19,8 +19,6 @@
 
     </div>
     <div class="col-md-12">
-
-
       <table class="table mt-5 table-striped table-hover table-bordered
         text-center">
         <thead>
@@ -61,6 +59,14 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="row">
+        <div class="d-flex justify-content-center my-4">
+          <app-pagination [currentPage]="currentPage" [totalPages]="pagesCount"
+                          (pageChanged)="onPageChanged($event)">
+          </app-pagination>
+        </div>
+      </div>
     </div>
   </div>
 </div>
