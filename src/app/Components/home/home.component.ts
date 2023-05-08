@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  showAds = false
+  showAds = true
   show(show: boolean)
   {
     this.showAds = show;
