@@ -10,8 +10,14 @@
       </div>
     </div> -->
 <form action="" class="container my-5">
-  <ng-container *ngIf="elementsOptions.clientSecret as clientSecret">
+  <ng-container
+    *ngIf="elementsOptions.clientSecret as clientSecret; else loadingBlock"
+  >
     <ngx-stripe-payment [clientSecret]="clientSecret"> </ngx-stripe-payment>
+    <button (click)="pay()">PAY {{ total }} EGP</button>
   </ng-container>
-  <button (click)="pay()">PAY {{total}} EGP</button> 
 </form>
+
+<ng-template #loadingBlock>
+  <app-loading></app-loading>
+</ng-template>
