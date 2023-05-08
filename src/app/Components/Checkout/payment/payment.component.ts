@@ -11,7 +11,7 @@ import {
   PaymentIntent
 } from '@stripe/stripe-js';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 export class PaymentComponent {
   @ViewChild(StripePaymentElementComponent)
   paymentElement: StripePaymentElementComponent;
-
+  total:string = '0';
   paymentElementForm: FormGroup;
 
 
@@ -35,7 +35,8 @@ export class PaymentComponent {
     private http: HttpClient,
     private fb: FormBuilder,
     private stripeService: StripeService,
-    private router : Router
+    private router: Router,
+    private route:ActivatedRoute
   ) {
 
 
@@ -44,49 +45,50 @@ export class PaymentComponent {
   }
 
   ngOnInit() {
-    this.createPaymentIntent(2500 )
+    this.createPaymentIntent(2500)
       .subscribe(pi => {
-        console.log( "hmm",pi?.client_secret);
+        console.log("hmm", pi?.client_secret);
         this.elementsOptions.clientSecret = pi?.client_secret ?? "";
-      
       });
+      this.route.params.subscribe(parms=>{
+        this.total = parms['totalBill'];
+      })
   }
 
   pay() {
-      this.paying = true;
-      this.stripeService.confirmPayment({
-        elements: this.paymentElement.elements,
-        // confirmParams: {
-        //   payment_method_data: {
-        //     billing_details: {
-        //       name: this.paymentElementForm.get('name')?.value,
-        //       email: this.paymentElementForm.get('email')?.value,
-        //       address: {
-        //         line1: this.paymentElementForm.get('address')?.value,
-        //         postal_code: this.paymentElementForm.get('zipcode')?.value,
-        //         city: this.paymentElementForm.get('city')?.value,
-        //       }
-        //     }
-        //   }
-        // },
-        redirect: 'if_required'
-      }).subscribe(result => {
-        console.log("Confirmed");
-        this.paying = false;
-        if (result.error) {
-          console.log('Result', result.error);
-          // Show error to your customer (e.g., insufficient funds)
-          alert(result.error.code);
-        } else {
-          console.log('Result', result.paymentIntent);
-          // The payment has been processed!
-          if (result.paymentIntent.status === 'succeeded') {
-            // Show a success message to your customer
-            this.router.navigateByUrl('/');
-          }
+    this.paying = true;
+    this.stripeService.confirmPayment({
+      elements: this.paymentElement.elements,
+      // confirmParams: {
+      //   payment_method_data: {
+      //     billing_details: {
+      //       name: this.paymentElementForm.get('name')?.value,
+      //       email: this.paymentElementForm.get('email')?.value,
+      //       address: {
+      //         line1: this.paymentElementForm.get('address')?.value,
+      //         postal_code: this.paymentElementForm.get('zipcode')?.value,
+      //         city: this.paymentElementForm.get('city')?.value,
+      //       }
+      //     }
+      //   }
+      // },
+      redirect: 'if_required'
+    }).subscribe(result => {
+      console.log("Confirmed");
+      this.paying = false;
+      if (result.error) {
+        console.log('Result', result.error);
+        // Show error to your customer (e.g., insufficient funds)
+      } else {
+        console.log('Result', result.paymentIntent);
+        // The payment has been processed!
+        if (result.paymentIntent.status === 'succeeded') {
+          // Show a success message to your customer
+          alert("Payment Succeeded");
+          this.router.navigateByUrl('/');
         }
-      });
-
+      }
+    });
   }
 
   private createPaymentIntent(amount: number): Observable<PaymentIntent> {
