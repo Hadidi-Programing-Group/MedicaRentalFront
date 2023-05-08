@@ -17,8 +17,8 @@
         <p class="fs-3 p-3" style="color: #339">
           Total Bill: {{ totalBill }} EGP
         </p>
-        <button class="btn btn-primary" routerLink="/checkout">
-          Procced to Checkout
+        <button class="btn btn-primary" routerLink="/checkout/" [queryParams]="{totalBill:totalBill}">
+          Proceed to Checkout
         </button>
       </div>
     </div>
