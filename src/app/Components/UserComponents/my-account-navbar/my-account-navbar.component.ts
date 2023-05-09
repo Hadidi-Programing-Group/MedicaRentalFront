@@ -13,7 +13,6 @@ import {
 })
 export class MyAccountNavbarComponent implements OnInit {
   selected: string = 'profile';
-  @Output() componentUpdater = new EventEmitter();
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -22,10 +21,5 @@ export class MyAccountNavbarComponent implements OnInit {
     setTimeout(() => {
       this.cdr.detectChanges();
     }, 0);
-  }
-
-  notifyChange(view: string) {
-    this.selected = view;
-    this.componentUpdater.emit(view);
   }
 }

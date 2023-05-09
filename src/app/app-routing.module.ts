@@ -38,6 +38,13 @@ import { AddItemComponent } from './Components/Adding-new-item/add-item/add-item
 import { PaymentComponent } from './Components/Checkout/payment/payment.component';
 import { ForgetPasswordComponent } from './Components/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
+import { ListedItemsComponent } from './Components/UserComponents/listed-items/listed-items.component';
+import { UnlistedItemsComponent } from './Components/UserComponents/unlisted-items/unlisted-items.component';
+import { RentedItemsComponent } from './Components/UserComponents/rented-items/rented-items.component';
+import { OnRentItemsComponent } from './Components/UserComponents/on-rent-items/on-rent-items.component';
+import { RentedItemsHistoryComponent } from './Components/UserComponents/rented-items-history/rented-items-history.component';
+import { OnRentItemsHistoryComponent } from './Components/UserComponents/on-rent-items-history/on-rent-items-history.component';
+import { ProfileComponent } from './Components/UserComponents/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -53,24 +60,26 @@ const routes: Routes = [
   { path: 'products/forseller/:id', component: ItemDetailsSellerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'nationaliderror', component: NationalIDErrorComponent },
-  { path: 'emailerror', component: EmailErrorComponent },
-  { path: 'user/myaccount', component: MyAccountComponent },
-  { path: 'reviews/:id', component: ReviewsComponent },
-  { path: 'forbidden', component: Forbidden403Component },
-  { path: 'additem', component: AddItemComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'products/:id', component: ItemDetailsRenterComponent },
-  { path: 'products/forseller/:id', component: ItemDetailsSellerComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent },
   { path: 'forgetpassword', component: ForgetPasswordComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   { path: 'nationaliderror', component: NationalIDErrorComponent },
   { path: 'emailerror', component: EmailErrorComponent },
-  { path: 'user/myaccount', component: MyAccountComponent },
+  {
+    path: 'user/myaccount',
+    component: MyAccountComponent,
+    children: [
+      { path: '', component: ProfileComponent },
+      { path: 'listed', component: ListedItemsComponent },
+      { path: 'unlisted', component: UnlistedItemsComponent },
+      { path: 'rented', component: RentedItemsComponent },
+      { path: 'onrent', component: OnRentItemsComponent },
+      { path: 'rentedhistory', component: RentedItemsHistoryComponent },
+      { path: 'onrenthistory', component: OnRentItemsHistoryComponent },
+    ],
+  },
   { path: 'reviews/:id', component: ReviewsComponent },
   { path: 'forbidden', component: Forbidden403Component },
+  { path: 'additem', component: AddItemComponent },
   {
     path: 'admin',
     component: AdminPanelComponent,

@@ -37,7 +37,12 @@
             </ng-container>
           </td>
           <td class="text-center d-none d-lg-table-cell">
-            <button class="mx-3 btn btn-primary">Update</button>
+            <button
+              class="mx-3 btn btn-primary"
+              routerLink="/products/forseller/{{ item.id }}"
+            >
+              Update
+            </button>
             <button class="mx-3 btn btn-success" (click)="reListItem(item.id)">
               Re-List
             </button>

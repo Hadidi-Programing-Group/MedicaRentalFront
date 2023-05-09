@@ -6,9 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./my-account.component.css'],
 })
 export class MyAccountComponent {
-  selected: string = 'profile';
 
-  updateComponent(view: string) {
-    this.selected = view;
-  }
 }
