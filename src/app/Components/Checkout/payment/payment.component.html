@@ -13,11 +13,58 @@
   <ng-container
     *ngIf="elementsOptions.clientSecret as clientSecret; else loadingBlock"
   >
-    <ngx-stripe-payment [clientSecret]="clientSecret"> </ngx-stripe-payment>
-    <button (click)="pay()">PAY {{ total }} EGP</button>
+    <div *ngIf="!paymentDone">
+      <ngx-stripe-payment [clientSecret]="clientSecret"> </ngx-stripe-payment>
+      <button (click)="pay()">PAY {{ total }} EGP</button>
+    </div>
+
+    <div *ngIf="paymentDone">
+      <ng-container *ngIf="paymentSuccess; else transactionFailed">
+        <div class="card">
+          <div
+            style="
+              border-radius: 200px;
+              height: 200px;
+              width: 200px;
+              background: #f8faf5;
+              margin: 0 auto;
+            "
+          >
+            <i class="fa-solid fa-check text-success"></i>
+          </div>
+          <h1 class="text-success">Success</h1>
+          <p>
+            We received your purchase request;<br />
+            we'll be in touch shortly!
+          </p>
+          <button class="btn btn-success" routerLink="/">
+            Back to homepage
+          </button>
+        </div>
+      </ng-container>
+    </div>
   </ng-container>
 </form>
 
 <ng-template #loadingBlock>
   <app-loading></app-loading>
+</ng-template>
+
+<ng-template #transactionFailed>
+  <div class="card">
+    <div
+      style="
+        border-radius: 200px;
+        height: 200px;
+        width: 200px;
+        background: #efbcbc;
+        margin: 0 auto;
+      "
+    >
+      <i class="fa-solid fa-xmark text-danger"></i>
+    </div>
+    <h1 class="text-danger">Failed</h1>
+    <p>Sorry, Your card has been declined!</p>
+    <button class="btn btn-success" routerLink="/">Back to homepage</button>
+  </div>
 </ng-template>

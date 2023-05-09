@@ -29,6 +29,8 @@ export class PaymentComponent {
   };
 
   paying = false;
+  paymentDone: boolean = false;
+  paymentSuccess: boolean = true;
 
   constructor(
     private http: HttpClient,
@@ -71,17 +73,18 @@ export class PaymentComponent {
       })
       .subscribe((result) => {
         console.log('Confirmed');
+        this.paymentDone = true;
         this.paying = false;
         if (result.error) {
           console.log('Result', result.error);
+          this.paymentSuccess = false;
           // Show error to your customer (e.g., insufficient funds)
         } else {
           console.log('Result', result.paymentIntent);
           // The payment has been processed!
           if (result.paymentIntent.status === 'succeeded') {
             // Show a success message to your customer
-            alert('Payment Succeeded');
-            this.router.navigateByUrl('/');
+            this.paymentSuccess = true;
           }
         }
       });
