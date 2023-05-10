@@ -1,0 +1,42 @@
+<div class="container-fluid p-5">
+
+  <div class="row" *ngIf="transaction">
+    <div class="d-flex">
+      <div class="col-12">
+        <p class="text-center h4 my-3">Transaction #{{transaction.id}}</p>
+        <ul class="mb-4 fs-6 list-group list-group-horizontal justify-content-center">
+          <li class="list-group-item">
+            <strong>Date:</strong> {{ DateHelper.getDate(transaction.date) | date : "MMMM dd, YYYY" }}
+          </li>
+          <li class="list-group-item">
+            <strong>Fee:</strong>
+            {{ transaction.amount | currency : "EGP" : "E£"  }}
+          </li>
+          <li class="list-group-item">
+            <strong>Status:</strong>
+            {{ TransactionStatus[transaction.status] }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead class="text-light">
+      <tr>
+        <th class="bg-secondary">Item Name</th>
+        <th class="bg-secondary">Number of Days</th>
+        <th class="bg-secondary">End Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of transaction.transactionItems">
+        <td>
+          <a routerLink="/products/{{ item.itemId }}">{{ item.itemName }}</a>
+        </td>
+        <td>{{ item.numberOfDays }}</td>
+        <td>{{ DateHelper.getDate(item.endDate) | date : "MMMM dd, YYYY"   }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

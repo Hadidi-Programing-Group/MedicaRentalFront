@@ -46,6 +46,8 @@ import { RentedItemsHistoryComponent } from './Components/UserComponents/rented-
 import { OnRentItemsHistoryComponent } from './Components/UserComponents/on-rent-items-history/on-rent-items-history.component';
 import { ProfileComponent } from './Components/UserComponents/profile/profile.component';
 import {ManageBrandsComponent} from "./Components/AdminComponents/Brands/brands/manage-brands.component";
+import {AdsOrdersComponent} from "./Components/UserComponents/ads-orders/ads-orders.component";
+import {OrderDetailsComponent} from "./Components/UserComponents/order-details/order-details.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -76,8 +78,11 @@ const routes: Routes = [
       { path: 'onrent', component: OnRentItemsComponent },
       { path: 'rentedhistory', component: RentedItemsHistoryComponent },
       { path: 'onrenthistory', component: OnRentItemsHistoryComponent },
+      { path: 'adsorders', component: AdsOrdersComponent },
     ],
   },
+  { path: 'orderdetails/:id', component: OrderDetailsComponent },
+
   { path: 'reviews/:id', component: ReviewsComponent },
   { path: 'forbidden', component: Forbidden403Component },
   { path: 'additem', component: AddItemComponent },
