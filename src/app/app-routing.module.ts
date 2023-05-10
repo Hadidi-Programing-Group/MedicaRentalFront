@@ -62,6 +62,7 @@ const routes: Routes = [
     path: 'chat',
     component: ChatComponent,
     children: [{ path: ':id', component: ChatAreaComponent }],
+    canActivate: [ClientAuthGuardGuard],
   },
 
   { path: 'products', component: ProductsComponent },

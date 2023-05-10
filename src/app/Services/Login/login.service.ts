@@ -40,6 +40,7 @@ export class LoginService {
 
   revokeToken() {
     localStorage.setItem('authToken', '');
+    localStorage.setItem('userRole', '');
     localStorage.setItem('authTokenExpDate', '');
     localStorage.setItem('isAuthenticated', '');
     const headers = new HttpHeaders({
@@ -63,6 +64,6 @@ export class LoginService {
   };
 
   public getRole = () => {
-    return this.client.get<{role:string}>(`${this.URL}/GetRole`);
+    return this.client.get<{ role: string }>(`${this.URL}/GetRole`);
   };
 }
