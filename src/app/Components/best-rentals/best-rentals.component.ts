@@ -1,8 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef, EventEmitter,
-  OnInit, Output,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { ProductsService } from 'src/app/Services/Products/products.service';
@@ -19,34 +21,45 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
   scrollPosition = 0;
   randomId = crypto.randomUUID();
 
-  @Output() show = new EventEmitter()
+  @Output() show = new EventEmitter();
 
   ngAfterViewInit() {
+    this.ProductsService.GetAllAdsAsync().subscribe({
+      next: (data) => {
+        this.Products = data.data;
+        this.show.emit(this.Products.length > 0);
+        setInterval(() => {
+          const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(
+            true
+          );
+          const cardRow: any = $(`#cardRow${this.randomId}`).outerWidth(true);
+          this.scrollPosition += cardWidth;
+          $(`#cardRow${this.randomId}`).animate(
+            { scrollLeft: this.scrollPosition },
+            500,
+            () => {
+              // When the animation completes, check if we've scrolled past the last card
+              if (
+                $(`#cardRow${this.randomId}`)[0] &&
+                this.scrollPosition >=
+                  $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
+              ) {
+                // If we have, scroll back to the first card
+                this.scrollPosition = 0;
+                $(`#cardRow${this.randomId}`).animate(
+                  { scrollLeft: this.scrollPosition },
+                  500
+                );
+              }
+            }
+          );
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
     // Set the interval to move right every `intervalTime` milliseconds
-    setInterval(() => {
-      const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(true);
-      const cardRow: any = $(`#cardRow${this.randomId}`).outerWidth(true);
-      this.scrollPosition += cardWidth;
-      $(`#cardRow${this.randomId}`).animate(
-        { scrollLeft: this.scrollPosition },
-        500,
-        () => {
-          // When the animation completes, check if we've scrolled past the last card
-          if (
-            $(`#cardRow${this.randomId}`)[0] &&
-            this.scrollPosition >=
-              $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
-          ) {
-            // If we have, scroll back to the first card
-            this.scrollPosition = 0;
-            $(`#cardRow${this.randomId}`).animate(
-              { scrollLeft: this.scrollPosition },
-              500
-            );
-          }
-        }
-      );
-    }, 2000);
   }
 
   currentPosition = 0;
@@ -69,21 +82,11 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
 
   updateCardRow() {
     const cardRow: any = document.getElementById(`#cardRow${this.randomId}`);
-    if(cardRow)
-    cardRow.style.transform = `translateX(${this.currentPosition}px)`;
+    if (cardRow)
+      cardRow.style.transform = `translateX(${this.currentPosition}px)`;
   }
 
   Products?: HomeItemDto[];
 
-  ngOnInit(): void {
-    this.ProductsService.GetAllAdsAsync().subscribe({
-      next: (data) => {
-        this.Products = data.data;
-        this.show.emit(this.Products.length > 0)
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+  ngOnInit(): void {}
 }

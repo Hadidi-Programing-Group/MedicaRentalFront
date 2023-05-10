@@ -14,31 +14,41 @@ export class BrandComponent implements OnInit {
   scrollPosition = 0;
   randomId = crypto.randomUUID();
   ngAfterViewInit() {
+    this.brandsService.GetAllBrands().subscribe({
+      next: (data) => {
+        this.Brands = data;
+        setInterval(() => {
+          const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(
+            true
+          );
+          const cardRow: any = $(`#cardRow${this.randomId}`).outerWidth(true);
+          this.scrollPosition += cardWidth;
+          $(`#cardRow${this.randomId}`).animate(
+            { scrollLeft: this.scrollPosition },
+            500,
+            () => {
+              // When the animation completes, check if we've scrolled past the last card
+              if (
+                $(`#cardRow${this.randomId}`)[0] &&
+                this.scrollPosition >=
+                  $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
+              ) {
+                // If we have, scroll back to the first card
+                this.scrollPosition = 0;
+                $(`#cardRow${this.randomId}`).animate(
+                  { scrollLeft: this.scrollPosition },
+                  500
+                );
+              }
+            }
+          );
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
     // Set the interval to move right every `intervalTime` milliseconds
-    setInterval(() => {
-      const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(true);
-      const cardRow: any = $(`#cardRow${this.randomId}`).outerWidth(true);
-      this.scrollPosition += cardWidth;
-      $(`#cardRow${this.randomId}`).animate(
-        { scrollLeft: this.scrollPosition },
-        500,
-        () => {
-          // When the animation completes, check if we've scrolled past the last card
-          if (
-            $(`#cardRow${this.randomId}`)[0] &&
-            this.scrollPosition >=
-              $(`#cardRow${this.randomId}`)[0].scrollWidth - cardRow
-          ) {
-            // If we have, scroll back to the first card
-            this.scrollPosition = 0;
-            $(`#cardRow${this.randomId}`).animate(
-              { scrollLeft: this.scrollPosition },
-              500
-            );
-          }
-        }
-      );
-    }, 2000);
   }
 
   currentPosition = 0;
@@ -68,14 +78,5 @@ export class BrandComponent implements OnInit {
 
   Brands?: BrandDto[];
 
-  ngOnInit(): void {
-    this.brandsService.GetAllBrands().subscribe({
-      next: (data) => {
-        this.Brands = data;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+  ngOnInit(): void {}
 }
