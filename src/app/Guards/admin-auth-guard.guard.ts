@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { LoginService } from '../Services/Login/login.service';
 
 @Injectable({
@@ -16,16 +16,7 @@ export class AdminAuthGuardGuard {
   constructor(
     private readonly router: Router,
     private readonly loginService: LoginService
-  ) {
-    this.loginService.getRole().subscribe({
-      next: (data: { role: string }) => {
-        this.userRole = data.role;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+  ) {}
 
   userRole?: string;
 
@@ -44,11 +35,15 @@ export class AdminAuthGuardGuard {
       return false;
     }
 
-    if (isAuth && this.userRole != 'Admin' && this.userRole != 'Moderator') {
-      this.router.navigate(['/forbidden']);
-      return false;
-    }
-
-    return isAuth && (this.userRole == 'Admin' || this.userRole == 'Moderator');
+    return this.loginService.getRole().pipe(
+      map((data) => {
+        if (data.role == 'Admin' || data.role == 'Moderator') {
+          return true;
+        } else {
+          this.router.navigate(['/forbidden']);
+          return false;
+        }
+      })
+    );
   }
 }

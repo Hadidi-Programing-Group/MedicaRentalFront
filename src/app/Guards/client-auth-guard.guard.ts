@@ -6,27 +6,17 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { LoginService } from '../Services/Login/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientAuthGuardGuard {
-  userRole?: string;
   constructor(
     private readonly router: Router,
     private readonly loginService: LoginService
-  ) {
-    this.loginService.getRole().subscribe({
-      next: (data: { role: string }) => {
-        this.userRole = data.role;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -43,11 +33,15 @@ export class ClientAuthGuardGuard {
       return false;
     }
 
-    if (isAuth && this.userRole != 'Client') {
-      this.router.navigate(['/forbidden']);
-      return false;
-    }
-
-    return isAuth && this.userRole == 'Client';
+    return this.loginService.getRole().pipe(
+      map((data) => {
+        if (data.role == 'Client') {
+          return true;
+        } else {
+          this.router.navigate(['/forbidden']);
+          return false;
+        }
+      })
+    );
   }
 }

@@ -45,12 +45,11 @@ import { OnRentItemsComponent } from './Components/UserComponents/on-rent-items/
 import { RentedItemsHistoryComponent } from './Components/UserComponents/rented-items-history/rented-items-history.component';
 import { OnRentItemsHistoryComponent } from './Components/UserComponents/on-rent-items-history/on-rent-items-history.component';
 import { ProfileComponent } from './Components/UserComponents/profile/profile.component';
-import {ManageBrandsComponent} from "./Components/AdminComponents/Brands/brands/manage-brands.component";
-import {AdsOrdersComponent} from "./Components/UserComponents/ads-orders/ads-orders.component";
-import {OrderDetailsComponent} from "./Components/UserComponents/order-details/order-details.component";
+import { ManageBrandsComponent } from './Components/AdminComponents/Brands/brands/manage-brands.component';
+import { AdsOrdersComponent } from './Components/UserComponents/ads-orders/ads-orders.component';
+import { OrderDetailsComponent } from './Components/UserComponents/order-details/order-details.component';
 import { AdminAuthGuardGuard } from './Guards/admin-auth-guard.guard';
 import { ClientAuthGuardGuard } from './Guards/client-auth-guard.guard';
-
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
