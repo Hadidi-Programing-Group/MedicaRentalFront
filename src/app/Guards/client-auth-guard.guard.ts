@@ -7,12 +7,26 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoginService } from '../Services/Login/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientAuthGuardGuard {
-  constructor(private readonly router: Router) {}
+  userRole?: string;
+  constructor(
+    private readonly router: Router,
+    private readonly loginService: LoginService
+  ) {
+    this.loginService.getRole().subscribe({
+      next: (data: { role: string }) => {
+        this.userRole = data.role;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -22,7 +36,6 @@ export class ClientAuthGuardGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const userRole = localStorage.getItem('userRole');
     const isAuth = localStorage.getItem('isAuthenticated') == 'true';
 
     if (!isAuth) {
@@ -30,11 +43,11 @@ export class ClientAuthGuardGuard {
       return false;
     }
 
-    if (isAuth && userRole != 'Client') {
+    if (isAuth && this.userRole != 'Client') {
       this.router.navigate(['/forbidden']);
       return false;
     }
 
-    return isAuth && userRole == 'Client';
+    return isAuth && this.userRole == 'Client';
   }
 }

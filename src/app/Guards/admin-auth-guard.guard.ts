@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -7,12 +7,27 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoginService } from '../Services/Login/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminAuthGuardGuard {
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly loginService: LoginService
+  ) {
+    this.loginService.getRole().subscribe({
+      next: (data: { role: string }) => {
+        this.userRole = data.role;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  userRole?: string;
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -22,7 +37,6 @@ export class AdminAuthGuardGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const userRole = localStorage.getItem('userRole');
     const isAuth = localStorage.getItem('isAuthenticated') == 'true';
 
     if (!isAuth) {
@@ -30,11 +44,11 @@ export class AdminAuthGuardGuard {
       return false;
     }
 
-    if (isAuth && userRole != 'Admin' && userRole != 'Moderator') {
+    if (isAuth && this.userRole != 'Admin' && this.userRole != 'Moderator') {
       this.router.navigate(['/forbidden']);
       return false;
     }
 
-    return isAuth && (userRole == 'Admin' || userRole == 'Moderator');
+    return isAuth && (this.userRole == 'Admin' || this.userRole == 'Moderator');
   }
 }
