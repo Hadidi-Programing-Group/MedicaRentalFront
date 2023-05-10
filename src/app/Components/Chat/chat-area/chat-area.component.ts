@@ -21,7 +21,7 @@ import { InsertReportDto } from '../../../Dtos/Reports/InsertReportDto';
 import { ReportsService } from '../../../Services/Reports/reports.service';
 import { ChatService } from '../../../Services/Chat/chat.service';
 import { NotificationService } from '../../../Services/Chat/notification.service';
-import { ChatUsersService } from '../../../Services/chat-users.service';
+import { ChatUsersService } from '../../../Services/Chat/chat-users.service';
 
 @Component({
   selector: 'app-chat-area',

@@ -20,7 +20,7 @@ import {DeleteMessageRequestDto} from "../../../Dtos/Message/DeleteMessageReques
 import {Modal} from 'bootstrap';
 import {InsertReportDto} from "../../../Dtos/Reports/InsertReportDto";
 import {ChatAreaComponent} from "../chat-area/chat-area.component";
-import {ChatUsersService} from "../../../Services/chat-users.service";
+import {ChatUsersService} from "../../../Services/Chat/chat-users.service";
 
 @Component({
   selector: 'app-chat',
