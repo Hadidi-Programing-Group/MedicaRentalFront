@@ -1,0 +1,104 @@
+<div *ngIf="brands; else loadingBlock" class="container-fluid">
+  <div class="row align-items-center">
+    <app-search
+      class="d-inline-block col-12 col-lg-10"
+      (searchEvent)="onSearchClick($event)"
+    ></app-search>
+
+    <button
+      (click)="addBrand()"
+      class="col-12 col-lg-2 mb-2 mb-lg-0 d-inline-block btn btn-success"
+    >
+      Add Brand
+    </button>
+  </div>
+
+  <div class="row" *ngIf="brands && brands.length > 0">
+    <table class="table table-striped table- table-hover">
+      <thead class="text-light">
+      <tr>
+        <th class="bg-secondary">Name</th>
+        <th class="bg-secondary">Country of Origin</th>
+        <th class="bg-secondary">Image</th>
+        <th class="bg-secondary text-center d-none d-lg-table-cell">
+          Actions
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let brand of brands">
+        <td>{{ brand.name }}</td>
+        <td>{{ brand.countryOfOrigin }}</td>
+        <td>
+          <img
+            *ngIf="ImageHelper.isValidBase64(brand.image); else text"
+            src="{{ brand.image }}"
+            alt=""
+            style="max-width: 7em; max-height: 5em"
+          />
+          <ng-template #text>
+            <p>No image provided</p>
+          </ng-template>
+        </td>
+        <td class="text-center d-none d-lg-table-cell">
+          <button
+            class="mx-3 btn btn-primary"
+            (click)="
+                updateBrand(brand.id, brand.name, brand.countryOfOrigin, brand.image)
+              "
+          >
+            Update
+          </button>
+          <button
+            class="mx-3 btn btn-danger"
+            (click)="deleteBrand({id: brand.id, name: brand.name})"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="d-flex justify-content-center my-4">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="pagesCount"
+          (pageChanged)="onPageChanged($event)"
+        >
+        </app-pagination>
+      </div>
+    </div>
+  </div>
+
+  <p
+    *ngIf="brands && brands.length == 0"
+    class="bg-danger text-center text-dark h1 p-4 mt-5 rounded"
+  >
+    Oops no results!
+  </p>
+</div>
+
+<app-brand-modal
+  [brand]="brand"
+  [isAdd]="isAdd"
+  [submitted]="submitted"
+  [success]="success"
+  (cancelAddEvent)="cancelModal()"
+  (confirmAddEvent)="confirmModal($event)"
+></app-brand-modal>
+
+<ng-template #loadingBlock>
+  <app-loading></app-loading>
+</ng-template>
+
+
+<app-delete-confirmation-modal [type]="type"
+                               [failureMessage]="type + ' couldn\'t be deleted, items exist in it!'"
+                               [successMessage]="type + ' deleted successfully.'"
+                               (cancelDeleteEvent)="cancelDelete()"
+                               (confirmDeleteEvent)="confirmedDelete()"
+                               [deleteContent]="deleteContent"
+                               [success]="success"
+                               [submitted]="submitted"></app-delete-confirmation-modal>

@@ -10,7 +10,7 @@ import {
 } from '@stripe/stripe-js';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { StripeService } from '../stripe.service';
+import { StripeService } from '../Services/Stripe/stripe.service';
 
 @Component({
   selector: 'app-js-payment',

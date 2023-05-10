@@ -91,7 +91,8 @@ import { ReturnTodayComponent } from './Components/AdminComponents/Rent/return-t
 import { PastDueComponent } from './Components/AdminComponents/Rent/past-due/past-due.component';
 import { ForgetPasswordComponent } from './Components/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
-
+import { ManageBrandsComponent } from './Components/AdminComponents/Brands/brands/manage-brands.component';
+import { BrandModalComponent } from './Components/AdminComponents/Brands/brands-modal/brand-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -167,6 +168,8 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
     PastDueComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
+    ManageBrandsComponent,
+    BrandModalComponent,
 
   ],
 
