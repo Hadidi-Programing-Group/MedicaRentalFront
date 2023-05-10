@@ -93,6 +93,8 @@ import { ForgetPasswordComponent } from './Components/forget-password/forget-pas
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { ManageBrandsComponent } from './Components/AdminComponents/Brands/brands/manage-brands.component';
 import { BrandModalComponent } from './Components/AdminComponents/Brands/brands-modal/brand-modal.component';
+import { AdsOrdersComponent } from './Components/UserComponents/ads-orders/ads-orders.component';
+import { OrderDetailsComponent } from './Components/UserComponents/order-details/order-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -170,6 +172,8 @@ import { BrandModalComponent } from './Components/AdminComponents/Brands/brands-
     ResetPasswordComponent,
     ManageBrandsComponent,
     BrandModalComponent,
+    AdsOrdersComponent,
+    OrderDetailsComponent,
 
   ],
 
