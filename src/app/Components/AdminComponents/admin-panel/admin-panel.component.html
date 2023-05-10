@@ -18,6 +18,17 @@
           id="menu"
         >
           <li class="my-lg-1 col-md-12 nav-item">
+            <a
+              routerLink="/admin"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <i class="fs-4 bi-check-circle-fill"></i>
+              <span class="ms-1 d-none d-md-inline"> RentOperations</span></a
+            >
+          </li>
+          <li class="my-lg-1 col-md-12 nav-item">
             <a routerLink="reports" routerLinkActive="active" class="nav-link">
               <i class="fs-5 fa-sharp fa-solid fa-flag"></i
               ><span class="ms-1 d-none d-md-inline"> Reports</span>
@@ -46,17 +57,7 @@
               <span class="ms-1 d-none d-md-inline"> RolesManger</span></a
             >
           </li>
-          <li class="my-lg-1 col-md-12 nav-item">
-            <a
-              routerLink="rentoperations"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link"
-            >
-              <i class="fs-4 bi-check-circle-fill"></i>
-              <span class="ms-1 d-none d-md-inline"> RentOperations</span></a
-            >
-          </li>
+
           <li class="my-lg-1 col-md-12 nav-item">
             <a
               routerLink="blockusers"
