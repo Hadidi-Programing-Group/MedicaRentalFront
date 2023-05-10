@@ -60,7 +60,6 @@ export class BlockUsersComponent {
           this.requestSuccess = true;
           this.formSubmitted = true;
           this.requestMessage = data.statusMessage;
-          console.log(data);
         },
         error: (err: any) => {
           this.requestSuccess = false;
@@ -80,7 +79,6 @@ export class BlockUsersComponent {
         this.requestSuccess = true;
         this.formSubmitted = true;
         this.requestMessage = data.statusMessage;
-        console.log(data);
       },
       error: (err: any) => {
         this.requestSuccess = false;
@@ -91,18 +89,4 @@ export class BlockUsersComponent {
     });
   }
 
-  // private readonly callObject = {
-  //   next: (data: StatusDto) => {
-  //     this.blockSuccess = true;
-  //     this.blockSubmitted = true;
-  //     this.blockMessage = data.statusMessage;
-  //     console.log(data);
-  //   },
-  //   error: (err: any) => {
-  //     this.blockSuccess = false;
-  //     this.blockSubmitted = true;
-  //     this.blockMessage = err.error.statusMessage;
-  //     console.log(err);
-  //   },
-  // };
 }

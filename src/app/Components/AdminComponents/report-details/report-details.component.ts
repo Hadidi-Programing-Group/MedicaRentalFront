@@ -109,7 +109,6 @@ export class ReportDetailsComponent implements OnInit {
   };
 
   private handleReportActionResponse(data: StatusDto) {
-    console.log(data);
     if (data.statusCode == 200) {
       // Do This or refresh page
       // const reportAction = new ReportActionDto(data.statusMessage, new Date().toDateString(), "");

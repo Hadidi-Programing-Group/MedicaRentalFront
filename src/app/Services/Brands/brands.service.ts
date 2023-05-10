@@ -36,7 +36,6 @@ export class BrandsService
 
   InsertBrand(insertBrandDto: InsertBrandDto)
   {
-    console.log(insertBrandDto)
     return this.httpClient.post(this.URL, insertBrandDto);
   }
 

@@ -61,4 +61,8 @@ export class LoginService {
   public resetPassword = (body: ResetPasswordDto) => {
     return this.client.post(`${this.URL}/ResetPassword`, body);
   };
+
+  public getRole = () => {
+    return this.client.get<{role:string}>(`${this.URL}/GetRole`);
+  };
 }

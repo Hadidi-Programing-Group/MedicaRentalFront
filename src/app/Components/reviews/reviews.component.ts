@@ -42,7 +42,6 @@ export class ReviewsComponent {
     return array;
   }
   GetRevId(RevId: any) {
-    console.log(RevId);
     this.reviewService.GetReviewById(RevId).subscribe({
       next: (data: any) => {
         this.reviewId = data['id'];

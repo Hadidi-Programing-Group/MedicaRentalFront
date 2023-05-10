@@ -53,7 +53,6 @@ export class OnRentItemsComponent implements OnInit {
           next: (data) => {
             this.rentOperations = data.data;
             this.pagesCount = Math.ceil(data.count / 12)
-            console.log(typeof data.data[0].returnDate)
           },
           error: (err) => console.log(err)
         }

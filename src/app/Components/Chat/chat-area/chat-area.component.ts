@@ -74,9 +74,7 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.chatUsersService.getData().subscribe((data) => {
         if (data != null && this.currentUser != '') {
-          console.log('user', this.currentUser.charCodeAt(0));
           this.chatService.chatOpened.emit(this.currentUser);
-          console.log('hhhhhhhhhhhhhhhh');
           this.getChat(20);
         }
       });

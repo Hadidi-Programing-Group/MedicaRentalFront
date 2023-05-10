@@ -40,8 +40,6 @@ export class NavbarComponent implements OnInit {
     private signalRService: SignalRService,
     private overlay: OverlayContainer
   ) {
-    // console.log("isAuthenticated" , localStorage.getItem('isAuthenticated')==='true');
-    // this.isAuthenticated = localStorage.getItem('isAuthenticated') == 'true';
   }
 
   navbarToggler: any;
@@ -51,10 +49,6 @@ export class NavbarComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
   ngOnInit(): void {
-    console.log(
-      'isAuthenticated',
-      localStorage.getItem('isAuthenticated') === 'true'
-    );
     this.isAuthenticated = localStorage.getItem('isAuthenticated') == 'true';
 
     this.toggleFormGroup.get('darkMode')!.valueChanges.subscribe((darkMode) => {
@@ -67,7 +61,6 @@ export class NavbarComponent implements OnInit {
 
     this.loginService.isAuthenticatedChanged.subscribe({
       next: (data: boolean) => {
-        console.log('isAuthenticatedChanged triggered');
         this.isAuthenticated = data;
       },
     });

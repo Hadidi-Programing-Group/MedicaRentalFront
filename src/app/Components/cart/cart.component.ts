@@ -28,7 +28,6 @@ export class CartComponent implements OnInit {
           this.pricePerDay = this.cartList[0].pricePerDay;
           this.totalBill += this.pricePerDay * this.numberOfDays;
         }
-        console.log(data);
       },
       error: (err) => {
         console.log(err);
@@ -59,8 +58,6 @@ export class CartComponent implements OnInit {
           this.pricePerDay = 0;
         }
 
-        console.log(this.cartList);
-        console.log(data);
       },
       error: (err) => {
         console.log(err);

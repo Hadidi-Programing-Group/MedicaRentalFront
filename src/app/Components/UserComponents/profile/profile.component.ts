@@ -102,7 +102,6 @@ export class ProfileComponent implements OnInit {
   onProfileSubmit() {
     if (this.updateProfileForm.valid) {
       const userData = this.updateProfileForm.value;
-      console.log(userData);
       const DataToBeSent: UpdateProfileInfoDto = new UpdateProfileInfoDto(
         userData.FName,
         userData.LName,
@@ -128,7 +127,6 @@ export class ProfileComponent implements OnInit {
         this.NationalImgBase64,
         this.UnionCardImgBase64
       );
-      console.log(DataToBeSent);
       this.userService.UpdateApprovalInfo(DataToBeSent).subscribe({
         next: (res) => {
           this.IsApproveUpdated = true;

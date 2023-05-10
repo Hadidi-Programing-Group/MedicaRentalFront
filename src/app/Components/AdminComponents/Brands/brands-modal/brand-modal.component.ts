@@ -81,7 +81,6 @@ export class BrandModalComponent implements OnInit, OnChanges
   onImageSelected(event: any)
   {
     const file = event.target.files[0];
-    console.log(file.type)
 
     if (['image/jpeg', 'image/x-png', 'image/png'].findIndex(m => m == file.type) == -1)
     {

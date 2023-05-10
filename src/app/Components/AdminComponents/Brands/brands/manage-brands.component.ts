@@ -131,7 +131,6 @@ export class ManageBrandsComponent implements OnInit, AfterViewInit
       name, countryOfOrigin, image
     }
 
-    console.log(this.brand)
     this.updatedId = id
     this.modal.show()
   }
