@@ -31,7 +31,6 @@ export class ReturnTodayComponent implements OnInit {
       next: (page) => {
         this.items = page.data;
         this.pagesCount = Math.ceil(page.count / 12);
-        console.log(` Today's Date is ${this.today}`);
       }
     });
   }

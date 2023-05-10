@@ -110,7 +110,6 @@ export class AuthResponseInterceptor implements HttpInterceptor {
           // You can handle the response globally here
           // For example, you can check the response status code, headers, etc.
           // and perform actions accordingly
-          console.log(event);
         }
       }),
       catchError((error: HttpErrorResponse) => {

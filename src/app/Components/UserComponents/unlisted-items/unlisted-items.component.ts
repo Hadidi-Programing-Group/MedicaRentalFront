@@ -66,7 +66,6 @@ export class UnlistedItemsComponent implements OnInit {
           if (data.statusCode == 204) {
             this.getUnListedItems()
           } else {
-            console.log(data.statusMessage)
           }
         },
         error: (err) => console.log(err)
@@ -75,7 +74,6 @@ export class UnlistedItemsComponent implements OnInit {
   }
 
   deleteItem(id: string) {
-    console.log(id)
     this.ProductsService.DeleteItem(id).subscribe
     (
       {

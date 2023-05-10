@@ -156,7 +156,7 @@ export class ProductsComponent implements OnInit {
 
   fetchItemsByBrands():void{
     if (this.brandIds && this.brandIds.length > 0) {
-     
+
       this.ProductsService.GetItemsByCategories(
         this.brandIds,
         this.pagination,
@@ -278,7 +278,6 @@ export class ProductsComponent implements OnInit {
     this.filterService.resetFilters();
   }
   onItemClick(id: string) {
-    console.log(id);
     let ItemDetailsUrl = 'itemdetails/renter/' + id;
     this.router.navigate([ItemDetailsUrl]);
   }

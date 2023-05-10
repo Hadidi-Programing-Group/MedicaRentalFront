@@ -87,7 +87,6 @@ export class RolesManagerComponent implements OnInit {
     this.adminService.GetAllAdminMod().subscribe({
       next: (data) => {
         this.AdminModData = data;
-        console.log(this.AdminModData);
       },
       error: (err) => {
         console.log(err);
@@ -165,7 +164,6 @@ export class RolesManagerComponent implements OnInit {
       this.registrationService.RegisterAdminMod(DataToBeSent).subscribe({
         next: (res) => {
           // this.router.navigate(['/']);
-          console.log(`Account registered: ${userData.role} `);
 
         $('#addAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
 

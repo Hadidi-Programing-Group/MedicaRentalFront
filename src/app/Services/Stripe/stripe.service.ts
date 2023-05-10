@@ -29,8 +29,6 @@ export class StripeService {
       body: JSON.stringify({ amount }),
     });
     const { client_secret } = await response.json();
-    console.log(client_secret);
-    console.log(document.getElementById("payment-element"));
 
     this.elements = this.stripe?.elements({
       clientSecret: client_secret,
@@ -113,7 +111,6 @@ export class StripeService {
   }
   getElements(amount: number): StripeElements | undefined {
     this.createPaymentIntent(amount).subscribe(intent => {
-      console.log(intent.client_secret);
       this.elements = this.stripe?.elements({
         clientSecret: intent.client_secret ?? "",
         appearance: {
@@ -141,7 +138,6 @@ export class StripeService {
   }
 
   private createPaymentIntent(amount: number): Observable<PaymentIntent> {
-    console.log("authToken" ,localStorage.getItem("authToken") );
     return this.http.post<PaymentIntent>(
       `${environment.apiURL}/api/Payments/create-payment-intent`,
       {

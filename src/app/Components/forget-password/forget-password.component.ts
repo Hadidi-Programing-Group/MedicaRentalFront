@@ -50,7 +50,6 @@ export class ForgetPasswordComponent implements OnInit {
         this.showSuccess = true;
         this.successMessage =
           'The link has been sent, please check your email to reset your password.';
-        console.log(data);
       },
       error: (err: HttpErrorResponse) => {
         this.showError = true;
