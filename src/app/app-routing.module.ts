@@ -48,10 +48,17 @@ import { ProfileComponent } from './Components/UserComponents/profile/profile.co
 import {ManageBrandsComponent} from "./Components/AdminComponents/Brands/brands/manage-brands.component";
 import {AdsOrdersComponent} from "./Components/UserComponents/ads-orders/ads-orders.component";
 import {OrderDetailsComponent} from "./Components/UserComponents/order-details/order-details.component";
+import { AdminAuthGuardGuard } from './Guards/admin-auth-guard.guard';
+import { ClientAuthGuardGuard } from './Guards/client-auth-guard.guard';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'checkout', component: PaymentComponent },
+  {
+    path: 'checkout',
+    component: PaymentComponent,
+    canActivate: [ClientAuthGuardGuard],
+  },
   {
     path: 'chat',
     component: ChatComponent,
@@ -60,7 +67,11 @@ const routes: Routes = [
 
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ItemDetailsRenterComponent },
-  { path: 'products/forseller/:id', component: ItemDetailsSellerComponent },
+  {
+    path: 'products/forseller/:id',
+    component: ItemDetailsSellerComponent,
+    canActivate: [ClientAuthGuardGuard],
+  },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'forgetpassword', component: ForgetPasswordComponent },
@@ -80,16 +91,25 @@ const routes: Routes = [
       { path: 'onrenthistory', component: OnRentItemsHistoryComponent },
       { path: 'adsorders', component: AdsOrdersComponent },
     ],
+    canActivate: [ClientAuthGuardGuard],
   },
   { path: 'orderdetails/:id', component: OrderDetailsComponent },
 
   { path: 'reviews/:id', component: ReviewsComponent },
   { path: 'forbidden', component: Forbidden403Component },
-  { path: 'additem', component: AddItemComponent },
+  {
+    path: 'additem',
+    component: AddItemComponent,
+    canActivate: [ClientAuthGuardGuard],
+  },
   {
     path: 'admin',
     component: AdminPanelComponent,
     children: [
+      {
+        path: '',
+        component: RentOperationsComponent,
+      },
       { path: 'pendingapprovals', component: PendingApprovalsComponent },
       {
         path: 'pendingapprovals/:id',
@@ -117,9 +137,14 @@ const routes: Routes = [
       { path: 'manageCategories', component: ManageCategoriesComponent },
       { path: 'manageBrands', component: ManageBrandsComponent },
     ],
+    canActivate: [AdminAuthGuardGuard],
   },
   { path: 'about', component: AboutComponent },
-  { path: 'cart', component: CartComponent },
+  {
+    path: 'cart',
+    component: CartComponent,
+    canActivate: [ClientAuthGuardGuard],
+  },
   { path: 'contact', component: ContactComponent },
   { path: '**', component: NotFound404Component },
 ];
