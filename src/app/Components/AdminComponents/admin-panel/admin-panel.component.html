@@ -8,33 +8,17 @@
       >
         <a
           routerLink="/"
-          class="d-flex align-items-center pb-md-3 mb-md-0 me-md-auto text-white text-decoration-none"
+          class="ms-2 d-flex align-items-center pb-md-3 mb-md-0 me-md-auto text-white text-decoration-none"
         >
-<!--          <i class="bi bi-arrow-left-square-fill me-3 fs-5"> </i-->
-<!--          >-->
-          <span class="fs-5 d-none d-sm-block fw-semibold"> MedicaRental</span>
+          <i class="d-md-none bi bi-arrow-left-square-fill me-3 fs-5"> </i>
+          <span class="fs-5 d-none d-md-block fw-semibold"> MedicaRental</span>
         </a>
         <ul
           class="col-12 nav nav-pills flex-md-column flex-row flex-nowrap flex-shrink-1 flex-md-grow-0 flex-grow-1 mb-md-auto mb-0 justify-content-center align-items-center align-items-md-start"
           id="menu"
         >
           <li class="my-lg-1 col-md-12 nav-item">
-            <a
-              routerLink="/admin"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link "
-            >
-              <i class="fs-5 fa-sharp fa-solid fa-house"></i
-              ><span class="ms-1 d-none d-md-inline"> Home</span>
-            </a>
-          </li>
-          <li class="my-lg-1 col-md-12 nav-item">
-            <a
-              routerLink="reports"
-              routerLinkActive="active"
-              class="nav-link "
-            >
+            <a routerLink="reports" routerLinkActive="active" class="nav-link">
               <i class="fs-5 fa-sharp fa-solid fa-flag"></i
               ><span class="ms-1 d-none d-md-inline"> Reports</span>
             </a>
@@ -44,10 +28,9 @@
               routerLink="pendingapprovals"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link "
+              class="nav-link"
             >
-              <i class="fs-5 fa-sharp fa-solid fa-person-circle-check"></i
-              >
+              <i class="fs-5 fa-sharp fa-solid fa-person-circle-check"></i>
               <span class="ms-1 d-none d-md-inline"> Approve Users</span>
             </a>
           </li>
@@ -57,7 +40,7 @@
               routerLink="rolesmanger"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link "
+              class="nav-link"
             >
               <i class="fs-4 bi-dice-1"></i>
               <span class="ms-1 d-none d-md-inline"> RolesManger</span></a
@@ -68,7 +51,7 @@
               routerLink="rentoperations"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link "
+              class="nav-link"
             >
               <i class="fs-4 bi-check-circle-fill"></i>
               <span class="ms-1 d-none d-md-inline"> RentOperations</span></a
@@ -79,7 +62,7 @@
               routerLink="blockusers"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link "
+              class="nav-link"
             >
               <i class="fs-5 fa-sharp fa-solid fa-ban"></i
               ><span class="ms-1 d-none d-md-inline"> Block Users</span></a
@@ -90,7 +73,7 @@
               routerLink="manageCategories"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link "
+              class="nav-link"
             >
               <i class="fs-5 fa-sharp fa-solid fa-boxes-stacked"></i>
               <span class="ms-1 d-none d-md-inline">
@@ -103,21 +86,24 @@
               routerLink="manageBrands"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="nav-link "
+              class="nav-link"
             >
               <i class="fs-5 fa-solid fa-screwdriver-wrench"></i>
-              <span class="ms-1 d-none d-md-inline">
-                Manage Brands
-              </span></a
+              <span class="ms-1 d-none d-md-inline"> Manage Brands </span></a
             >
           </li>
         </ul>
-        <div class="dropdown py-md-4 mt-md-auto ms-auto ms-md-0 flex-shrink-1">
+        <div
+          class="dropdown py-md-4 mt-md-auto ms-auto ms-md-0 flex-shrink-1 me-2"
+        >
           <button
             (click)="LogOut()"
             class="d-flex align-items-center text-white text-decoration-none btn btn-outline-danger"
           >
-            <span class="d-inline mx-1">Logout</span>
+            <span class="d-none d-md-inline mx-1">Logout</span>
+            <span class="d-md-none mx-1"
+              ><i class="fa-solid fa-right-from-bracket"></i
+            ></span>
           </button>
         </div>
       </div>

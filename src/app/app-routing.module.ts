@@ -45,7 +45,7 @@ import { OnRentItemsComponent } from './Components/UserComponents/on-rent-items/
 import { RentedItemsHistoryComponent } from './Components/UserComponents/rented-items-history/rented-items-history.component';
 import { OnRentItemsHistoryComponent } from './Components/UserComponents/on-rent-items-history/on-rent-items-history.component';
 import { ProfileComponent } from './Components/UserComponents/profile/profile.component';
-import {ManageBrandsComponent} from "./Components/AdminComponents/Brands/brands/manage-brands.component";
+import { ManageBrandsComponent } from './Components/AdminComponents/Brands/brands/manage-brands.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -85,6 +85,10 @@ const routes: Routes = [
     path: 'admin',
     component: AdminPanelComponent,
     children: [
+      {
+        path: '',
+        component: RentOperationsComponent,
+      },
       { path: 'pendingapprovals', component: PendingApprovalsComponent },
       {
         path: 'pendingapprovals/:id',
