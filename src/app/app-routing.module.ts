@@ -50,6 +50,7 @@ import { AdsOrdersComponent } from './Components/UserComponents/ads-orders/ads-o
 import { OrderDetailsComponent } from './Components/UserComponents/order-details/order-details.component';
 import { AdminAuthGuardGuard } from './Guards/admin-auth-guard.guard';
 import { ClientAuthGuardGuard } from './Guards/client-auth-guard.guard';
+import { RegisteSuccessComponent } from './Components/registe-success/registe-success.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -76,6 +77,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'forgetpassword', component: ForgetPasswordComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
+  { path: 'registersuccess', component: RegisteSuccessComponent },
   { path: 'nationaliderror', component: NationalIDErrorComponent },
   { path: 'emailerror', component: EmailErrorComponent },
   {

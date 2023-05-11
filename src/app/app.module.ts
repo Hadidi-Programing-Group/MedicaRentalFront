@@ -95,6 +95,7 @@ import { ManageBrandsComponent } from './Components/AdminComponents/Brands/brand
 import { BrandModalComponent } from './Components/AdminComponents/Brands/brands-modal/brand-modal.component';
 import { AdsOrdersComponent } from './Components/UserComponents/ads-orders/ads-orders.component';
 import { OrderDetailsComponent } from './Components/UserComponents/order-details/order-details.component';
+import { RegisteSuccessComponent } from './Components/registe-success/registe-success.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -174,6 +175,7 @@ import { OrderDetailsComponent } from './Components/UserComponents/order-details
     BrandModalComponent,
     AdsOrdersComponent,
     OrderDetailsComponent,
+    RegisteSuccessComponent,
 
   ],
 
