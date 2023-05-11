@@ -49,7 +49,10 @@
             </ng-container>
           </td>
           <td class="text-center d-none d-lg-table-cell">
-            <button *ngIf="operation.rating == 0" class="mx-3 btn btn-primary">
+            <button *ngIf="operation.rating == 0"
+               data-bs-toggle="modal"
+              data-bs-target="#addRatingModal" class="mx-3 btn btn-primary"
+              (click)="GetItemId(operation.itemId)">
               Review
             </button>
           </td>
@@ -74,5 +77,108 @@
     class="text-center text-dark h1 p-4 mt-5 rounded"
   >
     <img src="assets/icons/NoRes.jpg" width="400px" height="400px" />
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="addRatingModal"
+  tabindex="-1"
+  aria-labelledby="addRatingModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRatingModalLabel">Your Rating</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="rating-box m-auto">
+          <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="pb-3">
+            <div class="rating-container">
+              <input
+                type="radio"
+                name="radioControl"
+                value="5"
+                id="star-6"
+                formControlName="radioControl"
+              />
+              <label for="star-6">&#9733;</label>
+
+              <input
+                type="radio"
+                name="radioControl"
+                value="4"
+                id="star-7"
+                formControlName="radioControl"
+              />
+              <label for="star-7">&#9733;</label>
+
+              <input
+                type="radio"
+                name="radioControl"
+                value="3"
+                id="star-8"
+                formControlName="radioControl"
+              />
+              <label for="star-8">&#9733;</label>
+
+              <input
+                type="radio"
+                name="radioControl"
+                value="2"
+                id="star-9"
+                formControlName="radioControl"
+              />
+              <label for="star-9">&#9733;</label>
+
+              <input
+                type="radio"
+                name="radioControl"
+                value="1"
+                id="star-10"
+                formControlName="radioControl"
+              />
+              <label for="star-10">&#9733;</label>
+            </div>
+            <div>
+              <p>Your review:</p>
+              <textarea
+                formControlName="review"
+                name=""
+                id="Comment"
+                cols="30"
+                rows="3"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer m-auto">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="SaveRating"
+            data-bs-dismiss="modal"
+            (click)="onSubmit()"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

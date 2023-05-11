@@ -14,3 +14,11 @@ th{
   position: sticky;
   top: 5.5em;
 }
+
+.carousel .star-rating li {
+	padding: 0 2px;
+}
+.carousel .star-rating i {
+	font-size: 16px;
+	color: #ffdc12;
+}

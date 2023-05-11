@@ -3,6 +3,8 @@ import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
 import {DateHelper} from "../../../Helpers/DateHelper";
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
 
 @Component({
   selector: 'app-rented-items-history',
@@ -15,8 +17,14 @@ export class RentedItemsHistoryComponent implements OnInit {
   currentPage: number = 1;
   orderBy: string = OrderByStrings.RentDateDesc
   searchText: string | null = null
+  reviewForm: FormGroup;
+  ItemId: any;
 
-  constructor(private readonly RentOperationsService: RentOperationsService) {
+  constructor(private readonly RentOperationsService: RentOperationsService, private fb: FormBuilder,private ReviewSerivce: ReviewsService) {
+    this.reviewForm = this.fb.group({
+      radioControl: new FormControl(),
+      review: [''],
+    });
   }
 
   ngOnInit(): void {
@@ -57,6 +65,29 @@ export class RentedItemsHistoryComponent implements OnInit {
           error: (err) => console.log(err)
         }
       );
+  }
+
+  GetItemId(id:any){
+    this.ItemId = id;
+  }
+
+  onSubmit() {
+    // const ratingValue = this.reviewForm.get('radioControl')?.value;
+    // const reviewValue = this.reviewForm.get('review')?.value;
+    const UserRev = {
+      rating: parseInt(this.reviewForm.get('radioControl')?.value),
+      isDeleted: false,
+      clientReview: this.reviewForm.get('review')?.value,
+      itemId: this.ItemId,
+    };
+    this.ReviewSerivce.AddReview(UserRev).subscribe({
+      next: (res) => {
+        this.ngOnInit();
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   protected readonly DateHelper = DateHelper;
