@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/Services/Login/login.service';
 import { SignalRService } from '../../Services/SignalR/signal-r.service';
 import { environment } from '../../../environments/environment';
@@ -19,12 +19,14 @@ import { environment } from '../../../environments/environment';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  returnUrl: string;
 
   constructor(
     private fb: FormBuilder,
     private signalRService: SignalRService,
     private loginservies: LoginService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.loginForm = this.fb.group({
       email: [
@@ -43,7 +45,9 @@ export class LoginComponent implements OnInit {
   wrongInfo = false;
   errorMessage: string = '';
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
 
   onSubmit() {
     if (this.loginForm.valid) {
@@ -61,7 +65,7 @@ export class LoginComponent implements OnInit {
           this.signalRService.startConnection(data['token']);
           localStorage.setItem('userRole', data['userRole']);
           this.loginservies.changeUserRole.emit(data['userRole']);
-          this.router.navigate(['/']);
+          this.router.navigateByUrl(this.returnUrl);
         },
         error: (err) => {
           this.wrongInfo = true;

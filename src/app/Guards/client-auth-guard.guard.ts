@@ -29,7 +29,9 @@ export class ClientAuthGuardGuard {
     const isAuth = localStorage.getItem('isAuthenticated') == 'true';
 
     if (!isAuth) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], {
+        queryParams: { returnUrl: state.url },
+      });
       return false;
     }
 
