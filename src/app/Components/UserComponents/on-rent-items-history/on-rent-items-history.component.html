@@ -49,7 +49,10 @@
             </ng-container>
           </td>
           <td class="text-center d-none d-lg-table-cell">
-            <button *ngIf="operation.rating != 0" class="mx-3 btn btn-primary">
+            <button *ngIf="operation.rating != 0" class="mx-3 btn btn-primary"
+            data-bs-toggle="modal"
+              data-bs-target="#addRatingModal" class="mx-3 btn btn-primary"
+              (click)="GetReviewId(operation.reviewId)">
               View Review
             </button>
           </td>
@@ -74,5 +77,45 @@
     class="text-center text-dark h1 p-4 mt-5 rounded"
   >
     <img src="assets/icons/NoRes.jpg" width="400px" height="400px" />
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="addRatingModal"
+  tabindex="-1"
+  aria-labelledby="addRatingModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="addRatingModalLabel">Review:</h2>
+          <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="rating-box m-auto">
+          <h4>
+            {{Review}}
+          </h4>
+
+        </div>
+        <div class="modal-footer m-auto">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
