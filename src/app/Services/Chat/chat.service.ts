@@ -13,11 +13,10 @@ import {BehaviorSubject} from "rxjs";
 })
 export class ChatService
 {
-  private baseUrl = `${environment.apiURL}/api/Messages`; //API
-
-
   newMessage = new EventEmitter();
-  chatOpened = new EventEmitter();
+
+
+  private baseUrl = `${environment.apiURL}/api/Messages`; //API
 
   constructor(private readonly httpClient: HttpClient) {}
 

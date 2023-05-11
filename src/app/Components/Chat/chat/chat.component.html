@@ -6,9 +6,8 @@
       <div class="position-sticky pt-3">
         <ul class="nav navbar-nav flex-column">
           <app-chat-user
-            *ngFor="let user of users; let i = index; trackBy: trackChats"
+            *ngFor="let user of chatDataService.users; let i = index; trackBy: trackChats"
             [chat]="user"
-            (chatClicked)="chatChangedEvent($event)"
           ></app-chat-user>
         </ul>
       </div>

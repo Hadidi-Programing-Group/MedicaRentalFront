@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private signalRService: SignalRService,
     private loginservies: LoginService,
+    private signalRService: SignalRService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -62,8 +62,10 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('authTokenExpDate', data['expiry']);
           localStorage.setItem('isAuthenticated', 'true');
           this.loginservies.isAuthenticatedChanged.emit(true);
-          this.signalRService.startConnection(data['token']);
           localStorage.setItem('userRole', data['userRole']);
+          if(data['userRole'] == 'Client'){
+            this.signalRService.startConnection(data['token']);
+          }
           this.loginservies.changeUserRole.emit(data['userRole']);
           this.router.navigateByUrl(this.returnUrl);
         },

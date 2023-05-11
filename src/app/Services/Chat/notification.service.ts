@@ -4,7 +4,6 @@ import {EventEmitter, Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class NotificationService {
-  chatClicked = new EventEmitter()
-  outChat = new EventEmitter()
+  updateNotification = new EventEmitter()
   constructor() { }
 }
