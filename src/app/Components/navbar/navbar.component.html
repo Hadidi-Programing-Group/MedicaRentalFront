@@ -3,7 +3,8 @@
 >
   <div class="container">
     <a class="navbar-brand" routerLink="/"
-      ><i class="fa-solid fa-tooth me-2 fs-5"></i> <strong class="fs-5">MedicaRental</strong></a
+      ><i class="fa-solid fa-tooth me-2 fs-5"></i>
+      <strong class="fs-5">MedicaRental</strong></a
     >
     <button class="navbar-toggler" type="button" (click)="toggleCollapse()">
       <span class="navbar-toggler-icon"></span>
@@ -70,7 +71,7 @@
             >PRODUCTS</a
           >
         </li>
-        <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
+        <li *ngIf="isAuthenticated" class="nav-item">
           <a
             class="nav-link mx-2 text-uppercase"
             routerLinkActive="active"
