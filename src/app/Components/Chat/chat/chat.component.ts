@@ -21,6 +21,7 @@ import {Modal} from 'bootstrap';
 import {InsertReportDto} from "../../../Dtos/Reports/InsertReportDto";
 import {ChatAreaComponent} from "../chat-area/chat-area.component";
 import {ChatUsersService} from "../../../Services/Chat/chat-users.service";
+import {ChatDataService} from "../../../Services/Chat/chat-data.service";
 
 @Component({
   selector: 'app-chat',
@@ -29,14 +30,8 @@ import {ChatUsersService} from "../../../Services/Chat/chat-users.service";
 })
 export class ChatComponent implements OnInit, OnDestroy
 {
-  public users: ChatDto[] = [];
-  public currentUser: string = "";
-
-
   constructor(
-    private chatService: ChatService,
-    private notificationService: NotificationService,
-    private chatUsersService: ChatUsersService
+    public chatDataService: ChatDataService,
   )
   {
   }
@@ -44,85 +39,16 @@ export class ChatComponent implements OnInit, OnDestroy
 
   ngOnDestroy(): void
   {
-    this.currentUser = ''
-    this.chatUsersService.setData(null)
-    this.notificationService.outChat.emit()
+    this.chatDataService.reset()
   }
 
   ngOnInit(): void
   {
-    this.chatService.chatOpened.subscribe({
-      next: (userId: string) =>
-      {
-        this.currentUser = userId
-        this.chatChangedEvent(this.currentUser)
-      }
-    })
-    this.chatService.newMessage.subscribe({
-      next: (obj: { message: MessageDto, user: String }) =>
-      {
-        let user = this.users.find(u => u.userId == obj.user)
-        if (!user)
-        {
-          this.getUserChats()
-        }
-        else
-        {
-          user.lastMessage = obj.message.message;
-          user.messageDate = obj.message.messageDate;
-          user.messageStatus = obj.message.messageStatus;
-          if (obj.user != this.currentUser)
-          {
-            user.unseenMessagesCount += 1;
-          }
-          this.sortUsers()
-        }
-      }
-    })
-    this.getUserChats()
+    this.chatDataService.getUsers()
   }
-
 
   trackChats(index: number, chat: ChatDto)
   {
     return chat.userId;
   }
-
-  getUserChats()
-  {
-    this.chatService.GetUserChats(20)
-      .subscribe({
-        next: (data: ChatDto[]) =>
-        {
-          this.users = data
-          this.sortUsers()
-          this.chatUsersService.setData(data)
-        },
-        error: (err) => console.error(err)
-      })
-  }
-
-  chatChangedEvent(userId: string)
-  {
-    this.currentUser = userId;
-    let c = this.users.find(u => u.userId == userId)?.unseenMessagesCount
-
-    if (c && c > 0)
-    {
-      this.notificationService.chatClicked.emit({id: userId, count: c})
-
-      let user = this.users.find(u => u.userId == this.currentUser);
-
-      if (user)
-      {
-        user.unseenMessagesCount = 0;
-      }
-    }
-  }
-
-  sortUsers()
-  {
-    this.users.sort((a, b) => new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime());
-  }
-
 }

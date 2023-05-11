@@ -36,8 +36,8 @@
             <app-report-modal
               [contentA]="reportContentA"
               [contentB]="reportContentB"
-              [successMessage]="'Message reported successfully.'"
-              [failureMessage]="'Message couldn\'t be reported.'"
+              [successMessage]="'User reported successfully.'"
+              [failureMessage]="'User couldn\'t be reported.'"
               [submitted]="submitted"
               [success]="success"
               (cancelReportEvent)="cancelReport()"
@@ -201,7 +201,7 @@
 
         <div class="rating-box m-auto">
           <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="pb-3">
-            <div class="rating-container">
+            <div class="rating-container mt-3">
               <input
                 type="radio"
                 name="radioControl"

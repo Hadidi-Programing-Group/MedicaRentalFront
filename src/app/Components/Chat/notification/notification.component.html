@@ -3,8 +3,8 @@
      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="fas fa-envelope fa-fw" style="font-size: 1.5em"></i>
 
-    <span *ngIf="notificationCount > 0" class="badge badge-danger badge-counter"
-          style="font-size: 1em">{{notificationCount}}</span>
+    <span *ngIf="chatDataService.notificationCount > 0" class="badge badge-danger badge-counter"
+          style="font-size: 1em">{{chatDataService.notificationCount}}</span>
   </a>
 
   <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -13,15 +13,14 @@
     <p class="h6 dropdown-header">
       Message Center
     </p>
-<!--    (click)="openChat({id: message.senderId, count: message. })"-->
-    <a class="dropdown-item d-flex align-items-center" routerLink= "chat/{{message.senderId}}"  *ngFor="let message of messages">
+
+    <a class="dropdown-item d-flex align-items-center" routerLink= "chat/{{message.senderId}}"  *ngFor="let message of chatDataService.notificationMessages">
       <div class="col-2 d-flex flex-column dropdown-list-image">
         <img *ngIf="message.profileImage != ''" class="rounded-circle profile-img" src="{{message.profileImage}}" alt="...">
 
         <div *ngIf="message.profileImage == ''" class="bg-danger m-auto text-center text-white my-auto rounded-circle profile-img">
           <i class="fa-solid fa-user my-2"></i>
         </div>
-        <!-- online or offline <div class="status-indicator bg-success"></div>-->
       </div>
       <div class="col-10">
         <div class="text-truncate">{{message.message}}</div>

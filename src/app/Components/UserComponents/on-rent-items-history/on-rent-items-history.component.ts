@@ -3,6 +3,8 @@ import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
 import {DateHelper} from "../../../Helpers/DateHelper";
+import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-on-rent-items-history',
@@ -15,8 +17,9 @@ export class OnRentItemsHistoryComponent implements OnInit {
   currentPage: number = 1;
   orderBy: string = OrderByStrings.RentDateDesc
   searchText: string | null = null
+  Review : any;
 
-  constructor(private readonly RentOperationsService: RentOperationsService) {
+  constructor(private readonly RentOperationsService: RentOperationsService, private ReviewService: ReviewsService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +61,18 @@ export class OnRentItemsHistoryComponent implements OnInit {
           error: (err) => console.log(err)
         }
       );
+  }
+
+  GetReviewId(reviewId:any){
+    this.ReviewService.GetReviewById(reviewId).subscribe({
+      next: (data:any) => {
+        this.Review = data.clientReview
+        console.log(this.Review);
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 
   protected readonly DateHelper = DateHelper;

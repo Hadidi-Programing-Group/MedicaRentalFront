@@ -95,6 +95,7 @@ import { ManageBrandsComponent } from './Components/AdminComponents/Brands/brand
 import { BrandModalComponent } from './Components/AdminComponents/Brands/brands-modal/brand-modal.component';
 import { AdsOrdersComponent } from './Components/UserComponents/ads-orders/ads-orders.component';
 import { OrderDetailsComponent } from './Components/UserComponents/order-details/order-details.component';
+import {ChatDataService} from "./Services/Chat/chat-data.service";
 import { RegisteSuccessComponent } from './Components/registe-success/registe-success.component';
 @NgModule({
   declarations: [
@@ -201,6 +202,7 @@ import { RegisteSuccessComponent } from './Components/registe-success/registe-su
   providers: [
     ProductsService,
     CategoriesService,
+    ChatDataService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS,
