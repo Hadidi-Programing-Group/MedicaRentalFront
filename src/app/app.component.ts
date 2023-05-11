@@ -4,7 +4,6 @@ import { CommunicationService } from './Services/Communication/communication.ser
 import { SignalRService } from './Services/SignalR/signal-r.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { ChatDataService } from './Services/Chat/chat-data.service';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +17,7 @@ export class AppComponent implements OnInit {
   constructor(
     private navbarService: CommunicationService,
     private signalRService: SignalRService,
-    private readonly router: Router,
-    private chatDataService: ChatDataService
+    private readonly router: Router
   ) {
     //this.checkConnection();
   }
