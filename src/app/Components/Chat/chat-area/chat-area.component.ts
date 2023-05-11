@@ -22,6 +22,7 @@ import { ReportsService } from '../../../Services/Reports/reports.service';
 import { ChatService } from '../../../Services/Chat/chat.service';
 import { NotificationService } from '../../../Services/Chat/notification.service';
 import { ChatUsersService } from '../../../Services/Chat/chat-users.service';
+import {ChatDataService} from "../../../Services/Chat/chat-data.service";
 
 @Component({
   selector: 'app-chat-area',
@@ -29,7 +30,7 @@ import { ChatUsersService } from '../../../Services/Chat/chat-users.service';
   styleUrls: ['./chat-area.component.css'],
 })
 export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
-  public messages: MessageDto[] = [];
+
   public currentUser = '';
 
   public reportContentA = '';
@@ -45,7 +46,7 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('messagesDiv') messagesDiv: ElementRef | undefined;
 
   constructor(
-    private signalRService: SignalRService,
+    public chatDataService: ChatDataService,
     private activeRoute: ActivatedRoute,
     private reportsService: ReportsService,
     private chatService: ChatService,
@@ -53,8 +54,7 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    this.currentUser = '';
-    this.chatUsersService.setData(null);
+    this.chatDataService.userOut.emit(this.currentUser)
   }
 
   ngAfterViewInit(): void {
@@ -67,63 +67,14 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.checkConnection();
-
     this.activeRoute.params.subscribe((params) => {
       this.currentUser = params['id'];
-
-      this.chatUsersService.getData().subscribe((data) => {
-        if (data != null && this.currentUser != '') {
-          this.chatService.chatOpened.emit(this.currentUser);
-          this.getChat(20);
-        }
-      });
+      this.chatDataService.userIn.emit(this.currentUser)
     });
 
-    this.signalRService.newMessageEvent.subscribe({
-      next: (message: MessageDto) => {
-        if (message.senderId == this.currentUser) {
-          message.messageStatus = MessageStatus.Seen;
-          this.messages.push(message);
-          this.scrollToTheEnd();
-          this.signalRService.setMessageSeen(message.id, message.senderId);
-        }
-
-        this.chatService.newMessage.emit({ message, user: message.senderId });
-      },
-      error: (err: any) => console.error(err),
-    });
-
-    this.signalRService.messageSeenEvent.subscribe({
-      next: (messageId: string) => {
-        debugger;
-        let msg = this.messages.find((m) => m.id == messageId);
-        if (msg) {
-          msg.messageStatus = MessageStatus.Seen;
-          this.messages = [...this.messages];
-        } else {
-          console.error('No message with the received id');
-        }
-      },
-      error: (err: any) => console.error(err),
-    });
-
-    this.signalRService.allMessagesSeenEvent.subscribe({
-      next: (userId: string) => {
-        if (userId == this.currentUser) {
-          for (let message of this.messages) {
-            message.messageStatus = MessageStatus.Seen;
-          }
-          this.messages = [...this.messages];
-        }
-      },
-    });
-  }
-
-  checkConnection() {
-    if (!this.signalRService.isConnected) {
-      this.signalRService.startConnection();
-    }
+    this.chatDataService.scroll.subscribe({
+      next:()=> this.scrollToTheEnd()
+    })
   }
 
   checkNewDate(i: number): boolean {
@@ -131,8 +82,8 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
       return true;
     }
 
-    let date1 = DateHelper.getDate(this.messages[i - 1].messageDate);
-    let date2 = DateHelper.getDate(this.messages[i].messageDate);
+    let date1 = DateHelper.getDate(this.chatDataService.currentUserMessages[i - 1].messageDate);
+    let date2 = DateHelper.getDate(this.chatDataService.currentUserMessages[i].messageDate);
 
     return !(
       date1.getFullYear() === date2.getFullYear() &&
@@ -142,13 +93,14 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sendMessage(message: HTMLInputElement) {
-    if (message.value != '' && this.currentUser != '') {
+    if (message.value != '' && this.currentUser != '')
+    {
       let date = new Date();
-
-      this.signalRService
-        .sendMessage(message.value, this.currentUser, date)
-        .then((messageId: string) => {
-          if (messageId != '') {
+      this.chatDataService.sendMessage(message.value, date).then(
+        (messageId) =>
+        {
+          if (messageId != '')
+          {
             let msg = Object.assign(
               {},
               new MessageDto(
@@ -159,18 +111,14 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
                 MessageStatus.Sent
               )
             );
-            this.messages.push(msg);
-
+            this.chatDataService.currentUserMessages.push(msg);
+            this.chatDataService.updateIfNotExist()
             message.value = '';
-
-            this.chatService.newMessage.emit({
-              message: msg,
-              user: this.currentUser,
-            });
 
             this.scrollToTheEnd();
           }
-        });
+        }
+      )
     }
   }
 
@@ -186,22 +134,10 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 200);
   }
 
-  getChat(numOfDays: number = 20) {
-    this.chatService
-      .GetChat(this.currentUser, numOfDays, new Date())
-      .subscribe({
-        next: (data) => {
-          this.messages = data;
-          this.scrollToTheEnd();
-        },
-        error: (err) => console.error(err),
-      });
-  }
-
   deleteMessage(messageId: string) {
     this.deletedMessageId = messageId;
     this.deleteContent =
-      this.messages.find((m) => m.id == messageId)?.message ?? '';
+      this.chatDataService.currentUserMessages.find((m) => m.id == messageId)?.message ?? '';
     this.deleteModal.show();
   }
 
@@ -209,7 +145,7 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reportedMessageId = messageId;
     this.reportContentA = `You are reporting the following message:`;
     this.reportContentB =
-      this.messages.find((m) => m.id == messageId)?.message ?? '';
+      this.chatDataService.currentUserMessages.find((m) => m.id == messageId)?.message ?? '';
     this.reportModal.show();
   }
 
@@ -220,10 +156,10 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
         this.submitted = true;
         this.success = true;
 
-        let index = this.messages.findIndex(
+        let index = this.chatDataService.currentUserMessages.findIndex(
           (m) => m.id == this.deletedMessageId
         );
-        this.messages.splice(index, 1);
+        this.chatDataService.currentUserMessages.splice(index, 1);
         this.cancelDelete();
       },
       error: (err) => {

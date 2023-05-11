@@ -3,7 +3,7 @@
   <div class="row" *ngIf="transaction">
     <div class="d-flex">
       <div class="col-12">
-        <p class="text-center h4 my-3">Transaction #{{transaction.id}}</p>
+        <p class="text-center h4 my-3">Transaction #{{transaction.paymentId}}</p>
         <ul class="mb-4 fs-6 list-group list-group-horizontal justify-content-center">
           <li class="list-group-item">
             <strong>Date:</strong> {{ DateHelper.getDate(transaction.date) | date : "MMMM dd, YYYY" }}

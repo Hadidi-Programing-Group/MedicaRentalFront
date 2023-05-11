@@ -13,7 +13,6 @@ export class AdminPanelComponent implements OnInit {
   constructor(
     private readonly loginService: LoginService,
     private readonly router: Router,
-    private readonly signalRService: SignalRService
   ) {}
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole') ?? '';
@@ -28,6 +27,5 @@ export class AdminPanelComponent implements OnInit {
     this.loginService.revokeToken();
     this.router.navigate(['/']);
     this.loginService.isAuthenticatedChanged.emit(false);
-    this.signalRService.endConnection();
   }
 }

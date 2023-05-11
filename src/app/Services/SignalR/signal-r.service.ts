@@ -14,7 +14,6 @@ export class SignalRService {
   public newMessageEvent = new EventEmitter();
   public messageSeenEvent = new EventEmitter();
   public allMessagesSeenEvent = new EventEmitter();
-  public incMesCountEvent = new EventEmitter();
   public connectionStartEvent = new EventEmitter();
   public isConnected: boolean = false;
 
@@ -84,17 +83,4 @@ export class SignalRService {
       .catch((err) => console.error("Message couldn't be sent", err));
   }
 
-  // allMessagesSeen()
-  // {
-  //   if (!this.connection)
-  //   {
-  //     return console.error("SignalR connection isn't established")
-  //   }
-  //
-  //   this.connection.invoke("AllMessagesSeen")
-  //     .then(() =>
-  //     {
-  //     })
-  //     .catch((err) => console.error("Failed to reach signalR server", err));
-  // }
 }

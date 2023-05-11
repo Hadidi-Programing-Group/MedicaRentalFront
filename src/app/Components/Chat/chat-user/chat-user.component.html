@@ -4,7 +4,6 @@
     aria-current="page"
     [routerLinkActiveOptions]="{ exact: true }"
     routerLinkActive="active"
-    (click)="openChat(chat.userId)"
     routerLink="{{ chat.userId }}"
   >
     <div class="row">
@@ -56,7 +55,6 @@
   <a
     class="nav-link rounded-3"
     aria-current="page"
-    (click)="openChat(chat.userId)"
     routerLink="{{ chat.userId }}"
   >
     <div class="row justify-content-center">
