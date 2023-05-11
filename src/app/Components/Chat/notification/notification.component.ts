@@ -35,17 +35,13 @@ export class NotificationComponent implements OnInit {
     })
     this.signalRService.newMessageEvent.subscribe({
       next: (message: MessageDto) => {
-        console.log(this.currentChat)
         if (message.senderId == this.currentChat) {
-          console.log('2')
           return;
         }
-        console.log('3')
 
         let index = this.messages.findIndex(m => m.senderId == message.senderId)
 
         if (index != -1) {
-          console.log('4')
 
           let notification = this.messages[index]
           notification.messageDate = message.messageDate
@@ -79,7 +75,6 @@ export class NotificationComponent implements OnInit {
     this.notificationService.outChat.subscribe(({
       next: () => {
         this.currentChat = ''
-        console.log('outchat', this.currentChat)
       }
     }))
   }

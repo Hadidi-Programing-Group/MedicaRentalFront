@@ -56,7 +56,6 @@ export class BrandComponent implements OnInit {
 
   moveLeft() {
     const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(true);
-    console.log(cardWidth);
     this.scrollPosition -= cardWidth;
     $(`#cardRow${this.randomId}`).animate({ scrollLeft: '-=' + cardWidth });
     this.updateCardRow();
@@ -64,7 +63,6 @@ export class BrandComponent implements OnInit {
 
   moveRight() {
     const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(true);
-    console.log(cardWidth);
     this.scrollPosition += cardWidth;
     $(`#cardRow${this.randomId}`).animate({ scrollLeft: '+=' + cardWidth });
     this.updateCardRow();

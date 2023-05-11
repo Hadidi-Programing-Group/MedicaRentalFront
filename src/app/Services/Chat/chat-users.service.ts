@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {ChatDto} from "../Dtos/Message/ChatDto";
+import {ChatDto} from "../../Dtos/Message/ChatDto";
 
 @Injectable({
   providedIn: 'root'

@@ -72,7 +72,6 @@ export class ItemDetailsRenterComponent implements OnInit {
 
   ngAfterViewInit(): void
   {
-    console.log(this.reportModal)
     this.isAuthenticated = localStorage.getItem("isAuthenticated") == "true";
   }
 
@@ -140,7 +139,6 @@ export class ItemDetailsRenterComponent implements OnInit {
 
   confirmedReportMessage(obj: any)
   {
-    console.log(this.Item.seller.id)
     let report = new InsertReportDto(obj.title, obj.statement, this.Item.seller.id, null, null, this.ID)
     this.reportsService.insertReport(report).subscribe({
       next: (): void =>
@@ -167,7 +165,6 @@ export class ItemDetailsRenterComponent implements OnInit {
   report()
   {
     this.reportModal = new Modal(document.getElementById('reportStaticBackdrop')!);
-    console.log(this.reportModal);
     this.reportModal.show();
   }
 
@@ -178,7 +175,6 @@ export class ItemDetailsRenterComponent implements OnInit {
     );
     this.cartService.addToCart(addItemRequest).subscribe({
       next: (data) => {
-        console.log(data);
         this.inCart = true;
       },
       error: (err) => {
@@ -190,7 +186,6 @@ export class ItemDetailsRenterComponent implements OnInit {
   RemoveFromCart() {
     this.cartService.removeFromCart(this.ID).subscribe({
       next: (data) => {
-        console.log(data);
         this.inCart = false;
       },
       error: (err) => {

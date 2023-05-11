@@ -93,7 +93,7 @@ export class RegistrationComponent implements OnInit {
     reader.onload = () => {
       const base64String = reader.result as string;
       this.UnionCardImgBase64 = base64String;
-      const Arr = this.UnionCardImgBase64.split(',', 2)
+      const Arr = this.UnionCardImgBase64.split(',', 2);
       this.UnionCardImgBase64 = Arr[1];
     };
     reader.readAsDataURL(file);
@@ -119,7 +119,7 @@ export class RegistrationComponent implements OnInit {
       };
       this.registrationService.RegisterUser(DataToBeSent).subscribe({
         next: (res) => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/registersuccess']);
         },
         error: (error) => {
           console.log(error.error);

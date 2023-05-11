@@ -31,7 +31,6 @@ export class MessageComponent {
 
   report(messageId: string)
   {
-    console.log('hi')
     this.reportMessageEvent.emit(messageId)
   }
 }

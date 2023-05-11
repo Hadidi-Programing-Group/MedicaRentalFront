@@ -49,10 +49,9 @@
             </ng-container>
           </td>
           <td class="text-center d-none d-lg-table-cell">
-            <button *ngIf="operation.rating == 0" class="mx-3 btn btn-primary">
-              Review
+            <button *ngIf="operation.rating != 0" class="mx-3 btn btn-primary">
+              View Review
             </button>
-            <button class="mx-3 btn btn-danger">Report</button>
           </td>
         </tr>
       </tbody>

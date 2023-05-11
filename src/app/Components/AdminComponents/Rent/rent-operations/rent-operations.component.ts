@@ -77,7 +77,6 @@ export class RentOperationsComponent implements OnInit
     this.itemsService.GetSellerItemsMinimal(id).subscribe({
       next: (data) =>
       {
-        console.log(data)
         this.sellerItems = data
       }
     })

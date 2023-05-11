@@ -21,7 +21,7 @@ import { InsertReportDto } from '../../../Dtos/Reports/InsertReportDto';
 import { ReportsService } from '../../../Services/Reports/reports.service';
 import { ChatService } from '../../../Services/Chat/chat.service';
 import { NotificationService } from '../../../Services/Chat/notification.service';
-import { ChatUsersService } from '../../../Services/chat-users.service';
+import { ChatUsersService } from '../../../Services/Chat/chat-users.service';
 
 @Component({
   selector: 'app-chat-area',
@@ -74,9 +74,7 @@ export class ChatAreaComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.chatUsersService.getData().subscribe((data) => {
         if (data != null && this.currentUser != '') {
-          console.log('user', this.currentUser.charCodeAt(0));
           this.chatService.chatOpened.emit(this.currentUser);
-          console.log('hhhhhhhhhhhhhhhh');
           this.getChat(20);
         }
       });

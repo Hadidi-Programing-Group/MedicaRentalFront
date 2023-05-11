@@ -34,7 +34,6 @@ export class PendingApprovalsDetailsComponent implements OnInit {
     this.adminService.GetClientApprovalInfoWithId(this.ID).subscribe({
       next: (data: UserApprovalInfoWithIdDto | any) => {
         this.info = data;
-        console.log(data);
         this.nationalImage = data.nationalImage;
         this.unionImage = data.unionImage;
         this.nationalId = data.nationalId;
@@ -59,7 +58,6 @@ export class PendingApprovalsDetailsComponent implements OnInit {
     this.isApproved = true;
     this.adminService.ApproveUser(email).subscribe({
       next: (data) => {
-        console.log('Approved');
       },
       error: (err) => {
         console.log(err);

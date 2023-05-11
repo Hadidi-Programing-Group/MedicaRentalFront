@@ -83,7 +83,6 @@ export class ListedItemsComponent implements OnInit
         }
         else
         {
-          console.log(data.statusMessage);
         }
       },
       error: (err) => console.log(err),

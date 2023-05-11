@@ -1,0 +1,45 @@
+<div class="container-fluid">
+
+  <div class="row" *ngIf="transactions && transactions.length > 0">
+    <table class="table table-striped table-hover">
+      <thead class="text-light">
+      <tr>
+        <th class="bg-secondary">Date</th>
+        <th class="bg-secondary">Amount</th>
+        <th class="bg-secondary">Status</th>
+        <th class="bg-secondary"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ DateHelper.getDate(transaction.date) | date : "MMMM dd, YYYY" }}</td>
+        <td>{{ transaction.amount | currency : "EGP" : "E£" }}</td>
+        <td>{{ TransactionStatus[transaction.status] }}</td>
+        <td class="text-center">
+          <a class="mx-3 btn btn-primary" routerLink="/orderdetails/{{transaction.id}}" (click)="details(transaction.id)">
+            Details
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="d-flex justify-content-center my-4">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="pagesCount"
+          (pageChanged)="onPageChanged($event)"
+        >
+        </app-pagination>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="transactions && transactions.length == 0"
+    class="text-center text-dark h1 p-4 mt-5 rounded"
+  >
+    <img src="assets/icons/NoRes.jpg" width="400px" height="400px" />
+  </div>
+</div>

@@ -20,7 +20,7 @@ import {DeleteMessageRequestDto} from "../../../Dtos/Message/DeleteMessageReques
 import {Modal} from 'bootstrap';
 import {InsertReportDto} from "../../../Dtos/Reports/InsertReportDto";
 import {ChatAreaComponent} from "../chat-area/chat-area.component";
-import {ChatUsersService} from "../../../Services/chat-users.service";
+import {ChatUsersService} from "../../../Services/Chat/chat-users.service";
 
 @Component({
   selector: 'app-chat',
@@ -109,7 +109,6 @@ export class ChatComponent implements OnInit, OnDestroy
 
     if (c && c > 0)
     {
-      console.log('emitted to notif with id', userId)
       this.notificationService.chatClicked.emit({id: userId, count: c})
 
       let user = this.users.find(u => u.userId == this.currentUser);

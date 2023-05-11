@@ -105,7 +105,6 @@ export class AddItemComponent {
     const cat = this.categories.find(
       (c: { [x: string]: any }) => c['id'] == category
     );
-    console.log(this.categories);
     this.subcategories = cat['subCategories'];
     this.selectedSubCategory = this.subcategories[0]['id'];
     this.AddItemForm.controls['SubCategoryName'].setValue(
@@ -132,26 +131,5 @@ export class AddItemComponent {
         this.Brands = data;
       },
     });
-    // this.ItemService.GetItemByIdForSeller(this.ID).subscribe({
-    //   next: (data: SellerItemDto | any) => {
-    //     this.currentUser = data;
-    //     this.AddItemForm.controls['ItemName'].setValue(data.name);
-    //     this.AddItemForm.controls['description'].setValue(data.description);
-    //     this.AddItemForm.controls['serialNumber'].setValue(data.serial);
-    //     this.AddItemForm.controls['model'].setValue(data.model);
-    //     this.AddItemForm.controls['Stock'].setValue(data.stock);
-    //     this.AddItemForm.controls['Price'].setValue(data.price);
-    //     this.AddItemForm.controls['CategoryName'].setValue(data.category.id);
-    //     this.onSelectCategory(
-    //       data.category.id
-    //     );
-    //     this.AddItemForm.controls['SubCategoryName'].setValue(data.subCategory.id);
-    //     this.AddItemForm.controls['ItemImg'].setValue(data.image);
-    //     this.ItemImgBase64 = data.image;
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   },
-    // });
   }
 }

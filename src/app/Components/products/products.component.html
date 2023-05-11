@@ -1,5 +1,5 @@
 <div *ngIf="Products; else loadingBlock" class="container-fluid p-5">
-  <div class="row">
+  <div *ngIf="Products && Products.length > 0" class="row">
     <div class="col-md-3 d-none d-md-block">
       <ng-container *ngTemplateOutlet="filterArea"></ng-container>
     </div>
@@ -77,6 +77,13 @@
       <!--        ></pagination-controls>-->
       <!--      </div>-->
     </div>
+  </div>
+
+  <div
+    *ngIf="Products && Products.length == 0"
+    class="text-center text-dark h1 p-4 mt-5 rounded"
+  >
+    <img src="assets/icons/NoRes.jpg" width="400px" height="400px" />
   </div>
 </div>
 

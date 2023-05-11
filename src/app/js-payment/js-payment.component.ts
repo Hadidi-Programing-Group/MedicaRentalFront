@@ -10,7 +10,7 @@ import {
 } from '@stripe/stripe-js';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { StripeService } from '../stripe.service';
+import { StripeService } from '../Services/Stripe/stripe.service';
 
 @Component({
   selector: 'app-js-payment',
@@ -29,8 +29,6 @@ export class JsPaymentComponent implements OnInit, AfterContentInit {
     this.stripeService.initialize(10000);
     this.stripeService.checkStatus();
 
-    // console.log(document.getElementById("#payment-element"));
-    // this.stripeService.getElements(1000)?.create('payment').mount(document.getElementById("#payment-element") ?? "#payment-element");
 
   }
   ngAfterContentInit(): void {

@@ -32,7 +32,6 @@ export class PendingApprovalsComponent implements OnInit {
       .clientsNeedingApproval()
       .subscribe({ next: (data) => {
         this.approvalList = data;
-        console.log(this.approvalList);
 
 
       },
