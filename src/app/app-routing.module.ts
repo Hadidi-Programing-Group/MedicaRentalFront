@@ -51,19 +51,21 @@ import { OrderDetailsComponent } from './Components/UserComponents/order-details
 import { AdminAuthGuardGuard } from './Guards/admin-auth-guard.guard';
 import { ClientAuthGuardGuard } from './Guards/client-auth-guard.guard';
 import { RegisteSuccessComponent } from './Components/registe-success/registe-success.component';
+import { AuthGuard } from './Guards/auth.guard';
+import { LoginAuthGuard } from './Guards/login-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 'checkout',
     component: PaymentComponent,
-    canActivate: [ClientAuthGuardGuard],
+    canActivate: [AuthGuard, ClientAuthGuardGuard],
   },
   {
     path: 'chat',
     component: ChatComponent,
     children: [{ path: ':id', component: ChatAreaComponent }],
-    canActivate: [ClientAuthGuardGuard],
+    canActivate: [AuthGuard, ClientAuthGuardGuard],
   },
 
   { path: 'products', component: ProductsComponent },
@@ -71,15 +73,31 @@ const routes: Routes = [
   {
     path: 'products/forseller/:id',
     component: ItemDetailsSellerComponent,
-    canActivate: [ClientAuthGuardGuard],
+    canActivate: [AuthGuard, ClientAuthGuardGuard],
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginAuthGuard] },
+  {
+    path: 'registration',
+    component: RegistrationComponent,
+    canActivate: [LoginAuthGuard],
+  },
   { path: 'forgetpassword', component: ForgetPasswordComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
-  { path: 'registersuccess', component: RegisteSuccessComponent },
-  { path: 'nationaliderror', component: NationalIDErrorComponent },
-  { path: 'emailerror', component: EmailErrorComponent },
+  {
+    path: 'registersuccess',
+    component: RegisteSuccessComponent,
+    canActivate: [LoginAuthGuard],
+  },
+  {
+    path: 'nationaliderror',
+    component: NationalIDErrorComponent,
+    canActivate: [LoginAuthGuard],
+  },
+  {
+    path: 'emailerror',
+    component: EmailErrorComponent,
+    canActivate: [LoginAuthGuard],
+  },
   {
     path: 'user/myaccount',
     component: MyAccountComponent,
@@ -93,7 +111,7 @@ const routes: Routes = [
       { path: 'onrenthistory', component: OnRentItemsHistoryComponent },
       { path: 'adsorders', component: AdsOrdersComponent },
     ],
-    canActivate: [ClientAuthGuardGuard],
+    canActivate: [AuthGuard, ClientAuthGuardGuard],
   },
   { path: 'orderdetails/:id', component: OrderDetailsComponent },
 
@@ -102,7 +120,7 @@ const routes: Routes = [
   {
     path: 'additem',
     component: AddItemComponent,
-    canActivate: [ClientAuthGuardGuard],
+    canActivate: [AuthGuard, ClientAuthGuardGuard],
   },
   {
     path: 'admin',
@@ -139,13 +157,13 @@ const routes: Routes = [
       { path: 'manageCategories', component: ManageCategoriesComponent },
       { path: 'manageBrands', component: ManageBrandsComponent },
     ],
-    canActivate: [AdminAuthGuardGuard],
+    canActivate: [AuthGuard, AdminAuthGuardGuard],
   },
   { path: 'about', component: AboutComponent },
   {
     path: 'cart',
     component: CartComponent,
-    canActivate: [ClientAuthGuardGuard],
+    canActivate: [AuthGuard, ClientAuthGuardGuard],
   },
   { path: 'contact', component: ContactComponent },
   { path: '**', component: NotFound404Component },

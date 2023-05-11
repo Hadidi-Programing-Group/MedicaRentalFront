@@ -28,15 +28,6 @@ export class AdminAuthGuardGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const isAuth = localStorage.getItem('isAuthenticated') == 'true';
-
-    if (!isAuth) {
-      this.router.navigate(['/login'], {
-        queryParams: { returnUrl: state.url },
-      });
-      return false;
-    }
-
     return this.loginService.getRole().pipe(
       map((data) => {
         if (data.role == 'Admin' || data.role == 'Moderator') {
