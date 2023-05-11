@@ -84,7 +84,7 @@
             class="nav-link mx-2 text-uppercase"
             [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
-            routerLink="/admin"
+            routerLink="/admin/rentoperations"
             >Admin Panel</a
           >
         </li>
@@ -127,7 +127,9 @@
             ><i class="fa-solid fa-cart-shopping me-1"></i> Cart</a
           >
         </li>
-        <app-notification *ngIf="isAuthenticated && userRole == 'Client'"></app-notification>
+        <app-notification
+          *ngIf="isAuthenticated && userRole == 'Client'"
+        ></app-notification>
         <li *ngIf="isAuthenticated && userRole == 'Client'" class="nav-item">
           <a
             class="nav-link mx-2 text-uppercase"
