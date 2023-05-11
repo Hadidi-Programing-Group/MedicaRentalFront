@@ -49,7 +49,10 @@
             </ng-container>
           </td>
           <td class="text-center d-none d-lg-table-cell">
-            <button *ngIf="operation.rating != 0" class="mx-3 btn btn-primary">
+            <button *ngIf="operation.rating != 0" class="mx-3 btn btn-primary"
+            data-bs-toggle="modal"
+              data-bs-target="#addRatingModal" class="mx-3 btn btn-primary"
+              (click)="GetReviewId(operation.reviewId)">
               View Review
             </button>
           </td>
@@ -88,17 +91,20 @@
     <div class="modal-content">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title" id="addRatingModalLabel">Review</h3>
+          <h2 class="modal-title" id="addRatingModalLabel">Review:</h2>
           <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
           ></button>
         </div>
 
         <div class="rating-box m-auto">
-          
+          <h4>
+            {{Review}}
+          </h4>
+
         </div>
         <div class="modal-footer m-auto">
           <button
