@@ -13,9 +13,6 @@ import {BehaviorSubject} from "rxjs";
 })
 export class ChatService
 {
-  newMessage = new EventEmitter();
-
-
   private baseUrl = `${environment.apiURL}/api/Messages`; //API
 
   constructor(private readonly httpClient: HttpClient) {}

@@ -1,17 +1,17 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { ChatDto } from '../../Dtos/Message/ChatDto';
-import { MessageDto } from '../../Dtos/Message/MessageDto';
-import { MessageStatus } from '../../Dtos/Message/MessageStatus';
-import { SignalRService } from '../SignalR/signal-r.service';
-import { NotificationService } from './notification.service';
-import { ChatUsersService } from './chat-users.service';
-import { ChatService } from './chat.service';
-import { MessageNotificationDto } from '../../Dtos/Message/MessageNotificationDto';
+import {EventEmitter, Injectable} from '@angular/core';
+import {ChatDto} from '../../Dtos/Message/ChatDto';
+import {MessageDto} from '../../Dtos/Message/MessageDto';
+import {MessageStatus} from '../../Dtos/Message/MessageStatus';
+import {SignalRService} from '../SignalR/signal-r.service';
+import {ChatService} from './chat.service';
+import {MessageNotificationDto} from '../../Dtos/Message/MessageNotificationDto';
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
-export class ChatDataService {
+export class ChatDataService
+{
   public currentUser = '';
   public users: ChatDto[] = [];
   public currentUserMessages: MessageDto[] = [];
@@ -22,18 +22,19 @@ export class ChatDataService {
   public userOut = new EventEmitter();
   public scroll = new EventEmitter();
 
+
   constructor(
     private signalRService: SignalRService,
-    private notificationService: NotificationService,
-    private chatUsersService: ChatUsersService,
     private chatService: ChatService
-  ) {
+  )
+  {
     this.subscribeSignalR();
 
     this.subscribeUserIn();
 
     this.userOut.subscribe({
-      next: (userId: string) => {
+      next: (userId: string) =>
+      {
         this.currentUser = '';
         this.currentUserMessages = [];
       },
@@ -42,21 +43,29 @@ export class ChatDataService {
     this.getUsers();
     this.getNotifications();
 
-    setInterval(() => {
+    setInterval(() =>
+    {
       if (!this.signalRService.isConnected)
+      {
         this.signalRService.startConnection();
+      }
     }, 2000);
   }
 
-  subscribeSignalR() {
+  subscribeSignalR()
+  {
     this.signalRService.newMessageEvent.subscribe({
-      next: (message: MessageDto) => {
-        if (message.senderId == this.currentUser) {
+      next: (message: MessageDto) =>
+      {
+        if (message.senderId == this.currentUser)
+        {
           message.messageStatus = MessageStatus.Seen;
           this.currentUserMessages.push(message);
           this.scroll.emit();
           this.signalRService.setMessageSeen(message.id, message.senderId);
-        } else {
+        }
+        else
+        {
           this.updateNotification(message);
           this.updateUsers(message);
         }
@@ -65,12 +74,16 @@ export class ChatDataService {
     });
 
     this.signalRService.messageSeenEvent.subscribe({
-      next: (messageId: string) => {
+      next: (messageId: string) =>
+      {
         debugger;
         let msg = this.currentUserMessages.find((m) => m.id == messageId);
-        if (msg) {
+        if (msg)
+        {
           msg.messageStatus = MessageStatus.Seen;
-        } else {
+        }
+        else
+        {
           console.error('No message with the received id');
         }
       },
@@ -78,9 +91,12 @@ export class ChatDataService {
     });
 
     this.signalRService.allMessagesSeenEvent.subscribe({
-      next: (userId: string) => {
-        if (userId == this.currentUser) {
-          for (let message of this.currentUserMessages) {
+      next: (userId: string) =>
+      {
+        if (userId == this.currentUser)
+        {
+          for (let message of this.currentUserMessages)
+          {
             message.messageStatus = MessageStatus.Seen;
           }
         }
@@ -88,20 +104,22 @@ export class ChatDataService {
     });
   }
 
-  subscribeUserIn() {
+  subscribeUserIn()
+  {
     this.userIn.subscribe({
-      next: (userId: string) => {
+      next: (userId: string) =>
+      {
         this.currentUser = userId;
         this.getChat();
-        this.removeUserNotification();
-        this.updateUserSeen();
       },
     });
   }
 
-  getUsers() {
+  getUsers()
+  {
     this.chatService.GetUserChats(20).subscribe({
-      next: (data: ChatDto[]) => {
+      next: (data: ChatDto[]) =>
+      {
         this.users = data;
         this.sortUsers();
       },
@@ -109,26 +127,34 @@ export class ChatDataService {
     });
   }
 
-  getChat(numOfDays: number = 20) {
+  getChat(numOfDays: number = 20)
+  {
     this.chatService
       .GetChat(this.currentUser, numOfDays, new Date())
       .subscribe({
-        next: (data) => {
+        next: (data) =>
+        {
           this.currentUserMessages = data;
           this.scroll.emit();
+          this.removeUserNotification();
+          this.updateUserSeen();
         },
         error: (err) => console.error(err),
       });
   }
 
-  getNotifications() {
+  getNotifications()
+  {
     this.chatService.GetNotificationCount().subscribe({
-      next: (data: number) => {
+      next: (data: number) =>
+      {
         this.notificationCount = data;
 
-        if (data > 0) {
+        if (data > 0)
+        {
           this.chatService.GetUnseenChats().subscribe({
-            next: (data: MessageNotificationDto[]) => {
+            next: (data: MessageNotificationDto[]) =>
+            {
               this.notificationMessages = data;
             },
             error: (err) => console.error(err),
@@ -139,19 +165,24 @@ export class ChatDataService {
     });
   }
 
-  sortUsers() {
+  sortUsers()
+  {
     this.users.sort(
       (a, b) =>
         new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()
     );
   }
 
-  updateUsers(message: MessageDto) {
+  updateUsers(message: MessageDto)
+  {
     let user = this.users.find((u) => u.userId == message.senderId);
 
-    if (!user) {
+    if (!user)
+    {
       this.getUsers();
-    } else {
+    }
+    else
+    {
       user.lastMessage = message.message;
       user.messageDate = message.messageDate;
       user.messageStatus = message.messageStatus;
@@ -160,20 +191,24 @@ export class ChatDataService {
     }
   }
 
-  updateIfNotExist() {
+  updateIfNotExist()
+  {
     let user = this.users.find((u) => u.userId == this.currentUser);
 
-    if (!user) {
+    if (!user)
+    {
       this.getUsers();
     }
   }
 
-  updateNotification(message: MessageDto) {
+  updateNotification(message: MessageDto)
+  {
     let index = this.notificationMessages.findIndex(
       (m) => m.senderId == message.senderId
     );
 
-    if (index != -1) {
+    if (index != -1)
+    {
       let notification = this.notificationMessages[index];
       notification.messageDate = message.messageDate;
       notification.message = message.message;
@@ -181,41 +216,50 @@ export class ChatDataService {
       this.notificationMessages.splice(index, 1);
       this.notificationMessages.unshift(notification);
       this.notificationCount++;
-    } else {
+    }
+    else
+    {
       this.getNotifications();
     }
   }
 
-  updateUserSeen() {
+  updateUserSeen()
+  {
     let c = this.users.find(
       (u) => u.userId == this.currentUser
     )?.unseenMessagesCount;
 
-    if (c && c > 0) {
-      let user = this.users.find((u) => u.userId == this.currentUser);
+    if (c && c > 0)
+    {
+      let index = this.users.findIndex((u) => u.userId == this.currentUser);
 
-      if (user) {
+      if (index != -1)
+      {
         this.notificationCount -= c;
-        user.unseenMessagesCount = 0;
+        this.users[index].unseenMessagesCount = 0;
       }
     }
   }
 
-  sendMessage(message: string, date: Date) {
+  sendMessage(message: string, date: Date)
+  {
     return this.signalRService.sendMessage(message, this.currentUser, date);
   }
 
-  reset() {
+  reset()
+  {
     this.currentUser = '';
     this.currentUserMessages = [];
     this.users = [];
   }
 
-  removeUserNotification() {
+  removeUserNotification()
+  {
     let index = this.notificationMessages.findIndex(
       (m) => m.senderId == this.currentUser
     );
-    if (index != -1) {
+    if (index != -1)
+    {
       this.notificationMessages.splice(index, 1);
     }
   }

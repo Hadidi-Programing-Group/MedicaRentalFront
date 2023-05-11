@@ -19,7 +19,9 @@ export class AppComponent implements OnInit {
     private signalRService: SignalRService,
     private readonly router: Router
   ) {
-    //this.checkConnection();
+    if(localStorage.getItem('isAuthenticated') == 'true' && localStorage.getItem('userRole') == 'Client'){
+      this.checkConnection();
+    }
   }
   ngOnInit(): void {
     this.router.events
@@ -33,9 +35,9 @@ export class AppComponent implements OnInit {
   get isVisible(): boolean {
     return this.navbarService.isVisible;
   }
-  // checkConnection() {
-  //   if (!this.signalRService.isConnected) {
-  //     this.signalRService.startConnection();
-  //   }
-  // }
+  checkConnection() {
+    if (!this.signalRService.isConnected) {
+      this.signalRService.startConnection();
+    }
+  }
 }

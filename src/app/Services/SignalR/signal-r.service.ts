@@ -1,23 +1,26 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { HubConnection } from "@microsoft/signalr";
+import {EventEmitter, Injectable} from '@angular/core';
 import * as signalR from "@microsoft/signalr";
-import { environment } from "../../../environments/environment";
-import { MessageDto } from "../../Dtos/Message/MessageDto";
-import { MessageStatus } from "../../Dtos/Message/MessageStatus";
+import {HubConnection, HubConnectionState} from "@microsoft/signalr";
+import {environment} from "../../../environments/environment";
+import {MessageDto} from "../../Dtos/Message/MessageDto";
+import {MessageStatus} from "../../Dtos/Message/MessageStatus";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
   private connection: HubConnection | null = null;
-  private url = `${environment.apiURL}/chatHub`; //API
+  private url = `${environment.apiURL}/chatHub`;
   public newMessageEvent = new EventEmitter();
   public messageSeenEvent = new EventEmitter();
   public allMessagesSeenEvent = new EventEmitter();
   public connectionStartEvent = new EventEmitter();
   public isConnected: boolean = false;
+  public reconnectionInterval: any
 
   startConnection(token?: string) {
+    if(this.connection?.state == HubConnectionState.Connected) return;
+
     if (!token) {
       token = localStorage.getItem('authToken')?.toString() ?? '';
     }
@@ -34,6 +37,8 @@ export class SignalRService {
       .then(() => {
         this.isConnected = true;
         this.connectionStartEvent.emit();
+        clearInterval(this.reconnectionInterval)
+        this.reconnectionInterval = setInterval(()=> this.startConnection(), 10000)
       })
       .catch((err) => console.error(err.toString()));
 
@@ -54,7 +59,11 @@ export class SignalRService {
 
   endConnection() {
     this.connection?.stop()
-      .then(() => this.isConnected = false)
+      .then(() =>
+      {
+        this.isConnected = false
+        clearInterval(this.reconnectionInterval)
+      })
       .catch((err) => console.error(err))
   }
 

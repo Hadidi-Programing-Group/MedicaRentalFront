@@ -1,12 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ChatDto} from "../../../Dtos/Message/ChatDto";
-import {SignalRService} from 'src/app/Services/SignalR/signal-r.service';
 import {DateHelper} from "../../../Helpers/DateHelper";
 import {ImageHelper} from "../../../Helpers/ImageHelper";
 import {ChatDataService} from "../../../Services/Chat/chat-data.service";
-import {ChatService} from "../../../Services/Chat/chat.service";
-import {MessageDto} from "../../../Dtos/Message/MessageDto";
-import {ChatUsersService} from "../../../Services/Chat/chat-users.service";
+import {async, Observable} from "rxjs";
 
 @Component({
   selector: 'app-chat-user',
@@ -15,13 +12,11 @@ import {ChatUsersService} from "../../../Services/Chat/chat-users.service";
 })
 export class ChatUserComponent
 {
-  @Input() chat: ChatDto
   protected readonly ImageHelper = ImageHelper;
 
-  constructor(public chatDataService: ChatDataService)
+  constructor(private cdr: ChangeDetectorRef, public chatDataService: ChatDataService)
   {
   }
-
 
   getDate(messageDate: string)
   {
@@ -39,5 +34,11 @@ export class ChatUserComponent
     }
     return DateHelper.toOneDigitDateOnly(date2)
 
+  }
+
+
+  trackChats(index: number, chat: ChatDto)
+  {
+    return chat.userId;
   }
 }

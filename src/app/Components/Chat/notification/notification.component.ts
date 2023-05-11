@@ -1,28 +1,17 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {MessageNotificationDto} from "../../../Dtos/Message/MessageNotificationDto";
-import {MessageDto} from "../../../Dtos/Message/MessageDto";
-import {SignalRService} from "../../../Services/SignalR/signal-r.service";
-import {ChatService} from "../../../Services/Chat/chat.service";
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {DateHelper} from "../../../Helpers/DateHelper";
-import {NotificationService} from "../../../Services/Chat/notification.service";
-import {count} from "rxjs";
 import {ChatDataService} from "../../../Services/Chat/chat-data.service";
-import {ChatUsersService} from "../../../Services/Chat/chat-users.service";
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css']
 })
-export class NotificationComponent implements OnInit
+export class NotificationComponent
 {
-  constructor(public chatDataService: ChatDataService)
+  constructor(public chatDataService: ChatDataService,
+              private  cdr: ChangeDetectorRef)
   {
-  }
-
-  ngOnInit(): void
-  {
-
   }
 
   getDate(_date: string)

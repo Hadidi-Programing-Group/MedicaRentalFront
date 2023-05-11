@@ -1,4 +1,4 @@
-<li class="nav-item d-none d-md-block px-3">
+<li class="nav-item d-none d-md-block px-3" *ngFor="let chat of chatDataService.users; let i = index; trackBy: trackChats">
   <a
     class="nav-link rounded-3"
     aria-current="page"
@@ -51,7 +51,7 @@
   </a>
 </li>
 
-<li class="nav-item d-sm-block d-md-none d-lg-none px-2">
+<li class="nav-item d-sm-block d-md-none d-lg-none px-2" *ngFor="let chat of chatDataService.users; let i = index; trackBy: trackChats">
   <a
     class="nav-link rounded-3"
     aria-current="page"
