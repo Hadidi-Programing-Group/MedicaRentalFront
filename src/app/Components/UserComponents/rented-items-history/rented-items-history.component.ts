@@ -5,6 +5,7 @@ import {RentOperationsService} from "../../../Services/RentOperations/rent-opera
 import {DateHelper} from "../../../Helpers/DateHelper";
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
+import Modal from 'bootstrap/js/dist/modal';
 
 @Component({
   selector: 'app-rented-items-history',
