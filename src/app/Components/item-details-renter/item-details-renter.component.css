@@ -148,8 +148,8 @@ body {
   top: 22px;
 }
 .buttons .btn {
-  height: 50px;
-  width: 150px;
+  /*height: 3em;*/
+  /*width: 10em;*/
   border-radius: 0px !important;
 }
 
