@@ -1,19 +1,12 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { MessageDto } from '../../../Dtos/Message/MessageDto';
-import { DateHelper } from '../../../Helpers/DateHelper';
-import { MessageStatus } from '../../../Dtos/Message/MessageStatus';
-import { ActivatedRoute } from '@angular/router';
-import { Modal } from 'bootstrap';
-import { InsertReportDto } from '../../../Dtos/Reports/InsertReportDto';
-import { ReportsService } from '../../../Services/Reports/reports.service';
-import { ChatService } from '../../../Services/Chat/chat.service';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild,} from '@angular/core';
+import {MessageDto} from '../../../Dtos/Message/MessageDto';
+import {DateHelper} from '../../../Helpers/DateHelper';
+import {MessageStatus} from '../../../Dtos/Message/MessageStatus';
+import {ActivatedRoute} from '@angular/router';
+import {Modal} from 'bootstrap';
+import {InsertReportDto} from '../../../Dtos/Reports/InsertReportDto';
+import {ReportsService} from '../../../Services/Reports/reports.service';
+import {ChatService} from '../../../Services/Chat/chat.service';
 import {ChatDataService} from "../../../Services/Chat/chat-data.service";
 
 @Component({

@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Modal } from 'bootstrap';
-import { InsertReportDto } from 'src/app/Dtos/Reports/InsertReportDto';
-import { ReportsService } from 'src/app/Services/Reports/reports.service';
-import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Modal} from 'bootstrap';
+import {InsertReportDto} from 'src/app/Dtos/Reports/InsertReportDto';
+import {ReportsService} from 'src/app/Services/Reports/reports.service';
+import {ReviewsService} from 'src/app/Services/Reviews/reviews.service';
 
 @Component({
   selector: 'app-reviews',
@@ -38,8 +38,7 @@ export class ReviewsComponent {
     );
   }
   counter(NumToArray: number) {
-    let array = new Array(NumToArray);
-    return array;
+    return new Array(NumToArray);
   }
   GetRevId(RevId: any) {
     this.reviewService.GetReviewById(RevId).subscribe({

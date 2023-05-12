@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { DeleteReviewRequestDto } from 'src/app/Dtos/Reviews/DeleteReviewRequestDto';
-import { ReviewsDto } from 'src/app/Dtos/ReviewsDto';
-import { StatusDto } from 'src/app/Dtos/StatusDto';
-import { environment } from 'src/environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {DeleteReviewRequestDto} from 'src/app/Dtos/Reviews/DeleteReviewRequestDto';
+import {StatusDto} from 'src/app/Dtos/StatusDto';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

@@ -1,16 +1,11 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommunicationService } from 'src/app/Services/Communication/communication.service';
-import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
-import { FilterService } from 'src/app/Services/Filter/filter.service';
-import { LoginService } from 'src/app/Services/Login/login.service';
-import { FormGroup, FormControl } from '@angular/forms';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { SignalRService } from '../../Services/SignalR/signal-r.service';
-import { ChatService } from '../../Services/Chat/chat.service';
-import { MessageNotificationDto } from '../../Dtos/Message/MessageNotificationDto';
-import { MessageDto } from '../../Dtos/Message/MessageDto';
-import { MessageStatus } from '../../Dtos/Message/MessageStatus';
+import {Component, HostBinding, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CommunicationService} from 'src/app/Services/Communication/communication.service';
+import {OrderByStrings} from 'src/app/Dtos/OrderByStrings';
+import {FilterService} from 'src/app/Services/Filter/filter.service';
+import {LoginService} from 'src/app/Services/Login/login.service';
+import {FormControl, FormGroup} from '@angular/forms';
+import {SignalRService} from '../../Services/SignalR/signal-r.service';
 
 @Component({
   selector: 'app-navbar',
@@ -38,12 +33,9 @@ export class NavbarComponent implements OnInit {
     private readonly filterService: FilterService,
     public readonly loginService: LoginService,
     private signalRService: SignalRService,
-    private overlay: OverlayContainer
   ) {
   }
 
-  navbarToggler: any;
-  navbarCollapse: any;
   isCollapsed: boolean = false;
   toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;

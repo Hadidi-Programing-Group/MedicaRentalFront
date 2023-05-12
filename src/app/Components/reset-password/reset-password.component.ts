@@ -1,9 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { ResetPasswordDto } from 'src/app/Dtos/ResetPasswordDto';
-import { LoginService } from 'src/app/Services/Login/login.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {ResetPasswordDto} from 'src/app/Dtos/ResetPasswordDto';
+import {LoginService} from 'src/app/Services/Login/login.service';
 
 @Component({
   selector: 'app-reset-password',

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {Modal} from "bootstrap";
 import {CategoriesService} from "../../../../Services/Categories/categories.service";
 import {SubCategoriesService} from "../../../../Services/SubCatrgories/sub-categories.service";

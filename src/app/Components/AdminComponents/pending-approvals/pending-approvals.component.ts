@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { data, error } from 'jquery';
+import {Component, OnInit} from '@angular/core';
 
-import {
-  // UpdateApprovalInfoDto,
-  // UpdateProfileInfoDto,
-  // UserApprovalInfoDto,
-  UserProfileInfoWithIdDto
-} from 'src/app/Dtos/AdminDto';
+import {UserProfileInfoWithIdDto} from 'src/app/Dtos/AdminDto';
 
-import { AdminService } from 'src/app/Services/Admin/admin.service';
+import {AdminService} from 'src/app/Services/Admin/admin.service';
+
 @Component({
   selector: 'app-pending-approvals',
   templateUrl: './pending-approvals.component.html',
@@ -20,7 +14,6 @@ export class PendingApprovalsComponent implements OnInit {
 
   constructor(
     private readonly adminService: AdminService,
-    private readonly fb: FormBuilder
   ) {}
 
   ngOnInit(): void {

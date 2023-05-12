@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ListItemDto} from "../../../Dtos/ListItemDto";
-import {UserService} from "../../../Services/User/user.service";
-import {Router} from "@angular/router";
 import {GetAllTransactionsDto} from "../../../Dtos/Transactions/GetAllTransactionsDto";
 import {TransactionsService} from "../../../Services/Transaction/transactions.service";
 import {DateHelper} from "../../../Helpers/DateHelper";
@@ -46,11 +43,6 @@ export class AdsOrdersComponent implements OnInit
       },
       error: (err) => console.log(err),
     });
-  }
-
-  details(id: string)
-  {
-
   }
 
   protected readonly undefined = undefined;

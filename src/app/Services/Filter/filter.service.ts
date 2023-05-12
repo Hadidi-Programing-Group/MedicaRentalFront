@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class FilterService {
   updateSubCategoriesSelected = new EventEmitter<string[]>();
   updateBrandsSelected=new EventEmitter<string[]>();
   updateSearchQuery = new EventEmitter<string>();
-  
+
 
   updateSearchText(searchText: string): void {
     (searchText);

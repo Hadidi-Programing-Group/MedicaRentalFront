@@ -3,9 +3,8 @@ import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
 import {DateHelper} from "../../../Helpers/DateHelper";
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
-import Modal from 'bootstrap/js/dist/modal';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {ReviewsService} from 'src/app/Services/Reviews/reviews.service';
 
 @Component({
   selector: 'app-rented-items-history',
@@ -82,7 +81,7 @@ export class RentedItemsHistoryComponent implements OnInit {
       itemId: this.ItemId,
     };
     this.ReviewSerivce.AddReview(UserRev).subscribe({
-      next: (res) => {
+      next: () => {
         this.ngOnInit();
       },
       error: (error) => {

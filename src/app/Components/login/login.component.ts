@@ -1,16 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators,} from '@angular/forms';
 
-import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from 'src/app/Services/Login/login.service';
-import { SignalRService } from '../../Services/SignalR/signal-r.service';
-import { environment } from '../../../environments/environment';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoginService} from 'src/app/Services/Login/login.service';
+import {SignalRService} from '../../Services/SignalR/signal-r.service';
 
 @Component({
   selector: 'app-login',

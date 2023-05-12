@@ -1,7 +1,6 @@
-import { Component,OnInit } from '@angular/core';
-import { RentedItemsComponent } from 'src/app/Components/UserComponents/rented-items/rented-items.component';
-import { GetRentedItemsDto } from 'src/app/Dtos/RentOperation/GetRentedItemsDto';
-import { RentOperationsService } from 'src/app/Services/RentOperations/rent-operations.service';
+import {Component, OnInit} from '@angular/core';
+import {GetRentedItemsDto} from 'src/app/Dtos/RentOperation/GetRentedItemsDto';
+import {RentOperationsService} from 'src/app/Services/RentOperations/rent-operations.service';
 
 @Component({
   selector: 'app-return-today',

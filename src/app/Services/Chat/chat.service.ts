@@ -1,12 +1,11 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ChatDto } from '../../Dtos/Message/ChatDto';
-import { StatusDto } from '../../Dtos/StatusDto';
-import { MessageDto } from '../../Dtos/Message/MessageDto';
-import { MessageNotificationDto } from '../../Dtos/Message/MessageNotificationDto';
-import { DeleteMessageRequestDto } from 'src/app/Dtos/Message/DeleteMessageRequestDto';
-import {BehaviorSubject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {environment} from '../../../environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {ChatDto} from '../../Dtos/Message/ChatDto';
+import {StatusDto} from '../../Dtos/StatusDto';
+import {MessageDto} from '../../Dtos/Message/MessageDto';
+import {MessageNotificationDto} from '../../Dtos/Message/MessageNotificationDto';
+import {DeleteMessageRequestDto} from 'src/app/Dtos/Message/DeleteMessageRequestDto';
 
 @Injectable({
   providedIn: 'root',

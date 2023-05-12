@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Modal} from "bootstrap";
 import {ImageHelper} from 'src/app/Helpers/ImageHelper';
 import {BrandsService} from "../../../../Services/Brands/brands.service";
@@ -94,7 +94,7 @@ export class ManageBrandsComponent implements OnInit, AfterViewInit
     {
       let brandDto = new InsertBrandDto(brand.name, brand.countryOfOrigin, brand.image)
       this.brandsService.InsertBrand(brandDto).subscribe({
-        next: (data) =>
+        next: () =>
         {
           this.success = this.submitted = true
           this.getBrands()
@@ -111,7 +111,7 @@ export class ManageBrandsComponent implements OnInit, AfterViewInit
     {
       let brandDto = new UpdateBrandDto(this.updatedId, brand.name, brand.countryOfOrigin, brand.image)
       this.brandsService.UpdateBrand(brandDto).subscribe({
-        next: (data) =>
+        next: () =>
         {
           this.success = this.submitted = true
           this.getBrands()

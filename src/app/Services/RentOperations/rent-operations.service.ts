@@ -1,13 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
 
-import { environment } from '../../../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { HomeItemDto } from '../../Dtos/HomeItemDto';
-import { RentOperationDto } from '../../Dtos/RentOperation/RentOperationDto';
+import {environment} from '../../../environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {RentOperationDto} from '../../Dtos/RentOperation/RentOperationDto';
 import {PageDto} from "../../Dtos/PageDto";
 import {InsertRentOperationDto} from "../../Dtos/RentOperation/InsertRentOperationDto";
-import { GetRentedItemsDto } from 'src/app/Dtos/RentOperation/GetRentedItemsDto';
+import {GetRentedItemsDto} from 'src/app/Dtos/RentOperation/GetRentedItemsDto';
 
 @Injectable({
   providedIn: 'root',

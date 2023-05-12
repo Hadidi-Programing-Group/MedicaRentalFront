@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit,} from '@angular/core';
 
 @Component({
   selector: 'app-my-account-navbar',

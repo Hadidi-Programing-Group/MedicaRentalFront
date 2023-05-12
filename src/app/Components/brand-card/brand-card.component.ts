@@ -1,5 +1,4 @@
-import { Component,AfterContentInit, Input, EventEmitter, Output } from '@angular/core';
-import { CartItemDto } from 'src/app/Dtos/Cart/CartItemDto';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-brand-card',

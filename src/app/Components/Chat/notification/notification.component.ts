@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {DateHelper} from "../../../Helpers/DateHelper";
 import {ChatDataService} from "../../../Services/Chat/chat-data.service";
 
@@ -9,8 +9,7 @@ import {ChatDataService} from "../../../Services/Chat/chat-data.service";
 })
 export class NotificationComponent
 {
-  constructor(public chatDataService: ChatDataService,
-              private  cdr: ChangeDetectorRef)
+  constructor(public chatDataService: ChatDataService)
   {
   }
 

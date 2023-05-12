@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from 'src/app/Services/Login/login.service';
-import { SignalRService } from 'src/app/Services/SignalR/signal-r.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {LoginService} from 'src/app/Services/Login/login.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -19,9 +18,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   userRole?: string = localStorage.getItem('userRole') ?? '';
-  updateComponent(view: string) {
-    this.selected = view;
-  }
+
 
   LogOut() {
     this.loginService.revokeToken();

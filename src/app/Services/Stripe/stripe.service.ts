@@ -1,8 +1,17 @@
-import { Injectable } from '@angular/core';
-import { PaymentIntent, Stripe, loadStripe, StripeElements, StripeLinkAuthenticationElement, StripeElement, PaymentIntentResult } from "@stripe/stripe-js";
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {
+  loadStripe,
+  PaymentIntent,
+  PaymentIntentResult,
+  Stripe,
+  StripeElement,
+  StripeElements,
+  StripeLinkAuthenticationElement
+} from "@stripe/stripe-js";
+import {environment} from 'src/environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 

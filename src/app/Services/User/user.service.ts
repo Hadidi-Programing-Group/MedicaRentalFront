@@ -1,15 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { BlockUserInfoDto } from 'src/app/Dtos/BlockUserInfoDto';
-import { StatusDto } from 'src/app/Dtos/StatusDto';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {BlockUserInfoDto} from 'src/app/Dtos/BlockUserInfoDto';
+import {StatusDto} from 'src/app/Dtos/StatusDto';
 import {
   UpdateApprovalInfoDto,
   UpdateProfileInfoDto,
   UserApprovalInfoDto,
   UserProfileInfoDto,
 } from 'src/app/Dtos/UserProfileInfoDto';
-import { environment } from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

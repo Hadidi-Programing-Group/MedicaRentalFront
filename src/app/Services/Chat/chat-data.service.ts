@@ -5,7 +5,6 @@ import {MessageStatus} from '../../Dtos/Message/MessageStatus';
 import {SignalRService} from '../SignalR/signal-r.service';
 import {ChatService} from './chat.service';
 import {MessageNotificationDto} from '../../Dtos/Message/MessageNotificationDto';
-import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +32,7 @@ export class ChatDataService
     this.subscribeUserIn();
 
     this.userOut.subscribe({
-      next: (userId: string) =>
+      next: () =>
       {
         this.currentUser = '';
         this.currentUserMessages = [];

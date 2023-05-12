@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommunicationService } from 'src/app/Services/Communication/communication.service';
-import { RegistrationService } from 'src/app/Services/Registration/registration.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators,} from '@angular/forms';
+import {Router} from '@angular/router';
+import {CommunicationService} from 'src/app/Services/Communication/communication.service';
+import {RegistrationService} from 'src/app/Services/Registration/registration.service';
 
 @Component({
   selector: 'app-registration',
@@ -70,8 +65,7 @@ export class RegistrationComponent implements OnInit {
         ?.setErrors({ invalidFileType: true });
     const reader = new FileReader();
     reader.onload = () => {
-      const base64String = reader.result as string;
-      this.NationalImgBase64 = base64String;
+      this.NationalImgBase64 = reader.result as string;
       const Arr = this.NationalImgBase64.split(',', 2);
       this.NationalImgBase64 = Arr[1];
     };
@@ -91,8 +85,7 @@ export class RegistrationComponent implements OnInit {
         ?.setErrors({ invalidFileType: true });
     const reader = new FileReader();
     reader.onload = () => {
-      const base64String = reader.result as string;
-      this.UnionCardImgBase64 = base64String;
+      this.UnionCardImgBase64 = reader.result as string;
       const Arr = this.UnionCardImgBase64.split(',', 2);
       this.UnionCardImgBase64 = Arr[1];
     };
@@ -118,7 +111,7 @@ export class RegistrationComponent implements OnInit {
         unionCardImage: this.UnionCardImgBase64,
       };
       this.registrationService.RegisterUser(DataToBeSent).subscribe({
-        next: (res) => {
+        next: () => {
           this.router.navigate(['/registersuccess']);
         },
         error: (error) => {

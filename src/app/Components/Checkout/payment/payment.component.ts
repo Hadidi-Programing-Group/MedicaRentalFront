@@ -1,17 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {Component, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-import { StripeService, StripePaymentElementComponent } from 'ngx-stripe';
-import {
-  StripeElementsOptions,
-  StripeElements,
-  PaymentIntent,
-} from '@stripe/stripe-js';
-import { environment } from 'src/environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
+import {StripePaymentElementComponent, StripeService} from 'ngx-stripe';
+import {PaymentIntent, StripeElementsOptions,} from '@stripe/stripe-js';
+import {environment} from 'src/environments/environment';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-payment',

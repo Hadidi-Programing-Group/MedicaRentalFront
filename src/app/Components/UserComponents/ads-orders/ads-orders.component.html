@@ -16,7 +16,7 @@
         <td>{{ transaction.amount | currency : "EGP" : "E£" }}</td>
         <td>{{ TransactionStatus[transaction.status] }}</td>
         <td class="text-center">
-          <a class="mx-3 btn btn-primary" routerLink="/orderdetails/{{transaction.id}}" (click)="details(transaction.id)">
+          <a class="mx-3 btn btn-primary" routerLink="/orderdetails/{{transaction.id}}">
             Details
           </a>
         </td>
@@ -40,6 +40,6 @@
     *ngIf="transactions && transactions.length == 0"
     class="text-center text-dark h1 p-4 mt-5 rounded"
   >
-    <img src="assets/icons/NoRes.jpg" width="400px" height="400px" />
+    <img src="assets/icons/NoRes.jpg" width="400px" height="400px"  alt=""/>
   </div>
 </div>

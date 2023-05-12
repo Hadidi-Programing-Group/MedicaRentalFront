@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ListItemDto} from "../../../Dtos/ListItemDto";
 import {UserService} from "../../../Services/User/user.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {TransactionsService} from "../../../Services/Transaction/transactions.service";
 import {TransactionDetailsDto, TransactionStatus} from "../../../Dtos/Transactions/TransactionDetailsDto";
-import {TransactionItemDto} from "../../../Dtos/Transactions/TransactionItemDto";
 import {DateHelper} from "../../../Helpers/DateHelper";
 
 @Component({

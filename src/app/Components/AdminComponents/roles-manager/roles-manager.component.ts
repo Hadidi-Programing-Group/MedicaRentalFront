@@ -1,26 +1,12 @@
-import { Component, OnInit ,ViewChild, ElementRef } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommunicationService } from 'src/app/Services/Communication/communication.service';
-import { RegistrationService } from 'src/app/Services/Registration/registration.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators,} from '@angular/forms';
+import {Router} from '@angular/router';
+import {CommunicationService} from 'src/app/Services/Communication/communication.service';
+import {RegistrationService} from 'src/app/Services/Registration/registration.service';
 
-import { AdminService } from 'src/app/Services/Admin/admin.service';
+import {AdminService} from 'src/app/Services/Admin/admin.service';
 
-import { Modal } from 'bootstrap';
-
-import {
-  // UpdateApprovalInfoDto,
-  // UpdateProfileInfoDto,
-  // UserApprovalInfoDto,
-  UpdateUserRoleDto,
-  RoleMangerUserInfoDto,
-} from 'src/app/Dtos/AdminDto';
-import { error } from 'jquery';
+import {RoleMangerUserInfoDto, UpdateUserRoleDto,} from 'src/app/Dtos/AdminDto';
 
 @Component({
   selector: 'app-roles-manager',
@@ -118,7 +104,7 @@ export class RolesManagerComponent implements OnInit {
     // Send a request to the updateuserole endpoint with the form data
     // Replace the URL and method with the correct values for your API
     this.adminService.UpdateUserRole(this.updateRole).subscribe({
-      next: (res) => {
+      next: () => {
 
         $('#updateAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
 
@@ -137,7 +123,7 @@ export class RolesManagerComponent implements OnInit {
       .value;
 
     this.adminService.DeleteAdminMod(userId).subscribe({
-      next: (res) => {
+      next: () => {
 
         $('#deleteAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();
 
@@ -162,7 +148,7 @@ export class RolesManagerComponent implements OnInit {
         userRole: parseInt(userData.role),
       };
       this.registrationService.RegisterAdminMod(DataToBeSent).subscribe({
-        next: (res) => {
+        next: () => {
           // this.router.navigate(['/']);
 
         $('#addAdminModModal').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();

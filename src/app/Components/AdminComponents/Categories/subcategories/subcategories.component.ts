@@ -4,8 +4,6 @@ import {SubCategoryWithCategoryDto} from "../../../../Dtos/SubCategories/SubCate
 import {SubCategoriesService} from "../../../../Services/SubCatrgories/sub-categories.service";
 import {ImageHelper} from "../../../../Helpers/ImageHelper";
 import {InsertSubCategoryDto} from "../../../../Dtos/SubCategories/InsertSubCategoryDto";
-import {InsertCategoryDto} from "../../../../Dtos/Categories/InsertCategoryDto";
-import {UpdateCategoryDto} from "../../../../Dtos/Categories/UpdateCategoryDto";
 import {UpdateSubCategoryDto} from "../../../../Dtos/SubCategories/UpdateSubCategoryDto";
 
 @Component({
@@ -100,7 +98,7 @@ export class SubcategoriesComponent  implements OnInit, AfterViewInit
     {
       let subcategoryDto = new InsertSubCategoryDto(category.name, category.icon, category.categoryId)
       this.subcategoriesService.InsertSubCategory(subcategoryDto).subscribe({
-        next: (data) =>
+        next: () =>
         {
           this.success = this.submitted = true
           this.getSubCategories()
@@ -117,7 +115,7 @@ export class SubcategoriesComponent  implements OnInit, AfterViewInit
     {
       let subcategoryDto = new UpdateSubCategoryDto(this.updatedId, category.name, category.icon, category.categoryId)
       this.subcategoriesService.UpdateSubCategory(subcategoryDto).subscribe({
-        next: (data) =>
+        next: () =>
         {
           debugger
           this.success = this.submitted = true

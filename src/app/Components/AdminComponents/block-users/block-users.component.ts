@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { BlockUserInfoDto } from 'src/app/Dtos/BlockUserInfoDto';
-import { StatusDto } from 'src/app/Dtos/StatusDto';
-import { UserBasicInfoDto } from 'src/app/Dtos/UserBasicInfoDto';
-import { AccountsService } from 'src/app/Services/Accounts/accounts.service';
-import { UserService } from 'src/app/Services/User/user.service';
+import {Component} from '@angular/core';
+import {BlockUserInfoDto} from 'src/app/Dtos/BlockUserInfoDto';
+import {StatusDto} from 'src/app/Dtos/StatusDto';
+import {UserBasicInfoDto} from 'src/app/Dtos/UserBasicInfoDto';
+import {AccountsService} from 'src/app/Services/Accounts/accounts.service';
+import {UserService} from 'src/app/Services/User/user.service';
 
 @Component({
   selector: 'app-block-users',
@@ -19,7 +19,6 @@ export class BlockUsersComponent {
   client?: UserBasicInfoDto;
   submittedclient = false;
   invalidclient = false;
-  blockSuccess = false;
   requestSuccess = false;
   formSubmitted = false;
   requestMessage = '';

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ReportDto } from 'src/app/Dtos/Reports/ReportDto';
-import { ReportsService } from 'src/app/Services/Reports/reports.service';
-import { ReportListNames } from 'src/app/Dtos/Reports/ReportListNames';
-import { Observable, take } from 'rxjs';
-import { PageDto } from 'src/app/Dtos/PageDto';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ReportDto} from 'src/app/Dtos/Reports/ReportDto';
+import {ReportsService} from 'src/app/Services/Reports/reports.service';
+import {ReportListNames} from 'src/app/Dtos/Reports/ReportListNames';
+import {Observable, take} from 'rxjs';
+import {PageDto} from 'src/app/Dtos/PageDto';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-reports',
@@ -30,7 +30,7 @@ export class ReportsComponent implements OnInit {
       this.currentPage = params['page'] ?? 1;
       this.selectedList = params['selectedList'] ?? ReportListNames.Chats;
     });
-    
+
     this.getReports();
   }
 

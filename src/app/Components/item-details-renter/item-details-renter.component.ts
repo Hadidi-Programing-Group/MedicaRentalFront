@@ -1,23 +1,17 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { data } from 'jquery';
-import { RenterItemDto } from 'src/app/Dtos/RenterItemDto';
-import { ReviewsDto } from 'src/app/Dtos/ReviewsDto';
-import { ProductsService } from 'src/app/Services/Products/products.service';
-import { RentOperationsService } from 'src/app/Services/RentOperations/rent-operations.service';
-import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
-import { ReviewsComponent } from '../reviews/reviews.component';
-import { ReportsService } from 'src/app/Services/Reports/reports.service';
-import { InsertReportDto } from 'src/app/Dtos/Reports/InsertReportDto';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup,} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RenterItemDto} from 'src/app/Dtos/RenterItemDto';
+import {ReviewsDto} from 'src/app/Dtos/ReviewsDto';
+import {ProductsService} from 'src/app/Services/Products/products.service';
+import {RentOperationsService} from 'src/app/Services/RentOperations/rent-operations.service';
+import {ReviewsService} from 'src/app/Services/Reviews/reviews.service';
+import {ReviewsComponent} from '../reviews/reviews.component';
+import {ReportsService} from 'src/app/Services/Reports/reports.service';
+import {InsertReportDto} from 'src/app/Dtos/Reports/InsertReportDto';
 import Modal from 'bootstrap/js/dist/modal';
-import { CartService } from 'src/app/Services/Cart/cart.service';
-import { AddItemToCartDto } from 'src/app/Dtos/Cart/AddItemToCartDto';
+import {CartService} from 'src/app/Services/Cart/cart.service';
+import {AddItemToCartDto} from 'src/app/Dtos/Cart/AddItemToCartDto';
 
 @Component({
   selector: 'app-item-details-renter',
@@ -114,8 +108,6 @@ export class ItemDetailsRenterComponent implements OnInit {
   }
 
   onSubmit() {
-    const ratingValue = this.reviewForm.get('radioControl')?.value;
-    const reviewValue = this.reviewForm.get('review')?.value;
     const UserRev = {
       rating: parseInt(this.reviewForm.get('radioControl')?.value),
       isDeleted: false,
@@ -123,7 +115,7 @@ export class ItemDetailsRenterComponent implements OnInit {
       itemId: this.ID,
     };
     this.ReviewSerivce.AddReview(UserRev).subscribe({
-      next: (res) => {
+      next: () => {
         this.ngOnInit();
       },
       error: (error) => {
@@ -174,7 +166,7 @@ export class ItemDetailsRenterComponent implements OnInit {
       this.numberOfDays
     );
     this.cartService.addToCart(addItemRequest).subscribe({
-      next: (data) => {
+      next: () => {
         this.inCart = true;
       },
       error: (err) => {
@@ -185,7 +177,7 @@ export class ItemDetailsRenterComponent implements OnInit {
 
   RemoveFromCart() {
     this.cartService.removeFromCart(this.ID).subscribe({
-      next: (data) => {
+      next: () => {
         this.inCart = false;
       },
       error: (err) => {

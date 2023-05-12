@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SellerItemDto } from 'src/app/Dtos/SellerItemDto';
-import { UpdateUserItemDto } from 'src/app/Dtos/UpdateUserItemDto';
-import { CategoriesService } from 'src/app/Services/Categories/categories.service';
-import { ItemDetailsService } from 'src/app/Services/ItemDetails/item-details.service';
-import { ProductsService } from 'src/app/Services/Products/products.service';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SellerItemDto} from 'src/app/Dtos/SellerItemDto';
+import {UpdateUserItemDto} from 'src/app/Dtos/UpdateUserItemDto';
+import {CategoriesService} from 'src/app/Services/Categories/categories.service';
+import {ItemDetailsService} from 'src/app/Services/ItemDetails/item-details.service';
+import {ProductsService} from 'src/app/Services/Products/products.service';
 
 @Component({
   selector: 'app-item-details-seller',
@@ -60,8 +60,7 @@ export class ItemDetailsSellerComponent {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const base64String = reader.result as string;
-      this.ItemImgBase64 = base64String;
+      this.ItemImgBase64 = reader.result as string;
       const Arr = this.ItemImgBase64.split(',', 2);
       this.ItemImgBase64ToDb = Arr[1];
     };
@@ -71,7 +70,6 @@ export class ItemDetailsSellerComponent {
 
   onApprovalInfoSubmit() {
     if (this.UpdateItemForm.get('ItemImg')?.valid) {
-      const userData = this.UpdateItemForm.value;
       const DataToBeSent: UpdateUserItemDto = new UpdateUserItemDto(
         this.ID,
         this.UpdateItemForm.controls['ItemName'].value,
@@ -88,12 +86,12 @@ export class ItemDetailsSellerComponent {
       );
 
       this.UpdateService.UpdateItem(DataToBeSent).subscribe({
-        next: (res) => {
+        next: () => {
           this.IsApproveUpdated = true;
           let URL = 'products/' + this.ID;
           this.router.navigate([URL]);
         },
-        error: (err) => {
+        error: () => {
           this.IsApproveUpdated = false;
         },
       });

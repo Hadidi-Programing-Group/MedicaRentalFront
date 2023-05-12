@@ -1,17 +1,6 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoriesService} from "../../../../Services/Categories/categories.service";
-import {SubCategoriesService} from "../../../../Services/SubCatrgories/sub-categories.service";
 import {CategoryDto} from "../../../../Dtos/Categories/CategoryDto";
 
 @Component({

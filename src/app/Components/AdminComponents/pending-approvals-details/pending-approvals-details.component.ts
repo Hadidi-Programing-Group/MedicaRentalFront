@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AdminService } from 'src/app/Services/Admin/admin.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {AdminService} from 'src/app/Services/Admin/admin.service';
 
-import {
-  UserApprovalInfoWithIdDto,
-  UserProfileInfoWithIdDto,
-} from 'src/app/Dtos/AdminDto';
-import { error } from 'jquery';
+import {UserApprovalInfoWithIdDto, UserProfileInfoWithIdDto,} from 'src/app/Dtos/AdminDto';
+
 @Component({
   selector: 'app-pending-approvals-details',
   templateUrl: './pending-approvals-details.component.html',
@@ -25,7 +22,6 @@ export class PendingApprovalsDetailsComponent implements OnInit {
   constructor(
     activeRoute: ActivatedRoute,
     private adminService: AdminService,
-    private router: Router
   ) {
     this.ID = activeRoute.snapshot.params['id'];
   }
@@ -57,7 +53,7 @@ export class PendingApprovalsDetailsComponent implements OnInit {
   onApproveClick(email: string): void {
     this.isApproved = true;
     this.adminService.ApproveUser(email).subscribe({
-      next: (data) => {
+      next: () => {
       },
       error: (err) => {
         console.log(err);
@@ -73,7 +69,7 @@ export class PendingApprovalsDetailsComponent implements OnInit {
         unionImage: this.unionImage,
       })
       .subscribe({
-        next: (data) => {
+        next: () => {
           this.nationalImage = 'assets/images/rejectedImage.png';
         },
         error: (err) => {
@@ -90,7 +86,7 @@ export class PendingApprovalsDetailsComponent implements OnInit {
         unionImage: null,
       })
       .subscribe({
-        next: (data) => {
+        next: () => {
           this.unionImage = 'assets/images/rejectedImage.png';
         },
         error: (err) => {

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
   UpdateApprovalInfoDto,
   UpdateProfileInfoDto,
   UserApprovalInfoDto,
   UserProfileInfoDto,
 } from 'src/app/Dtos/UserProfileInfoDto';
-import { UserService } from 'src/app/Services/User/user.service';
+import {UserService} from 'src/app/Services/User/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -69,8 +69,7 @@ export class ProfileComponent implements OnInit {
         ?.setErrors({ invalidFileType: true });
     const reader = new FileReader();
     reader.onload = () => {
-      const base64String = reader.result as string;
-      this.NationalImgBase64 = base64String;
+      this.NationalImgBase64 = reader.result as string;
       const Arr = this.NationalImgBase64.split(',', 2);
       this.NationalImgBase64 = Arr[1];
     };
@@ -90,8 +89,7 @@ export class ProfileComponent implements OnInit {
         ?.setErrors({ invalidFileType: true });
     const reader = new FileReader();
     reader.onload = () => {
-      const base64String = reader.result as string;
-      this.UnionCardImgBase64 = base64String;
+      this.UnionCardImgBase64 = reader.result as string;
       const Arr = this.UnionCardImgBase64.split(',', 2);
       this.UnionCardImgBase64 = Arr[1];
     };
@@ -110,10 +108,10 @@ export class ProfileComponent implements OnInit {
         userData.email
       );
       this.userService.UpdateInfo(DataToBeSent).subscribe({
-        next: (res) => {
+        next: () => {
           this.IsUpdated = true;
         },
-        error: (err) => {
+        error: () => {
           this.IsUpdated = false;
         },
       });
@@ -128,10 +126,10 @@ export class ProfileComponent implements OnInit {
         this.UnionCardImgBase64
       );
       this.userService.UpdateApprovalInfo(DataToBeSent).subscribe({
-        next: (res) => {
+        next: () => {
           this.IsApproveUpdated = true;
         },
-        error: (err) => {
+        error: () => {
           this.IsApproveUpdated = false;
         },
       });

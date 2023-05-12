@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { Observer, take } from 'rxjs';
-import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
-import { PageDto } from 'src/app/Dtos/PageDto';
-import { ProductsService } from 'src/app/Services/Products/products.service';
-import { FilterService } from 'src/app/Services/Filter/filter.service';
-import { OrderByStrings } from 'src/app/Dtos/OrderByStrings';
-import { data } from 'jquery';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observer, take} from 'rxjs';
+import {HomeItemDto} from 'src/app/Dtos/HomeItemDto';
+import {PageDto} from 'src/app/Dtos/PageDto';
+import {ProductsService} from 'src/app/Services/Products/products.service';
+import {FilterService} from 'src/app/Services/Filter/filter.service';
+import {OrderByStrings} from 'src/app/Dtos/OrderByStrings';
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -124,63 +124,6 @@ export class ProductsComponent implements OnInit {
     ).subscribe(this.successObjCall);
   }
 
-  //#region  To Be Deleted
-  fetchAllProductsBySearch(): void {
-    // Call HomeItemService method to fetch products based on orderBy parameter
-    this.ProductsService.GetItemsBySearch(
-      this.searchText,
-      this.pagination,
-      this.orderBy
-    ).subscribe(this.successObjCall);
-  }
-
-  fetchAllProductsWithoutFilter(): void {
-    // Call HomeItemService method to fetch products based on orderBy parameter
-    this.ProductsService.GetAllItems(this.pagination, this.orderBy).subscribe(
-      this.successObjCall
-    );
-  }
-
-  fetchItemsByCategories(): void {
-    if (this.categoryIds && this.categoryIds.length > 0) {
-      // If categoryId is present, call getItemsByCategory method
-      this.ProductsService.GetItemsByCategories(
-        this.categoryIds,
-        this.pagination,
-        this.orderBy
-      ).subscribe(this.successObjCall);
-    } else {
-      this.fetchProducts();
-    }
-  }
-
-  fetchItemsByBrands():void{
-    if (this.brandIds && this.brandIds.length > 0) {
-
-      this.ProductsService.GetItemsByCategories(
-        this.brandIds,
-        this.pagination,
-        this.orderBy
-      ).subscribe(this.successObjCall);
-    } else {
-      this.fetchProducts();
-    }
-  }
-
-  fetchItemsBySubCategories(): void {
-    if (this.subCategoryIds && this.subCategoryIds.length > 0) {
-      // If categoryId is present, call getItemsByCategory method
-      this.ProductsService.GetItemsBySubCategories(
-        this.subCategoryIds,
-        this.pagination,
-        this.orderBy
-      ).subscribe(this.successObjCall);
-    } else {
-      this.fetchProducts();
-    }
-  }
-
-  //#endregion
 
   onSelectCategories(selectedCategoryIds: string[]) {
     // Update categoryId with the selected category IDs

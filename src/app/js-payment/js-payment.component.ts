@@ -1,16 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, AfterContentInit } from '@angular/core';
-import {
-  StripeElementsOptions,
-  PaymentIntent,
-  StripeConstructor,
-  Stripe,
-  StripeError,
-  StripeElements
-} from '@stripe/stripe-js';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { StripeService } from '../Services/Stripe/stripe.service';
+import {HttpClient} from '@angular/common/http';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {PaymentIntent, StripeElements} from '@stripe/stripe-js';
+import {StripeService} from '../Services/Stripe/stripe.service';
 
 @Component({
   selector: 'app-js-payment',

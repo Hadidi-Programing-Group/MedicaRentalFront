@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CartItemDto } from 'src/app/Dtos/Cart/CartItemDto';
-import { CartService } from 'src/app/Services/Cart/cart.service';
+import {Component, OnInit} from '@angular/core';
+import {CartItemDto} from 'src/app/Dtos/Cart/CartItemDto';
+import {CartService} from 'src/app/Services/Cart/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -37,7 +37,7 @@ export class CartComponent implements OnInit {
 
   deleteItemHandler(itemId: string) {
     this.cartService.removeFromCart(itemId).subscribe({
-      next: (data) => {
+      next: () => {
         if (this.cartList && this.cartList.length > 0) {
           this.cartList.forEach((item, index) => {
             if (item.itemId === itemId) this.cartList?.splice(index, 1);

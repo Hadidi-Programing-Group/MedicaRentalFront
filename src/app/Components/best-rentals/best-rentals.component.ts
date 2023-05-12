@@ -1,15 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { ProductsService } from 'src/app/Services/Products/products.service';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output,} from '@angular/core';
+import {ProductsService} from 'src/app/Services/Products/products.service';
 import * as $ from 'jquery';
-import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
+import {HomeItemDto} from 'src/app/Dtos/HomeItemDto';
 
 @Component({
   selector: 'app-best-rentals',
@@ -63,7 +55,6 @@ export class BestRentalsComponent implements OnInit, AfterViewInit {
   }
 
   currentPosition = 0;
-  cardWidth: number = 0;
 
   moveLeft() {
     const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(true);

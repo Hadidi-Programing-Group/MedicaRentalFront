@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { BrandsService } from 'src/app/Services/Brands/brands.service';
-import { FilterService } from 'src/app/Services/Filter/filter.service';
+import {Component} from '@angular/core';
+import {BrandsService} from 'src/app/Services/Brands/brands.service';
+import {FilterService} from 'src/app/Services/Filter/filter.service';
 
 @Component({
   selector: 'app-brands-filter',

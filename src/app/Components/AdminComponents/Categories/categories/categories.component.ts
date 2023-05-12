@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CategoriesService} from "../../../../Services/Categories/categories.service";
 import {CategoryDto} from "../../../../Dtos/Categories/CategoryDto";
 import {ImageHelper} from "../../../../Helpers/ImageHelper";
@@ -94,7 +94,7 @@ export class CategoriesComponent implements OnInit, AfterViewInit
     {
       let categoryDto = new InsertCategoryDto(category.name, category.icon)
       this.categoriesService.InsertCategory(categoryDto).subscribe({
-        next: (data) =>
+        next: () =>
         {
           this.success = this.submitted = true
           this.getCategories()
@@ -111,7 +111,7 @@ export class CategoriesComponent implements OnInit, AfterViewInit
     {
       let categoryDto = new UpdateCategoryDto(this.updatedId, category.name, category.icon)
       this.categoriesService.UpdateCategory(categoryDto).subscribe({
-        next: (data) =>
+        next: () =>
         {
           debugger
           this.success = this.submitted = true

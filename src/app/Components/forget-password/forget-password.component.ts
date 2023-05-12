@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ForgotPasswordDto } from 'src/app/Dtos/ForgetPasswordDto';
-import { LoginService } from 'src/app/Services/Login/login.service';
-import { environment } from 'src/environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ForgotPasswordDto} from 'src/app/Dtos/ForgetPasswordDto';
+import {LoginService} from 'src/app/Services/Login/login.service';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-forget-password',
@@ -46,12 +45,12 @@ export class ForgetPasswordComponent implements OnInit {
       clientURI: `${environment.websiteURL}/resetpassword`,
     };
     this.loginService.forgotPassword(forgotPassDto).subscribe({
-      next: (data) => {
+      next: () => {
         this.showSuccess = true;
         this.successMessage =
           'The link has been sent, please check your email to reset your password.';
       },
-      error: (err: HttpErrorResponse) => {
+      error: () => {
         this.showError = true;
         this.errorMessage = 'Invalid Request';
       },

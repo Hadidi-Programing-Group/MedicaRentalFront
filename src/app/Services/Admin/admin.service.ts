@@ -1,20 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { StatusDto } from 'src/app/Dtos/StatusDto';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 
 import {
-  // UpdateApprovalInfoDto,
-  // UpdateProfileInfoDto,
-  // UserApprovalInfoDto,
   RoleMangerUserInfoDto,
-  UpdateApprovalInfoDto,
+  UpdateUserRoleDto,
   UserApprovalInfoWithIdDto,
-  UserProfileInfoWithIdDto,
-  UpdateUserRoleDto
+  UserProfileInfoWithIdDto
 } from 'src/app/Dtos/AdminDto';
-import { environment } from 'src/environments/environment';
-import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
+import {environment} from 'src/environments/environment';
 
 
 @Injectable({

@@ -1,20 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BlockUserInfoDto } from 'src/app/Dtos/BlockUserInfoDto';
-import { DeleteItemAdminRequestDto } from 'src/app/Dtos/DeleteItemAdminRequestDto';
-import { DeleteMessageRequestDto } from 'src/app/Dtos/Message/DeleteMessageRequestDto';
-import {
-  DetailedReportDto,
-  ReportActionDto,
-} from 'src/app/Dtos/Reports/DetailedReportDto';
-import { ReportListNames } from 'src/app/Dtos/Reports/ReportListNames';
-import { DeleteReviewRequestDto } from 'src/app/Dtos/Reviews/DeleteReviewRequestDto';
-import { StatusDto } from 'src/app/Dtos/StatusDto';
-import { ChatService } from 'src/app/Services/Chat/chat.service';
-import { ProductsService } from 'src/app/Services/Products/products.service';
-import { ReportsService } from 'src/app/Services/Reports/reports.service';
-import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
-import { UserService } from 'src/app/Services/User/user.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {BlockUserInfoDto} from 'src/app/Dtos/BlockUserInfoDto';
+import {DeleteItemAdminRequestDto} from 'src/app/Dtos/DeleteItemAdminRequestDto';
+import {DeleteMessageRequestDto} from 'src/app/Dtos/Message/DeleteMessageRequestDto';
+import {DetailedReportDto,} from 'src/app/Dtos/Reports/DetailedReportDto';
+import {ReportListNames} from 'src/app/Dtos/Reports/ReportListNames';
+import {DeleteReviewRequestDto} from 'src/app/Dtos/Reviews/DeleteReviewRequestDto';
+import {StatusDto} from 'src/app/Dtos/StatusDto';
+import {ChatService} from 'src/app/Services/Chat/chat.service';
+import {ProductsService} from 'src/app/Services/Products/products.service';
+import {ReportsService} from 'src/app/Services/Reports/reports.service';
+import {ReviewsService} from 'src/app/Services/Reviews/reviews.service';
+import {UserService} from 'src/app/Services/User/user.service';
 
 @Component({
   selector: 'app-report-details',

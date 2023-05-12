@@ -72,7 +72,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="addAdminModModalLabel">Update User Role</h3>
+        <h3 class="modal-title">Update User Role</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -106,7 +106,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="addAdminModModalLabel">Delete Admin/Mod</h3>
+        <h3 class="modal-title">Delete Admin/Mod</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -337,7 +337,7 @@
                   <!-- Choose Role -->
                   <div class="form-outline mb-4">
                     <label for="role">Choose Role:</label>
-                    <select formControlName="role" class="form-select">
+                    <select id="role" formControlName="role" class="form-select">
                       <option value="" disabled>-- Select Role --</option>
                       <option value="0">Admin</option>
                       <option value="1">Moderator</option>

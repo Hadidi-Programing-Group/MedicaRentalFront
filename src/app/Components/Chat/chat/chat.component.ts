@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component, OnChanges,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {ChatDto} from "../../../Dtos/Message/ChatDto";
+import {Component, OnDestroy, OnInit,} from '@angular/core';
 import {ChatDataService} from "../../../Services/Chat/chat-data.service";
 
 @Component({

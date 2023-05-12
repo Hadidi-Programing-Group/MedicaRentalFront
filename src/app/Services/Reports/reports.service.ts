@@ -1,12 +1,12 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { ReportDto } from 'src/app/Dtos/Reports/ReportDto';
-import { DetailedReportDto } from 'src/app/Dtos/Reports/DetailedReportDto';
-import { PageDto } from 'src/app/Dtos/PageDto';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {ReportDto} from 'src/app/Dtos/Reports/ReportDto';
+import {DetailedReportDto} from 'src/app/Dtos/Reports/DetailedReportDto';
+import {PageDto} from 'src/app/Dtos/PageDto';
 import {InsertReportDto} from "../../Dtos/Reports/InsertReportDto";
-import { StatusDto } from 'src/app/Dtos/StatusDto';
+import {StatusDto} from 'src/app/Dtos/StatusDto';
 
 @Injectable({
   providedIn: 'root',

@@ -3,8 +3,7 @@ import {OrderByStrings} from '../../../Dtos/OrderByStrings';
 import {RentOperationDto} from "../../../Dtos/RentOperation/RentOperationDto";
 import {RentOperationsService} from "../../../Services/RentOperations/rent-operations.service";
 import {DateHelper} from "../../../Helpers/DateHelper";
-import { ReviewsService } from 'src/app/Services/Reviews/reviews.service';
-import { error } from 'jquery';
+import {ReviewsService} from 'src/app/Services/Reviews/reviews.service';
 
 @Component({
   selector: 'app-on-rent-items-history',

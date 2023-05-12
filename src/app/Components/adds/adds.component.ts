@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/Services/Products/products.service';
+import {Component, OnInit} from '@angular/core';
+import {ProductsService} from 'src/app/Services/Products/products.service';
 
 @Component({
   selector: 'app-adds',
@@ -11,7 +11,7 @@ export class AddsComponent implements OnInit {
 
   Products: any;
   ngOnInit(): void {
-    this.ProductsService.GetAllItems().subscribe({
+    this.ProductsService.GetItems([],[],[],'',1).subscribe({
       next: (data) => {
         this.Products = data;
       },

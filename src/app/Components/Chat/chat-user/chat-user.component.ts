@@ -1,9 +1,8 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component} from '@angular/core';
 import {ChatDto} from "../../../Dtos/Message/ChatDto";
 import {DateHelper} from "../../../Helpers/DateHelper";
 import {ImageHelper} from "../../../Helpers/ImageHelper";
 import {ChatDataService} from "../../../Services/Chat/chat-data.service";
-import {async, Observable} from "rxjs";
 
 @Component({
   selector: 'app-chat-user',
@@ -14,7 +13,7 @@ export class ChatUserComponent
 {
   protected readonly ImageHelper = ImageHelper;
 
-  constructor(private cdr: ChangeDetectorRef, public chatDataService: ChatDataService)
+  constructor(public chatDataService: ChatDataService)
   {
   }
 

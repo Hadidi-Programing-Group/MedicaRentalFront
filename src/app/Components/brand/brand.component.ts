@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BrandDto } from 'src/app/Dtos/Brand/BrandDto';
-import { HomeItemDto } from 'src/app/Dtos/HomeItemDto';
-import { BrandsService } from 'src/app/Services/Brands/brands.service';
-import { ProductsService } from 'src/app/Services/Products/products.service';
+import {Component, OnInit} from '@angular/core';
+import {BrandDto} from 'src/app/Dtos/Brand/BrandDto';
+import {BrandsService} from 'src/app/Services/Brands/brands.service';
 
 @Component({
   selector: 'app-brand',
@@ -52,7 +50,6 @@ export class BrandComponent implements OnInit {
   }
 
   currentPosition = 0;
-  cardWidth: number = 0;
 
   moveLeft() {
     const cardWidth: any = $(`#productCard${this.randomId}`).outerWidth(true);

@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { data } from 'jquery';
-import { AddUserItemDto } from 'src/app/Dtos/AddingItemDtp';
-import { SellerItemDto } from 'src/app/Dtos/SellerItemDto';
-import { BrandsService } from 'src/app/Services/Brands/brands.service';
-import { CategoriesService } from 'src/app/Services/Categories/categories.service';
-import { ItemDetailsService } from 'src/app/Services/ItemDetails/item-details.service';
-import { ProductsService } from 'src/app/Services/Products/products.service';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {AddUserItemDto} from 'src/app/Dtos/AddingItemDtp';
+import {SellerItemDto} from 'src/app/Dtos/SellerItemDto';
+import {BrandsService} from 'src/app/Services/Brands/brands.service';
+import {CategoriesService} from 'src/app/Services/Categories/categories.service';
+import {ItemDetailsService} from 'src/app/Services/ItemDetails/item-details.service';
+import {ProductsService} from 'src/app/Services/Products/products.service';
 
 @Component({
   selector: 'app-add-item',
@@ -22,7 +21,6 @@ export class AddItemComponent {
     private CatService: CategoriesService,
     private AddService: ItemDetailsService,
     private BrandService: BrandsService,
-    private router: Router
   ) {
     this.ID = activeRoute.snapshot.params['id'];
   }
@@ -62,8 +60,7 @@ export class AddItemComponent {
       this.AddItemForm.get('ItemImg')?.setErrors({ invalidFileType: true });
     const reader = new FileReader();
     reader.onload = () => {
-      const base64String = reader.result as string;
-      this.ItemImgBase64 = base64String;
+      this.ItemImgBase64 = reader.result as string;
       const Arr = this.ItemImgBase64.split(',', 2);
       this.ItemImgBase64 = Arr[1];
     };
@@ -73,7 +70,6 @@ export class AddItemComponent {
 
   onApprovalInfoSubmit() {
     if (this.AddItemForm.get('ItemImg')?.valid) {
-      const userData = this.AddItemForm.value;
       const DataToBeSent: AddUserItemDto = new AddUserItemDto(
         this.AddItemForm.controls['ItemName'].value,
         this.AddItemForm.controls['description'].value,
@@ -90,10 +86,10 @@ export class AddItemComponent {
       );
 
       this.AddService.AddItem(DataToBeSent).subscribe({
-        next: (res) => {
+        next: () => {
           this.IsApproveAdded = true;
         },
-        error: (err) => {
+        error: () => {
           this.IsApproveAdded = false;
         },
       });

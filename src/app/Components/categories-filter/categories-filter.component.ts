@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { CategoriesService } from 'src/app/Services/Categories/categories.service';
-import { FilterService } from 'src/app/Services/Filter/filter.service';
+import {Component, OnInit} from '@angular/core';
+import {CategoriesService} from 'src/app/Services/Categories/categories.service';
+import {FilterService} from 'src/app/Services/Filter/filter.service';
 
 @Component({
   selector: 'app-categories-filter',
