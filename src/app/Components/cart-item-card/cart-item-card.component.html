@@ -1,30 +1,37 @@
 <div
   *ngIf="cartItem; else loadingBlock"
-  class="container border pt-3 pb-3 mb-3"
+  class="container border pt-3 pb-3 mb-3" style="position: relative;"
 >
-  <div class="row">
-    <div class="ProductImageContainer pb-2 col-6">
+<!--  <div class="d-flex p-0 mb-2 justify-content-end">-->
+<!--    <i-->
+<!--      id="removeButton"-->
+<!--      (click)="RemoveFromCart(cartItem.itemId)"-->
+<!--      class="ms-2 fs-5 fa-solid fa-xmark"-->
+<!--    ></i>-->
+<!--  </div>-->
+  <i style="position: absolute; right: 10px; top: 10px"
+     id="removeButton"
+     (click)="RemoveFromCart(cartItem.itemId)"
+     class="ms-2 fs-5 fa-solid fa-xmark"
+  ></i>
+  <div class="row py-3">
+    <div class="ProductImageContainer col-6 p-0">
       <a routerLink="/products/{{ cartItem.itemId }}"
         ><img src="{{ cartItem.image }}" class="img-fluid"
       /></a>
     </div>
-    <div class="col-6">
-      <div class="ProductName lead">
+    <div class="col-6 px-3">
+      <div class="row">
+        <div class="ProductName lead mb-2 p-0">
         <a
           class="link-secondary"
           routerLink="/products/{{ cartItem.itemId }}"
-          >{{ cartItem.name }}</a
+        >{{ cartItem.name }}</a
         >
-        <i
-          id="removeButton"
-          (click)="RemoveFromCart(cartItem.itemId)"
-          class="ms-2 fa-solid fa-xmark"
-        ></i>
       </div>
-      <div class="row">
-        <div class="col-xs-12 fs-6">From {{ startDate | date : "d/M/yy" }}</div>
-        <div class="col-xs-12 fs-6">To {{ endDate | date : "d/M/yy" }}</div>
-        <div class="col-xs-12 ProductPrice">
+        <div class="col-xs-12 p-0 fs-6">From {{ startDate | date : "d/M/yy" }}</div>
+        <div class="col-xs-12 p-0 fs-6">To {{ endDate | date : "d/M/yy" }}</div>
+        <div class="col-xs-12 p-0 ProductPrice">
           {{ cartItem.pricePerDay * cartItem.numberOfDays }} EGP
         </div>
       </div>
