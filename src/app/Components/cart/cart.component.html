@@ -10,19 +10,20 @@
         </div>
       </div>
     </div>
-    <div id="orderSummary" class="p-3 col-12 col-md-3 border mb-3">
-      <div class="container d-flex flex-column">
-        <p class="fs-3 p-3 text-warning">Order Summary</p>
+    <div id="orderSummary" class="p-0 col-12 col-md-3 border mb-3">
+      <div class="container d-flex flex-column px-0">
+        <p class="fs-3 fw-normal text-center p-3 px-0 text-white text-bg-warning">Order Summary</p>
         <p class="fs-5 lead ps-3">Items count: {{ itemsCount }}</p>
-        <p class="fs-5 lead ps-3">Number of days: {{ numberOfDays }} EGP</p>
+        <p class="fs-5 lead ps-3">Number of days: {{ numberOfDays }}</p>
         <p class="fs-5 lead ps-3">Price per day: {{ pricePerDay }} EGP</p>
         <hr />
-        <p class="fs-3 p-3" style="color: #339">
+<!--        style="color: #339"-->
+        <p class="fs-5 fw-semibold px-3 pt-1" >
           Total Bill: {{ totalBill }} EGP
         </p>
         <button
           *ngIf="totalBill"
-          class="btn btn-primary"
+          class="btn btn-primary m-3"
           routerLink="/checkout/"
           [queryParams]="{ totalBill: totalBill }"
         >
